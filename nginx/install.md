@@ -7,6 +7,12 @@ sudo groupadd nginx
 sudo useradd nginx -g nginx -M -s /sbin/nologin
 ```
 
+## 附加软件源码
+
+[pcre源码](https://ftp.pcre.org/pub/pcre)
+[zlib](https://github.com/madler/zlib)
+[openssl](https://github.com/openssl/openssl)
+
 ## make install nginx on linux
 
 [下载地址](http://nginx.org/en/download.html)
