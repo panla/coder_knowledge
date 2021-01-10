@@ -54,3 +54,38 @@ Exec=sh /opt/PyCharm-202032/bin/pycharm.sh
 Icon=/opt/PyCharm-202032/bin/pycharm.png
 Terminal=PyCharm
 ```
+
+## 插件
+
+```text
+.ignore
+Base64 Helper
+ideolog
+Ini
+Rainbow Brackets
+HighlightBracketPair
+
+Settings Repository
+
+Makrdown
+properties
+Shell Script
+YAML
+
+ChangeReminder
+Git
+GitHub
+Mercurial
+Subversion
+
+Copyright
+EditorConfig
+Grazie
+IDE Features Trainer
+IntelliLang
+Machine Learning Code Completion
+RestructuredText
+Task Management
+Termial
+TextMate Bundles
+```
