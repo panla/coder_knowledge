@@ -134,6 +134,46 @@ class User(db.Model):
 
 ```
 
+## 数据迁移
+
+### Flask-Migrate 设置
+
+`migrations/env.py`
+
+```text
+def run_migrations_online():
+    ...
+    with connectable.connect() as connection:
+    context.configure(
+        connection=connection,
+        target_metadata=target_metadata,
+        process_revision_directives=process_revision_directives,
+        compare_type=True,# 检查字段类型
+        compare_server_default=True,
+        **current_app.extensions['migrate'].configure_args
+    )
+
+    with context.begin_transaction():
+        context.run_migrations()
+```
+
+- `compare_type=True` 检查字段类型
+- `compare_server_default` 检查 server_default 设置
+
+### 时间类
+
+```python
+from sqlalchemy import func
+from sqlalchemy import text
+
+created_at = db.Column(db.DateTime, server_default=func.now(), comment='创建时间')
+updated_at = db.Column(db.DateTime, server_default=text('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'), comment='更新时间')
+
+```
+
+- server_default=func.now() 设置自动获取时间
+- server_default=text('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP') 设置自动更新(不用这个ORM模型也能自动更新)
+
 ## ORM
 
 ### 查
@@ -154,10 +194,16 @@ Car.query.order_by(Car.id.desc())
 Cars.query.paginate(page, pagesize).items
 
 # 对 BaseQuery 分组查询
-Car.query.with_entities(Car.price, func.count(Car.price)).group_by(Car.price)
+Car.query.with_entities(Car.price, func.count(Car.price)).group_by(Car.price).all()
+    返回 [(1, 214), (2, 422)]
 
 # 去重统计数量，根据报告表，找到该 agency_id 的用户数量，因为一个用户可能在多个 agency 作报告，所以需要去重。
 Report.query.filter_by(agency_id=1).with_entities(func.count(distinct(Report.owner_id))).first()
+    返回 (count,)
+
+# 连接查询
+Report.query.join(User, Report.owner_id == User.id).filter(User.gender == 1).all()
+    外连接 outerjoin
 
 ```
 
