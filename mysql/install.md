@@ -54,6 +54,8 @@ default-authentication-plugin=mysql_native_password
 character-set-server = utf8mb4
 collation-server = utf8mb4_general_ci
 init_connect='SET NAMES utf8mb4'
+wait_timeout = 120
+default-time-zone=+08:00
 ```
 
 ### service
