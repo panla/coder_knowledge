@@ -174,6 +174,19 @@ updated_at = db.Column(db.DateTime, server_default=text('CURRENT_TIMESTAMP ON UP
 - server_default=func.now() 设置自动获取时间
 - server_default=text('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP') 设置自动更新(不用这个ORM模型也能自动更新)
 
+### 设置初始值/默认值
+
+```python
+from sqlalchemy import func
+from sqlalchemy import text
+
+created_at = db.Column(db.DateTime, server_default=func.now(), nullable=False, comment='创建时间')
+updated_at = db.Column(
+    db.DateTime, server_default=text('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'), nullable=False, comment='更新时间')
+is_delete = db.Column(db.Boolean, server_default=text('0'), nullable=False, comment='是否标记删除')
+
+```
+
 ## ORM
 
 ### 查
