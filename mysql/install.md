@@ -50,12 +50,27 @@ basedir = /opt/mysql
 datadir = /opt/mysql/data
 log-error = /opt/mysql/logs/mysql.err
 pid-file = /opt/mysql/logs/mysql.pid
+
+# 密码校验
 default-authentication-plugin=mysql_native_password
+
+# 数据库默认字符集
 character-set-server = utf8mb4
+
+# 数据库字符集对应一些排序等规则
 collation-server = utf8mb4_general_ci
+
+# 服务器为每个连接的客户端执行的字符串，设置 client 连接 mysql 时的字符集
 init_connect='SET NAMES utf8mb4'
+
+# 服务器关闭非交互连接之前等待活动的秒数
 wait_timeout = 120
+
+# 设置时区
 default-time-zone=+08:00
+
+# 最大连接数
+max_connections=2000
 ```
 
 ### service
