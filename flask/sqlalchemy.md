@@ -238,6 +238,7 @@ Report.query.filter_by(agency_id=1).with_entities(func.count(distinct(Report.own
 # 连接查询
 Report.query.join(User, Report.owner_id == User.id).filter(User.gender == 1).all()
     外连接 outerjoin
+    使用 join 后就只能使用 filter() 特别指定用哪个模型的哪个字段来搜索
 
 ```
 

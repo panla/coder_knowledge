@@ -61,14 +61,12 @@ SQLALCHEMY_BINDS = {
     'key': 'uri'
 }
 
-# 数据库池的大小，默认5，v3.0中后取消
-SQLALCHEMY_POOL_SIZE = 5
-
-# 数据库池达到最大后，可以创建的连接数，这些连接会被收回
-SQLALCHEMY_MAX_OVERFLOW = 20
-
-# 自动回收连接经过的秒数，
-SQLALCHEMY_POOL_RECYCLE = 7200
-
 SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+SQLALCHEMY_ENGINE_OPTIONS = {
+    'pool_recycle': 50,
+    'pool_size': 20,
+    'max_overflow': -1
+}
+
 ```
