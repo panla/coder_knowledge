@@ -112,8 +112,8 @@ class Account(DeferredReflection, db.Model):
     __tablename__ = "accounts"
 
 
-ZY_REMOTE_DB_URI = "mysql:pymysql://user:passwd@host:port/db?charset=utf8mb4"
-DeferredReflection.prepare(engine=create_engine(ZY_REMOTE_DB_URI))
+DB_URI = "mysql:pymysql://user:passwd@host:port/db?charset=utf8mb4"
+DeferredReflection.prepare(engine=create_engine(DB_URI))
 ```
 
 ### 直接连接
@@ -123,8 +123,29 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine
 
 
-B_MIRROR_DB_URL = "mysql:pymysql://user:passwd@host:port/db?charset=utf8mb4"
-db = SQLAlchemy(session_options={"bind": create_engine(B_MIRROR_DB_URL)})
+DB_URL = "mysql:pymysql://user:passwd@host:port/db?charset=utf8mb4"
+db = SQLAlchemy(
+    session_options={
+        "bind": create_engine(
+            DB_URL,
+            pool_size=5,
+            max_overflow=3,
+            pool_recycle=7200
+        )
+    }
+)
+
+
+def db_session_commit():
+    # 保存数据异常捕获，回滚
+
+    try:
+        db.session.commit()
+    except Exception:
+        db.session.rollback()
+        raise
+    finally:
+        db.session.remove()
 
 
 class User(db.Model):
@@ -149,7 +170,7 @@ def run_migrations_online():
         target_metadata=target_metadata,
         process_revision_directives=process_revision_directives,
         compare_type=True,# 检查字段类型
-        compare_server_default=True,
+        compare_server_default=True,# 如果从 default -> server_default 需要使用一次
         **current_app.extensions['migrate'].configure_args
     )
 
