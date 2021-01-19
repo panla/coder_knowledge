@@ -8,8 +8,6 @@
 
 ### 字段类型
 
-- DECIMAL(10, 4)
-
 | 类型 | 说明 | 其他 |
 | :-: | :-: | :-: |
 | DECIMAL(10, 4) | 定点型 | 总共10，小数部分最多4位 |
@@ -49,6 +47,10 @@ __table_args__ = (
 
 ```python
 from sqlalchemy.orm import validates
+
+
+class Medicine():
+    pass
 
 
 # 对 pharmacy_id 和 name 作校验，使创建和更新时 pharmacy_id name 联合唯一
@@ -95,41 +97,17 @@ pool_recycle  多长时间重建连接
 ### 映射连接
 
 ```python
-from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import DeferredReflection
-
-from apps.db import db
-
-
-class Account(DeferredReflection, db.Model):
-    """医生账户表"""
-
-    __bind_key__ = "key"
-    __tablename__ = "accounts"
-
-
-DB_URI = "mysql:pymysql://user:passwd@host:port/db?charset=utf8mb4"
-DeferredReflection.prepare(engine=create_engine(DB_URI))
-```
-
-### 直接连接
-
-```python
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine
 
-
 DB_URL = "mysql:pymysql://user:passwd@host:port/db?charset=utf8mb4"
-db = SQLAlchemy(
-    session_options={
-        "bind": create_engine(
-            DB_URL,
-            pool_size=5,
-            max_overflow=3,
-            pool_recycle=7200
-        )
-    }
-)
+SQLALCHEMY_ENGINE_OPTIONS = {
+    'pool_recycle': 50,
+    'pool_size': 20,
+    'max_overflow': -1
+}
+
+db = SQLAlchemy(session_options={"bind": create_engine(DB_URL, **SQLALCHEMY_ENGINE_OPTIONS)})
 
 
 def db_session_commit():
@@ -141,11 +119,12 @@ def db_session_commit():
         db.session.rollback()
         raise
 
+    
+class Account(db.Model):
+    """医生账户表"""
 
-class User(db.Model):
     __bind_key__ = "key"
-
-    id = db.Column(db.Integer, primary_key=True)
+    __tablename__ = "accounts"
 
 ```
 
@@ -178,29 +157,29 @@ def run_migrations_online():
 ### 时间类
 
 ```python
+from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func
 from sqlalchemy import text
+from sqlalchemy import create_engine
+
+DB_URL = "mysql:pymysql://user:passwd@host:port/db?charset=utf8mb4"
+SQLALCHEMY_ENGINE_OPTIONS = {
+    'pool_recycle': 50,
+    'pool_size': 20,
+    'max_overflow': -1
+}
+
+db = SQLAlchemy(session_options={"bind": create_engine(DB_URL, **SQLALCHEMY_ENGINE_OPTIONS)})
+
 
 created_at = db.Column(db.DateTime, server_default=func.now(), comment='创建时间')
 updated_at = db.Column(db.DateTime, server_default=text('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'), comment='更新时间')
+is_delete = db.Column(db.Boolean, server_default=text('0'), nullable=False, comment='是否标记删除')
 
 ```
 
 - server_default=func.now() 设置自动获取时间
 - server_default=text('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP') 设置自动更新(不用这个ORM模型也能自动更新)
-
-### 设置初始值/默认值
-
-```python
-from sqlalchemy import func
-from sqlalchemy import text
-
-created_at = db.Column(db.DateTime, server_default=func.now(), nullable=False, comment='创建时间')
-updated_at = db.Column(
-    db.DateTime, server_default=text('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'), nullable=False, comment='更新时间')
-is_delete = db.Column(db.Boolean, server_default=text('0'), nullable=False, comment='是否标记删除')
-
-```
 
 ## ORM
 
@@ -235,6 +214,8 @@ Report.query.join(User, Report.owner_id == User.id).filter(User.gender == 1).all
     使用 join 后就只能使用 filter() 特别指定用哪个模型的哪个字段来搜索
 
 ```
+
+执行顺序
 
 ```text
 GROUP BY子句必须出现在WHERE子句之后，ORDER BY子句之前。
