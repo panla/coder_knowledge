@@ -76,15 +76,11 @@ SQLALCHEMY_BINDS = {
 
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 
-# 下面参数未来可能会失效
-# 数据库池的大小，默认5，v3.0中后取消
-SQLALCHEMY_POOL_SIZE = 5
-
-# 数据库池达到最大后，可以创建的连接数，这些连接会被收回
-SQLALCHEMY_MAX_OVERFLOW = 20
-
-# 自动回收连接经过的秒数，
-SQLALCHEMY_POOL_RECYCLE = 7200
+SQLALCHEMY_ENGINE_OPTIONS = {
+    'pool_recycle': 50,
+    'pool_size': 20,
+    'max_overflow': -1
+}
 
 ```
 
@@ -108,7 +104,7 @@ from apps.db import db
 class Account(DeferredReflection, db.Model):
     """医生账户表"""
 
-    __bind_key__ = "zy_remote_db"
+    __bind_key__ = "key"
     __tablename__ = "accounts"
 
 
@@ -144,12 +140,10 @@ def db_session_commit():
     except Exception:
         db.session.rollback()
         raise
-    finally:
-        db.session.remove()
 
 
 class User(db.Model):
-    __bind_key__ = "b_mirror_db"
+    __bind_key__ = "key"
 
     id = db.Column(db.Integer, primary_key=True)
 
