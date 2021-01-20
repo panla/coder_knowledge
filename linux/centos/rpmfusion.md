@@ -3,9 +3,7 @@
 ## 安装
 
 ```bash
-
-wget https://mirrors.tuna.tsinghua.edu.cn/rpmfusion/free/el/rpmfusion-free-release-8.noarch.rpm
-sudo dnf install ./rpmfusion-free-release-8.noarch.rpm
+sudo dnf install https://mirrors.tuna.tsinghua.edu.cn/rpmfusion/free/el/rpmfusion-free-release-8.noarch.rpm
 ```
 
 ## 修改
