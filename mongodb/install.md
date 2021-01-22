@@ -12,6 +12,10 @@ mongo.conf `/opt/mongodb/bin/mongo.conf`
 dbpath=/opt/mongodb/data/db
 logpath=/opt/mongodb/logs/mongodb.log
 port=27017
+logappend=true
+journal=true
+quiet=true
+pidfilepath=/opt/mongodb/logs/mongodb.pid
 ```
 
 systemctl管理 `/usr/lib/systemd/system/mongodb.service`
