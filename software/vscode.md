@@ -37,17 +37,33 @@ Icon=com.visualstudio.code
 
 ```text
 Anaconda Extension Pack
+C/C++
+C/C++ Snippets
+C++ Intellisense
 Chinese Language Pack
-MagicPython
+EditorConfig for VS Code
+flask-snippets
+Git Graph
+Git History
+Jupyter
 Markdown PreView Enhanced
 markdownlint
+MySQL Syntax
+Prettify JSON
+Pylance
 Python
 Python Extension Pack
 Python Indent
+Python snippets
 Rainbow CSV
-YAML
 Visual Studio IntelliCode
-Prettify JSON
+YAML
+```
+
+## 字体与空格宽度
+
+```text
+Consolas, 'Courier New','monospace'
 ```
 
 ## 错误
