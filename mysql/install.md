@@ -46,9 +46,20 @@ port = 3306
 mysqlx_port = 33060
 socket = /opt/mysql/logs/mysql.sock
 mysqlx_socket = /opt/mysql/logs/mysqlx.sock
+
+# mysql 基本路径
 basedir = /opt/mysql
+
+# 数据路径
 datadir = /opt/mysql/data
+
+# bin-log
+log-bin = /opt/mysql/logs/bin-logs/bin-log
+
+# log-error
 log-error = /opt/mysql/logs/mysql.err
+
+# 进程号文件
 pid-file = /opt/mysql/logs/mysql.pid
 
 # 密码校验
