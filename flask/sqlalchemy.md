@@ -223,3 +223,16 @@ HAVING语句必须在ORDER BY子句之后。
 
 where -> group by -> order by -> having
 ```
+
+## 唯一，索引
+
+```text
+index=True
+    KEY `ix_tbas_name` (`name`),
+unique=True
+    UNIQUE KEY `name` (`name`),
+index=True, unique=True
+    UNIQUE KEY `ix_tbcs_name` (`name`),
+
+唯一约束由唯一索引来实现，所以也是索引的一种
+```
