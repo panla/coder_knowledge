@@ -54,7 +54,7 @@ basedir = /opt/mysql
 datadir = /opt/mysql/data
 
 # bin-log
-log-bin = /opt/mysql/logs/bin-logs/bin-log
+log-bin = /opt/mysql/logs/binlogs/binlog
 
 # log-error
 log-error = /opt/mysql/logs/mysql.err
