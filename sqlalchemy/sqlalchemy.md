@@ -171,10 +171,12 @@ SQLALCHEMY_ENGINE_OPTIONS = {
 
 db = SQLAlchemy(session_options={"bind": create_engine(DB_URL, **SQLALCHEMY_ENGINE_OPTIONS)})
 
-
-created_at = db.Column(db.DateTime, server_default=func.now(), comment='创建时间')
-updated_at = db.Column(db.DateTime, server_default=text('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'), comment='更新时间')
-is_delete = db.Column(db.Boolean, server_default=text('0'), nullable=False, comment='是否标记删除')
+id = db.Column(db.BigInteger, primary_key=True)
+created_at = db.Column(db.DateTime, nullable=False, server_default=text('CURRENT_TIMESTAMP'), comment='创建时间')
+updated_at = db.Column(db.DateTime, nullable=False, server_default=text('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'), comment='更新时间')
+is_delete = db.Column(db.Boolean, nullable=False, server_default=text('0'), comment='是否标记删除')
+name = db.Column(db.String(30), index=True, nullable=False, comment='名称')
+nickname = db.Column(db.String(30), nullable=False, server_default='', comment='昵称')
 
 ```
 
