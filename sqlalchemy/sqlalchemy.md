@@ -119,8 +119,67 @@ def db_session_commit():
         db.session.rollback()
         raise
 
-    
-class Account(db.Model):
+
+class ModelMixin(object):
+
+    __slots__ = ()
+
+    def __init__(self):
+        pass
+
+    def save(self):
+        """保存数据"""
+
+        db.session.add(self)
+        db_session_commit()
+        return self
+
+    def delete(self, commit=True):
+        """删除数据"""
+
+        db.session.delete(self)
+        if commit:
+            db_session_commit()
+
+    def update(self, **kwargs):
+        """修改数据"""
+
+        commit = False
+        for k, v in kwargs.items():
+            if hasattr(self, k) and getattr(self, k) != v:
+                commit = True
+                setattr(self, k, v)
+        if commit:
+            db_session_commit()
+        return commit
+
+    def serialize(self, excludes=None, selects=None):
+        """
+        返回json格式数据，序列化
+        :param excludes: 不想返回的字段，接收一个列表，ex.: ['password', 'name']
+        :param selects: 想要返回的字段，接收一个列表，ex.: ['id', 'age']
+        :return:
+        """
+
+        if not hasattr(self, '__table__'):
+            raise AssertionError('<%r> does not have attribute for __table__' % self)
+        elif selects:
+            return {i: getattr(self, i) for i in selects}
+        elif excludes:
+            return {i.name: getattr(self, i.name) for i in self.__table__.columns if i.name not in excludes}
+        else:
+            return {i.name: getattr(self, i.name) for i in self.__table__.columns}
+
+    @classmethod
+    def get(cls, **kwargs):
+        return cls.query.filter_by(**kwargs).first()
+
+    @classmethod
+    def list(cls, **kwargs):
+        return cls.query.filter_by(**kwargs)
+
+
+class Account(db.Model, ModelMixin):
     """医生账户表"""
 
     __bind_key__ = "key"
@@ -173,15 +232,19 @@ db = SQLAlchemy(session_options={"bind": create_engine(DB_URL, **SQLALCHEMY_ENGI
 
 id = db.Column(db.BigInteger, primary_key=True)
 created_at = db.Column(db.DateTime, nullable=False, server_default=text('CURRENT_TIMESTAMP'), comment='创建时间')
-updated_at = db.Column(db.DateTime, nullable=False, server_default=text('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'), comment='更新时间')
+updated_at = db.Column(
+    db.DateTime, nullable=False, server_default=text('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'),
+    comment='更新时间'
+    )
 is_delete = db.Column(db.Boolean, nullable=False, server_default=text('0'), comment='是否标记删除')
 name = db.Column(db.String(30), index=True, nullable=False, comment='名称')
 nickname = db.Column(db.String(30), nullable=False, server_default='', comment='昵称')
 
 ```
 
-- server_default=func.now() 设置自动获取时间
+- server_default=text('CURRENT_TIMESTAMP') 设置自动获取时间
 - server_default=text('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP') 设置自动更新(不用这个ORM模型也能自动更新)
+- server_default='' 默认值为 ''
 
 ## 唯一，索引
 
