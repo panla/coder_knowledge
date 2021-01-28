@@ -17,8 +17,6 @@
 | SmallInteger/SMALLINT | 对应mysql smallint | 一般为16位 |
 | String | 对应mysql varchar |  |
 | Text | 对应mysql tinytext | 2^16 - 1 bytes |
-| Text(65536) | 对应mysql medinumtext | 2^24 - 1 bytes |
-| Text(16777216) | 对应mysql longtext | 2^32 - 1 bytes |
 
 ### 字段属性
 
