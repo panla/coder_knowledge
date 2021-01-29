@@ -50,3 +50,34 @@ from apps.models import *
 User.query.filter(User.cellphone.like('%7')).all()
 
 ```
+
+```text
+query.filter(User.name == 'ed')
+query.filter(User.name != 'ed')
+
+query.filter(User.name.like('%ed%'))
+query.filter(User.name.ilike('%ed%'))
+
+query.filter(User.name.in_(['ed', 'wendy']))
+query.filter(~User.name.in_(['ed', 'wendy']))
+
+query.filter(User.name == None)
+query.filter(User.name.is_(None))
+
+query.filter(User.name != None)
+query.filter(User.name.is_not(None))
+
+from sqlalchemy import and_
+from sqlalchemy import or_
+
+query.filter(User.name == 'ed', User.age == 12)
+query.filter(and_(User.name == 'ed', User.age == 12))
+query.filter(User.name == 'ed).filter(User.age == 12)
+
+query.filter(or_(User.name == 'ed', User.age == 12))
+
+query.all()
+query.first()
+query.one()
+query.count()
+```
