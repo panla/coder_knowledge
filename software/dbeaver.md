@@ -14,3 +14,13 @@
 name
 http://maven.aliyun.com/nexus/content/repositories/central/
 ```
+
+## build
+
+```bash
+git clone https://github.com/dbeaver/dbeaver.git dbeaver
+git clone git@gitee.com:mirrors/dbeaver.git dbeaver
+cd dbeaver
+# 需要已经配置 java maven
+mvn package
+```
