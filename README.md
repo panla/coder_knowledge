@@ -1,19 +1,13 @@
 # 进阶
 
-## Flask
-
-## Gunicorn
-
-## Linux
-
-## MySQL
-
-## MongoDB
-
-## PostgreSQL
-
-## Redis
-
-## Docker
-
-## Nginx
+- Docker
+- Flask
+- Gunicorn
+- Linux
+- MongoDB
+- MySQL
+- Nginx
+- Python
+- Redis
+- software
+- sqlalchemy
