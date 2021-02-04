@@ -10,3 +10,4 @@
 | `https://mirrors.tuna.tsinghua.edu.cn/` | 清华大学镜像站 |  |
 | `https://developer.aliyun.com/mirror/` | 阿里云镜像站 |  |
 | `https://www.osgeo.cn/sqlalchemy/` | sqlalchemy 文档 |  |
+| `https://toolwa.com/github/` | 加速下在github文件 |
