@@ -24,7 +24,14 @@ chmod 777 bin/*
   "registry-mirrors": [
     "http://registry.docker-cn.com",
     "http://hub-mirror.c.163.com"
-  ]
+  ],
+  "hosts": [
+    "tcp://0.0.0.0:2375",
+    "unix:///opt/docker/run/docker.sock"
+  ],
+  "pidfile": "/opt/docker/tmp/docker.pid",
+  "exec-root": "/opt/docker/run",
+  "data-root": "/opt/docker/lib"
 }
 ```
 
@@ -42,8 +49,9 @@ Wants=network-online.target
 [Service]
 Type=notify
 #EnvironmentFile=/opt/docker/env
-ExecStart=/opt/docker/bin/dockerd -H tcp://0.0.0.0:2375 -H unix:///opt/docker/run/docker.sock --config-file=/opt/docker/daemon.json --data-root=/opt/docker/lib --exec-root=/opt/docker/run --pidfile=/opt/docker/tmp/docker.pid
+ExecStart=/opt/docker/bin/dockerd --config-file=/opt/docker/daemon.json
 ExecReload=/bin/kill -s HUP $MAINPID
+ExecStartPost=chmod 666 /opt/docker/run/docker.sock
 LimitNOFILE=infinity
 LimitNPROC=infinity
 TimeoutStartSec=0
@@ -68,4 +76,11 @@ sudo ln -s /opt/docker/bin/* ./
 
 ```text
 export PATH="/opt/docker/bin:$PATH"
+```
+
+## docker.sock
+
+```bash
+cd /var/run
+sudo ln -s /opt/docker/run/docker.sock ./docker.sock
 ```
