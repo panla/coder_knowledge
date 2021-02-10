@@ -5,6 +5,7 @@
 `~/.vimrc`
 
 ```text
+set fileencodings=utf-8,gb18030
 set fileencoding=utf-8
 set termencoding=utf-8
 set encoding=utf-8
@@ -24,4 +25,8 @@ set autoindent
 
 set paste
 set listchars=tab:>-,trail:-
+
+if has( 'mouse' )
+    set mouse-=a
+endif
 ```
