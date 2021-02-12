@@ -30,3 +30,29 @@ tcp-keepalive 60
 ## 权限
 
 dump.rdb 文件的权限
+
+## redis.service
+
+```text
+[Unit]
+
+Description=Redis
+
+After=network.target
+
+[Service]
+
+Type=forking
+
+ExecStart=/opt/redis/bin/redis-server /opt/redis/redis.conf
+
+ExecReload=/opt/redis/bin/redis-server -s reload
+
+ExecStop=/opt/redis/bin/redis-server -s stop
+
+PrivateTmp=true
+
+[Install]
+
+WantedBy=multi-user.target
+```
