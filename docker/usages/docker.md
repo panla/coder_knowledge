@@ -25,12 +25,6 @@ docker rmi image_id
 docker image rm 镜像名称:标签
 ```
 
-离线，将打包的tar镜像文件倒入自己的docker仓库
-
-```bash
-docker load -i nginx.tar
-```
-
 ## 容器 container
 
 宿主机:容器
@@ -101,8 +95,13 @@ docker run -d -p 8080:8080 --name tomcat -v /data/apps:/data/apps tomcat
 ### commit
 
 ```bash
+# container -> new image
 docker commit -m "commit message" -a "author" container container:tag
-docker save container:tag -o container.tar
-```
 
-## 镜像分层原理
+# container -> image.tar
+docker save container:tag -o container.tar
+
+# image.tar -> image
+# 离线，将打包的tar镜像文件倒入自己的docker仓库
+docker load -i nginx.tar
+```
