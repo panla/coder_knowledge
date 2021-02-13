@@ -82,7 +82,7 @@ export PATH="/opt/docker/bin:$PATH"
 
 ```bash
 cd /var/run
-sudo ln -s /opt/docker/run/docker.sock ./docker.sock
+sudo ln -s /opt/docker/run/docker.sock ./
 ```
 
 ## 安装 portainer
