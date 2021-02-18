@@ -4,6 +4,8 @@
 
 [下载地址](https://code.visualstudio.com/Download)
 
+替换下载链接 `vscode.cdn.azure.cn`
+
 解压
 
 Desktop 文件
