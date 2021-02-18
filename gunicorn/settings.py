@@ -9,8 +9,8 @@ bind = 'unix:/tmp/project.sock'
 # workers = multiprocessing.cpu_count() * 2 + 1
 workers = 2
 
-# 进程方式
-worker_class = 'gevent'
+# 进程方式 pip3 install eventlet
+worker_class = 'eventlet'
 
 # 并发客户端的最大数量, eventlet/gevent 下有效
 worker_connections = 2000
@@ -18,8 +18,8 @@ worker_connections = 2000
 # 重载
 reload = True
 
-# 日至级别
-log_level = 'DEBUG'
+# 日志级别
+loglevel = 'DEBUG'
 
 # 把标准输出重定向到 error_log 中
 capture_output = True
