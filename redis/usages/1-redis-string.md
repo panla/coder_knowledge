@@ -13,10 +13,10 @@
 | set key value | 设置key:value,会覆盖 |
 | set key value nx | key不存在时才设置 |
 | setnx key value | key不存在时才设置 |
-| set key value xx | key存在时才设置 |
+| set key value xx | key存在时才设置，xx 就是 xx |
 | setrange key offset value | 从offset开始用value覆盖 |
 | mset key value [key value] | 同时设置多个值 |
-| msetnx key value [key value] | 同时设置多个值,不存在时才设置 |
+| msetnx key value [key value] | 同时设置多个值,不存在时才设置，原子性操作 |
 
 #### String设置过期时间
 
@@ -33,11 +33,11 @@
 
 | command | 作用 |
 | :-: | :-: |
-| incr key | value+=1 |
-| incrby key num | value+=num |
-| incrbyfloat key num | value+=num |
-| decr key | value-=1 |
-| decr key num | value-=num |
+| incr key | value += 1 |
+| incrby key num | value += num |
+| incrbyfloat key num | value += num |
+| decr key | value -= 1 |
+| decr key num | value -= num |
 | mget key [ key ] | 同时获得多个 |
 
 #### String其他
