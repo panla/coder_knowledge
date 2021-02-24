@@ -1,12 +1,10 @@
-# use Redis
+# use Redis String
 
 ## usage
 
 [Redis命令参考](http://redisdoc.com/index.html)
 
-### String
-
-#### String设置key-value
+### String设置key-value
 
 | command | 作用 |
 | :-: | :-: |
@@ -18,7 +16,7 @@
 | mset key value [key value] | 同时设置多个值 |
 | msetnx key value [key value] | 同时设置多个值,不存在时才设置，原子性操作 |
 
-#### String设置过期时间
+### String设置过期时间
 
 | command | 作用 |
 | :-: | :-: |
@@ -29,7 +27,7 @@
 | psetex key mseconds value | 按毫秒设置过期时间 |
 | set key value && pexpire key seconds | 按毫秒设置过期时间 |
 
-#### String增长,返回现值,返回字符串类型,num值可正可负
+### String增长,返回现值,返回字符串类型,num值可正可负
 
 | command | 作用 |
 | :-: | :-: |
@@ -40,7 +38,7 @@
 | decr key num | value -= num |
 | mget key [ key ] | 同时获得多个 |
 
-#### String其他
+### String其他
 
 | command | 作用 |
 | :-: | :-: |

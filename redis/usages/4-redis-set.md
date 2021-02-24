@@ -1,12 +1,12 @@
-# use Redis
+# use Redis Set
 
 ## usage
 
 [Redis命令参考](http://redisdoc.com/index.html)
 
-### Set
+无序不重复
 
-#### Set存入取出member,或其他数据
+### Set存入取出member,或其他数据
 
 | command | 作用 |
 | :-: | :-: |
@@ -15,7 +15,7 @@
 | spop key | 随机抛出一个member |
 | srandmember key | 随机抛出一个member 不删除 |
 
-#### 交并差集
+### 交并差集
 
 | command | 作用 |
 | :-: | :-: |
@@ -26,7 +26,7 @@
 | sdiff key [ key ] | 返回指定key的差集 |
 | sdiffstore target key [ key ] | 把指定key的差集放在target |
 
-#### 其他
+### 其他
 
 | command | 作用 |
 | :-: | :-: |
