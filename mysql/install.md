@@ -148,9 +148,22 @@ sudo systemctl enable mysql
 
 ## 修改密码
 
-```text
+刷新密码和允许远程连接
+
+```mysql
+use mysql;
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'new password';
+
+use mysql;
+UPDATE user SET `Host` = '%' WHERE `User` = 'root' LIMIT 1;
 
 flush privileges;
 exit
+```
+
+开放防火墙
+
+```bash
+sudo firewall-cmd --add-port=3306/tcp --zone=public --permanent
+sudo systemctl restart firewalld.service
 ```
