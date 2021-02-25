@@ -6,18 +6,6 @@
 
 ## 字段
 
-### 字段类型
-
-| 类型 | 说明 | 其他 |
-| :-: | :-: | :-: |
-| DECIMAL(10, 4) | 定点型 | 总共10，小数部分最多4位 |
-| Boolean | 布尔类型 |  |
-| DateTime | 日期时间格式 |  |
-| Integer/INTEGER | 整数类型 | 不能 Integer(11) 一般为32位 |
-| SmallInteger/SMALLINT | 对应mysql smallint | 一般为16位 |
-| String | 对应mysql varchar |  |
-| Text | 对应mysql tinytext | 2^16 - 1 bytes |
-
 ### 字段属性
 
 字段属性
@@ -28,6 +16,7 @@ unique = True     唯一约束
 index = True     索引
 nullable = False   null约束
 default         默认值，创建更新表时不会有，在新创建数据时会有
+server_default 缺省值
 ```
 
 ### 联合约束
@@ -178,7 +167,7 @@ class ModelMixin(object):
 
 
 class Account(db.Model, ModelMixin):
-    """医生账户表"""
+    """账户表"""
 
     __bind_key__ = "key"
     __tablename__ = "accounts"
@@ -253,6 +242,4 @@ unique=True
     UNIQUE KEY `name` (`name`),
 index=True, unique=True
     UNIQUE KEY `ix_tbcs_name` (`name`),
-
-唯一约束由唯一索引来实现，所以也是索引的一种
 ```
