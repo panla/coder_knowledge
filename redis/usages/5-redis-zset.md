@@ -16,10 +16,15 @@
 | zscore key member | 返回member的score |
 | zincrby key num member | member.score+=num |
 | zrange key start stop [ withscores ] | 返回index in [start: stop]的members,小->大 |
-| zrevrange key start stop [ withscores ] | 同zrange,大->小 |
 | zrangebyscore key min max [ withscores ] [ limit offset count ] | 返回score in [min: max]的members,小->大 |
-| zrevrangebyscore key min max [ withscores ] [ limit offset count ] | 同zrangebyscore,大->小 |
+| zrangebyscore key -inf +inf | 取出所有值 |
 | zrangebylex key min max [ limit offset count ] | 返回member min max 中 [表示闭区间,(表示开区间,+表示正无限,-表示负无限 |
+| zrevrange key start stop [ withscores ] | 同zrange,大->小 |
+| zrevrangebyscore key min max [ withscores ] [ limit offset count ] | 同zrangebyscore,大->小 |
+
+withscores : 返回时带上score
+要用 limit 时要带上 limit
+需警惕能否反转
 
 #### Zset返回其他数据
 
