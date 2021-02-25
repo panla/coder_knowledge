@@ -9,15 +9,21 @@
 | `https://mirrors.huaweicloud.com/` | 华为云镜像站 |  |
 | `https://developer.aliyun.com/sdk/java.html` | 阿里云sdk |  |
 | `https://sourceforge.net` | sourceforge | 直接下载部分源码 |
-| `https://github.com` | github |  |
-| `https://gitee.com` | gitee |  |
-| `https://hub.docker.com/` | Docker Hub |  |
 | `https://pkgs.org/` | linux 软件包查询 | 可以查询所需要的包的依赖以及安装方式 |
 | `https://im.dingtalk.com/` | 钉钉网页版 |  |
 | `https://toolwa.com/github/` | 加速下载github文件 |
 | `https://www.json.cn/` | JSON 解析 | |
 
-## 编程资源
+## 编程资源-1
+
+| url | 网站 | 备注 |
+| :-: | :-: | :-: |
+| `https://github.com` | github |  |
+| `https://gitee.com` | gitee |  |
+| `https://hub.docker.com/` | Docker Hub |  |
+| `https://www.newbe.pro/Mirrors/Mirrors-Python/` | Python 源码镜像 |  |
+
+## 文档
 
 | url | 网站 | 备注 |
 | :-: | :-: | :-: |
@@ -28,3 +34,5 @@
 | `http://www.redis.cn/` | Redis 中文 |  |
 | `https://redis.io/` | Redis 英文 |  |
 | `http://redisdoc.com/index.html` | Redis命令使用文档 |  |
+| `https://mongodb.net.cn/` | MongoDB中文网 |  |
+| `https://www.mongodb.com/` | MongoDB官网 |  |
