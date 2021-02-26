@@ -2,13 +2,13 @@
 
 ## SQL语句命令
 
-```text
+```sql
 
-# 清空表，无被关联
+-- 清空表，无被关联
 truncate table tb_name;
 ```
 
-```mysql
+```sql
 create database if not exists db;
 drop database if exists db;
 ```

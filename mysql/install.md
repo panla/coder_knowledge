@@ -150,7 +150,7 @@ sudo systemctl enable mysql
 
 刷新密码和允许远程连接
 
-```mysql
+```sql
 use mysql;
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'new password';
 
