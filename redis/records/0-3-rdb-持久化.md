@@ -30,3 +30,8 @@ Redis会fork一个子进程来持久化，会先把数据写入到一个临时�
 ## 恢复
 
 把 rdb 文件放在redis启动目录
+
+## 逻辑
+
+rdbSave 同步执行
+rdbSaveBackground 后台执行，会 fork 出子进程来执行
