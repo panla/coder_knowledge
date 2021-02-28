@@ -36,3 +36,5 @@
 | `http://redisdoc.com/index.html` | Redis命令使用文档 |  |
 | `https://mongodb.net.cn/` | MongoDB中文网 |  |
 | `https://www.mongodb.com/` | MongoDB官网 |  |
+| `https://github.com/XiangLinPro/IT_book` | 几百本常用电子书链接： |  |
+| `https://github.com/prefect12/Redis` |  |  |
