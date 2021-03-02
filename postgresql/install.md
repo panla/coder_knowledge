@@ -6,7 +6,7 @@
 
 ## 编译安装
 
-安装所需工具
+### 安装所需工具
 
 ```bash
 # error: no acceptable C compiler found in $PATH
@@ -28,6 +28,8 @@ dnf install libuuid-devel
 # docker 中不行
 ```
 
+### configure make
+
 ```bash
 mkdir build
 cd build
@@ -40,6 +42,29 @@ make distclean
 ```
 
 --with-systemd
+
+### configure 部分参数
+
+```text
+--prefix=dir            把所有文件装在目录PREFIX下的目录中
+--exec-prefix=dir       默认 等于PREFIX并且体系相关和体系无关的文件都会安装到同一棵目录树下
+--with-pgport=5432      服务端和客户端默认端口，默认5432
+--with-openssl          编译SSL模块连接支持
+--with-uuid=e2f3        使用指定的UUID库编译uuid-issp模块
+
+--bindir=dir            可执行程序指定目录，默认 prefix/bin
+--sysconfdir=dir        各种各样配置文件的目录，默认 prefix/etc
+--libdir=dir            安装库和动态加载模块的目录，默认 prefix/lib
+--inludedir=dir         C/C++ 头文件的目录，默认 prefix/include
+--datrootdir=dir        只读数据文件的根目录，默认 prefix/share
+--datadir=dir           程序使用的只读数据文件的目录，默认 datarootdir
+--localedir=dir         安装区域的目录，默认 datarootdir/locale
+--mandir=dir            手册页安装目录，默认 datarootdir/man
+--docdir=dir            文档文件根目录，默认 datarootdir
+--with-segsize=1        段尺寸，以G字节计算，默认1G
+--with-blocksize=8      块尺寸，以K字节计算，2的幂并且在1--32之间，默认8K
+--with-wal-blocksize=8  WAL块尺寸，以 K 字节计。这是 WAL 日志存储和I/O的单位，默认8K
+```
 
 ## 环境变量
 
