@@ -7,6 +7,7 @@
 - MongoDB
 - MySQL
 - Nginx
+- PostgreSQL
 - Python
 - Redis
 - software
