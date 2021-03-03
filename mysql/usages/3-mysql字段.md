@@ -15,6 +15,76 @@
 | bigint | big整型 八个字节 | -9223372036854775808 -- 9223372036854775807 | -2^63 -- 2^63-1 |
 | bigint unsigned | big整型 八个字节 | 0 -- 18446744073709551615 | 0 -- 2^64 - 1 |
 | varchar | 变长字符串 |  |  |
+| float | 浮点数，四个字节 |  |  |
+| double | 浮点数，八个字节，不精准 |  |  |
+
+## 字符串
+
+| column | 字段 | 长度大小范围 |
+| :-: | :-: | :-: | :-: |
+| char | 固定大小 | 0 -- 255 |
+| varchar | 变长，2字节 | 0 -- 65535 |
+| tinytext | 微型文本 | 0 -- 255 |
+| text | 文本串 | 2字节 | 0 -- 65535 |
+
+## 时间日期
+
+| column | 字段 | 其他 |
+| :-: | :-: | :-: | :-: |
+| date | 日期 | |
+| time | 时间 | |
+| datetime | 日期时间 | |
+| timestample | 时间戳 | 2038 |
+| year | 年份 | |
+
+## 数据库字段属性
+
+### 主键
+
+```sql
+PRIMARY KEY (`id`)
+```
+
+### 唯一
+
+```sql
+UNIQUE KEY `cellphone` (`cellphone`)
+```
+
+### 索引
+
+```sql
+KEY `ix_accounts_name` (`name`),
+```
+
+### 非空
+
+NOT NULL
+
+### 无符号
+
+unsigned 不可为负数
+
+### 自增
+
+auto_increment
+AUTO_INCREMENT
+
+### 默认值
+
+```sql
+DEFAULT '0'
+```
+
+### 注释
+
+comment '手机号'
+
+### 更新
+
+```sql
+ON UPDATE
+```
 
 ## sqlalchemy 中选择无符号类型
 
