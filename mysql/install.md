@@ -12,6 +12,7 @@
 cd /opt/mysql
 sudo mkdir data
 sudo mkdir logs
+sudo mkdir logs/binlogs
 ```
 
 创建用户,用户组
@@ -32,20 +33,20 @@ sudo chown -R mysql:mysql mysql
 
 ### my.cnf
 
-`/etc/my.cnf`
+`/opt/mysql/my.cnf`
 
 ```text
 [client]
 port = 3306
-socket = /opt/mysql/logs/mysql.sock
+socket = /opt/mysql/tmp/mysql.sock
 
 [mysqld]
 user = mysql
 server-id = 1
 port = 3306
 mysqlx_port = 33060
-socket = /opt/mysql/logs/mysql.sock
-mysqlx_socket = /opt/mysql/logs/mysqlx.sock
+socket = /opt/mysql/tmp/mysql.sock
+mysqlx_socket = /opt/mysql/tmp/mysqlx.sock
 
 # mysql 基本路径
 basedir = /opt/mysql
@@ -103,15 +104,11 @@ WantedBy=multi-user.target
 User=mysql
 Group=mysql
 Type=notify
-# Disable service start and stop timeout logic of systemd for mysqld service.
 TimeoutSec=0
-# Execute pre and post scripts as root
 PermissionsStartOnly=true
-# Start main service
-ExecStart=/opt/mysql/bin/mysqld --defaults-file=/etc/my.cnf $MYSQLD_OPTS
+ExecStart=/opt/mysql/bin/mysqld --defaults-file=/opt/mysql/my.cnf $MYSQLD_OPTS
 # Use this to switch malloc implementation
 EnvironmentFile=-/etc/sysconfig/mysql
-# Sets open_files_limit
 LimitNOFILE = 10000
 Restart=on-failure
 RestartPreventExitStatus=1
@@ -129,24 +126,34 @@ export PATH="/opt/mysql/bin:$PATH"
 ```
 
 ```bash
-mysqld --initialize --console
+mysqld --defaults-file=/opt/mysql/my.cnf --initialize --console
 ```
 
 ## so 文件
 
 ```bash
+# bin/mysqld: error while loading shared libraries: libaio.so.1
+dnf install -y libaio
+
+# bin/mysqld: error while loading shared libraries: libnuma.so.1
+dnf install -y numactl
+
+# bin/mysql: error while loading shared libraries: libtinfo.so.5
 sudo ln -s /usr/lib64/libtinfo.so.6.1 /usr/lib64/libtinfo.so.5
 ```
 
 ## 启动
 
 ```bash
+# 注意 selinux 配置
 sudo systemctl daemon-reload
 sudo systemctl start mysql
 sudo systemctl enable mysql
 ```
 
 ## 修改密码
+
+mysql.sock 应该是在编译时确定的位置，不然就需要在 /tmp/mysql.sock 方软连接或真实文件
 
 刷新密码和允许远程连接
 
