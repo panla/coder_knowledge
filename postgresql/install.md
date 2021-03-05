@@ -8,8 +8,10 @@
 
 ### 安装所需工具
 
+推荐在docker里编译，这样不干扰外部环境
+
 ```bash
-# error: no acceptable C compiler found in $PATH
+# configure: error: no acceptable C compiler found in $PATH
 dnf install gcc gcc-c++ make
 
 # configure: error: readline library not found
@@ -24,6 +26,12 @@ dnf install openssl-devel
 # configure: error: library 'uuid' is required for E2FS UUID
 dnf install libuuid-devel
 
+# configure: error: llvm-config not found
+dnf install llvm-toolset llvm-devel, cmake-filesystem, llvm, llvm-libs
+
+# configure: error: library 'pam' is required for PAM
+dnf install pam-devel
+
 # configure: error: header file <systemd/sd-daemon.h> is required for systemd support
 # docker 中不行
 ```
@@ -34,7 +42,7 @@ dnf install libuuid-devel
 mkdir build
 cd build
 
-../configure --prefix=/opt/pgsql --exec-prefix=/opt/pgsql --with-pgport=5432 --with-openssl --with-uuid=e2fs
+../configure --prefix=/opt/pgsql --exec-prefix=/opt/pgsql --with-pgport=5432 --with-openssl --with-uuid=e2fs --with-llvm --with-pam
 
 make world
 make install-world
@@ -51,6 +59,8 @@ make distclean
 --with-pgport=5432      服务端和客户端默认端口，默认5432
 --with-openssl          编译SSL模块连接支持
 --with-uuid=e2f3        使用指定的UUID库编译uuid-issp模块
+--with-llvm             支持基于LLVM的JIT编译
+--with-pam              编译PAM（可插拔认证模块）支持
 
 --bindir=dir            可执行程序指定目录，默认 prefix/bin
 --sysconfdir=dir        各种各样配置文件的目录，默认 prefix/etc
@@ -61,6 +71,8 @@ make distclean
 --localedir=dir         安装区域的目录，默认 datarootdir/locale
 --mandir=dir            手册页安装目录，默认 datarootdir/man
 --docdir=dir            文档文件根目录，默认 datarootdir
+--htmldir=dir           HTML格式文档目录，默认 datarootdir
+
 --with-segsize=1        段尺寸，以G字节计算，默认1G
 --with-blocksize=8      块尺寸，以K字节计算，2的幂并且在1--32之间，默认8K
 --with-wal-blocksize=8  WAL块尺寸，以 K 字节计。这是 WAL 日志存储和I/O的单位，默认8K
@@ -96,7 +108,21 @@ WantedBy=multi-user.target
 ## 初始化
 
 ```bash
+sudo groupadd postgres
+sudo useradd -g postgres postgres
+sudo passwd postgres
+
+su - postgres
 initdb -D /opt/pgsql/data -E UTF8 --locale=zh_CN.utf8
+```
+
+initdb 部分参数
+
+```text
+-D --pgdata             location for this db cluster
+-E --encoding=UTF       设置默认编码
+--locale=zh_CN.utf8     设置默认本地语言
+-U --username           db superuser
 ```
 
 ## 配置
