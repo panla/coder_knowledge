@@ -1,8 +1,8 @@
 # PGSQL Config
 
-## 配置项
+## 1 配置项 postgresql.conf
 
-### 配置文件配置
+### 1.1 配置文件配置
 
 ```conf
 # initdb 和 pg_ctl start 时的 -D 参数
@@ -18,7 +18,7 @@ ident_file = 'ConfigDir/pg_ident.conf'
 external_pid_file = ''
 ```
 
-### 连接配置
+### 1.2 连接配置
 
 ```conf
 # 指定服务器在哪些TCP/IP地址上监听客户端连接，值的形式是一个逗号分隔的主机名和/或数字 IP 地址列表
@@ -46,14 +46,24 @@ unix_socket_group = 'postgres'
 unix_socket_permissions = 0770
 ```
 
-### TCP 安全和认证配置
+### 1.3 TCP 安全和认证配置
 
 ```conf
-允许完成客户端认证的最长时间，默认1分钟，1s--600s
+# 允许完成客户端认证的最长时间，默认1分钟，1s--600s
 authentication_timeout = 1min
+
+# 加密方式 md5 or scram-sha-256
+password_encryption = md5
 ```
 
-### 内存配置
+```sql
+select rolname,rolpassword from pg_authid;
+
+-- 修改密码
+alter role postgres with password '';
+```
+
+### 1.4 内存配置
 
 ```conf
 # 数据库服务器将使用的共享内存缓冲区量，默认128MB
@@ -64,21 +74,21 @@ shared_buffers = 128MB
 temp_buffers = 8MB
 ```
 
-### 磁盘
+### 1.5 磁盘
 
 ```conf
 # 指定一个进程能用于临时文件的最大磁盘空间量，默认-1：没有限制
 temp_file_limit = -1
 ```
 
-### 内核资源使用
+### 1.6 内核资源使用
 
 ```conf
 # 每个服务器子进程允许同时打开的最大文件数目，默认是 1000 个文件，最小64
 max_files_per_process = 1000
 ```
 
-### Background Writer
+### 1.7 Background Writer
 
 后台写入器
 
@@ -97,13 +107,60 @@ max_worker_processes = 8
 max_parallel_workers = 8
 ```
 
-### 预写日志 WRITE-AHEAD LOG
+### 1.8 预写日志 WRITE-AHEAD LOG
 
-### 检查点
+### 1.9 检查点
 
 ```conf
 # 自动WAL检查点之间的最长时间，默认5分钟，30-1d
 checkpoint_timeout = 5min
+```
+
+### 1.10 在哪记录日志
+
+```conf
+# 记录服务器消息的方法，stderr,csvlog,syslog
+log_destination = stderr
+
+# 启用日志收集器，stderr 时用到，默认 off
+logging_collector = on
+
+# 当logging_collector 被启用时，决定log文件目录，默认log
+log_directory = 'log'
+
+# 当logging_collector 被启用时，设置被创建的日志文件的文件名
+log_filename = 'postgresql-%Y-%m-%d_%H%M%S.log'
+
+# log文件mod，默认 0600
+log_file_mode = 0600
+
+# 当logging_collector 被启用时，决定使用单个日志文件的最大时间量
+# 0 代表禁用基于时间创建
+log_rotation_age = 1d
+
+# 当logging_collector 被启用时，决定一个个体日志文件的最大尺寸
+# 0 代表禁用基于大小创建
+log_rotation_size = 10MB
+```
+
+## 客户端认证 2 pg_gba.conf
+
+### pg_hba.conf文件
+
+[文档链接](http://www.postgres.cn/docs/13/auth-pg-hba-conf.html)
+
+```conf
+# "local" is for Unix domain socket connections only
+local   all             all                                     trust
+# IPv4 local connections:
+host    all             all             127.0.0.1/32            trust
+# IPv6 local connections:
+host    all             all             ::1/128                 trust
+# Allow replication connections from localhost, by a user with the
+# replication privilege.
+local   replication     all                                     trust
+host    replication     all             127.0.0.1/32            trust
+host    replication     all             ::1/128                 trust
 ```
 
 ## 进程
