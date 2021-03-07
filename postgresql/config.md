@@ -49,11 +49,15 @@ unix_socket_permissions = 0770
 ### 1.3 TCP 安全和认证配置
 
 ```conf
+tcp_keepalives_idle = 120
+
+tcp_keepalives_interval = 120
+
 # 允许完成客户端认证的最长时间，默认1分钟，1s--600s
 authentication_timeout = 1min
 
 # 加密方式 md5 or scram-sha-256
-password_encryption = md5
+password_encryption = scram-sha-256
 ```
 
 ```sql
@@ -68,7 +72,7 @@ alter role postgres with password '';
 ```conf
 # 数据库服务器将使用的共享内存缓冲区量，默认128MB
 # 可以是系统内存的25%
-shared_buffers = 128MB
+shared_buffers = 256MB
 
 # 为每个数据库会话设置临时缓冲区的最大内存，默认8MB
 temp_buffers = 8MB
@@ -129,7 +133,8 @@ logging_collector = on
 log_directory = 'log'
 
 # 当logging_collector 被启用时，设置被创建的日志文件的文件名
-log_filename = 'postgresql-%Y-%m-%d_%H%M%S.log'
+; log_filename = 'postgresql-%Y-%m-%d_%H%M%S.log'
+log_filename = 'postgresql-%Y-%m-%d.log'
 
 # log文件mod，默认 0600
 log_file_mode = 0600
@@ -141,6 +146,13 @@ log_rotation_age = 1d
 # 当logging_collector 被启用时，决定一个个体日志文件的最大尺寸
 # 0 代表禁用基于大小创建
 log_rotation_size = 10MB
+```
+
+### 1.11  Statement Behavior
+
+```conf
+statement_timeout = 0
+idle_in_transaction_session_timeout = 0
 ```
 
 ## 客户端认证 2 pg_gba.conf

@@ -41,3 +41,26 @@ alter table students change name name1 varchar(20);
 -- 删除字段
 alter table students drop name1;
 ```
+
+## 常用命令3
+
+```sql
+create table sudents (
+    `id` int(11) noy null auto_increment comment '主键',
+    `name` varchar(30) noy null comment '名称',
+    primary key (`id`),
+    key `ix_students_name` (`name`)
+) engine=innodb default charset=utf8mb4;
+```
+
+## 数据管理
+
+### 外键
+
+有好处，有坏处。
+
+### insert
+
+### update
+
+### delete
