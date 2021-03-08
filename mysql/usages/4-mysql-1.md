@@ -59,8 +59,64 @@ create table sudents (
 
 有好处，有坏处。
 
+```sql
+-- 第一种方案，建表时建外键
+key `fk_grade_id` (`grade_id`),
+constraint `fk_grade_id` foreign key (`grade_id`) references `grade` (`id`)
+
+-- 第二种方案
+alter table `students` add constraint `fk_grade_id` foreign key (`grade_id`) references `grade` (`id`);
+```
+
 ### insert
+
+```sql
+insert into `students` (`name`) values ('王一');
+insert into `students` (`name`) values ('王二'), ('王三');
+insert into `students` (`id`, 'name') values (4, '王四');
+```
 
 ### update
 
+```sql
+update `students` set `name` = '大佬' where `name` = '小弟';
+update `students` set `name` = '大佬', `email` = 'aaa@163.com' where `name` = '小弟';
+-- 闭合区间
+update `students` set `name` = '大佬' where `id` between 1 and 10;
+
+```
+
 ### delete
+
+```sql
+delete from `students`;
+delete from `students` where id = 1;
+```
+
+## DQL 数据查询
+
+### 一般查询
+
+```sql
+from * from `students`;
+select `name` from `students`;
+select `name` from `students` where id = 1;
+select `name` as '姓名' from `students`;
+select concat('姓名：', `name`) from `students`;
+select count(`id`) from `students`;
+select distinct `name` from `students`;
+```
+
+```sql
+select * from `results` where score >= 95 and score <= 100;
+select * from `results` where score >= 95 && score <= 100;
+select * from `results` where between 95 and 100;
+```
+
+### 排序
+
+```sql
+select * from `students` order by `id`;
+```
+
+### 分组
