@@ -4,7 +4,7 @@
 
 [下载地址](https://code.visualstudio.com/Download)
 
-替换下载链接 `vscode.cdn.azure.cn`
+把下载链接的 `https://az764295.vo.msecnd.net` 替换为 `http://vscode.cdn.azure.cn`
 
 解压
 
