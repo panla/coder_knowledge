@@ -60,13 +60,6 @@ authentication_timeout = 1min
 password_encryption = scram-sha-256
 ```
 
-```sql
-select rolname,rolpassword from pg_authid;
-
--- 修改密码
-alter role postgres with password '';
-```
-
 ### 1.4 内存配置
 
 ```conf
@@ -151,8 +144,8 @@ log_rotation_size = 10MB
 ### 1.11  Statement Behavior
 
 ```conf
-statement_timeout = 0
-idle_in_transaction_session_timeout = 0
+statement_timeout = 200000
+idle_in_transaction_session_timeout = 200000
 ```
 
 ## 客户端认证 2 pg_gba.conf
@@ -184,4 +177,76 @@ postgres: stats collector               统计数据收集进程
 postgres: background writer             后台写进程
 postgres: autovacuum launcher           自动清理进程
 postgres: logical replication launcher
+```
+
+## 修改
+
+postgresql.conf
+
+```conf
+listen_addresses = 'locahost'
+
+# TCP 端口号
+port = 5432
+
+# 数据库最大并发连接，默认100
+max_connections = 2000
+
+# 直接编译在了源码中，默认是/tmp，如果修改了需要
+# a export PGHOST=/opt/pgsql/tmp
+# b ln -s opt/pgsql/tmp/.s.PGSQL.nnnn /tmp/.s.PGSQL.5432
+unix_socket_directories = '/opt/pgsql/tmp'
+
+# unix socket 所属组，默认空字符串=服务器用户的默认组，windows 无
+unix_socket_group = 'postgres'
+
+# unix socket 权限
+unix_socket_permissions = 0770
+
+# TCP
+tcp_keepalives_idle = 120
+
+tcp_keepalives_interval = 120
+
+# 允许完成客户端认证的最长时间，默认1分钟，1s--600s
+authentication_timeout = 1min
+
+# 加密方式 md5 or scram-sha-256
+password_encryption = scram-sha-256
+
+# 内存
+# 数据库服务器将使用的共享内存缓冲区量，默认128MB
+# 可以是系统内存的25%
+shared_buffers = 256MB
+
+# 为每个数据库会话设置临时缓冲区的最大内存，默认8MB
+temp_buffers = 8MB
+
+# 日志
+# 记录服务器消息的方法，stderr,csvlog,syslog
+log_destination = stderr
+
+# 启用日志收集器，stderr 时用到，默认 off
+logging_collector = on
+
+# 当logging_collector 被启用时，决定log文件目录，默认log
+log_directory = 'log'
+
+# 当logging_collector 被启用时，设置被创建的日志文件的文件名
+; log_filename = 'postgresql-%Y-%m-%d_%H%M%S.log'
+log_filename = 'postgresql-%Y-%m-%d.log'
+
+# log文件mod，默认 0600
+log_file_mode = 0600
+
+# 事务连接收回
+statement_timeout = 200000
+idle_in_transaction_session_timeout = 200000
+```
+
+```sql
+select rolname,rolpassword from pg_authid;
+
+-- 修改密码
+alter role postgres with password '';
 ```
