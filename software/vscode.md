@@ -39,6 +39,7 @@ Icon=com.visualstudio.code
 
 ```text
 Anaconda Extension Pack
+Better C++ Syntax
 C/C++
 C/C++ Snippets
 C++ Intellisense
@@ -47,6 +48,7 @@ EditorConfig for VS Code
 flask-snippets
 Git Graph
 Git History
+indent-rainbow
 Jupyter
 Markdown PreView Enhanced
 markdownlint
@@ -57,6 +59,7 @@ Python
 Python Extension Pack
 Python Indent
 Python snippets
+Python Type Hint
 Rainbow CSV
 Visual Studio IntelliCode
 YAML
