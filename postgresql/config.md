@@ -201,7 +201,7 @@ unix_socket_directories = '/opt/pgsql/tmp'
 unix_socket_group = 'postgres'
 
 # unix socket 权限
-unix_socket_permissions = 0770
+unix_socket_permissions = 0777
 
 # TCP
 tcp_keepalives_idle = 120
@@ -230,18 +230,18 @@ log_destination = stderr
 logging_collector = on
 
 # 当logging_collector 被启用时，决定log文件目录，默认log
-log_directory = 'log'
+log_directory = '/opt/pgsql/logs'
 
 # 当logging_collector 被启用时，设置被创建的日志文件的文件名
 ; log_filename = 'postgresql-%Y-%m-%d_%H%M%S.log'
 log_filename = 'postgresql-%Y-%m-%d.log'
 
 # log文件mod，默认 0600
-log_file_mode = 0600
+log_file_mode = 0666
 
 # 事务连接收回
-statement_timeout = 200000
-idle_in_transaction_session_timeout = 200000
+statement_timeout = 3000000
+idle_in_transaction_session_timeout = 3000000
 ```
 
 ```sql
