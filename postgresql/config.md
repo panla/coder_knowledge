@@ -171,11 +171,13 @@ host    replication     all             ::1/128                 trust
 ## 进程
 
 ```text
-postgres                                主进程和服务进程
-postgres: checkpointer                  检查点进程
-postgres: stats collector               统计数据收集进程
-postgres: background writer             后台写进程
-postgres: autovacuum launcher           自动清理进程
+/opt/pgsql/bin/postgres -D /opt/pgsql/data  主进程和服务进程
+postgres: logger 
+postgres: checkpointer                      检查点进程
+postgres: background writer                 后台写进程
+postgres: walwriter 
+postgres: autovacuum launcher               自动清理进程
+ostgres: stats collector                    统计数据收集进程
 postgres: logical replication launcher
 ```
 

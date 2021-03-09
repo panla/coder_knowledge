@@ -96,9 +96,9 @@ Documentation=man:postgres(1)
 [Service]
 Type=forking
 User=postgres
-ExecStart=/opt/pgsql/bin/pg_ctl -D /opt/pgsql/data -l /opt/pgsql/logs/pgsql.log start
-ExecStop=/opt/pgsql/bin/pg_ctl stop -D /opt/pgsql/data -l /opt/pgsql/logs/pgsql.log -m fast
-ExecReload=/opt/pgsql/bin/pg_ctl reload -D /opt/pgsql/data -l /opt/pgsql/logs/pgsql.log -s
+ExecStart=/opt/pgsql/bin/pg_ctl -D /opt/pgsql/data start
+ExecStop=/opt/pgsql/bin/pg_ctl stop -D /opt/pgsql/data -m fast
+ExecReload=/opt/pgsql/bin/pg_ctl reload -D /opt/pgsql/data -s
 TimeoutSec=60
 
 [Install]
@@ -143,7 +143,7 @@ ln -s /opt/pgsql/tmp/.s.PGSQL.5432.lock /tmp/.s.PGSQL.5432.lock
 ## 启动
 
 ```bash
-pg_ctl -D /opt/pgsql/data -l /opt/pgsql/logs/pgsql.log start
+pg_ctl -D /opt/pgsql/data start
 sudo systemctl daemon-reload
 sudo systemctl start pgsql
 sudo systemctl status pgsql
