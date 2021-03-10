@@ -2,6 +2,8 @@
 
 ## 一般查询
 
+需要根据某些条件查询指定表里的指定数据
+
 ```sql
 select * from `students`;
 select `name` from `students`;
@@ -16,6 +18,18 @@ select distinct `name` from `students`;
 select * from `results` where score >= 95 and score <= 100;
 select * from `results` where score >= 95 && score <= 100;
 select * from `results` where between 95 and 100;
+```
+
+## 连接查询
+
+```sql
+select `students`.id, `students`.name, `grades`.id, `grades`.name from `students` inner join `grades` on `students`.grade_id = `grades`.id;
+```
+
+自连接
+
+```sql
+select a.name as '父栏目', b.name as '子栏目' from `categories` a, `categories` b where a.id = b.pid;
 ```
 
 ## 排序
