@@ -49,9 +49,24 @@ SELECT a.name AS '父栏目', b.name AS '子栏目' FROM `categories` a, `catego
 
 ```sql
 SELECT `grade_id`, COUNT(id) AS '该年级的学生数量' FROM `students` ORDER BY `grade_id`;
+-- DESC 降序
+-- ASC 升序，默认
 ```
 
 ## 分页
+
+```sql
+-- 起始值，页面大小
+-- 1, 5
+limit 0, 5
+
+-- 2, 6
+limit 1, 5
+
+limit 0, 5
+limit 5, 5
+limit 10, 5
+```
 
 ## 与 sqlalchemy 结合
 
