@@ -4,13 +4,13 @@
 
 ```sql
 -- 查看创建数据库的语句
-show create database schools;
+SHOW CREATE DATABASE schools;
 
 -- 查看创建表的语句
-show create table students;
+SHOW CREATE table students;
 
 -- 查看表结构
-desc students;
+DESC students;
 ```
 
 ## 常用命令-2
@@ -21,19 +21,19 @@ desc students;
 
 ```sql
 -- 修改表名
-alter table students rename as new_students;
+ALTER TABLE students RENAME AS new_students;
 
 -- 添加字段
-alter table students add age int(11) default 20;
+ALTER TABLE students ADD age int(11) DEFAULT 20;
 
 -- 修改字段
-alter table students modify name varchar(20);
+ALTER TABLE students MODIFY name VARCHAR(20);
 
 -- 修改字段名
-alter table students change name name1 varchar(20);
+ALTER TABLE students CHANGE name name1 VARCHAR(20);
 
 -- 删除字段
-alter table students drop name1;
+ALTER TABLE students DROP name1;
 ```
 
 ### 外键
@@ -42,11 +42,11 @@ alter table students drop name1;
 
 ```sql
 -- 第一种方案，建表时建外键
-key `fk_grade_id` (`grade_id`),
-constraint `fk_grade_id` foreign key (`grade_id`) references `grade` (`id`)
+KEY `fk_grade_id` (`grade_id`),
+CONSTRAINT `fk_grade_id` FOREIGN KEY (`grade_id`) REFERENCES `grade` (`id`)
 
 -- 第二种方案
-alter table `students` add constraint `fk_grade_id` foreign key (`grade_id`) references `grade` (`id`);
+ALTER TABLE `students` ADD CONSTRAINT `fk_grade_id` FOREIGN KEY (`grade_id`) REFERENCES `grade` (`id`);
 ```
 
 ### 索引与约束
@@ -56,9 +56,9 @@ MySQL 中唯一约束是通过唯一索引实现的，为了保证没有重复�
 ```sql
 CREATE TABLE `students` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(30) COLLATE utf8mb4_general_ci NOT NULL COMMENT '姓名',
+  `name` VARCHAR(30) COLLATE utf8mb4_general_ci NOT NULL COMMENT '姓名',
   `account_id` int NOT NULL COMMENT '账号id',
-  `phone` varchar(30) COLLATE utf8mb4_general_ci NOT NULL COMMENT '手机号',
+  `phone` VARCHAR(30) COLLATE utf8mb4_general_ci NOT NULL COMMENT '手机号',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   UNIQUE KEY `ix_students_phone` (`phone`),

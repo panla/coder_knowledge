@@ -3,24 +3,24 @@
 ## insert
 
 ```sql
-insert into `students` (`name`) values ('王一');
-insert into `students` (`name`) values ('王二'), ('王三');
-insert into `students` (`id`, 'name') values (4, '王四');
+INSERT INTO `students` (`name`) VALUES ('王一');
+INSERT INTO `students` (`name`) VALUES ('王二'), ('王三');
+INSERT INTO `students` (`id`, 'name') VALUES (4, '王四');
 ```
 
-## update
+## UPDATE
 
 ```sql
-update `students` set `name` = '大佬' where `name` = '小弟';
-update `students` set `name` = '大佬', `email` = 'aaa@163.com' where `name` = '小弟';
+UPDATE `students` SET `name` = '大佬' WHERE `name` = '小弟';
+UPDATE `students` SET `name` = '大佬', `email` = 'aaa@163.com' WHERE `name` = '小弟';
 -- 闭合区间
-update `students` set `name` = '大佬' where `id` between 1 and 10;
+UPDATE `students` SET `name` = '大佬' WHERE `id` BETWEEN 1 AND 10;
 
 ```
 
 ## delete
 
 ```sql
-delete from `students`;
-delete from `students` where id = 1;
+DELETE FROM `students`;
+DELETE FROM `students` WHERE id = 1;
 ```
