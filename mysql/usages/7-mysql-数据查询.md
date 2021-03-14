@@ -45,6 +45,10 @@ SELECT a.name AS '父栏目', b.name AS '子栏目' FROM `categories` a, `catego
 
 ## 分组
 
+```sql
+select name, avg(score), max(score), min(score) from results group by id;
+```
+
 ## 排序
 
 ```sql
