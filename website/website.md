@@ -37,4 +37,7 @@
 | `https://mongodb.net.cn/` | MongoDB中文网 |  |
 | `https://www.mongodb.com/` | MongoDB官网 |  |
 | `https://github.com/XiangLinPro/IT_book` | 几百本常用电子书链接： |  |
-| `https://github.com/prefect12/Redis` |  |  |
+| `https://github.com/prefect12/Redis` | redis |  |
+| `https://fastapi.tiangolo.com/zh/` | fastapi docs |  |
+| `https://python-gino.org` | gino |  |
+| `http://www.postgres.cn/docs/13/` | pgsql |  |
