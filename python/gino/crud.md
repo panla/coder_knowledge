@@ -1,9 +1,16 @@
 # CRUD
 
+```python
+db = Gino()
+
+async with db.with_bind('postgresql://localhost/gino'):
+```
+
 ## 增
 
 ```python
 user = await User.create(nickname='fantix')
+user = await User(nickname='pandora').create()
 ```
 
 ## 查
@@ -27,6 +34,7 @@ results = await User.join(Book).select().gino.all()
 
 ```python
 await user.update(nickname='daisy').apply()
+await User.update.values(nickname='pandora' += ' is good').where(User.id < 10).gino.status()
 ```
 
 ## 删
@@ -34,4 +42,12 @@ await user.update(nickname='daisy').apply()
 ```python
 await user.delete()
 await User.delete.where(User.id > 10).gino.status()
+```
+
+## 指定 bind
+
+```python
+engine = await create_engine("...")
+# ...
+user = await User.get(request.user_id, bind=engine)
 ```
