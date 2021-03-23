@@ -27,7 +27,7 @@ dnf install openssl-devel
 dnf install libuuid-devel
 
 # configure: error: llvm-config not found
-dnf install llvm-toolset llvm-devel, cmake-filesystem, llvm, llvm-libs
+dnf install llvm-toolset llvm-devel cmake-filesystem llvm llvm-libs
 
 # configure: error: library 'pam' is required for PAM
 dnf install pam-devel
