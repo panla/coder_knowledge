@@ -16,24 +16,6 @@ baseurl=https://mirrors.tuna.tsinghua.edu.cn/rpmfusion/free/el/updates/8/$basear
 enabled=1
 gpgcheck=1
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-free-el-8
-
-[rpmfusion-free-updates-debuginfo]
-name=RPM Fusion for EL 8 - Free - Updates Debug
-baseurl=https://mirrors.tuna.tsinghua.edu.cn/rpmfusion/free/el/updates/8/$basearch/debug/
-#mirrorlist=http://mirrors.rpmfusion.org/mirrorlist?repo=free-el-updates-released-debug-8&arch=$basearch
-enabled=0
-type=rpm-md
-gpgcheck=1
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-free-el-8
-
-[rpmfusion-free-updates-source]
-name=RPM Fusion for EL 8 - Free - Updates Source
-baseurl=https://mirrors.tuna.tsinghua.edu.cn/rpmfusion/free/el/updates/8/SRPMS/
-#mirrorlist=http://mirrors.rpmfusion.org/mirrorlist?repo=free-el-updates-released-source-8&arch=$basearch
-enabled=0
-type=rpm-md
-gpgcheck=1
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-rpmfusion-free-el-8
 ```
 
 ## 其他
