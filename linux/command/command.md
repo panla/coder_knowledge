@@ -18,8 +18,6 @@ sudo firewall-cmd --remove-port=10002/tcp --zone=public --permanent
 
 ## ps 命令
 
-## 使用
-
 找到僵尸进程父进程，并杀死
 
 ```bash
