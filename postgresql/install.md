@@ -107,6 +107,13 @@ WantedBy=multi-user.target
 
 ## 初始化
 
+安装中文支持
+
+```bash
+dnf install glibc-common
+dnf install -y langpacks-zh_CN
+```
+
 ```bash
 sudo groupadd postgres
 sudo useradd -g postgres postgres
