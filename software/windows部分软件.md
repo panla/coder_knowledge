@@ -13,4 +13,4 @@ full 带了 msysgit
 
 ## gnome-box 下 windows
 
-- spice-guest-tools-latest.exe
+- [spice-guest-tools-latest.exe](https://www.spice-space.org/download.html)

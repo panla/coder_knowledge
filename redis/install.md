@@ -9,7 +9,8 @@ wget http://download.redis.io/releases/redis-6.0.6.tar.gz
 tar xzf redis-6.0.6.tar.gz
 mv redis-6.0.6 redis
 cd redis
-make
+make PREFIX=/home/opt/redis
+make install PREFIX=/home/opt/redis
 ```
 
 ## 部分配置项
@@ -35,24 +36,16 @@ dump.rdb 文件的权限
 
 ```text
 [Unit]
-
 Description=Redis
-
 After=network.target
 
 [Service]
-
 Type=forking
-
 ExecStart=/opt/redis/bin/redis-server /opt/redis/redis.conf
-
 ExecReload=/opt/redis/bin/redis-server -s reload
-
 ExecStop=/opt/redis/bin/redis-server -s stop
-
 PrivateTmp=true
 
 [Install]
-
 WantedBy=multi-user.target
 ```

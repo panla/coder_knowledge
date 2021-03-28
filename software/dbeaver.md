@@ -12,7 +12,7 @@
 
 ```text
 name
-http://maven.aliyun.com/nexus/content/repositories/central/
+https://maven.aliyun.com/repository/public
 ```
 
 ## build

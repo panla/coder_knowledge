@@ -69,6 +69,7 @@ YAML
 
 ```text
 Consolas, 'Courier New','monospace'
+'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'
 ```
 
 ## 错误
