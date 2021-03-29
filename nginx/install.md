@@ -64,6 +64,10 @@ WantedBy=multi-user.target
 
 ## 错误以及应对方法
 
+```bash
+dnf install gcc gcc-c++ make libxslt-devel libxml2-devel gd-devel perl geoip geoip-devel
+```
+
 缺少 c 编译器
 
 ```bash
@@ -79,6 +83,7 @@ dnf install libxslt-devel libxml2-devel
 the HTTP image filter module requires the GD library
 
 ```bash
+# epel
 dnf install gd-devel
 ```
 

@@ -11,6 +11,8 @@
 推荐在docker里编译，这样不干扰外部环境
 
 ```bash
+dnf install gcc gcc-c++ make readline-devel ncurses-c++-libs ncurses-devel zlib-devel openssl-devel libuuid-devel llvm-toolset llvm-devel cmake-filesystem llvm llvm-libs pam-devel -y
+
 # configure: error: no acceptable C compiler found in $PATH
 dnf install gcc gcc-c++ make
 
@@ -42,7 +44,7 @@ dnf install pam-devel
 mkdir build
 cd build
 
-../configure --prefix=/home/opt/pgsql --exec-prefix=/home/opt/pgsql --with-pgport=5432 --with-openssl --with-uuid=e2fs --with-llvm --with-pam
+../configure --prefix=/home/opt/pgsql --exec-prefix=/home/opt/pgsql --with-pgport=5432 --with-openssl --with-uuid=e2fs --with-llvm --with-pam glibc-common langpacks-zh_CN passwd
 
 make world
 make install-world
@@ -75,7 +77,7 @@ make distclean
 
 --with-segsize=1        段尺寸，以G字节计算，默认1G
 --with-blocksize=8      块尺寸，以K字节计算，2的幂并且在1--32之间，默认8K
---with-wal-blocksize=8  WAL块尺寸，以 K 字节计。这是 WAL 日志存储和I/O的单位，默认8K
+--with-wal-blocksize=8  WAL块尺寸，以 K 字节计，2的幂并且在1--64之间。这是 WAL 日志存储和I/O的单位，默认8K
 ```
 
 ## 环境变量
@@ -150,7 +152,7 @@ ln -s /home/opt/pgsql/tmp/.s.PGSQL.5432.lock /tmp/.s.PGSQL.5432.lock
 ## 启动
 
 ```bash
-pg_ctl -D /opt/pgsql/data start
+pg_ctl -D /home/opt/pgsql/data start
 sudo systemctl daemon-reload
 sudo systemctl start pgsql
 sudo systemctl status pgsql
