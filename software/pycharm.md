@@ -18,10 +18,10 @@ JAVA_BIN="/usr/bin/java"
 ## idea.properties
 
 ```text
-idea.config.path=/opt/PyCharm-202032/PyCharmCE/config
-idea.system.path=/opt/PyCharm-202032/PyCharmCE/system
-idea.plugins.path=/opt/PyCharm-202032/PyCharmCE/config/plugins
-idea.log.path=/opt/PyCharm-202032/PyCharmCE/system/log
+idea.config.path=/home/opt/PyCharm-202032/PyCharmCE/config
+idea.system.path=/home/opt/PyCharm-202032/PyCharmCE/system
+idea.plugins.path=/home/opt/PyCharm-202032/PyCharmCE/config/plugins
+idea.log.path=/home/opt/PyCharm-202032/PyCharmCE/system/log
 ```
 
 ## pycharm64.vmoptions
@@ -42,16 +42,16 @@ Type=Application
 Name=PyCharm 202032
 GenericName=Python IDE
 Comment=Python IDE
-Exec=sh /opt/PyCharm-202032/bin/pycharm.sh
-Icon=/opt/PyCharm-202032/bin/pycharm.png
+Exec=sh /home/opt/PyCharm-202032/bin/pycharm.sh
+Icon=/home/opt/PyCharm-202032/bin/pycharm.png
 Categories=IDE;
 Actions=new-empty-window;
 Terminal=PyCharm
 
 [Desktop Action new-empty-window]
 Name=New Empty Window
-Exec=sh /opt/PyCharm-202032/bin/pycharm.sh
-Icon=/opt/PyCharm-202032/bin/pycharm.png
+Exec=sh /home/opt/PyCharm-202032/bin/pycharm.sh
+Icon=/home/opt/PyCharm-202032/bin/pycharm.png
 Terminal=PyCharm
 ```
 

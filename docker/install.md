@@ -29,9 +29,9 @@ chmod 777 bin/*
     "tcp://0.0.0.0:2375",
     "unix:///var/run/docker.sock"
   ],
-  "pidfile": "/opt/docker/tmp/docker.pid",
-  "exec-root": "/opt/docker/run",
-  "data-root": "/opt/docker/lib"
+  "pidfile": "/home/opt/docker/tmp/docker.pid",
+  "exec-root": "/home/opt/docker/run",
+  "data-root": "/home/opt/docker/lib"
 }
 ```
 
@@ -48,7 +48,7 @@ Wants=network-online.target
 
 [Service]
 Type=notify
-ExecStart=/opt/docker/bin/dockerd --config-file=/opt/docker/daemon.json
+ExecStart=/home/opt/docker/bin/dockerd --config-file=/home/opt/docker/daemon.json
 ExecReload=/bin/kill -s HUP $MAINPID
 ExecStartPost=-chmod 666 /var/run/docker.sock
 LimitNOFILE=infinity
@@ -68,13 +68,13 @@ WantedBy=multi-user.target
 
 ```bash
 cd /usr/bin
-sudo ln -s /opt/docker/bin/* ./
+sudo ln -s /home/opt/docker/bin/* ./
 ```
 
 ## path
 
 ```text
-export PATH="/opt/docker/bin:$PATH"
+export PATH="/home/opt/docker/bin:$PATH"
 ```
 
 ## 安装 portainer

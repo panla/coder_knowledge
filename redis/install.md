@@ -18,8 +18,8 @@ make install PREFIX=/home/opt/redis
 ```text
 tcp-keepalive 60
 225 daemonize yes
-247 pidfile /opt/redis/logs/redis_6379.pid
-261 logfile /opt/redis/logs/redis_6379.log
+247 pidfile /home/opt/redis/tmp/redis_6379.pid
+261 logfile /home/opt/redis/logs/redis_6379.log
 789 requirepass password
 # save RDB 文件同步频率
 # maxclients 最大连接数
@@ -41,9 +41,9 @@ After=network.target
 
 [Service]
 Type=forking
-ExecStart=/opt/redis/bin/redis-server /opt/redis/redis.conf
-ExecReload=/opt/redis/bin/redis-server -s reload
-ExecStop=/opt/redis/bin/redis-server -s stop
+ExecStart=/home/opt/redis/bin/redis-server /home/opt/redis/redis.conf
+ExecReload=/home/opt/redis/bin/redis-server -s reload
+ExecStop=/home/opt/redis/bin/redis-server -s stop
 PrivateTmp=true
 
 [Install]

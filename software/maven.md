@@ -4,7 +4,7 @@
 
 [maven.apache.org](http://maven.apache.org/download.cgi)
 
-解压到 `/opt/apache-maven`
+解压到 `/home/opt/apache-maven`
 
 ## setting.xml 配置
 
@@ -26,5 +26,5 @@
 二 本地缓存目录
 
 ```text
-<localRepository>/opt/apache-maven-3.6.3/repository</localRepository>
+<localRepository>/home/opt/apache-maven-3.6.3/repository</localRepository>
 ```

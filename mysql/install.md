@@ -38,30 +38,30 @@ sudo chown -R mysql:mysql mysql
 ```text
 [client]
 port = 3306
-socket = /opt/mysql/tmp/mysql.sock
+socket = /home/opt/mysql/tmp/mysql.sock
 
 [mysqld]
 user = mysql
 server-id = 1
 port = 3306
 mysqlx_port = 33060
-socket = /opt/mysql/tmp/mysql.sock
-mysqlx_socket = /opt/mysql/tmp/mysqlx.sock
+socket = /home/opt/mysql/tmp/mysql.sock
+mysqlx_socket = /home/opt/mysql/tmp/mysqlx.sock
 
 # mysql 基本路径
-basedir = /opt/mysql
+basedir = /home/opt/mysql
 
 # 数据路径
-datadir = /opt/mysql/data
+datadir = /home/opt/mysql/data
 
 # bin-log
-log-bin = /opt/mysql/logs/binlogs/binlog
+log-bin = /home/opt/mysql/logs/binlogs/binlog
 
 # log-error
-log-error = /opt/mysql/logs/mysql.err
+log-error = /home/opt/mysql/logs/mysql.err
 
 # 进程号文件
-pid-file = /opt/mysql/logs/mysql.pid
+pid-file = /home/opt/mysql/tmp/mysql.pid
 
 # 密码校验
 default-authentication-plugin=mysql_native_password
@@ -106,7 +106,7 @@ Group=mysql
 Type=notify
 TimeoutSec=0
 PermissionsStartOnly=true
-ExecStart=/opt/mysql/bin/mysqld --defaults-file=/opt/mysql/my.cnf $MYSQLD_OPTS
+ExecStart=/home/opt/mysql/bin/mysqld --defaults-file=/home/opt/mysql/my.cnf $MYSQLD_OPTS
 # Use this to switch malloc implementation
 EnvironmentFile=-/etc/sysconfig/mysql
 LimitNOFILE = 10000
@@ -122,11 +122,11 @@ PrivateTmp=false
 环境变量
 
 ```text
-export PATH="/opt/mysql/bin:$PATH"
+export PATH="/home/opt/mysql/bin:$PATH"
 ```
 
 ```bash
-mysqld --defaults-file=/opt/mysql/my.cnf --initialize --console
+mysqld --defaults-file=/home/opt/mysql/my.cnf --initialize --console
 ```
 
 ## so 文件
