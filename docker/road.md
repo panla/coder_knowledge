@@ -23,3 +23,7 @@
 - Dokerfile
 - Docker Compose
 - Docker Swarm
+
+## 小技巧
+
+1 **编译软件时，可以创建 docker 容器，并挂载数据卷，然后在容器中安装依赖，编译，安装**
