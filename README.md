@@ -11,9 +11,21 @@
 - Nginx
 - PostgreSQL
 - Python
+  - Alembic
+  - FastAPI
   - Flask
+  - GINO
   - Gunicorn
+  - Miniconda
   - sqlalchemy
 - Redis
 - software
+  - chrome
+  - dbeaver
+  - git
+  - maven
+  - postman
+  - pycharm
+  - vim
+  - vscode
 - website
