@@ -11,7 +11,7 @@
 推荐在docker里编译，这样不干扰外部环境
 
 ```bash
-dnf install gcc gcc-c++ make readline-devel ncurses-c++-libs ncurses-devel zlib-devel openssl-devel libuuid-devel llvm-toolset llvm-devel cmake-filesystem llvm llvm-libs pam-devel -y
+dnf install gcc gcc-c++ make readline-devel ncurses-c++-libs ncurses-devel zlib-devel openssl-devel libuuid-devel llvm-toolset llvm-devel cmake-filesystem llvm llvm-libs pam-devel  glibc-common langpacks-zh_CN passwd -y
 
 # configure: error: no acceptable C compiler found in $PATH
 dnf install gcc gcc-c++ make
@@ -44,7 +44,7 @@ dnf install pam-devel
 mkdir build
 cd build
 
-../configure --prefix=/home/opt/pgsql --exec-prefix=/home/opt/pgsql --with-pgport=5432 --with-openssl --with-uuid=e2fs --with-llvm --with-pam glibc-common langpacks-zh_CN passwd
+../configure --prefix=/home/opt/pgsql --exec-prefix=/home/opt/pgsql --with-pgport=5432 --with-openssl --with-uuid=e2fs --with-llvm --with-pam
 
 make world
 make install-world
