@@ -1,5 +1,7 @@
 # 实验
 
+[参考](https://blog.csdn.net/feinifi/article/details/96575568?utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-1.control&dist_request_id=&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-1.control)
+
 创建网络
 
 ```bash
@@ -65,7 +67,7 @@ password_encryption = scram-sha-256
 max_files_per_process = 1000
 wal_level = replica
 archive_mode = on
-archive_command = 'cp %p /data/postgresql/archive/%f '
+archive_command = 'cp %p /home/pgsql/archive/%f '
 recovery_target_timeline = 'latest'
 max_wal_senders= 10
 hot_standby = on
