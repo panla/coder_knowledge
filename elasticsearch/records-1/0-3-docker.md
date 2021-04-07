@@ -19,7 +19,7 @@ docker network create --driver bridge --subnet 172.19.0.0/16 --gateway 172.19.0.
 ### 创建启动容器
 
 ```bash
-docker run -d -p 9200:9200 -p 9300:9300 --net es --ip 172.19.0.2 --name es -e ES_JAVA_OPTS="-Xms256m -Xmx256m" -e "discovery.type=single-node" -e "TZ=Asia/Shanghai" elasticsearch:7.12.0
+docker run --restart always -d -p 9200:9200 -p 9300:9300 --net es --ip 172.19.0.2 --name es -e ES_JAVA_OPTS="-Xms256m -Xmx256m" -e "discovery.type=single-node" -e "TZ=Asia/Shanghai" elasticsearch:7.12.0
 ```
 
 ## docker kibana
@@ -33,5 +33,5 @@ elasticsearch.hosts: [ "http://172.19.0.2:9200" ]
 ```
 
 ```bash
-docker run -d --net es --ip 172.19.0.3 -p 5601:5601 -e "TZ=Asia/Shanghai" -e "ELASTICSEARCH_HOSTS=http://172.19.0.2:9200" --name kibana kibana:7.12.0
+docker run --restart always -d --net es --ip 172.19.0.3 -p 5601:5601 -e "TZ=Asia/Shanghai" -e "ELASTICSEARCH_HOSTS=http://172.19.0.2:9200" --name kibana kibana:7.12.0
 ```
