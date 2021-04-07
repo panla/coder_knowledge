@@ -51,7 +51,7 @@ ALTER TABLE `students` ADD CONSTRAINT `fk_grade_id` FOREIGN KEY (`grade_id`) REF
 
 ### 索引与约束
 
-MySQL 中唯一约束是通过唯一索引实现的，为了保证没有重复值，在插入新记录时会再检索一遍，怎样检索快，当然是建索引了，所以，在创建唯一约束的时候就创建了唯一索引。
+MySQL 中唯一约束是通过唯一索引实现的，为了保证没有重复值，在插入新记录时会再检索一遍，为了快速检索数据，在创建唯一约束的时候就创建了唯一索引。
 
 ```sql
 CREATE TABLE `students` (
