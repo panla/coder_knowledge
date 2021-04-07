@@ -4,16 +4,15 @@
 
 ## es 数据
 
-### 删除索引
-
 ```text
+# 删除索引
 DELETE /example_a*
-```
 
-### 查看所有索引
-
-```text
+# 查看所有索引
 GET /_cat/indices
+
+# 查看已经安装的插件
+GET /_cat/plugins
 ```
 
 ### 指定字段类型

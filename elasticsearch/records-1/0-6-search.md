@@ -37,6 +37,20 @@ sort=id:asc 是按照id排序
 
 `_source` 返回指定的参数
 
+### 排序
+
+```json
+{
+  "sort": [
+    {
+      "id": {
+        "order": "desc"
+      }
+    }
+  ]
+}
+```
+
 ## 匹配模式
 
 - `match_all` 搜索全部的文档
@@ -92,7 +106,21 @@ sort=id:asc 是按照id排序
 
 完全匹配，即不进行分词器分析，文档中必须包含整个搜索的词汇
 
+term 查询 **直接通过倒排索引指定的词条进程精确地查找**
+
 注：**term 只能查单个词 terms 查多个单词，或关系**
+
+```text
+1, Python
+2, Python
+3, Linux, Python
+4, Java
+
+倒排索引
+Python, 1,2,3
+Linux, 3
+Java, 4
+```
 
 ```json
 {

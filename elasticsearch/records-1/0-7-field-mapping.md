@@ -43,6 +43,17 @@ keyword 不进行分词直接索引，用于关键词搜索，不支持聚合
 }
 ```
 
+keyword 不拆分
+standard 拆分
+
+```json
+GET _analyze
+{
+  "analyzer": "standard",
+  "text": "人参不好吃"
+}
+```
+
 ## Dynamic
 
 | JSON data type | "dynamic": "true" | "dynamic": "runtime" |
