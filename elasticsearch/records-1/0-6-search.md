@@ -13,26 +13,9 @@ q=*是查询所
 sort=id:asc 是按照id排序
 ```
 
-## REQUEST BODY
-
-`GET /example_a/_search`
-
-```json
-{
-    "query": {
-        "match_all": {}
-    },
-    "sort": [
-        {
-            "id": "asc"
-        }
-    ]
-}
-```
-
 注意：**如果在搜索中指定 type 会提示 Specifying types in search requests is deprecated.**
 
-## 分页, from, size
+### 分页, from, size
 
 `GET /example_a/_search`
 
@@ -54,25 +37,46 @@ sort=id:asc 是按照id排序
 
 `_source` 返回指定的参数
 
-## 全文检索, match
+## 匹配模式
 
-`GET /example_a/_search`
+- `match_all` 搜索全部的文档
+- macth 字段拆分，全文检索
+- `match_phrase` 短语匹配
+- `multi_match` 多字段匹配
+- `term` 完全匹配
+
+### 搜索全部的文档 `match_all`
+
+```json
+{
+    "query": {
+        "match_all": {}
+    },
+    "sort": [
+        {
+            "id": "asc"
+        }
+    ]
+}
+```
+
+### 全文检索, match
+
+字段会拆分搜索
 
 ```json
 {
     "query": {
         "match": {
-            "name": "人"
+            "name": "人参"
         }
     }
 }
 ```
 
-## 短语匹配, `match_phrase`
+### 短语匹配, `match_phrase`
 
-有的人或文档翻译解释为精准匹配，很奇怪
-
-`GET /example_a/_search`
+字段不再拆分搜索，算是精准匹配吧
 
 ```json
 {
@@ -84,11 +88,50 @@ sort=id:asc 是按照id排序
 }
 ```
 
-## 多字段匹配，`multi_match`
+### 完全匹配，精确查询 term
+
+完全匹配，即不进行分词器分析，文档中必须包含整个搜索的词汇
+
+注：**term 只能查单个词 terms 查多个单词，或关系**
+
+```json
+{
+    "query": {
+        "terms": {
+            "content": "丹参"
+        }
+    }
+}
+```
+
+可以匹配到人或者参，匹配不到 "人参"，可以 "name": ["人", "参"]
+
+```json
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "term": {
+            "name": "人"
+          }
+        },
+        {
+          "term": {
+            "name": "参"
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
+此时匹配"人参"
+
+### 多字段匹配，`multi_match`
 
 涉及到匹配评分的问题
-
-`GET /example_a/_search`
 
 ```json
 {
@@ -109,23 +152,7 @@ most_fields 最多字段匹配，
 cross_fields 词条的分词词汇是分配到不同字段中
 ```
 
-## 完全匹配 term
-
-完全匹配，即不进行分词器分析，文档中必须包含整个搜索的词汇
-
-`GET /example_a/_search`
-
-```json
-{
-    "query": {
-        "term": {
-            "content": "人参"
-        }
-    }
-}
-```
-
-## 复合查询bool
+### 复合查询bool
 
 - must: 必须满足
 - must_not: 必须不满足
@@ -167,7 +194,7 @@ cross_fields 词条的分词词汇是分配到不同字段中
 }
 ```
 
-## 过滤查询 filter，区间查询操作
+### 过滤查询 filter，区间查询操作
 
 ```json
 {
@@ -186,7 +213,7 @@ cross_fields 词条的分词词汇是分配到不同字段中
 }
 ```
 
-## keyword
+### keyword
 
 有 keyword 时精确查找，没有时，会成为关键字?????
 
@@ -200,7 +227,9 @@ cross_fields 词条的分词词汇是分配到不同字段中
 }
 ```
 
-## 分组查询
+## 聚合
+
+### 分组查询
 
 ```json
 {
