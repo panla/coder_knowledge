@@ -1,0 +1,38 @@
+version: "3.9"
+services:
+  es1:
+    container_name: es1
+    image: elasticsearch:7.12.0
+    restart: always
+    ports:
+      - 9200:9200
+      - 9300:9300
+    networks:
+      es:
+        ipv4_address: 172.18.0.3
+    environment:
+      - TZ="Asia/Shanghai"
+      - LC_ALL=C.UTF-8
+      - LANG=C.UTF-8
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms128m -Xmx128m"
+  kibana:
+    container_name: kibana
+    image: kibana:7.12.0
+    restart: always
+    ports:
+      - 15601:5601
+    networks:
+      es:
+        ipv4_address: 172.18.0.2
+    environment:
+      TZ: "Asia/Shanghai"
+      LC_ALL: C.UTF-8
+      LANG: C.UTF-8
+      ELASTICSEARCH_HOSTS: "http://172.18.0.3:9200"
+    depends_on:
+      - es1
+
+networks:
+  es:
+    external: true
