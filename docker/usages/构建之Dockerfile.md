@@ -22,3 +22,13 @@ Dockerfile -- build --> image
 - CMD 启动容器时执行的命令
 
 ## usage
+
+### ENV
+
+```text
+ENV LANG=C.UTF-8 LC_ALL=C.UTF-8 TZ=Asia/Shanghai
+```
+
+```text
+-e TZ="Asia/Shanghai" -e "LC_ALL=C.UTF-8" -e "LANG=C.UTF-8"
+```
