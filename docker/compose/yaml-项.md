@@ -72,7 +72,7 @@ command: python -V
 ### enviroment 设置环境变量
 
 ```yaml
-enviroment:
+environment:
   password: "abcdefg"
 ```
 
