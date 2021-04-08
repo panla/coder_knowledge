@@ -1,6 +1,7 @@
 version: "3.9"
 services:
     es:
+        container_name: "es2"
         image: "elasticsearch:7.12.0"
         restart: always
         ports:
@@ -16,6 +17,7 @@ services:
             ES_JAVA_OPTS: "-Xms256m -Xmx256m"
             discovery.type: single-node
     kibana:
+        container_name: "kibana2"
         image: "kibana:7.12.0"
         restart: always
         ports:
