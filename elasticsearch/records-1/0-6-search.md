@@ -13,6 +13,8 @@ q=*是查询所
 sort=id:asc 是按照id排序
 ```
 
+`_source` 返回指定的参数
+
 注意：**如果在搜索中指定 type 会提示 Specifying types in search requests is deprecated.**
 
 ### 分页, from, size
@@ -35,7 +37,13 @@ sort=id:asc 是按照id排序
 }
 ```
 
-`_source` 返回指定的参数
+```text
+from 指要跳过的命中数, 默认0
+size 返回的最大命中数，默认10
+默认情况下，不能使用from和size分页浏览超过10000个匹配项
+
+from = (page - 1) * size, 从 1 开始
+```
 
 ### 排序
 

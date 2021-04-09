@@ -9,10 +9,18 @@
 DELETE /example_a*
 
 # 查看所有索引
-GET /_cat/indices
+GET /_cat/indices?v
 
 # 查看已经安装的插件
 GET /_cat/plugins
+
+# 查看节点信息
+GET /_cat/nodes
+GET /_cat/nodes?v
+GET /_cat/allocation?v
+
+# 查看分片信息
+GET /_cat/shards?v
 ```
 
 ### 指定字段类型
