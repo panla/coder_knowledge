@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   es1:
-    container_name: es1
+    container_name: es0
     image: elasticsearch:7.12.0
     restart: always
     ports:
@@ -10,6 +10,10 @@ services:
     networks:
       es:
         ipv4_address: 172.18.0.3
+    volumes:
+      - ./data/es0:/usr/share/elasticsearch/data
+      - ./logs/es0:/usr/share/elasticsearch/logs
+      - ./plugins/es1:/usr/share/elasticsearch/plugins
     environment:
       - TZ="Asia/Shanghai"
       - LC_ALL=C.UTF-8
