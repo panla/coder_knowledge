@@ -5,11 +5,15 @@ services:
     image: elasticsearch:7.12.0
     restart: always
     ports:
-      - 9200:9200
-      - 9300:9300
+      - 19200:9200
+      - 19300:9300
     networks:
       es:
         ipv4_address: 172.18.0.3
+    volumes:
+      - ./data/es1:/usr/share/elasticsearch/data
+      - ./logs/es1:/usr/share/elasticsearch/logs
+      - ./plugins/es1:/usr/share/elasticsearch/plugins
     environment:
       - TZ="Asia/Shanghai"
       - LC_ALL=C.UTF-8
@@ -26,6 +30,10 @@ services:
     networks:
       es:
         ipv4_address: 172.18.0.4
+    volumes:
+      - ./data/es2:/usr/share/elasticsearch/data
+      - ./logs/es2:/usr/share/elasticsearch/logs
+      - ./plugins/es2:/usr/share/elasticsearch/plugins
     environment:
       - TZ="Asia/Shanghai"
       - LC_ALL=C.UTF-8
@@ -42,6 +50,10 @@ services:
     networks:
       es:
         ipv4_address: 172.18.0.5
+    volumes:
+      - ./data/es3:/usr/share/elasticsearch/data
+      - ./logs/es3:/usr/share/elasticsearch/logs
+      - ./plugins/es3:/usr/share/elasticsearch/plugins
     environment:
       - TZ="Asia/Shanghai"
       - LC_ALL=C.UTF-8
