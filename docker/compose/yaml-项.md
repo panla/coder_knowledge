@@ -150,3 +150,53 @@ privileged: true
 stdin_open: true
 tty: true
 ```
+
+### example
+
+```yaml
+version: '3.9'
+services:
+  kibana:
+    container_name: kibana1
+    image: kibana:7.12.0
+    restart: always
+    ports:
+      - 5601:5601
+    networks:
+      es:
+        ipv4_address: 172.18.0.2
+    environment:
+      - TZ="Asia/Shanghai"
+      - LC_ALL=C.UTF-8
+      - LANG=C.UTF-8
+      - ELASTICSEARCH_HOSTS: "http://172.18.0.3:9200"
+    depends_on:
+      es01
+  es01:
+    container_name: es01
+    image: elasticsearch:7.12.0
+    restart: always
+    ports:
+      - 9200:9200
+      - 9300:9300
+    volumns:
+      - ./data/es01:/user/share/elasticsearch/data
+      - ./logs/es01:/usr/share/elasticsearch/logs
+      - ./plugins/es01:/usr/share/elasticsearch/plugins
+      - ./config/es01:/user/share/elasticsearch/config
+    networks:
+      es:
+        ipv4_address: 172.18.0.3
+    environment:
+      - TZ="Asia/Shanghai"
+      - LC_ALL=C.UTF-8
+      - LANG=C.UTF-8
+      - node.name=es01
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=172.18.0.4, 172.18.0.5
+      - cluster.initial_master_nodes=172.18.0.3, 172.18.0.4, 172.18.0.5
+      - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
+networks:
+  es:
+    external: true
+```
