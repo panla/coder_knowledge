@@ -136,3 +136,78 @@ GET _analyze
     }
 }
 ```
+
+exampke
+
+```json
+PUT /remote
+{
+  "mappings" : {
+    "properties" : {
+      "id" : {
+        "type" : "long"
+      },
+      "is_delete" : {
+        "type" : "boolean"
+      },
+      "name" : {
+        "type" : "text",
+        "fields" : {
+          "keyword" : {
+            "type" : "keyword",
+            "ignore_above" : 256
+          }
+        }
+      },
+      "pharmacy_id" : {
+        "type" : "long"
+      },
+      "price" : {
+        "type" : "double"
+      },
+      "price_unit" : {
+        "type" : "text",
+        "fields" : {
+          "keyword" : {
+            "type" : "keyword",
+            "ignore_above" : 256
+          }
+        }
+      },
+      "status" : {
+        "type" : "long"
+      },
+      "stock" : {
+        "type" : "long"
+      },
+      "desc" : {
+        "type" : "text",
+        "fields" : {
+          "keyword" : {
+            "type" : "keyword",
+            "ignore_above" : 256
+          }
+        }
+      },
+      "verify_info" : {
+        "type" : "text",
+        "fields" : {
+          "keyword" : {
+            "type" : "keyword",
+            "ignore_above" : 256
+          }
+        }
+      },
+      "aliases" : {
+        "type" : "text",
+        "fields" : {
+          "keyword" : {
+            "type" : "keyword",
+            "ignore_above" : 256
+          }
+        }
+      }
+    }
+  }
+}
+```
