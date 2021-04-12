@@ -26,7 +26,7 @@ GET /_cat/shards?v
 ### 指定字段类型
 
 ```text
-PUT /example_a
+PUT /medicines
 {
   "mappings": {
     "properties": {
@@ -41,6 +41,40 @@ PUT /example_a
 }
 ```
 
+## PUT
+
+### 更新一条药材数据
+
+创建或更新数据，须指定文档的索引名称，唯一的文档 ID以及数据
+
+```text
+PUT /medicines/_doc/1
+{
+  "name": "人参",
+  "price": 0.08,
+  "is_delete": false
+}
+```
+
+response
+
+```json
+{
+  "_index" : "medicines",
+  "_type" : "_doc",
+  "_id" : "1",
+  "_version" : 2,
+  "result" : "updated",
+  "_shards" : {
+    "total" : 2,
+    "successful" : 1,
+    "failed" : 0
+  },
+  "_seq_no" : 2,
+  "_primary_term" : 1
+}
+```
+
 ## POST
 
 ### 创建一条药材数据
@@ -48,7 +82,7 @@ PUT /example_a
 保存在指定的索引的类型下，可以指定唯一标识，不指定时则会自动生成
 
 ```text
-POST /example_a/medicines
+POST /medicines/_doc
 {
   "id": 1,
   "name": "人参",
@@ -61,8 +95,8 @@ response
 
 ```json
 {
-  "_index" : "example_a",
-  "_type" : "medicines",
+  "_index" : "medicines",
+  "_type" : "_doc",
   "_id" : "Ohe1pXgBBdVu-MYeRhgi",
   "_version" : 1,
   "result" : "created",
@@ -77,7 +111,7 @@ response
 ```
 
 ```text
-POST /example_a/medicines/1
+POST /medicines/_doc/1
 {
   "id": 1,
   "name": "人参",
@@ -86,36 +120,10 @@ POST /example_a/medicines/1
 }
 ```
 
-## PUT
-
-### 更新一条药材数据
+### 更新部分字段数据
 
 ```text
-PUT /example_a/medicines/1
-{
-  "name": "人参",
-  "price": 0.08,
-  "is_delete": false
-}
-```
-
-response
-
-```json
-{
-  "_index" : "example_a",
-  "_type" : "medicines",
-  "_id" : "1",
-  "_version" : 2,
-  "result" : "updated",
-  "_shards" : {
-    "total" : 2,
-    "successful" : 1,
-    "failed" : 0
-  },
-  "_seq_no" : 2,
-  "_primary_term" : 1
-}
+POST /medicines/_doc/1/_update
 ```
 
 ## GET
@@ -130,8 +138,8 @@ response
 
 ```json
 {
-  "_index" : "example_a",
-  "_type" : "medicines",
+  "_index" : "medicines",
+  "_type" : "_doc",
   "_id" : "1",
   "_version" : 1,
   "_seq_no" : 1,
@@ -150,5 +158,5 @@ response
 ### 删除一条药材数据
 
 ```text
-DELETE /example_a/medicines/1
+DELETE /medicines/_doc/1
 ```
