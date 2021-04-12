@@ -25,6 +25,7 @@ class Car(AbstractModel):
     brand = fields.CharField(max_length=100, null=False, index=True, description='品牌')
 
     class Meta:
+        app = 'default'
         table = 'cars'
         table_description = '汽车表'
         unique_together = (('column_a', 'column_b'), )
