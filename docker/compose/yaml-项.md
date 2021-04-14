@@ -2,6 +2,12 @@
 
 ## YAML 模板
 
+```yaml
+version: "3.9"
+services:
+  
+```
+
 ### version
 
 [对应关系](https://docs.docker.com/compose/compose-file/compose-file-v3/)
@@ -11,32 +17,146 @@
 ### image
 
 ```yaml
-image: "centos:8.3.2011"
+version: "3.9"
+services:
+  web1:
+    image: centos:8.3.2011
 ```
 
-### build，指定 Dockerfile 文件夹的路径
+### build
+
+指定 Dockerfile 文件夹的路径，利用它自动构建这个镜像，然后使用这个镜像
 
 ```yaml
-build: "/path/to/build/dir"
+version: "3.9"
+services:
+  web1:
+    build: ./dir
 ```
 
-### ports 暴露的端口信息
+### command
+
+覆盖容器启动后默认执行的命令
+
+```yaml
+version: "3.9"
+services:
+  web1:
+    command: python -V
+```
+
+### `container_name`
+
+指定容器名称
+
+```yaml
+version: "3.9"
+services:
+  web1:
+    container_name: web1
+```
+
+### `depends_on`
+
+容器之间的依赖，a 依赖 b
+
+但 a 也不用等 a 完全启动后再启动
+
+```yaml
+version: "3.9"
+services:
+  web1:
+    depends_on: web2
+  web2:
+    ...
+```
+
+### `env_file`
+
+从文件中获取环境变量
+
+```yaml
+version: "3.9"
+services:
+  web1:
+    env_file: ./common.env
+```
+
+### enviroment
+
+设置环境变量
+
+```yaml
+version: "3.9"
+services:
+  web1:
+    environment:
+      # 格式还挺多？!
+      - password: "abcdefg"
+      - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
+      - "TZ=Asia/Shanghai"
+      - TZ="Asia/Shanghai"
+      TZ: "Asia/Shanghai"
+```
+
+### expose
+
+只暴露端口，但不映射到主机，只被连接的服务访问
+
+```yaml
+version: "3.9"
+services:
+  web1:
+    expose:
+      - "3000"
+      - "8080"
+```
+
+### ports
+
+暴露的端口信息
 
 没有指定宿主机端口时，会随机指定宿主机端口
 
 ```yaml
-ports:
-  - "3000"
-  - "8000:8000"
-  - "127.0.0.1:8001:8001"
+version: "3.9"
+services:
+  web1:
+    ports:
+      - "3000"
+      - "8000:8000"
+      - "127.0.0.1:8001:8001"
 ```
 
-### expose 只暴露端口，但不映射到主机，只被连接的服务访问
+### networks 内
 
 ```yaml
-expose:
-  - "3000"
-  - "8080"
+version: "3.9"
+services:
+  web1:
+    networks:
+      es:
+        ipv4_address: 172.18.0.2
+```
+
+### networks 外
+
+```yaml
+networks:
+  es:
+    external: true
+```
+
+### sysctls
+
+```yaml
+ulimits:
+  nproc: 65535
+  # 最大进程数
+  nofile:
+    # 文件句柄数
+    soft: 20000
+    hard: 40000
 ```
 
 ### net 与 docker --net 一致
@@ -55,7 +175,7 @@ volumes:
   - /srv/data:/srv/data:ro
 ```
 
-### volumes_from 从另一个服务或容器挂载它的所有数据卷
+### `volumes_from` 从另一个服务或容器挂载它的所有数据卷
 
 ```yaml
 volumes_from:
@@ -63,77 +183,17 @@ volumes_from:
   - container_name
 ```
 
-### command，覆盖容器启动后执行的命令
+### swarm mode
 
-```yaml
-command: python -V
-```
-
-### enviroment 设置环境变量
-
-```yaml
-environment:
-  password: "abcdefg"
-```
-
-### env_file 从文件中获取环境变量
-
-```yaml
-env_file: .env
-
-env_file:
-  - /opt/apps/conf.env
-```
-
-### links 链接到其他服务器
-
-使用的别名会自动在容器中的 /etc/hosts 创建
-
-```text
-172.17.2.186 db
-172.17.2.186 database
-172.17.2.187 redis
-```
-
-```yaml
-links:
-  - db
-  - db:database
-  - redis
-```
-
-### external_links
-
-```yaml
-external_links:
- - redis_1
- - project_db_1:mysql
- - project_db_1:postgresql
-```
-
-### extends 基于已有的服务进行扩展
-
-common.yaml
-
-```yaml
-webapp:
-  build: ./webapp
-  environment:
-    - DEBUG=false
-    - SEND_EMAILS=false
-```
-
-development.yml
-
-```yaml
-web:
-  extends:
-    file: common.yml
-    service: webapp
-  ports: - "8000:8000"
-```
+configs deploy
 
 ### 其他项
+
+```yaml
+devices:
+  - "/dev/ttyUSB1:/dev/ttyUSB0"
+  # 指定设备映射关系
+```
 
 和 docker run 支持的选项类似
 
