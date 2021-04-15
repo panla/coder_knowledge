@@ -6,6 +6,8 @@
 
 把下载链接的 `https://az764295.vo.msecnd.net` 替换为 `http://vscode.cdn.azure.cn`
 
+[最新下载cdn](http://vscode.cdn.azure.cn/stable/3c4e3df9e89829dce27b7b5c24508306b151f30d/code-stable-x64-1618307634.tar.gz)
+
 解压
 
 Desktop 文件
