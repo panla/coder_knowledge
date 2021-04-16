@@ -6,16 +6,20 @@
 
 ## 解压配置
 
-mongo.conf `/opt/mongodb/bin/mongo.conf`
+mongo.conf
 
 ```text
 dbpath=/opt/mongodb/data/db
 logpath=/opt/mongodb/logs/mongodb.log
+pidfilepath=/opt/mongodb/logs/mongodb.pid
+
 port=27017
+
+auth=true
+
 logappend=true
 journal=true
 quiet=true
-pidfilepath=/opt/mongodb/logs/mongodb.pid
 ```
 
 systemctl管理 `/usr/lib/systemd/system/mongodb.service`
@@ -26,8 +30,8 @@ Description=The MongoDB Server
 After=network.target remote-fs.target nss-lookup.target
 
 [Service]
-User=mongo
-Group=mongo
+# User=mongo
+# Group=mongo
 
 Type=forking
 ExecStart=/opt/mongodb/bin/mongod -f /opt/mongodb/bin/mongo.conf -fork
