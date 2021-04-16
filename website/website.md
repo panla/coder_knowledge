@@ -30,6 +30,7 @@
 | `http://docs.kubernetes.org.cn/` | Kubernetes 中文社区中文文档 |
 | `https://kubernetes.io/zh/` | Kubernets 官网 |
 | `https://www.kuboard.cn/install/install-k8s.html` | kuboard |
+| `https://docs.mongodb.com/manual/tutorial/getting-started/` | mongo |
 
 ## 优秀工具网站
 
