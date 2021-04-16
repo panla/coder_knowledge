@@ -34,6 +34,8 @@ ALTER TABLE students CHANGE name name1 VARCHAR(20);
 
 -- 删除字段
 ALTER TABLE students DROP name1;
+
+ALTER TABLE students COMMENT '学生信息表';
 ```
 
 ### 外键

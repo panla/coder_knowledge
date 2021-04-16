@@ -16,6 +16,8 @@ UPDATE `students` SET `name` = '大佬', `email` = 'aaa@163.com' WHERE `name` = 
 -- 闭合区间
 UPDATE `students` SET `name` = '大佬' WHERE `id` BETWEEN 1 AND 10;
 
+-- 字符替换
+UPDATE `students` SET `name` = REPLACE(`name`, '小', '大') WHERE name LIKE '%小%';
 ```
 
 ## delete
