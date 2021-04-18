@@ -43,3 +43,32 @@ PrivateTmp=true
 [Install]
 WantedBy=multi-user.target
 ```
+
+## docker-compose
+
+```yaml
+version: '3.9'
+services:
+  mongo01:
+    image: mongo:latest
+    container_name: mongo01
+    restart: always
+    environment:
+      - TZ="Asia/Shanghai"
+      - LC_ALL=C.UTF-8
+      - LANG=C.UTF-8
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin
+    networks:
+      mongo:
+        ipv4_address: 172.19.0.3
+    ports:
+      - 127.0.0.1:27018:27017
+    volumes:
+      - ./db:/data/db
+      - ./log:/var/log/mongodb
+
+networks:
+  mongo:
+    external: true
+```
