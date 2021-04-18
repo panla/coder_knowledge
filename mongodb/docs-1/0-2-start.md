@@ -1,5 +1,32 @@
 # 简单操作
 
+## auth
+
+```bash
+use admin
+db.createUser( {user: "admin",pwd: "123456",roles: [ { role: "userAdminAnyDatabase", db: "admin" } ]})
+
+db.auth(user, passwd)
+```
+
+```text
+数据库用户角色
+    read：只读
+    readWriter：读写
+数据库管理角色：
+    dbAdmin：允许用户在指定的数据库中执行管理函数，创建索引，删除查看统计
+    dbOwner：
+    userAdmin：允许用户向system.usera集合写入，可以创建删除管理用户
+集群管理角色：clusterAdmin clusterManager clusterMonitor hostManager
+备份恢复角色：backup restore
+所有数据库角色：
+    readAnyDatabase： 授予用户所有数据库读权限
+    readWriterAnyDatabase： 授予用户所有数据库读写权限
+    userAdminAnyDatabase：
+    dbAdminAnyDatabase
+超级用户角色：root
+```
+
 ## db
 
 ```bash
@@ -11,33 +38,56 @@ show dbs
 
 # 切换，创建数据库
 use example
+
+# 删除
+use example
+db.dropDatabase
 ```
 
 ## collection
 
 ```bash
-# 返回该数据库下的集合
-show collections
-
 db.collection.xxx
+
+show collstions
+db.createCollection(name, options)
+db.students.drop()
 ```
+
+### document
+
+#### insert
 
 ```bash
 # 向 students 插入数据
+db.students.insert([{name: "panla", age: 17, gender: 1}, {name: "pandora", age: 16, gender: 0}])
+
+db.students.insertOne({})
 db.students.insertMany([{name: "panla", age: 17, gender: 1}, {name: "pandora", age: 16, gender: 0}])
 
+# 相同_id ObjectId 更新插入
+db.students.save([{name: "panla", age: 17, gender: 1}])
 ```
 
-### 查询
+#### update
 
 ```bash
+db.students.update({_id: ObjectId("")}, {age: 12})
+db.students.update({_id: ObjectId("")}, {age: 12})
+```
+
+#### query
+
+```bash
+# 格式化
+.pretty()
+
 # 查询数据
 db.students.find({})
 # { "_id" : ObjectId("607937987d1414fc08c932bd"), "name" : "panla", "age" : 17, "gender" : 1 }
 # { "_id" : ObjectId("607937987d1414fc08c932be"), "name" : "pandora", "age" : 16, "gender" : 0 }
 
-# 格式化
-db.students.find({}).pretty()
+db.students.findOne({})
 
 # 根据 name 查询
 db.students.find({name: 'panla'})
