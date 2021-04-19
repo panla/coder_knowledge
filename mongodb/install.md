@@ -50,7 +50,7 @@ WantedBy=multi-user.target
 version: '3.9'
 services:
   mongo01:
-    image: mongo:latest
+    image: mongo:4.4.5
     container_name: mongo01
     restart: always
     environment:
@@ -71,4 +71,8 @@ services:
 networks:
   mongo:
     external: true
+```
+
+```bash
+docker-compose up -d
 ```
