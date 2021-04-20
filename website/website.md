@@ -32,6 +32,7 @@
 | `https://www.mongodb.com/` | MongoDB官网 |  |
 | `https://docs.mongodb.com/manual/tutorial/getting-started/` | mongo |
 | `https://docs.mongoing.com/` | momgo 中文手册 |
+| `https://docs.mongodb.com/manual` | mongo 手册 |
 
 ## 优秀工具网站
 
