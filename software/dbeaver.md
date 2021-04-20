@@ -25,6 +25,14 @@ cd dbeaver
 mvn package
 ```
 
+## jdk jre
+
+```text
+export JAVA_HOME=/opt/jdk-11.0.9
+export CLASSPATH=.:${JAVA_HOME}/lib
+export PATH=${JAVA_HOME}/bin:$PATH
+```
+
 ## desktop
 
 ```text
