@@ -81,3 +81,15 @@ name        字段只写了  unique          结果生成了 唯一约束，在�
 account_id  字段只写了  index           结果生成了 普通索引，只在索引里找到。
 phone       字段写了    index unique    结果生成了 唯一索引，在约束和索引里都可以找到。(此处与PGSQL有所不同)
 ```
+
+#### 增加删除唯一约束，索引
+
+```sql
+ALTER TABLE <数据表名> ADD CONSTRAINT <唯一约束名> UNIQUE(<列名>);
+ALTER TABLE <数据表名> DROP CONSTRAINT <唯一约束名>;
+```
+
+```sql
+ALTER TABLE <数据表名> ADD INDEX <索引名称> (`column` );
+ALTER TABLE <数据表名> DROP INDEX <索引名称>;
+```
