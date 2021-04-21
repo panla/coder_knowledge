@@ -36,6 +36,18 @@ class Car(AbstractModel):
 
 ```
 
+```text
+unique_together=("field_a", "field_b")
+unique_together=(("field_a", "field_b"), )
+unique_together=(("field_a", "field_b"), ("field_c", "field_d", "field_e")
+```
+
+```text
+indexes=("field_a", "field_b")
+indexes=(("field_a", "field_b"), )
+indexes=(("field_a", "field_b"), ("field_c", "field_d", "field_e")
+```
+
 ### Model 提供的方法
 
 ```text
