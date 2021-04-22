@@ -74,6 +74,16 @@ delete()
 fetch_related()
 ```
 
+### `prefetch_related`
+
+```python
+question = await Question.all().prefetch_related(
+    Prefetch('owner', queryset=User.filter(id=1), to_attr='owner'))
+
+# question 就包含了 owner 对象
+# 需要有 ForeignKeyField 关系 db_constraint=True/False
+```
+
 ## select
 
 ```text
