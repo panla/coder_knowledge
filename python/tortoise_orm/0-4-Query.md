@@ -4,32 +4,74 @@
 
 ## QuerySet
 
-```text
-all
-annotate
-count
-delete
-distinct
-exclude
-exists
-explain
-filter
-first
-get
-get_or_nonegroup_by
-limit
-offset
-only
-order_by
+### QuerySet 所拥有的方法
 
-prefetch_related
+`tortoise.quertset.QuerySet`
+
+```text
+filter() -> QuerySet
+all() -> QuerySet
+
+exclude() -> QuerySet
+only() -> QuerySet
+order_by() -> QuerySet
+group_by() -> QuerySet
+limit() -> QuerySet
+offset() -> QuerySet
+distinct() -> QuerySet
+
+select_for_update() -> QuerySet
+annotate() -> QuerySet
+
+prefetch_related() -> QuerySet
     instance.fetch_related
-resolve_filters
-resolve_ordering
-update
-using_db
-values
-values_list
+select_related() -> QuerySet
+
+using() -> QuerySet
+
+first() -> QuerySetSingle
+get() -> QuerySetSingle
+get_or_none() -> QuerySetSingle
+
+exists() -> ExistsQuery
+values() -> ValuesQuery
+values_list() -> ValuesListQuery
+count() -> CountQuery
+delete() -> DeleteQuery
+update() -> UpdateQuery
+
+explain()
+
+```
+
+### AwaitableQuery
+
+```text
+resolve_filters()
+resolve_ordering()
+sql()
+```
+
+### QuerySetSingle
+
+```text
+prefetch_related()
+annotate() -> QuerySetSingle
+only() -> QuerySetSingle
+values() -> ValuesQuery
+values_list() -> ValuesListQuery
+```
+
+### Model 实例的方法
+
+`tortoise.models.Model`
+
+```text
+clone() -> Model
+update_from_dict() -> Model
+save()
+delete()
+fetch_related()
 ```
 
 ## select
