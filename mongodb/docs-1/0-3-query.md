@@ -68,3 +68,41 @@ $slice
 $where
     js
 ```
+
+## 排序
+
+```text
+升序
+sort({key: 1})
+
+降序
+sort({key: -1})
+```
+
+## 聚合
+
+```text
+$sum
+%max
+$min
+$avg
+$push       将值插入到一个结果文档的数组中
+$addToSet   将值插入到一个结果文档的数组中，但不进行复制
+$first
+$last
+```
+
+### sum example
+
+```text
+{ "_id" : ObjectId("60827aa55a578bb6aaa35701"), "name" : "4", "age" : 16, "created_at" : ISODate("2021-04-23T07:43:33.661Z") }
+{ "_id" : ObjectId("60827aac5a578bb6aaa35702"), "name" : "5", "age" : 13, "created_at" : ISODate("2021-04-23T07:43:40.966Z") }
+{ "_id" : ObjectId("607e9d92c73e72a912c801fa"), "name" : "2", "age" : 12, "created_at" : Timestamp(1618910610, 1) }
+{ "_id" : ObjectId("607e9ea5c73e72a912c801fb"), "name" : "3", "age" : 12, "created_at" : ISODate("2021-04-20T09:28:05.118Z") }
+
+db.mycol.aggregate([{$group : {_id : "$age", num : {$sum : 1}}}])
+
+{ "_id" : 13, "num" : 1 }
+{ "_id" : 12, "num" : 2 }
+{ "_id" : 16, "num" : 1 }
+```
