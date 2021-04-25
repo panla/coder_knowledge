@@ -69,16 +69,6 @@ $where
     js
 ```
 
-## 排序
-
-```text
-升序
-sort({key: 1})
-
-降序
-sort({key: -1})
-```
-
 ## 聚合
 
 ```text
@@ -88,8 +78,30 @@ $min
 $avg
 $push       将值插入到一个结果文档的数组中
 $addToSet   将值插入到一个结果文档的数组中，但不进行复制
-$first
-$last
+$first      根据成组方式，从源文档中获取第一个文档。但只有对之前应用过 $sort 管道操作符的结果才有意义。
+$last       根据成组方式，从源文档中获取最后一个文档。但只有对之前进行过 $sort 管道操作符的结果才有意义。
+```
+
+## 管道
+
+```text
+$project
+$match
+$group
+$sort
+$skip
+$limit
+$unwind
+```
+
+### 排序
+
+```text
+升序
+sort({key: 1})
+
+降序
+sort({key: -1})
 ```
 
 ### sum example
