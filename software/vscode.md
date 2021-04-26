@@ -47,23 +47,20 @@ C/C++ Snippets
 C++ Intellisense
 Chinese Language Pack
 EditorConfig for VS Code
-flask-snippets
 Git Graph
 Git History
+gitignore
 indent-rainbow
 Jupyter
-Markdown PreView Enhanced
+Markdown Preview Enhanced
 markdownlint
 MySQL Syntax
 Prettify JSON
 Pylance
 Python
-Python Extension Pack
 Python Indent
-Python snippets
 Python Type Hint
 Rainbow CSV
-Visual Studio IntelliCode
 YAML
 ```
 
