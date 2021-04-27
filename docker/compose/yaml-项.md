@@ -239,7 +239,7 @@ services:
     ports:
       - 9200:9200
       - 9300:9300
-    volumns:
+    volumes:
       - ./data/es01:/user/share/elasticsearch/data
       - ./logs/es01:/usr/share/elasticsearch/logs
       - ./plugins/es01:/usr/share/elasticsearch/plugins
