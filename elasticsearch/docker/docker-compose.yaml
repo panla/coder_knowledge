@@ -15,7 +15,7 @@ services:
       - ./logs/es1:/usr/share/elasticsearch/logs
       - ./plugins/es1:/usr/share/elasticsearch/plugins
     environment:
-      - TZ="Asia/Shanghai"
+      - TZ=Asia/Shanghai
       - LC_ALL=C.UTF-8
       - LANG=C.UTF-8
       - node.name=es1
@@ -35,7 +35,7 @@ services:
       - ./logs/es2:/usr/share/elasticsearch/logs
       - ./plugins/es2:/usr/share/elasticsearch/plugins
     environment:
-      - TZ="Asia/Shanghai"
+      - TZ=Asia/Shanghai
       - LC_ALL=C.UTF-8
       - LANG=C.UTF-8
       - node.name=es2
@@ -55,7 +55,7 @@ services:
       - ./logs/es3:/usr/share/elasticsearch/logs
       - ./plugins/es3:/usr/share/elasticsearch/plugins
     environment:
-      - TZ="Asia/Shanghai"
+      - TZ=Asia/Shanghai
       - LC_ALL=C.UTF-8
       - LANG=C.UTF-8
       - node.name=es3
