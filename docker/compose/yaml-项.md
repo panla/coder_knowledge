@@ -95,7 +95,7 @@ services:
       - password: "abcdefg"
       - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
       - "TZ=Asia/Shanghai"
-      - TZ="Asia/Shanghai"
+      - TZ=Asia/Shanghai
       TZ: "Asia/Shanghai"
 ```
 
@@ -226,7 +226,7 @@ services:
       es:
         ipv4_address: 172.18.0.2
     environment:
-      - TZ="Asia/Shanghai"
+      - TZ=Asia/Shanghai
       - LC_ALL=C.UTF-8
       - LANG=C.UTF-8
       - ELASTICSEARCH_HOSTS: "http://172.18.0.3:9200"
@@ -248,7 +248,7 @@ services:
       es:
         ipv4_address: 172.18.0.3
     environment:
-      - TZ="Asia/Shanghai"
+      - TZ=Asia/Shanghai
       - LC_ALL=C.UTF-8
       - LANG=C.UTF-8
       - node.name=es01
