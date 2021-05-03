@@ -34,6 +34,7 @@
 | `https://fastapi.tiangolo.com/zh/` | fastapi docs |  |
 | `https://www.knowledgedict.com/` | 程序员笔记 |
 | `https://www.bookstack.cn/` | 书栈网 |  |
+| `https://www.cs.usfca.edu/~galles/visualization/Algorithms.html` | Data Structure Visualizations |
 
 ## orm
 
