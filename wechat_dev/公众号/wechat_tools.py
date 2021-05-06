@@ -1,11 +1,13 @@
 import aiohttp
+import hashlib
 
 
 class WeChatTool(object):
-    def __init__(self, app_id, app_secret, state):
+    def __init__(self, app_id: str, app_secret: str, state: str, token: str):
         self.app_id = app_id
         self.app_secret = app_secret
         self.state = state
+        self.token = token
 
     @staticmethod
     async def _request(method: str, url: str):
@@ -16,15 +18,31 @@ class WeChatTool(object):
                     raise Exception(f'{method} {url} error, data: {data}')
                 return data
 
-    @staticmethod
-    async def request(method: str, url: str):
+    async def request(self, method: str, url: str):
         for i in range(3):
             data = await self._request(method, url)
             if 'errcode' not in data:
                 return data
             else:
                 pass
-        raise Exception(f'{method} {url} error, data: {data}')
+        raise Exception(f'{method} {url} error')
+
+    async def check_wechat(self, signature, timestamp, nonce, echo_str):
+        """验证消息的确来自微信服务器
+
+        :param signature: 微信加密签名
+        :param timestamp: 时间戳
+        :param 随机数
+        :param echo_str: 随机字符串
+        """
+
+        lis = sorted([self.token, str(timestamp), str(nonce)])
+        sort_str = ''.join(lis)
+        sign = hashlib.sha1(sort_str).hexdigest()
+        if sign == signature:
+            return echo_str
+        else:
+            return False
 
     async def get_auth_code(self, redirect_uri: str, scope: str = 'snsapi_userinfo'):
         """获取 code
@@ -61,8 +79,8 @@ class WeChatTool(object):
         :return: {"access_token":"", "expires_in":7200, "refresh_token":"", "openid":"", "scope":""}
         """
 
-        domain = 'https://api.weixin.qq.com/sns/oauth2/refresh_token'
-        url = f'{domain}?appid={self.app_id}&grant_type=refresh_token&refresh_token={refresh_token}'
+        api = 'https://api.weixin.qq.com/sns/oauth2/refresh_token'
+        url = f'{api}?appid={self.app_id}&grant_type=refresh_token&refresh_token={refresh_token}'
         data = await self.request('GET', url)
         return data
 
