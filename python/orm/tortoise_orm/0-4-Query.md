@@ -78,13 +78,15 @@ fetch_related()
 
 ```python
 question = await Question.all().prefetch_related(
-    Prefetch('owner', queryset=User.filter(id=1), to_attr='owner'))
+    Prefetch('owner', queryset=User.filter(id=1), to_attr='owner').first())
 
 # question 就包含了 owner 对象
 # 需要有 ForeignKeyField 关系 db_constraint=True/False
 ```
 
 ## select
+
+双下划线
 
 ```text
 not
@@ -93,9 +95,28 @@ gte, gt, lte, lt
 range
 isnull, not_isnull
 contains, icontains
-startswith, istartswith
-endswith, iendswith
+startswith, istartswith endswith, iendswith
 iexact
+search
+```
+
+### filter date
+
+```python
+class DatePart(Enum):
+    year = "YEAR"
+    quarter = "QUARTER"
+    month = "MONTH"
+    week = "WEEK"
+    day = "DAY"
+    hour = "HOUR"
+    minute = "MINUTE"
+    second = "SECOND"
+    microsecond = "MICROSECOND"
+
+await Team.filter(created_at__year=2020)
+await Team.filter(created_at__month=11)
+await Team.filter(created_at__day=5)
 ```
 
 ## annotate functions
