@@ -53,8 +53,8 @@ class WeChatTool(object):
         """
 
         api = 'https://open.weixin.qq.com/connect/oauth2/authorize'
-        base_url = f'{self.app_id}&redirect_uri={redirect_uri}&response_type=code&scope={scope}&state={self.state}'
-        url = f'{api}?appid={base_url}'
+        base_url = f'{self.app_id}&redirect_uri={redirect_uri}&scope={scope}&state={self.state}'
+        url = f'{api}?appid={base_url}&response_type=code#wechat_redirect'
         data = await self.request('GET', url)
         code = data.get('code')
         return f'{redirect_uri}/?code={code}&state={self.state}'
