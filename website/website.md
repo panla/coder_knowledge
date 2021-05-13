@@ -58,6 +58,7 @@
 | url | 网站 | 备注 |
 | :-: | :-: | :-: |
 | `http://www.postgres.cn/docs/13/` | pgsql |  |
+| `https://www.pgpool.net/docs/latest/en/html/example-cluster.html` | pgpool cluster example |
 
 ### mongo
 
