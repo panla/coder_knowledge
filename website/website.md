@@ -50,7 +50,7 @@
 
 | url | 网站 | 备注 |
 | :-: | :-: | :-: |
-| `https://www.osgeo.cn/pytest/getting-started.html` | pytest |  |
+| `https://www.osgeo.cn/pytest/contents.html` | pytest |  |
 
 ## 运维
 
