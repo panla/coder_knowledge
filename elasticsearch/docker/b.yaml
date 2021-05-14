@@ -15,7 +15,7 @@ services:
       - ./logs/es0:/usr/share/elasticsearch/logs
       - ./plugins/es1:/usr/share/elasticsearch/plugins
     environment:
-      - TZ="Asia/Shanghai"
+      - TZ=Asia/Shanghai
       - LC_ALL=C.UTF-8
       - LANG=C.UTF-8
       - discovery.type=single-node
