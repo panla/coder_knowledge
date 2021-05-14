@@ -36,13 +36,21 @@
 | `https://www.bookstack.cn/` | 书栈网 |  |
 | `https://www.cs.usfca.edu/~galles/visualization/Algorithms.html` | Data Structure Visualizations |
 
-## orm
+## Python 开发
+
+### orm
 
 | url | 网站 | 备注 |
 | :-: | :-: | :-: |
 | `https://python-gino.org` | gino |  |
 | `https://tortoise-orm.readthedocs.io/en/latest/index.html` | tortoise-orm |
 | `https://www.osgeo.cn/sqlalchemy/` | sqlalchemy 文档 |  |
+
+### 测试
+
+| url | 网站 | 备注 |
+| :-: | :-: | :-: |
+| `https://www.osgeo.cn/pytest/getting-started.html` | pytest |  |
 
 ## 运维
 
