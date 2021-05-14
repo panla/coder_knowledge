@@ -24,3 +24,17 @@ git config --global alias.co checkout
 git config --global alias.ci commit
 git config --global alias.st status
 ```
+
+## 加速？
+
+```text
+https://www.ipaddress.com/
+
+github.com
+
+github.global.ssl.fastly.net
+
+/etc/hosts
+
+ip 域名
+```
