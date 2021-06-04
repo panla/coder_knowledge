@@ -21,6 +21,7 @@
 | `https://mirrors.huaweicloud.com/` | 华为云镜像站 |  |
 | `https://developer.aliyun.com/sdk/java.html` | 阿里云sdk |  |
 | `https://sourceforge.net` | sourceforge | 直接下载部分源码 |
+| `https://docs.conda.io/en/latest/miniconda.html` | miniconda | 清华镜像不好用时可以用这个 |
 
 ## 优秀工具网站
 
