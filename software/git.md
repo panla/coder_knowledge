@@ -34,7 +34,13 @@ github.com
 
 github.global.ssl.fastly.net
 
-/etc/hosts
+assets-cdn.github.com
 
-ip 域名
+avatars1.githubusercontent.com
+
+查找后修改 /etc/hosts -> ip 域名
+
+修改 /etc/resolv.conf 新增
+nameserver 8.8.8.8
+nameserver 8.8.4.4
 ```
