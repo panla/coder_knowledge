@@ -40,7 +40,6 @@ Icon=com.visualstudio.code
 ## 插件
 
 ```text
-Anaconda Extension Pack
 Better C++ Syntax
 C/C++
 C/C++ Snippets
@@ -60,7 +59,8 @@ Pylance
 Python
 Python Indent
 Python Type Hint
-Rainbow CSV
+Redis
+vscode-icons
 YAML
 ```
 

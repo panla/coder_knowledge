@@ -1,29 +1,48 @@
-import argparse
+"""
+遍历单个/多个文件夹下的所有文件（可以使用utf-8 read 的文件）
+根据参数中的 targets 在读取的文件中查找 target
+如果查找到就把 target 和 文件路径记录到 log 中
+"""
+
 import os
-import sys
+import argparse
 
-parser = argparse.ArgumentParser()
-parser.add_argument('-d', '--dir', type=str, required=True, help='文件夹路径')
-parser.add_argument('-a', '--aim', type=str, required=True, help='目标')
+param_parser = argparse.ArgumentParser()
+param_parser.add_argument('-d', '--dirs', nargs='*', type=str, required=False, default=[], help='dirs')
+param_parser.add_argument('-t', '--targets', nargs='+', required=True, help='target')
+param_parser.add_argument('-l', '--log', type=str, required=False, default='./r.log', help='log file')
 
-params = parser.parse_args()
-input_dir = params.dir
-input_aim = params.aim
+params = param_parser.parse_args()
+dirs = params.dirs
+directions = []
+if dirs:
+    for d in dirs:
+        if os.path.isdir(os.path.abspath(d)):
+            directions.append(os.path.abspath(d))
+targets = params.targets
+log_file = params.log
 
-if not os.path.isdir(input_dir):
-    sys.stderr.write('输入的参数 -d/--dir 不存在\n')
-    sys.exit(1)
-input_dir = os.path.abspath(input_dir)
 
-for root, dirs, file_names in os.walk(input_dir):
-    for file_name in file_names:
-        path = os.path.join(root, file_name)
-        try:
-            with open(path, 'r', encoding='utf-8') as f:
-                content = f.read()
-                if input_aim in content:
-                    sys.stdout.write(f'{path}\n')
-        except:
-            pass
+def read_file(path: str):
+    try:
+        with open(path, 'r', encoding='utf-8') as f:
+            return f.read()
+    except:
+        return ''
 
-sys.stdout.write('查找结束\n')
+
+def write_file(path: str, content: str):
+    with open(path, 'a+', encoding='utf-8') as f:
+        f.write(content)
+
+
+os.makedirs(os.path.dirname(os.path.abspath(log_file)), exist_ok=True)
+
+if directions:
+    for direction in directions:
+        for root, _, files in os.walk(direction):
+            for file in files:
+                file_path = os.path.join(root, file)
+                for target in targets:
+                    if target in read_file(file_path):
+                        write_file(log_file, '{} {}\n'.format(target, file_path))
