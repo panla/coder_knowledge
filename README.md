@@ -1,27 +1,35 @@
 # 进阶
 
 - Docker
+  - compose
 - ElasticSearch
   - docker
   - records
-- kubernetes
 - Linux
   - CentOS
   - command
   - network
   - shell
 - MongoDB
+- mq
 - MySQL
 - Nginx
 - PostgreSQL
 - Python
-  - Alembic
+  - code
+  - django
+  - drf
   - FastAPI
   - Flask
-  - GINO
   - Gunicorn
   - Miniconda
-  - sqlalchemy
+  - orm
+    - Alembic
+    - GINO
+    - sqlalchemy
+    - tortoise-orm
+  - sort_find
+  - test
 - Redis
 - software
   - chrome
@@ -33,3 +41,4 @@
   - vim
   - vscode
 - website
+- wechat_dev
