@@ -30,9 +30,14 @@ dnf install libXScrnSaver
 //把json字符串转化为对象
 var data=JSON.parse(responseBody);
 
-//获取data对象的utoken值。
+//获取data对象的 token 值。
 var token=data.token;
 
 //设置成全局变量
-pm.globals.set("ftm_token_local", token);
+pm.globals.set("token_local", token);
+
+
+var csrf_token = postman.getResponseCookie("csrftoken").value;
+// postman.clearGlobalVariable("local_csrf");
+postman.setGlobalVariable("local_csrf", csrf_token);
 ```

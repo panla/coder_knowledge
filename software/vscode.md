@@ -19,8 +19,8 @@ Desktop 文件
 Name=Visual Studio Code
 Comment=Code Editing. Redefined.
 GenericName=Text Editor
-Exec=执行文件绝对路径 --no-sandbox --unity-launch %F
-Icon=com.visualstudio.code
+Exec=/home/opt/VSCode/bin/code --no-sandbox --unity-launch %F
+Icon=/home/opt/VSCode/resources/app/resources/linux/code.png
 # Icon 可以在解压后的文件里找到
 Type=Application
 StartupNotify=false
@@ -32,8 +32,8 @@ Keywords=vscode;
 
 [Desktop Action new-empty-window]
 Name=New Empty Window
-Exec=执行文件绝对路径 --no-sandbox --unity-launch %F
-Icon=com.visualstudio.code
+Exec=/home/opt/VSCode/bin/code --no-sandbox --unity-launch %F
+Icon=/home/opt/VSCode/resources/app/resources/linux/code.png
 # Icon 可以在解压后的文件里找到
 ```
 

@@ -18,10 +18,14 @@ set mouse=a
 set selection=exclusive
 set selectmode=mouse,key
 
+set t_Co=256
+
 set showmatch
 set tabstop=4
+set expandtab
 set shiftwidth=4
 set autoindent
+set backspace=indent,eol,start
 
 set paste
 set listchars=tab:>-,trail:-
@@ -29,4 +33,16 @@ set listchars=tab:>-,trail:-
 if has( 'mouse' )
     set mouse-=a
 endif
+```
+
+`/etc/vim/vimrc`
+
+```text
+syntax on
+
+set showcmd
+set showmatch
+set smartcase
+set incsearch
+set mouse=a
 ```

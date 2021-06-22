@@ -19,7 +19,7 @@ https://maven.aliyun.com/repository/public
 
 ```bash
 git clone https://github.com/dbeaver/dbeaver.git dbeaver
-git clone git@gitee.com:mirrors/dbeaver.git dbeaver
+git clone xxx.xxx.xxx.com/dbeaver.git dbeaver
 cd dbeaver
 # 需要已经配置 java maven
 mvn package
@@ -28,7 +28,7 @@ mvn package
 ## jdk jre
 
 ```text
-export JAVA_HOME=/opt/jdk-11.0.9
+export JAVA_HOME=/home/opt/jdk-11.0.9
 export CLASSPATH=.:${JAVA_HOME}/lib
 export PATH=${JAVA_HOME}/bin:$PATH
 ```

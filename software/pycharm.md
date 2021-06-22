@@ -27,9 +27,9 @@ idea.log.path=/home/opt/PyCharm-202032/PyCharmCE/system/log
 ## pycharm64.vmoptions
 
 ```text
--Xms1024m
--Xmx2048m
--XX:ReservedCodeCacheSize=512m
+-Xms200m
+-Xmx350m
+-XX:ReservedCodeCacheSize=300m
 -XX:+UseConcMarkSweepGC
 -XX:SoftRefLRUPolicyMSPerMB=100
 ```
@@ -39,19 +39,19 @@ idea.log.path=/home/opt/PyCharm-202032/PyCharmCE/system/log
 ```text
 [Desktop Entry]
 Type=Application
-Name=PyCharm 202032
+Name=PyCharm 202112
 GenericName=Python IDE
 Comment=Python IDE
-Exec=sh /home/opt/PyCharm-202032/bin/pycharm.sh
-Icon=/home/opt/PyCharm-202032/bin/pycharm.png
+Exec=sh /home/opt/PyCharm-202112/bin/pycharm.sh
+Icon=/home/opt/PyCharm-202112/bin/pycharm.png
 Categories=IDE;
 Actions=new-empty-window;
 Terminal=PyCharm
 
 [Desktop Action new-empty-window]
 Name=New Empty Window
-Exec=sh /home/opt/PyCharm-202032/bin/pycharm.sh
-Icon=/home/opt/PyCharm-202032/bin/pycharm.png
+Exec=sh /home/opt/PyCharm-202112/bin/pycharm.sh
+Icon=/home/opt/PyCharm-202112/bin/pycharm.png
 Terminal=PyCharm
 ```
 
@@ -59,7 +59,6 @@ Terminal=PyCharm
 
 ```text
 .ignore
-Base64 Helper
 ideolog
 Ini
 Rainbow Brackets
