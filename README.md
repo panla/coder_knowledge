@@ -10,6 +10,7 @@
 - ElasticSearch
   - docker
   - records
+- jenkins
 - Linux
   - CentOS
   - command
