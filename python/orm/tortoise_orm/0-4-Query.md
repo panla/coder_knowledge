@@ -2,86 +2,74 @@
 
 [Query](https://tortoise-orm.readthedocs.io/en/latest/query.html)
 
-## QuerySet
+## 对象所包含方法
 
-### QuerySet 所拥有的方法
-
-`tortoise.quertset.QuerySet`
+### Model
 
 ```text
-filter() -> QuerySet
-all() -> QuerySet
+update_from_dict()
 
-exclude() -> QuerySet
-only() -> QuerySet
-order_by() -> QuerySet
-group_by() -> QuerySet
-limit() -> QuerySet
-offset() -> QuerySet
-distinct() -> QuerySet
+async save()
+async delete()
+async fetch_related()
+async refresh_from_db()
+async Model.get_or_create()
+Model.select_for_update() -> QuerySet()select_for_update
+Model.update_or_create()
+async Model.create()
+async Model.bulk_create()
 
-select_for_update() -> QuerySet
-annotate() -> QuerySet
+Model.first() -> QuerySet()first()
+Model.filter() -> QuerySet()filter()
+Model.exclude() -> QuerySet().exclude()
+Model.all() -> QuerySet().all()
+Model.get() -> QuerySet().get()
 
-prefetch_related() -> QuerySet
-    instance.fetch_related
-select_related() -> QuerySet
+Model.exists() -> QuerySet().exists()
+Model.annotate() -> QuerySet().annotate()
+Model.get_or_none() -> QuerySet().get_or_none()
+aysnc Model.fetch_for_list()
+```
 
-using() -> QuerySet
+### QuerySet
 
-first() -> QuerySetSingle
-get() -> QuerySetSingle
-get_or_none() -> QuerySetSingle
+```text
+filter() -> "QuerySet[MODEL]"
+exclude() -> "QuerySet[MODEL]"
+all() -> "QuerySet[MODEL]"
 
-exists() -> ExistsQuery
+only() -> QuerySet[MODEL]
+select_related() -> QuerySet[MODEL]
+
+first() -> QuerySetSingle[Optional[MODEL]]
+get() -> QuerySetSingle[MODEL]
+get_or_none() -> QuerySetSingle[Optional[MODEL]]
+
+order_by() -> "QuerySet[MODEL]"
+
+limit() -> "QuerySet[MODEL]"
+offset() -> "QuerySet[MODEL]"
+
+distinct() -> "QuerySet[MODEL]"
+select_for_update() -> "QuerySet[MODEL]"
+annotate() -> "QuerySet[MODEL]"
+group_by() -> "QuerySet[MODEL]"
+
+force_index() -> QuerySet[MODEL]
+use_index() -> QuerySet[MODEL]
+prefetch_related() -> QuerySet[MODEL]
+
+using_db() -> QuerySet[MODEL]
+
+async explain() -> Any    
+
+values_list() -> "ValuesListQuery"
 values() -> ValuesQuery
-values_list() -> ValuesListQuery
-count() -> CountQuery
+
 delete() -> DeleteQuery
 update() -> UpdateQuery
-
-explain()
-
-```
-
-### AwaitableQuery
-
-```text
-resolve_filters()
-resolve_ordering()
-sql()
-```
-
-### QuerySetSingle
-
-```text
-prefetch_related()
-annotate() -> QuerySetSingle
-only() -> QuerySetSingle
-values() -> ValuesQuery
-values_list() -> ValuesListQuery
-```
-
-### Model 实例的方法
-
-`tortoise.models.Model`
-
-```text
-clone() -> Model
-update_from_dict() -> Model
-save()
-delete()
-fetch_related()
-```
-
-### `prefetch_related`
-
-```python
-question = await Question.all().prefetch_related(
-    Prefetch('owner', queryset=User.filter(id=1), to_attr='owner').first())
-
-# question 就包含了 owner 对象
-# 需要有 ForeignKeyField 关系 db_constraint=True/False
+count() -> CountQuery
+exists() -> ExistsQuery
 ```
 
 ## select
@@ -98,6 +86,21 @@ contains, icontains
 startswith, istartswith endswith, iendswith
 iexact
 search
+
+await Project.filter(name__in=['a', 'b'])
+await Project.filter(user__name__in=['a', 'b'])
+```
+
+### `prefetch_related`
+
+```python
+from tortoise.query_utils import Prefetch
+
+question = await Question.all().prefetch_related(
+    Prefetch('owner', queryset=User.filter(id=1), to_attr='owner').first())
+
+# question 就包含了 owner 对象
+# 需要有 ForeignKeyField 关系 db_constraint=True/False
 ```
 
 ### filter date

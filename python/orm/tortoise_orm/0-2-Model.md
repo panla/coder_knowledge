@@ -47,23 +47,3 @@ indexes=("field_a", "field_b")
 indexes=(("field_a", "field_b"), )
 indexes=(("field_a", "field_b"), ("field_c", "field_d", "field_e")
 ```
-
-### Model 提供的方法
-
-```text
-    all()
-    annotate()
-    exclude()       排除某些结果集
-    first()
-    filter()
-    annotate()
-    get()
-
-    create()
-    exists()
-    bulk_create()
-
-async function
-    delete()
-    save()
-```
