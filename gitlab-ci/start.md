@@ -31,8 +31,8 @@ stages:
   - build
   - test
   - deploy
-    1 所有 build 的 jobs 是并行执行
-    2 所有 build 的 jobs 执行成功后，test 的 才会执行
+    1 所有相同 stage 的 jobs 是并行执行
+    2 所有相同 stage 的 jobs 执行成功后，下一个 stage 才会执行
     3 所有 build,test,deploy 的 jobs 执行完，此 commit 标记为 success
     4 有一个前置的 job 失败时，此 commit 标记为 failed 并且下一个 stages 的 job 不会执行
 
@@ -113,3 +113,9 @@ Please enter the executor: docker, shell, ssh, kubernetes, docker-ssh, parallels
 default image
 >> alpine:latest
 ```
+
+## 优缺点
+
+总的来说，gitlab-ci基本上可以完成完整的构建及发布，但也会存在一些缺点:
+发布部分，需要将程序部署到哪个服务器固化到.gitlab-ci文件中。
+另外，如果runner上直接进行部署，那么runner所在的机器则需要直接或间接的访问所有的发布的机器，这里存在一定安全问题．
