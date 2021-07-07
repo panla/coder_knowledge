@@ -111,6 +111,18 @@ def cross_domain_access_after(response):
 
     response.headers['Access-Control-Allow-Origin'] = '*'
     response.headers['Access-Control-Allow-Headers'] = '*'
+
+    # 告诉浏览器将所有 HTTP 请求转换为 HTTPS，防止中间人 (MITM) 攻击
+    response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains'
+
+    # 防止外部网站将您的网站嵌入到iframe. 这可以防止一类攻击
+    response.headers['X-Frame-Options'] = 'SAMEORIGIN'
+
+    # 如果请求包含类似 JavaScript 的内容并且响应包含相同的数据，浏览器将尝试通过不加载页面来防止反射型 XSS 攻击。
+    response.headers['X-XSS-Protection'] = '1; mode=block'
+
+    # 允许返回额外的自定义的键值对
+    response['Access-Control-Expose-Headers'] = "token"
     return response
 
 ```
