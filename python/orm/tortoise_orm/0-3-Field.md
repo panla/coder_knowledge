@@ -10,13 +10,14 @@ Fields are defined as properties of a Model class object
 ```text
 source_filed str  设置数据库中的实际值
 pk           bool 主键
-null         bool 是否允许为空
+null         bool 是否允许为空 default=False
 default      Any  默认值
-unique       bool 是否唯一
-index        bool 是否索引
+unique       bool 是否唯一 default=False
+index        bool 是否索引 default=False
 description  str  描述，comment
 generated    bool
 model
+validators   Optional[List[Union[Validator, Callable]]]
 ```
 
 ## data fields
@@ -60,9 +61,23 @@ ForeignKeyField
     model_name
     related_name
     on_delete='CASCADE'
+    db_constraint: bool = True,
 
 ManyToManyField
+    model_name: str,
+    through: Optional[str] = None,
+    forward_key: Optional[str] = None,
+    backward_key: str = "",
+    related_name: str = "",
+    on_delete: str = CASCADE,
+    db_constraint: bool = True,
+
 OneToOneField
+    model_name: str,
+    related_name: Union[Optional[str], Literal[False]] = None,
+    on_delete: str = CASCADE,
+    db_constraint: bool = True,
+
 ```
 
 ## 自定义字段

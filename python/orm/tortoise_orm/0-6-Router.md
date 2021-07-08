@@ -12,10 +12,10 @@ from tortoise.models import Model
 
 class Router:
     def db_for_read(self, model: Type[Model]):
-        return 'master'
+        return 'salve'
 
     def db_for_write(self, model: Type[Model]):
-        return 'salve'
+        return 'master'
 ```
 
 ## config
