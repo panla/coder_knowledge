@@ -1,0 +1,80 @@
+version: "3.9"
+services:
+  mysql_8025:
+    image: mysql:8.0.25
+    container_name: dev_mysql_8025
+    volumes:
+      - ./conf/mysql:/etc/mysql/conf.d
+      - ./data/mysql/data:/var/lib/mysql
+    networks:
+      dev_net:
+        ipv4_address: 172.20.0.2
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - LC_ALL=C.UTF-8
+      - LANG=C.UTF-8
+      - MYSQL_ROOT_PASSWORD=txy000***txy
+  rabbitmq:
+    image: rabbitmq:3.8.17-management
+    container_name: rabbitmq-1
+    restart: always
+    hostname: myRabbitmq-1
+    ports:
+      - 127.0.0.1:15673:15672
+      - 127.0.0.1:15672:5672
+    volumes:
+      - ./data:/var/lib/rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=root
+      - RABBITMQ_DEFAULT_PASS=root
+    networks:
+      dev_net:
+        ipv4_address: 172.20.0.3
+  pgsql_133:
+    image: postgres:13.3
+    container_name: pgsql_133
+    volumes:
+      - ./data/pgsql/data:/var/lib/postgresql/data
+    networks:
+      dev_net:
+        ipv4_address: 172.20.0.4
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+      - LC_ALL=C.UTF-8
+      - LANG=C.UTF-8
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=txy000***txy
+  redis_624:
+    image: redis:6.2.4-alpine
+    container_name: redis_624
+    networks:
+      dev_net:
+        ipv4_address: 172.20.0.5
+    restart: always
+    volumes:
+      - ./data/redis/data:/data
+    command: redis-server --requirepass 12345678
+    environment:
+      - TZ=Asia/Shanghai
+  jenkins:
+    image: jenkins/jenkins:lts-slim
+    container_name: dev_jenkins
+    networks:
+      dev_net:
+        ipv4_address: 172.20.0.6
+    restart: always
+    volumes:
+      - ./data/jenkins:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /home/opt/docker/bin/docker:/usr/bin/docker
+      - /home/opt/docker/bin/docker-compose:/usr/bin/docker-compose
+      - /home/boonray/.git-credentials:/var/jenkins_home/.git-credentials
+      - /home/boonray/srv:/home/boonray/srv
+    environment:
+      - TZ=Asia/Shanghai
+      - "JENKINS_JAVA_OPTS=-Xms256m -Xmx256m"
+networks:
+  dev_net:
+    external: true
