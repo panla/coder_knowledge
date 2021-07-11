@@ -14,7 +14,7 @@ services:
       - TZ=Asia/Shanghai
       - LC_ALL=C.UTF-8
       - LANG=C.UTF-8
-      - MYSQL_ROOT_PASSWORD=txy000***txy
+      - MYSQL_ROOT_PASSWORD=12345678
   rabbitmq:
     image: rabbitmq:3.8.17-management
     container_name: rabbitmq-1
@@ -45,7 +45,7 @@ services:
       - LC_ALL=C.UTF-8
       - LANG=C.UTF-8
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=txy000***txy
+      - POSTGRES_PASSWORD=12345678
   redis_624:
     image: redis:6.2.4-alpine
     container_name: redis_624
