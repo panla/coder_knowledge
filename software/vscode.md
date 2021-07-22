@@ -21,7 +21,6 @@ Comment=Code Editing. Redefined.
 GenericName=Text Editor
 Exec=/home/opt/VSCode/bin/code --no-sandbox --unity-launch %F
 Icon=/home/opt/VSCode/resources/app/resources/linux/code.png
-# Icon 可以在解压后的文件里找到
 Type=Application
 StartupNotify=false
 StartupWMClass=Code
@@ -34,41 +33,50 @@ Keywords=vscode;
 Name=New Empty Window
 Exec=/home/opt/VSCode/bin/code --no-sandbox --unity-launch %F
 Icon=/home/opt/VSCode/resources/app/resources/linux/code.png
-# Icon 可以在解压后的文件里找到
 ```
 
 ## 插件
 
 ```text
-Better C++ Syntax
-C/C++
-C/C++ Snippets
-C++ Intellisense
+Bracket Pair Colorizer
+indent-rainbow
 Chinese Language Pack
-Debugger for Java
+Todo Tree
+vscode-icons
+
 Docker
-EditorConfig for VS Code
+Remote-Containers
+Redis
+
 Git Graph
 Git History
 gitignore
 GitLens--Git supercharged
-indent-rainbow
-Language Support for Java
-Jupyter
+
 Markdown Preview Enhanced
 markdownlint
-Maven for java
+
 MySQL Syntax
 Prettify JSON
+
+Jupyter
+YAML
+EditorConfig for VS Code
+
 Pylance
 Python
 Python Indent
 Python Type Hint
-Redis
-Remote-Containers
-Todo Tree
-vscode-icons
-YAML
+
+Better C++ Syntax
+C/C++
+C/C++ Snippets
+C++ Intellisense
+
+Debugger for Java
+Language Support for Java
+Maven for java
+Project Manager for java
 ```
 
 ## 字体与空格宽度
