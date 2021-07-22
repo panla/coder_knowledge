@@ -45,14 +45,19 @@ C/C++
 C/C++ Snippets
 C++ Intellisense
 Chinese Language Pack
+Debugger for Java
+Docker
 EditorConfig for VS Code
 Git Graph
 Git History
 gitignore
+GitLens--Git supercharged
 indent-rainbow
+Language Support for Java
 Jupyter
 Markdown Preview Enhanced
 markdownlint
+Maven for java
 MySQL Syntax
 Prettify JSON
 Pylance
@@ -60,6 +65,8 @@ Python
 Python Indent
 Python Type Hint
 Redis
+Remote-Containers
+Todo Tree
 vscode-icons
 YAML
 ```

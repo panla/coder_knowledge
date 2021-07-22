@@ -21,12 +21,8 @@
 - Nginx
 - Python
   - code
-  - django
-  - drf
-  - FastAPI
-  - Flask
-  - Gunicorn
-  - Miniconda
+  - gunicorn
+  - miniconda
   - orm
     - Alembic
     - GINO
@@ -34,6 +30,11 @@
     - tortoise-orm
   - sort_find
   - test
+  - web
+    - django
+    - drf
+    - FastAPI
+    - Flask
 - Redis
 - software
   - chrome
