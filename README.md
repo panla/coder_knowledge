@@ -49,7 +49,7 @@
 ## Python
 
 - [gunicorn](./python/gunicorn/settings.py)
-- [miniconda][./python/miniconda/安装.md]
+- [miniconda](./python/miniconda/安装.md)
 - orm
   - [alembic](./python/orm/alembic/2.md)
   - [gino](./python/orm/gino/crud.md)
@@ -59,3 +59,8 @@
 - web framework
   - fastapi
   - flask
+
+## 数据结构学习
+
+- [数据结构绪论](./data_struct/1-数据结构术语.md)
+- [线性表](./data_struct/2-线性表.md)
