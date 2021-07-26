@@ -65,3 +65,4 @@
 - [数据结构绪论](./data_struct/1-数据结构术语.md)
 - [线性表](./data_struct/2-线性表.md)
 - [栈和队列](./data_struct/3-栈和队列.md)
+- [树和二叉树](./data_struct/4-树和二叉树.md)
