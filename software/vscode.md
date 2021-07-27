@@ -43,6 +43,7 @@ indent-rainbow
 Chinese Language Pack
 Todo Tree
 vscode-icons
+Code Spell Checker
 
 Docker
 Remote-Containers

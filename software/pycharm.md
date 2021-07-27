@@ -59,8 +59,6 @@ Terminal=PyCharm
 
 ```text
 .ignore
-ideolog
-Ini
 Rainbow Brackets
 HighlightBracketPair
 
