@@ -55,10 +55,11 @@
   - [gino](./python/orm/gino/crud.md)
   - [sqlalchemy 基础](././python/orm/sqlalchemy/sqlalchemy.md)
   - [sqlalchemy 查询](./python/orm/sqlalchemy/sqlalchemy-查询.md)
-  - [tortoise-orm](././python/orm/tortoise_orm/0-1-概要.md)
-- web framework
+  - [tortoise-orm](./python/orm/tortoise_orm/0-1-概要.md)
+- web
   - fastapi
   - flask
+  - [nameko](./python/web/nameko/README.md)
 
 ## 数据结构学习
 

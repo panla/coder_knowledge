@@ -1,0 +1,8 @@
+# mq url
+AMQP_URI: 'pyamqp://root:root@127.0.0.1:15672'
+# web server address
+WEB_SERVER_ADDRESS: '0.0.0.0:8002'
+# mq exchange
+rpc_exchange: 'nameko-rpc'
+max_workers: 10
+parent_calls_tracked: 10
