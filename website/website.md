@@ -43,7 +43,7 @@
 | url | 网站 | 备注 |
 | :-: | :-: | :-: |
 | <https://tortoise.github.io/toc.html> | tortoise-orm | 0.7.5 |
-| <https://tortoise-orm.readthedocs.io/en/latest/index.html> | tortoise-orm | 0.7.3 |
+| <https://tortoise-orm.readthedocs.io/en/latest/index.html> | tortoise-orm | 0.17.3 |
 | <https://www.osgeo.cn/sqlalchemy/> | sqlalchemy 文档 | |
 | <https://flask-sqlalchemy.palletsprojects.com/en/2.x/> | flask-sqlalchemy | |
 | <https://python-gino.org> | gino | |
@@ -61,16 +61,20 @@
 | :-: | :-: | :-: |
 | <https://fastapi.tiangolo.com/zh/> | fastapi docs | |
 | <https://flask.palletsprojects.com/en/2.0.x/> | flask | 2.0 |
-| <https://nameko.readthedocs.io/en/stable/index.html> | nameko | |
-| <https://python-socketio.readthedocs.io/en/latest/intro.html> | socketio | |
+| <https://nameko.readthedocs.io/en/stable/index.html> | nameko | rpc message |
+| <https://python-socketio.readthedocs.io/en/latest/intro.html> | socket.io | |
 | <https://falcon.readthedocs.io/en/stable/> | falcon | |
 
-### 其他
+### package
 
 | url | 网站 | 备注 |
 | :-: | :-: | :-: |
 | <https://loguru.readthedocs.io/en/stable/overview.html> | loguru | 日志 |
 | <https://flask-script.readthedocs.io/en/latest/> | flask-script | |
+| <https://aioredis.readthedocs.io/en/latest/> | aioredis-py | |
+| <https://aredis.readthedocs.io/en/latest/> | aredis | |
+| <https://www.uvicorn.org/> | uvicorn | |
+| <https://docs.gunicorn.org/en/stable/run.html> | gunicorn | |
 
 ## db
 
