@@ -38,46 +38,33 @@ Icon=/home/opt/VSCode/resources/app/resources/linux/code.png
 ## 插件
 
 ```text
-Bracket Pair Colorizer
-indent-rainbow
+Bracket Pair Colorizer 2
 Chinese Language Pack
-Todo Tree
-vscode-icons
-Code Spell Checker
-
-Docker
-Remote-Containers
-Redis
-
+EditorConfig for VS Code
 Git Graph
-Git History
 gitignore
-GitLens--Git supercharged
-
+GitLens
+indent-rainbow
 Markdown Preview Enhanced
 markdownlint
-
 MySQL Syntax
 Prettify JSON
-
-Jupyter
-YAML
-EditorConfig for VS Code
-
 Pylance
 Python
 Python Indent
 Python Type Hint
+Remote-Containers
+Todo Tree
+vscode-icons
+YAML
+
+Docker
+Redis
 
 Better C++ Syntax
 C/C++
 C/C++ Snippets
 C++ Intellisense
-
-Debugger for Java
-Language Support for Java
-Maven for java
-Project Manager for java
 ```
 
 ## 字体与空格宽度
