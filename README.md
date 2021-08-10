@@ -64,6 +64,8 @@
   - fastapi
   - flask
   - [nameko](./python/web/nameko/README.md)
+- socket.io
+  - [socket.io](./python/socket.io/README.md)
 
 ## 数据结构学习
 
