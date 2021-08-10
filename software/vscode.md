@@ -78,6 +78,12 @@ Debugger for Java
 Language Support for Java
 Maven for java
 Project Manager for java
+
+Go
+Go Doc
+Go Ngghtly
+Go Outliner
+Go To Method
 ```
 
 ## 字体与空格宽度
