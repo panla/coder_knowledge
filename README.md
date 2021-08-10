@@ -3,20 +3,21 @@
 ## 运维部署类
 
 - docker
-  - [安装](./docker/install.md)
-  - [Dockerfile](./docker/usages/构建之Dockerfile.md)
-  - [镜像-容器](./docker/usages/镜像-容器-导出导入.md)
-  - [数据卷](./docker/usages/数据卷.md)
-  - [网络](./docker/usages/网络.md)
+  - [安装](./deploy/docker/install.md)
+  - [Dockerfile](./deploy/docker/usages/构建之Dockerfile.md)
+  - [镜像-容器](./deploy/docker/usages/镜像-容器-导出导入.md)
+  - [数据卷](./deploy/docker/usages/数据卷.md)
+  - [网络](./deploy/docker/usages/网络.md)
 - docker-compose
-  - [docker-compose 使用](./docker/compose/0-1.md)
-  - [docker-compose yaml 项](./docker/compose/yaml-项.md)
+  - [docker-compose 使用](./deploy/docker/compose/0-1.md)
+  - [docker-compose yaml 项](./deploy/docker/compose/yaml-项.md)
 - kubernetes
-  - [kubernetes简要](./kubernetes/records-1/0-1-概要基础概念.md)
-- [gitlab-ci](./gitlab-ci/start.md)
+  - [kubernetes简要](./deploy/kubernetes/records-1/0-1-概要基础概念.md)
+- gitlab-ci
+  - [gitlab-ci](./deploy/gitlab-ci/start.md)
 - jenkins
-  - [安装](./jenkins/install.md)
-  - [jenkins docker 安装](./jenkins/install-2.md)
+  - [安装](./deploy/jenkins/install.md)
+  - [jenkins docker 安装](./deploy/jenkins/install-2.md)
 - linux
   - centos
     - [安装后的配置](./linux/centos/安装后配置.md)
@@ -27,12 +28,15 @@
 ## 中间件
 
 - mq
-  - rabbitm1
-    - [pika 示例](./mq/rabbitmq/pika.md)
-- redis, `./redis`
+  - rabbitmq
+    - [pika 示例](./middleare/mq/rabbitmq/pika.md)
+- redis
+  - `./middleware/redis`
 - es
-  - [docker 部署](./elasticsearch/docker/0-3-docker.md)
-  - [常用操作与概念](./elasticsearch/records-1/0-1-概要.md)
+  - [docker 部署](./middleare/elasticsearch/docker/0-3-docker.md)
+  - [常用操作与概念](./middleare/elasticsearch/records-1/0-1-概要.md)
+- nginx
+  - `./middleware/redis`
 
 ## 数据库
 
