@@ -65,6 +65,12 @@ Better C++ Syntax
 C/C++
 C/C++ Snippets
 C++ Intellisense
+
+Go
+Go Doc
+Go Ngghtly
+Go Outliner
+Go To Method
 ```
 
 ## 字体与空格宽度
