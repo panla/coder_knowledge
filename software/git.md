@@ -26,7 +26,7 @@ git config --global core.editor "vim"
 - 保存账户密码
 
 ```bash
-git config credential.helper store
+git config --global credential.helper store
 ```
 
 ## 别名
@@ -35,6 +35,16 @@ git config credential.helper store
 git config --global alias.co checkout
 git config --global alias.ci commit
 git config --global alias.st status
+```
+
+## ssh config
+
+```text
+Host test
+    HostName ip or server_name
+    User user
+    Port 22
+    IdentityFile ~/.ssh/id_rsa
 ```
 
 ## 加速？
