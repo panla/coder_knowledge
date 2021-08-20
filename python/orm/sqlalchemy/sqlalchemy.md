@@ -140,22 +140,28 @@ class ModelMixin(object):
             db_session_commit()
         return commit
 
-    def serialize(self, excludes=None, selects=None):
+    def to_dict(self, selects: tuple = None, excludes: tuple = None, second_attrs: list = None):
         """
-        返回json格式数据，序列化
-        :param excludes: 不想返回的字段，接收一个列表，ex.: ['password', 'name']
-        :param selects: 想要返回的字段，接收一个列表，ex.: ['id', 'age']
+        返回字典格式数据，序列化
+        :param selects: 想要返回的字段，接收一个元组，ex.: ('id', 'age')
+        :param excludes: 不想返回的字段，接收一个元组，ex.: ('password', 'name')
         :return:
         """
 
         if not hasattr(self, '__table__'):
             raise AssertionError('<%r> does not have attribute for __table__' % self)
-        elif selects:
-            return {i: getattr(self, i) for i in selects}
+        had_fields = self.__table__.columns
+        if selects:
+            results = {i: getattr(self, i) for i in selects}
         elif excludes:
-            return {i.name: getattr(self, i.name) for i in self.__table__.columns if i.name not in excludes}
+            results = {i.name: getattr(self, i.name) for i in had_fields if i.name not in excludes}
         else:
-            return {i.name: getattr(self, i.name) for i in self.__table__.columns}
+            results = {i.name: getattr(self, i.name) for i in had_fields}
+
+        if second_attrs:
+            for attr in second_attrs:
+                results.update({attr: self.to_dict(getattr(obj, attr))})
+        return results
 
     @classmethod
     def get(cls, **kwargs):
