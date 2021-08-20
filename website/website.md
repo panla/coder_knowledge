@@ -75,6 +75,7 @@
 | <https://aredis.readthedocs.io/en/latest/> | aredis | |
 | <https://www.uvicorn.org/> | uvicorn | |
 | <https://docs.gunicorn.org/en/stable/run.html> | gunicorn | |
+| <https://click.palletsprojects.com/en/8.0.x/> | click | ctl tools |
 
 ## db
 
@@ -115,6 +116,9 @@
 | <http://docs.kubernetes.org.cn/> | Kubernetes 中文社区中文文档 | |
 | <https://kubernetes.io/zh/> | Kubernets 官网 | |
 | <https://www.kuboard.cn/install/install-k8s.html> | kuboard | |
+| <https://podman.io/getting-started/> | podman | |
+| <https://pygments.org/docs/> | pygments | |
+| <https://jedi.readthedocs.io/en/latest/> | jedi |
 
 ## study
 
