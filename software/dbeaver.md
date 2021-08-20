@@ -39,7 +39,6 @@ export PATH=${JAVA_HOME}/bin:$PATH
 [Desktop Entry]
 Version=1.0
 Type=Application
-Terminal=false
 Name=DBeaver Community
 GenericName=UniversaL Database Manager
 Comment=Universal Database Manager and SQL Client.
@@ -52,4 +51,5 @@ StartupWMClass=DBeaver
 StartupNotify=true
 Keywords=Database;SQL;IDE;JDBC;ODBC;MySQL;PostgreSQL;Oracle;DB2;MariaDB
 MimeType=application/sql
+Terminal=false
 ```

@@ -9,9 +9,9 @@
 ```text
 [Desktop Entry]
 Type=Application
-Categories=Development
-Encoding=UTF-8
 Name=Postman
+Encoding=UTF-8
+Categories=Development;
 Exec=/home/opt/Postman/app/Postman
 Icon=/home/opt/Postman/app/resources/app/assets/icon.png
 Terminal=false

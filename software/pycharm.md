@@ -39,12 +39,12 @@ idea.log.path=/home/opt/PyCharm-202032/PyCharmCE/system/log
 ```text
 [Desktop Entry]
 Type=Application
-Name=PyCharm 202112
-GenericName=Python IDE
+Name=PyCharm
+GenericName=IDE
 Comment=Python IDE
 Exec=sh /home/opt/PyCharm-202112/bin/pycharm.sh
 Icon=/home/opt/PyCharm-202112/bin/pycharm.png
-Categories=IDE;
+Categories=Development;IDE;
 Actions=new-empty-window;
 Terminal=PyCharm
 
