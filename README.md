@@ -36,7 +36,7 @@
   - [docker 部署](./middleare/elasticsearch/docker/0-3-docker.md)
   - [常用操作与概念](./middleare/elasticsearch/records-1/0-1-概要.md)
 - nginx
-  - `./middleware/redis`
+  - `./middleware/nginx`
 
 ## 数据库
 
@@ -69,7 +69,4 @@
 
 ## 数据结构学习
 
-- [数据结构绪论](./data_struct/1-数据结构术语.md)
-- [线性表](./data_struct/2-线性表.md)
-- [栈和队列](./data_struct/3-栈和队列.md)
-- [树和二叉树](./data_struct/4-树和二叉树.md)
+- [数据结构与算法](./data_struct/README.md)
