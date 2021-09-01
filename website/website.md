@@ -100,13 +100,15 @@
 
 | url | 网站 | 备注 |
 | :-: | :-: | :-: |
-| <https://pika.readthedocs.io/en/stable/intro.html> | pika rabbitmq | |
+| <https://pika.readthedocs.io/en/stable/> | pika rabbitmq | |
 | <https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html> | ES 7.12 文档 |
 | <https://learnku.com/docs/elasticsearch73/7.3> | ES 中文7.3文档 |
 | <https://github.com/prefect12/Redis> | redis | |
 | <http://www.redis.cn/> | Redis 中文 | |
 | <https://redis.io/> | Redis 英文 | |
 | <http://redisdoc.com/index.html> | Redis命令使用文档 | |
+| <https://docs.celeryproject.org/projects/kombu/en/stable/introduction.html> | kombu | 5.0 |
+| <https://docs.celeryproject.org/projects/kombu/en/v4.6.11/introduction.html> | kombu | 4.6.11 |
 
 ## 运维部署编排
 

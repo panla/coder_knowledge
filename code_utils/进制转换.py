@@ -1,6 +1,6 @@
 class Stack(object):
     def __init__(self):
-      self.items = []
+        self.items = []
 
     def push(self, value):
         self.items.append(value)
@@ -12,17 +12,17 @@ class Stack(object):
         return not self.items
 
 
-def to_str(num, base):
+def radix_by_recursion(num, base):
     """递归，10进制转其他进制"""
 
     convertstr = '0123456789ABCDEFG'
     if num < base:
         return convertstr[num]
     else:
-        return to_str(num // base, base) + convertstr[num%base]
+        return radix_by_recursion(num // base, base) + convertstr[num%base]
 
 
-def to_str_2(num, base):
+def radix_by_stack(num, base):
     """通过栈的方式转换进制"""
 
     stack = Stack()
@@ -39,5 +39,5 @@ def to_str_2(num, base):
     return res
 
 
-print(to_str(1453, 16))
-print(to_str_2(1453, 16))
+print(radix_by_recursion(1453, 16))
+print(radix_by_stack(1453, 16))
