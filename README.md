@@ -55,7 +55,7 @@
 - [gunicorn](./python/gunicorn/settings.py)
 - [miniconda](./python/miniconda/安装.md)
 - orm
-  - [alembic](./python/orm/alembic/2.md)
+  - [alembic](./python/orm/alembic/README.md)
   - [gino](./python/orm/gino/crud.md)
   - [sqlalchemy 基础](././python/orm/sqlalchemy/sqlalchemy.md)
   - [sqlalchemy 查询](./python/orm/sqlalchemy/sqlalchemy-查询.md)
