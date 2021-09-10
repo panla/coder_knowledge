@@ -101,16 +101,21 @@ def filter_py_files(files) -> list:
 
     rt = []
     for file in files:
-        if file.endswith('.py') and not file.endswith('__init__.py') and 'pydantic' not in read_file(file):
+        if (file.endswith('.py') or file.endswith('.pyx')) and not file.endswith('__init__.py'):
             rt.append(file)
     return rt
 
 
 def delete_files(files: list):
+    """删除原 .py .pyx 文件"""
+
     try:
         for py_file in files:
             os.remove(py_file)
-            c_file = py_file.replace('.py', '.c')
+            if py_file.endswith('.py'):
+                c_file = py_file.replace('.py', '.c')
+            else:
+                c_file = py_file.replace('.pyx', '.c')
             if os.path.exists(c_file):
                 os.remove(c_file)
     except Exception as exc:
@@ -118,6 +123,8 @@ def delete_files(files: list):
 
 
 def rename_excrypted_file(files):
+    """重命名 .so 文件"""
+
     for file in files:
         if file.endswith(".pyd") or file.endswith(".so"):
             new_filename = re.sub("(.*)\..*\.(.*)", r"\1.\2", file)
@@ -150,7 +157,11 @@ def encrypt_py_files(files: list) -> list:
                 sys.stderr.write(f'{traceback.format_exc()}\n')
 
                 sys.stderr.write(f'处理失败 {py_file}\n')
-                c_file = py_file.replace('.py', '.c')
+
+                if py_file.endswith('.py'):
+                    c_file = py_file.replace('.py', '.c')
+                else:
+                    c_file = py_file.replace('.pyx', '.c')
                 if os.path.exists(c_file):
                     os.remove(c_file)
 
