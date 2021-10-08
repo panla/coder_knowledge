@@ -1,6 +1,6 @@
-# Vim
+# software
 
-## 部分配置
+## 1 vim 部分配置
 
 `~/.vimrc`
 
@@ -45,4 +45,18 @@ set showmatch
 set smartcase
 set incsearch
 set mouse=a
+```
+
+## 2 tmux
+
+```bash
+git clone git@github.com:gpakosz/.tmux.git
+```
+
+## ohmyzsh
+
+```text
+sudo apt install fzf
+
+plugins=(git fzf z zsh-interactive-cd zsh-autosuggestions zsh-syntax-highlighting)
 ```
