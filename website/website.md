@@ -35,6 +35,7 @@
 | <https://www.knowledgedict.com/> | 程序员笔记 |
 | <https://www.bookstack.cn/> | 书栈网 | |
 | <https://www.cs.usfca.edu/~galles/visualization/Algorithms.html> | Data Structure Visualizations | 算法演示 |
+| <https://web-frameworks-benchmark.netlify.app/result> | 框架基测 | |
 
 ## Python 开发
 
@@ -79,6 +80,8 @@
 | <https://aioredis.readthedocs.io/en/latest/> | aioredis-py | |
 | <https://aredis.readthedocs.io/en/latest/> | aredis | |
 | <https://aiomysql.readthedocs.io/en/latest/> | aiomysql | |
+| | asyncmy | |
+| | mysqlclient | |
 
 ### web server
 
