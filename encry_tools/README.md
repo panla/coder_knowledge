@@ -6,41 +6,22 @@
 
 参见 <https://github.com/panla/cython_build_demo>
 
-## env
-
-安装 jq
-
-Debian/Ubuntu/Deepin
-
-```bash
-apt install jq
-```
-
-RHEL/CentOS
-
-```bash
-dnf install jq
-yum install jq
-```
-
 ## command
 
 ```bash
-chmod 777 conf.json
-
-sh ./start.sh ./conf.json
+sh ./start.sh 原文件夹 目标文件夹 被处理文件的记录
+sh ./start.sh ~/srv/solar_iter/solar_iter_api ~/tmp/py_so ./build.txt
 ```
 
-## conf.json
+## 参数
 
 - `ORIGIN_DIR` 源文件夹路径
 - `TARGET_DIR` 目标文件夹路径，会从 `ORIGIN_DIR` 复制到 `TARGET_DIR`
-- `TRANSFORM_SCRIPT_PATH` 执行翻译任务的脚本路径
-- `RENAME_SCRIPT_PATH` 执行重命名 so 文件的脚本路径
-- `NAME_LIS` 被处理文件，文件夹定义
+- `被处理文件的记录` 被处理文件，文件夹定义的文件路径
   - 只写需要处理的文件夹或文件
   - 当一个文件夹下的文件只剩一个 `__init__.py` 时，不写这个文件夹
   - 当一个文件夹下的子文件夹有需要处理的 py 文件时，需要写这个子文件夹的相对于根目录的相对路径
+  - 被处理的文件夹里有需要处理的py文件时，需要有一个`__init__.py`
 
 ## 注意
 
@@ -52,6 +33,10 @@ sh ./start.sh ./conf.json
 - [ ] 在 `transform_py_so.py` 中优化忽略文件
 - [ ] 代码封装，打包
 - [ ] 代码风格优化
+
+## 编译器选项
+
+<https://cython.readthedocs.io/en/latest/src/userguide/source_files_and_compilation.html#compiler-directives>
 
 ## 方案参考致谢
 

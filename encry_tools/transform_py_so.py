@@ -68,7 +68,10 @@ def transform_py_file(py_file):
 
             # TODO language_level=3 ?
             setup(
-                ext_modules=cythonize([file_name], quiet=True, language_level=3),
+                ext_modules=cythonize(
+                    [file_name],
+                    quiet=True,
+                    compiler_directives={'language_level': 3, 'always_allow_keywords': True}),
                 script_args=['build_ext', '-t', dc, '--inplace']
             )
 

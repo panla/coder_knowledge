@@ -1,13 +1,10 @@
-#/usr/bin/bash
+ORIGIN_DIR=$1
+TARGET_DIR=$2
+BUILD_NAME_FILE=$3
 
-conf_file=$1
+BASE_DIR=`pwd`
 
-ORIGIN_DIR=`cat $conf_file | jq -r '.ORIGIN_DIR'`
-TARGET_DIR=`cat $conf_file | jq -r '.TARGET_DIR'`
-TRANSFORM_SCRIPT_PATH=`cat $conf_file | jq -r '.TRANSFORM_SCRIPT_PATH'`
-RENAME_SCRIPT_PATH=`cat $conf_file | jq -r '.RENAME_SCRIPT_PATH'`
-NAME_LIS=`cat $conf_file | jq -r '.NAME_LIS[]'`
-
+# copy origin -> target
 if [ ! -d $TARGET_DIR ]; then
     cp -r $ORIGIN_DIR $TARGET_DIR
 else
@@ -15,14 +12,13 @@ else
     cp -r $ORIGIN_DIR $TARGET_DIR
 fi
 
-cd $TARGET_DIR
-
-for name in $NAME_LIS;
+# transform py files -> .so
+cat $BUILD_NAME_FILE | while read LINE
 do
-    cd $name;
-    python $TRANSFORM_SCRIPT_PATH -r $TARGET_DIR -n $name
-    cd -;
+    cd "$TARGET_DIR/$LINE"
+    python "$BASE_DIR/transform_py_so.py" -r $TARGET_DIR -n $LINE
 done
 
-cd $TARGET_DIR
-python $RENAME_SCRIPT_PATH -r $TARGET_DIR
+# rename .so file name
+cd $BASE_DIR
+python "$BASE_DIR/rename_so_name.py" -r $TARGET_DIR
