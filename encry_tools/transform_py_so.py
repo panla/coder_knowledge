@@ -71,7 +71,7 @@ def transform_py_file(py_file):
                 ext_modules=cythonize(
                     [file_name],
                     quiet=True,
-                    compiler_directives={'language_level': 3, 'always_allow_keywords': True}),
+                    compiler_directives={'language_level': 3, 'always_allow_keywords': True, 'annotation_typing': False}),
                 script_args=['build_ext', '-t', dc, '--inplace']
             )
 
