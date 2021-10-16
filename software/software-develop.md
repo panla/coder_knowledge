@@ -57,30 +57,7 @@ Terminal=PyCharm
 .ignore
 Rainbow Brackets
 HighlightBracketPair
-
-Settings Repository
-
-Makrdown
-properties
-Shell Script
-YAML
-
-ChangeReminder
-Git
-GitHub
-Mercurial
-Subversion
-
-Copyright
-EditorConfig
-Grazie
-IDE Features Trainer
-IntelliLang
-Machine Learning Code Completion
-RestructuredText
-Task Management
-Termial
-TextMate Bundles
+TOML
 ```
 
 ## 2 chrome
@@ -106,7 +83,7 @@ sudo dnf install vulkan-loader
 
 把下载链接的 `https://az764295.vo.msecnd.net` 替换为 `http://vscode.cdn.azure.cn`
 
-[最新下载cdn](http://vscode.cdn.azure.cn/stable/ee8c7def80afc00dd6e593ef12f37756d8f504ea/code-stable-x64-1633631666.tar.gz)
+[最新下载cdn](http://vscode.cdn.azure.cn/stable/c13f1abb110fc756f9b3a6f16670df9cd9d4cf63/code-stable-x64-1634175776.tar.gz)
 
 解压
 
@@ -138,28 +115,35 @@ Icon=/home/opt/VSCode/resources/app/resources/linux/code.png
 ### 3.2 插件
 
 ```text
-Bracket Pair Colorizer 2
 Chinese Language Pack
-EditorConfig for VS Code
+
+Bracket Pair Colorizer 2
+indent-rainbow
+indenticator
+
 Git Graph
 gitignore
 GitLens
-indent-rainbow
+
 Markdown Preview Enhanced
 markdownlint
+Better TOML
+YAML
 MySQL Syntax
 Prettify JSON
+
+Todo Tree
+vscode-icons
+Go To Method
+
+Remote-Containers
+Docker
+Redis
+
 Pylance
 Python
 Python Indent
 Python Type Hint
-Remote-Containers
-Todo Tree
-vscode-icons
-YAML
-
-Docker
-Redis
 
 Better C++ Syntax
 C/C++
@@ -170,7 +154,7 @@ Go
 Go Doc
 Go Ngghtly
 Go Outliner
-Go To Method
+vscode-go-syntax
 ```
 
 ### 3.3 字体与空格宽度
