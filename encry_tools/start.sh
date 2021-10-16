@@ -2,14 +2,33 @@ ORIGIN_DIR=$1
 TARGET_DIR=$2
 BUILD_NAME_FILE=$3
 
+echo "ORIGIN_DIR = $ORIGIN_DIR"
+echo "TAGRET_DIR = $TARGET_DIR"
+echo "BUILD_NAME_FILE = $BUILD_NAME_FILE"
+
+if [ ! -d "$ORIGIN_DIR" ]; then
+    echo "ORIGIN_DIR not exists"
+    exit 1
+fi
+
+if [ ! -f "$BUILD_NAME_FILE" ]; then
+    echo "BUILD_NAME_FILE not exists"
+fi
+
 BASE_DIR=`pwd`
+echo "BASE_DIR = $BASE_DIR"
 
 # copy origin -> target
 if [ ! -d $TARGET_DIR ]; then
     cp -r $ORIGIN_DIR $TARGET_DIR
 else
-    rm -rf $TARGET_DIR
-    cp -r $ORIGIN_DIR $TARGET_DIR
+    if [ $ORIGIN_DIR == $TARGET_DIR ]; then
+        echo "ORIGIN_DIR == TARGET_DIR"
+    else
+        echo "ORIGIN_DIR != TARGET_DIR"
+        rm -rf $TARGET_DIR
+        cp -r $ORIGIN_DIR $TARGET_DIR
+    fi
 fi
 
 # transform py files -> .so
