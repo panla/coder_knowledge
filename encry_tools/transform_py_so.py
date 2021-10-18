@@ -9,6 +9,9 @@ from distutils.core import setup
 
 from Cython.Build import cythonize
 
+# 编译指令
+COMPILER_DIRECTIVES = {'language_level': 3, 'always_allow_keywords': True, 'annotation_typing': False}
+
 
 def get_package_dir(*args, **kwargs):
     return ""
@@ -66,23 +69,19 @@ def transform_py_file(py_file):
 
         with DirContext() as dc:
 
-            # TODO language_level=3 ?
             setup(
-                ext_modules=cythonize(
-                    [file_name],
-                    quiet=True,
-                    compiler_directives={'language_level': 3, 'always_allow_keywords': True, 'annotation_typing': False}),
+                ext_modules=cythonize([file_name], quiet=True, compiler_directives=COMPILER_DIRECTIVES),
                 script_args=['build_ext', '-t', dc, '--inplace']
             )
 
-            sys.stdout.write(f'处理成功 {py_file}\n')
+            sys.stdout.write(f'处理成功 {py_file}\n\n')
 
             delete_files(py_file)
 
     except Exception as exc:
 
         sys.stderr.write(f'处理失败 {py_file}\n')
-        sys.stderr.write(f'{traceback.format_exc()}\n')
+        sys.stderr.write(f'{traceback.format_exc()}\n\n')
 
         delete_files(py_file)
 

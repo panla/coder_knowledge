@@ -10,7 +10,7 @@
 ## command
 
 ```bash
-sh ./start.sh 原文件夹 目标文件夹 被处理文件的记录
+sh ./start.sh 源文件夹 目标文件夹 被处理文件的记录
 sh ./start.sh ~/srv/solar_iter/solar_iter_api ~/tmp/py_so ./build.txt
 ```
 
