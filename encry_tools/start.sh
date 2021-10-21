@@ -22,12 +22,12 @@ echo "BASE_DIR = $BASE_DIR"
 if [ ! -d $TARGET_DIR ]; then
     cp -r $ORIGIN_DIR $TARGET_DIR
 else
-    if [ $ORIGIN_DIR == $TARGET_DIR ]; then
-        echo "ORIGIN_DIR == TARGET_DIR"
-    else
+    if [ $ORIGIN_DIR != $TARGET_DIR ]; then
         echo "ORIGIN_DIR != TARGET_DIR"
         rm -rf $TARGET_DIR
         cp -r $ORIGIN_DIR $TARGET_DIR
+    else
+        echo "ORIGIN_DIR == TARGET_DIR"
     fi
 fi
 
@@ -38,6 +38,6 @@ do
     python "$BASE_DIR/transform_py_so.py" -r $TARGET_DIR -n $LINE
 done
 
-# rename .so file name
-cd $BASE_DIR
-python "$BASE_DIR/rename_so_name.py" -r $TARGET_DIR
+# rename .so file name 也可以不用改名字
+# cd $BASE_DIR
+# python "$BASE_DIR/rename_so_name.py" -r $TARGET_DIR
