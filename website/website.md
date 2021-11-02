@@ -21,7 +21,7 @@
 | <https://mirrors.huaweicloud.com/> | 华为云镜像站 | |
 | <https://developer.aliyun.com/sdk/java.html> | 阿里云sdk | |
 | <https://sourceforge.net> | sourceforge | 直接下载部分源码 |
-| <https://docs.conda.io/en/latest/miniconda.html> | miniconda | 清华镜像不好用时可以用这个 |
+| <https://docs.conda.io/en/latest/miniconda.html> | miniconda | |
 
 ## 优秀工具网站
 
@@ -50,6 +50,7 @@
 | <https://python-gino.org> | gino | |
 | <https://docs.ponyorm.org/> | pony | |
 | <http://docs.peewee-orm.com/en/latest/> | peewee | |
+| <https://piccolo-orm.readthedocs.io/en/stable/> | piccolo | |
 
 ### 测试
 
@@ -61,9 +62,12 @@
 
 | url | 网站 | 备注 |
 | :-: | :-: | :-: |
-| <https://fastapi.tiangolo.com/zh/> | fastapi docs | |
+| <https://fastapi.tiangolo.com/zh/> | fastapi docs | asgi |
 | <https://flask.palletsprojects.com/en/2.0.x/> | flask | 2.0 |
-| <https://falcon.readthedocs.io/en/stable/> | falcon | |
+| <https://falcon.readthedocs.io/en/stable/> | falcon | wsgi asgi |
+| <https://www.neoteroi.dev/blacksheep/> | blacksheep | asgi 性能很高 |
+| <https://klen.github.io/muffin/> | muffin | asgi |
+| <https://emmett.sh/docs/2.3.x> | emmett | asgi |
 
 ### message
 
@@ -72,6 +76,7 @@
 | <https://nameko.readthedocs.io/en/stable/index.html> | nameko | rpc message |
 | <https://python-socketio.readthedocs.io/en/latest/intro.html> | socket.io | |
 | <https://strawberry.rocks/docs> | graphql | |
+| <https://docs.celeryproject.org/en/stable/> | celery | 任务分发 |
 
 ### driver
 
@@ -80,8 +85,8 @@
 | <https://aioredis.readthedocs.io/en/latest/> | aioredis-py | |
 | <https://aredis.readthedocs.io/en/latest/> | aredis | |
 | <https://aiomysql.readthedocs.io/en/latest/> | aiomysql | |
-| | asyncmy | |
-| | mysqlclient | |
+| <https://github.com/long2ice/asyncmy> | asyncmy | |
+| <https://github.com/PyMySQL/mysqlclient> | mysqlclient | |
 
 ### web server
 
@@ -91,13 +96,13 @@
 | <https://www.uvicorn.org/> | uvicorn | |
 | <https://anyio.readthedocs.io/en/stable/> | anyio | |
 
-### package
+### package tools
 
 | url | 网站 | 备注 |
 | :-: | :-: | :-: |
 | <https://loguru.readthedocs.io/en/stable/overview.html> | loguru | 日志 |
-| <https://flask-script.readthedocs.io/en/latest/> | flask-script | 弃 |
 | <https://click.palletsprojects.com/en/8.0.x/> | click | ctl tools |
+| <https://cython.readthedocs.io/en/latest/index.html> | cython | |
 
 ## db
 
