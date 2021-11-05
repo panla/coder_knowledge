@@ -1,5 +1,7 @@
 # software
 
+[toc]
+
 ## 1 pycharm
 
 下载解压
@@ -83,7 +85,7 @@ sudo dnf install vulkan-loader
 
 把下载链接的 `https://az764295.vo.msecnd.net` 替换为 `http://vscode.cdn.azure.cn`
 
-[最新下载cdn](http://vscode.cdn.azure.cn/stable/6cba118ac49a1b88332f312a8f67186f7f3c1643/code-stable-x64-1634657157.tar.gz)
+[最新下载cdn](http://vscode.cdn.azure.cn/stable/b3318bc0524af3d74034b8bb8a64df0ccf35549a/code-stable-x64-1635954380.tar.gz)
 
 解压
 
@@ -115,46 +117,45 @@ Icon=/home/opt/VSCode/resources/app/resources/linux/code.png
 ### 3.2 插件
 
 ```text
-Chinese Language Pack
+Chinese Language
+Better Comments             高亮注释
+Todo Tree                   高亮快速找到 TODO FIXME
+vscode-icons                图标
+Remnote-Containers          连接进入容器
 
-Bracket Pair Colorizer 2
-indent-rainbow
-indenticator
+Better TOML                 toml
+MySQL Syntax                mysql语法辅助-remove
+Markdown Preview Enhanced   md 展示
+markdownlint                md 语法
+Prettify JSON               json
+YAML                        yaml-remove
 
 Git Graph
 gitignore
 GitLens
 
-Markdown Preview Enhanced
-markdownlint
-Better TOML
-YAML
-MySQL Syntax
-Prettify JSON
-
-Todo Tree
-vscode-icons
-Go To Method
-
-Remote-Containers
-Docker
-Redis
+Bracket Pair Colorizer 2    括号匹配
+indent-rainbow              缩进深度
+Trailing Spaces             多余空格
 
 Pylance
 Python
+Python Docstring Generator  生成文档
 Python Indent
-Python Type Hint
+Python Type Hint            类型标记
 
-Better C++ Syntax
 C/C++
-C/C++ Snippets
 C++ Intellisense
+Better C++ Synatx
+
+Cython                      remove
+Language-Cython             remove
+vscode-cython-annotate      remove
 
 Go
 Go Doc
-Go Ngghtly
-Go Outliner
-vscode-go-syntax
+Go Nightly                  stop
+Go Outliner                 remove
 ```
 
 ### 3.3 字体与空格宽度

@@ -1,5 +1,7 @@
 # software
 
+[toc]
+
 ## 1 git
 
 ### 1.1 git 部分配置

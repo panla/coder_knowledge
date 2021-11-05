@@ -1,5 +1,7 @@
 # software
 
+[toc]
+
 ## 1 vim 部分配置
 
 `~/.vimrc`
