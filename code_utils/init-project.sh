@@ -37,6 +37,10 @@ touch common/__ini__.py
 mkdir conf
 touch conf/__ini__.py
 touch conf/settings.py
+touch conf/product.toml
+touch conf/test.toml
+touch conf/product.local.toml
+touch conf/test.local.toml
 
 
 # extensions
@@ -139,12 +143,11 @@ cat>.gitignore<<EOF
 /logs/
 */__pycache__
 
-/conf/project.local.toml
+/conf/product.local.toml
 /conf/test.local.toml
 
 *.sqlite
 *.pyc
-
 EOF
 
 cat>pytest.ini<<EOF
