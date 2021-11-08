@@ -87,8 +87,6 @@ mkdir docs
 mkdir docs/deploy -p
 touch docs/deploy/docker-compose.yml
 touch docs/deploy/config.py
-touch docs/deploy/project.toml
-touch docs/deploy/test.toml
 touch docs/deploy/my.cnf
 touch docs/deploy/nginx.conf
 touch docs/deploy/docker-entrpoint.sh
@@ -139,10 +137,10 @@ cat>.gitignore<<EOF
 
 /tmp/
 /logs/
-/__pycache__/
+*/__pycache__
 
-/conf/project.toml
-/conf/test.toml
+/conf/project.local.toml
+/conf/test.local.toml
 
 *.sqlite
 *.pyc
