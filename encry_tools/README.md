@@ -34,6 +34,7 @@ sh ./start.sh ~/srv/solar_iter/solar_iter_api ~/tmp/py_so ./build.txt
 - [ ] 在 `transform_py_so.py` 中优化忽略文件
 - [ ] 代码封装，打包
 - [ ] 代码风格优化
+- [ ] 从 distutils 转移至 setuptools
 
 ## 编译器选项
 

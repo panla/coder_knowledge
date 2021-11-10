@@ -1,5 +1,4 @@
 import argparse
-import re
 import os
 import sys
 import shutil
@@ -7,12 +6,18 @@ import tempfile
 import traceback
 from pathlib import Path
 from distutils.command.build_py import build_py
+# from setuptools.command.build_py import build_py
 from distutils.core import setup
+# from setuptools import setup
 
 from Cython.Build import cythonize
 
 # 编译指令
-COMPILER_DIRECTIVES = {'language_level': 3, 'always_allow_keywords': True, 'annotation_typing': False}
+COMPILER_DIRECTIVES = {
+    'language_level': 3,
+    'always_allow_keywords': True,
+    'annotation_typing': False
+}
 
 
 def get_package_dir(*args, **kwargs):
@@ -71,7 +76,7 @@ class FileOperator():
                 c_file = self.name.replace('.pyx', '.c')
             else:
                 pass
-            
+
             if flag == 1:
                 os.remove(c_file)
 

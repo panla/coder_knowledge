@@ -1,3 +1,5 @@
+#!/bin/sh
+
 ORIGIN_DIR=$1
 TARGET_DIR=$2
 BUILD_NAME_FILE=$3
@@ -39,5 +41,5 @@ do
 done
 
 # rename .so file name 也可以不用改名字
-# cd $BASE_DIR
-# python "$BASE_DIR/rename_so_name.py" -r $TARGET_DIR
+cd $BASE_DIR
+python "$BASE_DIR/rename_so_name.py" -r $TARGET_DIR
