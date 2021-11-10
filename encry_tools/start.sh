@@ -36,7 +36,6 @@ fi
 # transform py files -> .so
 cat $BUILD_NAME_FILE | while read LINE
 do
-    cd "$TARGET_DIR/$LINE"
     python "$BASE_DIR/transform_py_so.py" -r $TARGET_DIR -n $LINE
 done
 
