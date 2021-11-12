@@ -34,13 +34,13 @@ bin/conda init [shell]
 
 ```text
 channels:
-  - https://mirrors.ustc.edu.cn/anaconda/pkgs/main/
-  - https://mirrors.ustc.edu.cn/anaconda/pkgs/free/
   - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
   - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+  - conda-forge
 show_channel_urls: true
 ssl_verify: true
 changeps1: false
+channel_priority: strict
 ```
 
 `~/.pip/pip.conf`

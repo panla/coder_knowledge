@@ -3,10 +3,6 @@
 - 目标：实现Python项目源码加密保护，提升部分性能
 - 实现: 利用 Cython 把 Python 代码转为 Linux 动态链接库
 
-## 为何利用 shell 来执行 python
-
-参见 <https://github.com/panla/cython_build_demo>
-
 ## command
 
 ```bash
@@ -31,7 +27,7 @@ sh ./start.sh ~/srv/solar_iter/solar_iter_api ~/tmp/py_so ./build.txt
 ## TODO
 
 - [X] 在 start.sh 中定义路径拼接
-- [ ] 在 `transform_py_so.py` 中优化忽略文件
+- [ ] 在 `build.py` 中优化忽略文件
 - [ ] 代码封装，打包
 - [ ] 代码风格优化
 - [ ] 从 distutils 转移至 setuptools
