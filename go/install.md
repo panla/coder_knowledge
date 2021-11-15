@@ -7,9 +7,9 @@
 ## env
 
 ```text
-export GOROOT=/home/opt/go
+export GOROOT=/opt/go
 export PATH=$PATH:$GOROOT/bin
-export GOPATH=/home/boonray/study/go_path
+export GOPATH=/home/user/study/go_path
 # 配置 GOPROXY 环境变量
 export GOPROXY=https://goproxy.io,direct
 # GOPROXY=https://mirrors.aliyun.com/goproxy/
