@@ -101,7 +101,7 @@ class FileOperator():
             for file in os.listdir(self.name):
                 if Path(file).suffix in ['.py', '.pyx'] and self.check(file, ignore_rules):
                     rt.append(os.path.join(self.name, file))
-        elif Path(self.name).isfile():
+        elif Path(self.name).is_file():
             if Path(self.name).suffix in ['.py', '.pyx'] and self.check(self.name, ignore_rules):
                 rt.append(self.name)
         else:
@@ -135,9 +135,9 @@ class TransformOperator():
 
     def execute(self):
         file_path = os.path.join(self.root_dir, self.name)
-        if os.path.isfile(file_path):
+        if Path(file_path).is_file():
             os.chdir(self.root_dir)
-        elif os.path.isdir(file_path):
+        elif Path(file_path).is_dir():
             os.chdir(file_path)
         else:
             raise Exception(f'输入的参数 name {self.name} 不符合需求')

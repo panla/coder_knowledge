@@ -33,7 +33,18 @@ else
     fi
 fi
 
-# transform py files -> .so
+cd $TARGET_DIR
+
+IGNORE_DIRS=".idea .vscode .git tmp logs"
+for _dir in $IGNORE_DIRS
+do
+    _f_dir="$TARGET_DIR/$_dir"
+    if [ -d $_f_dir ]; then
+        rm -rf $_f_dir
+    fi
+done
+
+transform py files -> .so
 cat $BUILD_NAME_FILE | while read LINE
 do
     python "$BASE_DIR/build.py" -r $TARGET_DIR -n $LINE
