@@ -9,6 +9,28 @@ proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
 proxy_set_header X-Forwarded-Proto $scheme;
 ```
 
+## CORS
+
+```text
+add_header 'Access-Control-Allow-Origin' '*';
+
+if ($request_method = 'OPTIONS') {
+    add_header 'Access-Control-Allow-Origin' '*';
+    add_header 'Access-Control-Max-Age' 86400;
+    add_header 'Content-Type' 'text/plain charset=UTF-8';
+    add_header 'Content-Length' 0;
+    return 204;
+}
+```
+
+## 静态资源
+
+```text
+autoindex on;
+root
+alias
+```
+
 ## `conf/nginx.conf`
 
 ```text

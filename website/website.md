@@ -9,7 +9,19 @@
 | <https://hub.docker.com/> | Docker Hub | |
 | <https://pkgs.org/> | linux 软件包查询 | 可以查询所需要的包的依赖以及安装方式 |
 
-## 下载地址
+## 运维部署编排
+
+| url | 网站 | 备注 |
+| :-: | :-: | :-: |
+| <https://yeasy.gitbook.io/docker_practice/> | Docker -- 从入门到实践 | |
+| <http://docs.kubernetes.org.cn/> | Kubernetes 中文社区中文文档 | |
+| <https://kubernetes.io/zh/> | Kubernets 官网 | |
+| <https://www.kuboard.cn/install/install-k8s.html> | kuboard | |
+| <https://podman.io/getting-started/> | podman | |
+| <https://pygments.org/docs/> | pygments | |
+| <https://jedi.readthedocs.io/en/latest/> | jedi |
+
+## 下载资源
 
 | url | 网站 | 备注 |
 | :-: | :-: | :-: |
@@ -22,8 +34,9 @@
 | <https://developer.aliyun.com/sdk/java.html> | 阿里云sdk | |
 | <https://sourceforge.net> | sourceforge | 直接下载部分源码 |
 | <https://docs.conda.io/en/latest/miniconda.html> | miniconda | |
+| <https://zcjun.com/> | 绿色资源网 | |
 
-## 优秀工具网站
+## 资源-工具类
 
 | url | 网站 | 备注 |
 | :-: | :-: | :-: |
@@ -36,6 +49,19 @@
 | <https://www.bookstack.cn/> | 书栈网 | |
 | <https://www.cs.usfca.edu/~galles/visualization/Algorithms.html> | Data Structure Visualizations | 算法演示 |
 | <https://web-frameworks-benchmark.netlify.app/result> | 框架基测 | |
+
+## 文档类
+
+| url | 网站 | 备注 |
+| :-: | :-: | :-: |
+| <https://gitmoji.js.org/> | git emoji | |
+| <https://github.com/arut/nginx-rtmp-module/wiki/Directives> | nginx-rtmp 文档 | |
+| <https://loguru.readthedocs.io/en/stable/overview.html> | loguru | 日志 | |
+| <https://click.palletsprojects.com/en/8.0.x/> | click | ctl tools | |
+| <https://cython.readthedocs.io/en/latest/index.html> | cython | | |
+| <https://pika.readthedocs.io/en/stable/> | pika rabbitmq | |
+| <https://docs.celeryproject.org/projects/kombu/en/stable/introduction.html> | kombu | 5.0 |
+| <https://docs.celeryproject.org/projects/kombu/en/v4.6.11/introduction.html> | kombu | 4.6.11 |
 
 ## Python 开发
 
@@ -58,14 +84,14 @@
 | :-: | :-: | :-: |
 | <https://www.osgeo.cn/pytest/contents.html> | pytest | |
 
-### web
+### web framework
 
 | url | 网站 | 备注 |
 | :-: | :-: | :-: |
 | <https://fastapi.tiangolo.com/zh/> | fastapi docs | asgi |
 | <https://flask.palletsprojects.com/en/2.0.x/> | flask | 2.0 |
 | <https://falcon.readthedocs.io/en/stable/> | falcon | wsgi asgi |
-| <https://www.neoteroi.dev/blacksheep/> | blacksheep | asgi 性能很高 |
+| <https://www.neoteroi.dev/blacksheep/> | blacksheep | asgi |
 | <https://klen.github.io/muffin/> | muffin | asgi |
 | <https://emmett.sh/docs/2.3.x> | emmett | asgi |
 
@@ -73,10 +99,10 @@
 
 | url | 网站 | 备注 |
 | :-: | :-: | :-: |
-| <https://nameko.readthedocs.io/en/stable/index.html> | nameko | rpc message |
+| <https://docs.celeryproject.org/en/stable/> | celery | 任务分发 |
 | <https://python-socketio.readthedocs.io/en/latest/intro.html> | socket.io | |
 | <https://strawberry.rocks/docs> | graphql | |
-| <https://docs.celeryproject.org/en/stable/> | celery | 任务分发 |
+| <https://nameko.readthedocs.io/en/stable/index.html> | nameko | rpc message |
 
 ### driver
 
@@ -87,6 +113,7 @@
 | <https://aiomysql.readthedocs.io/en/latest/> | aiomysql | |
 | <https://github.com/long2ice/asyncmy> | asyncmy | |
 | <https://github.com/PyMySQL/mysqlclient> | mysqlclient | |
+| <https://github.com/MagicStack/asyncpg> | asyncpg | |
 
 ### web server
 
@@ -95,14 +122,6 @@
 | <https://docs.gunicorn.org/en/stable/run.html> | gunicorn | |
 | <https://www.uvicorn.org/> | uvicorn | |
 | <https://anyio.readthedocs.io/en/stable/> | anyio | |
-
-### package tools
-
-| url | 网站 | 备注 |
-| :-: | :-: | :-: |
-| <https://loguru.readthedocs.io/en/stable/overview.html> | loguru | 日志 |
-| <https://click.palletsprojects.com/en/8.0.x/> | click | ctl tools |
-| <https://cython.readthedocs.io/en/latest/index.html> | cython | |
 
 ## db
 
@@ -127,27 +146,12 @@
 
 | url | 网站 | 备注 |
 | :-: | :-: | :-: |
-| <https://pika.readthedocs.io/en/stable/> | pika rabbitmq | |
 | <https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html> | ES 7.12 文档 |
 | <https://learnku.com/docs/elasticsearch73/7.3> | ES 中文7.3文档 |
 | <https://github.com/prefect12/Redis> | redis | |
 | <http://www.redis.cn/> | Redis 中文 | |
 | <https://redis.io/> | Redis 英文 | |
 | <http://redisdoc.com/index.html> | Redis命令使用文档 | |
-| <https://docs.celeryproject.org/projects/kombu/en/stable/introduction.html> | kombu | 5.0 |
-| <https://docs.celeryproject.org/projects/kombu/en/v4.6.11/introduction.html> | kombu | 4.6.11 |
-
-## 运维部署编排
-
-| url | 网站 | 备注 |
-| :-: | :-: | :-: |
-| <https://yeasy.gitbook.io/docker_practice/> | Docker -- 从入门到实践 | |
-| <http://docs.kubernetes.org.cn/> | Kubernetes 中文社区中文文档 | |
-| <https://kubernetes.io/zh/> | Kubernets 官网 | |
-| <https://www.kuboard.cn/install/install-k8s.html> | kuboard | |
-| <https://podman.io/getting-started/> | podman | |
-| <https://pygments.org/docs/> | pygments | |
-| <https://jedi.readthedocs.io/en/latest/> | jedi |
 
 ## study
 
@@ -158,3 +162,6 @@
 | <https://blog.csdn.net/weixin_30471065/article/details/101487911> | gitlab-runner 的 executors 之 docker | |
 | <https://cloud.tencent.com/developer/article/1590080> | Debian 10 Buster 国内常用镜像源 | |
 | <https://developer.aliyun.com/article/719968> | Docker安装Gitlab和Gitlab-Runner | |
+| <https://blog.csdn.net/qq_41125219/article/details/118686281> | Redis 三主三从伪集群 |
+| <https://www.cnblogs.com/crazymagic/articles/13951461.html> | docker mysql 集群 |
+| <https://blog.csdn.net/string_kai/article/details/100598268> | 直播 flv |
