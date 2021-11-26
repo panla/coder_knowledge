@@ -62,6 +62,8 @@
 | <https://pika.readthedocs.io/en/stable/> | pika rabbitmq | |
 | <https://docs.celeryproject.org/projects/kombu/en/stable/introduction.html> | kombu | 5.0 |
 | <https://docs.celeryproject.org/projects/kombu/en/v4.6.11/introduction.html> | kombu | 4.6.11 |
+| <https://design-patterns.readthedocs.io/zh_CN/latest/index.html#> | 图说设计模式 | |
+| <https://howhttps.works/> | HTTPS 工作原理 | |
 
 ## Python 开发
 
@@ -162,6 +164,6 @@
 | <https://blog.csdn.net/weixin_30471065/article/details/101487911> | gitlab-runner 的 executors 之 docker | |
 | <https://cloud.tencent.com/developer/article/1590080> | Debian 10 Buster 国内常用镜像源 | |
 | <https://developer.aliyun.com/article/719968> | Docker安装Gitlab和Gitlab-Runner | |
-| <https://blog.csdn.net/qq_41125219/article/details/118686281> | Redis 三主三从伪集群 |
-| <https://www.cnblogs.com/crazymagic/articles/13951461.html> | docker mysql 集群 |
-| <https://blog.csdn.net/string_kai/article/details/100598268> | 直播 flv |
+| <https://blog.csdn.net/qq_41125219/article/details/118686281> | Redis 三主三从伪集群 | |
+| <https://www.cnblogs.com/crazymagic/articles/13951461.html> | docker mysql 集群 | |
+| <https://blog.csdn.net/string_kai/article/details/100598268> | FLV 直播 | |
