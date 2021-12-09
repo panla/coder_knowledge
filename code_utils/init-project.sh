@@ -148,8 +148,10 @@ EOF
 # other
 mkdir tmp logs
 
-touch .gitignore README.md CHANGELOG.md config.py server.py pytest.ini aerich.ini pyproject.toml
-touch build.txt Dockerfile Makefile docker-entrypoint.sh
+touch .gitignore .dockerignore
+touch README.md CHANGELOG.md Dockerfile Makefile docker-entrypoint.sh
+touch config.py server.py
+touch pytest.ini pyproject.toml build.txt
 
 cat>.gitignore<<EOF
 
@@ -165,6 +167,22 @@ cat>.gitignore<<EOF
 
 *.sqlite
 *.pyc
+EOF
+
+cat>.dockerignore<<EOF
+.git
+.vscode
+.idea
+.svn
+
+venv
+.venv
+
+tmp
+logs
+docs
+
+**/__pycache__
 EOF
 
 cat>CHANGELOG.md<<EOF
@@ -217,13 +235,6 @@ cat>pytest.ini<<EOF
 [pytest]
 filterwarnings =
     ignore::DeprecationWarning
-EOF
-
-cat>aerich.ini<<EOF
-[aerich]
-tortoise_orm = config.ORM_MIGRATE_CONF
-location = ./migrations
-src_folder = .
 EOF
 
 cat>pyproject.toml<<EOF

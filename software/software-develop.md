@@ -56,10 +56,13 @@ Terminal=PyCharm
 ### 1.5 插件
 
 ```text
-.ignore
-Rainbow Brackets
-HighlightBracketPair
-TOML
+.ignore  ATOM  Rainbow Brackets
+```
+
+可以先移除的
+
+```text
+cwm-plugin  cwm-plugin-projector  editorconfig  github  markdown  space  svn4idea  yaml
 ```
 
 ## 2 chrome

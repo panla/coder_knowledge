@@ -4,10 +4,11 @@
 
 | url | 网站 | 备注 |
 | :-: | :-: | :-: |
+| <https://pkgs.org/> | linux 软件包查询 | 可以查询所需要的包的依赖以及安装方式 |
 | <https://github.com> | github | |
 | <https://gitee.com> | gitee | |
 | <https://hub.docker.com/> | Docker Hub | |
-| <https://pkgs.org/> | linux 软件包查询 | 可以查询所需要的包的依赖以及安装方式 |
+| <https://www.npmmirror.com/> | npm 中国 | |
 
 ## 运维部署编排
 
@@ -35,6 +36,9 @@
 | <https://sourceforge.net> | sourceforge | 直接下载部分源码 |
 | <https://docs.conda.io/en/latest/miniconda.html> | miniconda | |
 | <https://zcjun.com/> | 绿色资源网 | |
+| <https://www.chajianxw.com/> | 插件小屋 | 下载 Chrome 插件 |
+| <https://chrome.zzzmh.cn/#/search> | | 下载 Chrome 插件 |
+| <https://crxdl.com/> | | 下载 Chrome 插件 |
 
 ## 资源-工具类
 
@@ -64,6 +68,8 @@
 | <https://docs.celeryproject.org/projects/kombu/en/v4.6.11/introduction.html> | kombu | 4.6.11 |
 | <https://design-patterns.readthedocs.io/zh_CN/latest/index.html#> | 图说设计模式 | |
 | <https://howhttps.works/> | HTTPS 工作原理 | |
+| <https://github.com/winshining/nginx-http-flv-module/blob/master/README.CN.md> | nginx-http-flv 文档 | |
+| <https://plotly.com/python/plotly-fundamentals/> | | python 画图 |
 
 ## Python 开发
 
@@ -166,4 +172,6 @@
 | <https://developer.aliyun.com/article/719968> | Docker安装Gitlab和Gitlab-Runner | |
 | <https://blog.csdn.net/qq_41125219/article/details/118686281> | Redis 三主三从伪集群 | |
 | <https://www.cnblogs.com/crazymagic/articles/13951461.html> | docker mysql 集群 | |
-| <https://blog.csdn.net/string_kai/article/details/100598268> | FLV 直播 | |
+| <https://blog.csdn.net/string_kai/article/details/100598268> |无插件web直播解决方案 | ffmpeg+nginx-http-flv-module+flv.js |
+| <https://blog.csdn.net/XC_SunnyBoy/article/details/115790445> | MQTT在Python中的使用mqtt-paho | |
+| <https://www.cnblogs.com/pongyc/p/14276712.html> | Nginx+FFmpeg实现RTSP转RTMP | 包含 ffmpeg 命令 |
