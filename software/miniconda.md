@@ -69,6 +69,8 @@ pip install package_name
 
 ## poetry
 
+`pyproject.toml`
+
 ```toml
 [[tool.poetry.source]]
 

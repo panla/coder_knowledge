@@ -55,10 +55,20 @@ set mouse=a
 git clone git@github.com:gpakosz/.tmux.git
 ```
 
+```text
+# ~/.tmux.conf
+
+set -g prefix C-a
+
+unbind C-b
+
+set -g default-terminal "screen-256color"
+```
+
 ## ohmyzsh
 
 ```text
 sudo apt install fzf
 
-plugins=(git fzf z zsh-interactive-cd zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(git fzf z sudo zsh-interactive-cd zsh-autosuggestions zsh-syntax-highlighting)
 ```

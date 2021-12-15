@@ -60,6 +60,7 @@
 | :-: | :-: | :-: |
 | <https://gitmoji.js.org/> | git emoji | |
 | <https://github.com/arut/nginx-rtmp-module/wiki/Directives> | nginx-rtmp 文档 | |
+| <https://github.com/winshining/nginx-http-flv-module/blob/master/README.CN.md> | nginx-http-flv 文档 | |
 | <https://loguru.readthedocs.io/en/stable/overview.html> | loguru | 日志 | |
 | <https://click.palletsprojects.com/en/8.0.x/> | click | ctl tools | |
 | <https://cython.readthedocs.io/en/latest/index.html> | cython | | |
@@ -68,8 +69,11 @@
 | <https://docs.celeryproject.org/projects/kombu/en/v4.6.11/introduction.html> | kombu | 4.6.11 |
 | <https://design-patterns.readthedocs.io/zh_CN/latest/index.html#> | 图说设计模式 | |
 | <https://howhttps.works/> | HTTPS 工作原理 | |
-| <https://github.com/winshining/nginx-http-flv-module/blob/master/README.CN.md> | nginx-http-flv 文档 | |
 | <https://plotly.com/python/plotly-fundamentals/> | | python 画图 |
+| <https://docs.emqx.cn/broker/v4.3/> | emqx | MQTT 服务器 |
+| <https://www.cnblogs.com/lnn123/p/10837754.html> | python-paho-mqtt | |
+| <https://www.osgeo.cn/python-docx/index.html> | python-docx | |
+| <https://docxtpl.readthedocs.io/en/latest/#> | python-docx-template’s documentation | |
 
 ## Python 开发
 
@@ -175,3 +179,4 @@
 | <https://blog.csdn.net/string_kai/article/details/100598268> |无插件web直播解决方案 | ffmpeg+nginx-http-flv-module+flv.js |
 | <https://blog.csdn.net/XC_SunnyBoy/article/details/115790445> | MQTT在Python中的使用mqtt-paho | |
 | <https://www.cnblogs.com/pongyc/p/14276712.html> | Nginx+FFmpeg实现RTSP转RTMP | 包含 ffmpeg 命令 |
+| <https://www.jianshu.com/p/465516750da6> | Python+docxtpl+plotly实现模板word文档图表生成 | |

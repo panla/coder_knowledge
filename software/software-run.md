@@ -104,7 +104,7 @@ git clone https://github.com/dbeaver/dbeaver.git dbeaver
 git clone xxx.xxx.xxx.com/dbeaver.git dbeaver
 cd dbeaver
 # 需要已经配置 java maven
-mvn package
+mvn clean package
 ```
 
 ### 3.4 desktop
