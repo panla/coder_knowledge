@@ -1,4 +1,4 @@
-# 在 Linux 安装 Miniconda3 到 /opt
+# Conda, Poetry
 
 ## 下载
 

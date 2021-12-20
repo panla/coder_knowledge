@@ -2,6 +2,8 @@
 
 [toc]
 
+环境，Git, SSH, dbeaver, JDK, Maven
+
 ## 1 git
 
 ### 1.1 git 部分配置

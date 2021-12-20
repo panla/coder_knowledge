@@ -2,6 +2,8 @@
 
 [toc]
 
+开发软件，PyCharm, VSCode, Chrome, Postman
+
 ## 1 pycharm
 
 下载解压
@@ -16,18 +18,18 @@ chmod 777 ./*
 ### 1.2 idea.properties
 
 ```text
-idea.config.path=/home/opt/PyCharm-202032/PyCharmCE/config
-idea.system.path=/home/opt/PyCharm-202032/PyCharmCE/system
-idea.plugins.path=/home/opt/PyCharm-202032/PyCharmCE/config/plugins
-idea.log.path=/home/opt/PyCharm-202032/PyCharmCE/system/log
+idea.config.path=/home/opt/PyCharm/PyCharmCE/config
+idea.system.path=/home/opt/PyCharm/PyCharmCE/system
+idea.plugins.path=/home/opt/PyCharm/PyCharmCE/config/plugins
+idea.log.path=/home/opt/PyCharm/PyCharmCE/system/log
 ```
 
 ### 1.3 pycharm64.vmoptions
 
 ```text
--Xms200m
--Xmx350m
--XX:ReservedCodeCacheSize=300m
+-Xms150m
+-Xmx500m
+-XX:ReservedCodeCacheSize=350m
 -XX:+UseConcMarkSweepGC
 -XX:SoftRefLRUPolicyMSPerMB=100
 ```
@@ -88,7 +90,7 @@ sudo dnf install vulkan-loader
 
 把下载链接的 `https://az764295.vo.msecnd.net` 替换为 `http://vscode.cdn.azure.cn`
 
-[最新下载cdn](http://vscode.cdn.azure.cn/stable/ccbaa2d27e38e5afa3e5c21c1c7bef4657064247/code-stable-x64-1637137380.tar.gz)
+[最新下载cdn](http://vscode.cdn.azure.cn/stable/899d46d82c4c95423fb7e10e68eba52050e30ba3/code-stable-x64-1639562789.tar.gz)
 
 解压
 
@@ -137,7 +139,8 @@ Git Graph
 gitignore
 GitLens
 
-Bracket Pair Colorizer 2    括号匹配
+Bracket Pair Colorizer 2    括号匹配，不再维护
+Rainbow Brackets            括号匹配
 indent-rainbow              缩进深度
 Trailing Spaces             多余空格
 
