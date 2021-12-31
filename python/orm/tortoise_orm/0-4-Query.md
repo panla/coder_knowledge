@@ -26,8 +26,8 @@ async Model.get_or_create()                                         如果存在
 Model.update_or_create()                                            一种使用给定 kwargs 更新对象的便捷方法
 async Model.bulk_create()                                           批量创建
 
-Model.first()                   -> QuerySet()first()                生成返回第一条记录的 QuerySet
-Model.filter()                  -> QuerySet()filter()               生成一个应用了过滤器的 QuerySet
+Model.first()                   -> QuerySet().first()               生成返回第一条记录的 QuerySet
+Model.filter()                  -> QuerySet().filter()              生成一个应用了过滤器的 QuerySet
 Model.all()                     -> QuerySet().all()                 返回完整 QuerySet
 Model.get()                     -> QuerySet().get()                 使用提供的过滤器参数获取模型类型的单个记录
 Model.get_or_none()             -> QuerySet().get_or_none()         使用提供的过滤器参数或 None 获取模型类型的单个记录
@@ -40,40 +40,40 @@ Model.exists()                  -> QuerySet().exists()
 ### QuerySet
 
 ```text
-filter() -> "QuerySet[MODEL]"
-exclude() -> "QuerySet[MODEL]"
-all() -> "QuerySet[MODEL]"
-first() -> QuerySetSingle[Optional[MODEL]]
-get() -> QuerySetSingle[MODEL]
-get_or_none() -> QuerySetSingle[Optional[MODEL]]
+filter()                        -> "QuerySet[MODEL]"
+exclude()                       -> "QuerySet[MODEL]"
+all()                           -> "QuerySet[MODEL]"
+first()                         -> QuerySetSingle[Optional[MODEL]]
+get()                           -> QuerySetSingle[MODEL]
+get_or_none()                   -> QuerySetSingle[Optional[MODEL]]
 
-values_list() -> "ValuesListQuery"                  使QuerySet返回元组列表
-values() -> ValuesQuery                             使QuerySet返回字典
-distinct() -> "QuerySet[MODEL]"                     与 values 结合
+values_list()                   -> "ValuesListQuery"                使QuerySet返回元组列表
+values()                        -> ValuesQuery                      使QuerySet返回字典
+distinct()                      -> "QuerySet[MODEL]"                与 values 结合
 
-only() -> QuerySet[MODEL]
-select_related() -> QuerySet[MODEL]
+only()                          -> QuerySet[MODEL]
+select_related()                -> QuerySet[MODEL]
 
-order_by() -> "QuerySet[MODEL]"
-limit() -> "QuerySet[MODEL]"
-offset() -> "QuerySet[MODEL]"
-annotate() -> "QuerySet[MODEL]"
-group_by() -> "QuerySet[MODEL]"
+order_by()                      -> "QuerySet[MODEL]"
+limit()                         -> "QuerySet[MODEL]"
+offset()                        -> "QuerySet[MODEL]"
+annotate()                      -> "QuerySet[MODEL]"
+group_by()                      -> "QuerySet[MODEL]"
 
-select_for_update() -> "QuerySet[MODEL]"
+select_for_update()             -> "QuerySet[MODEL]"
 
-force_index() -> QuerySet[MODEL]
-use_index() -> QuerySet[MODEL]
-using_db() -> QuerySet[MODEL]
+force_index()                   -> QuerySet[MODEL]
+use_index()                     -> QuerySet[MODEL]
+using_db()                      -> QuerySet[MODEL]
 
-prefetch_related() -> QuerySet[MODEL]
+prefetch_related()              -> QuerySet[MODEL]
 
-async explain() -> Any    
+async explain()                 -> Any
 
-delete() -> DeleteQuery
-update() -> UpdateQuery
-count() -> CountQuery
-exists() -> ExistsQuery
+delete()                        -> DeleteQuery
+update()                        -> UpdateQuery
+count()                         -> CountQuery
+exists()                        -> ExistsQuery
 
 sql()
 ```
