@@ -80,7 +80,7 @@ OneToOneField
 
 ```
 
-## 自定义字段
+## 自定义字段类型
 
 ```python
 from typing import Any

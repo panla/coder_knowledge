@@ -6,8 +6,6 @@ from sqlalchemy import text
 
 db = SQLAlchemy()
 
-from extensions import logger
-
 
 class BaseModel(db.Model):
     __abstract__ = True

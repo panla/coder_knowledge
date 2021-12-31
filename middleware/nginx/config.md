@@ -78,3 +78,43 @@ server {
     }
 }
 ```
+
+## 前端
+
+1 `try_files`
+
+```text
+location / {
+    root   /web/front;
+    try_files $uri $uri/ /index.html;
+}
+```
+
+2 `index`
+
+```text
+location / {
+    root   /web/front;
+    index  index.html index.htm;
+}
+```
+
+3 `try_files index`
+
+```text
+location / {
+    root   /web/front;
+    try_files $uri $uri/ /index.html;
+    index  index.html index.htm;
+}
+```
+
+当 vue + vite 时，1 3 可以，2 不行
+
+当 react + build 时，1 2 3 都可以
+
+```text
+index 就是根目录，也就是只识别“/”结尾的，输入不存在或者刷新页面的路径就直接报nginx的404了，而不会重定向到index.html
+
+try_files 更加可靠， 首先会查找"$uri"下的这个文件，如果不存在会查找$uri/,如果还不存在就会重定向到 /index.html页面
+```

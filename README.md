@@ -22,10 +22,10 @@
   - pgsql
 - 部署
   - docker
-  - gitlab-ci
+  - `gitlab-ci`
   - jenkins
 - 保护 python 源码与加解密
-- go
+- Golang
 - linux
   - centos 安装与配置
   - 命令行命令
@@ -36,6 +36,7 @@
   - mq
   - nginx
   - redis
+  - emqx MQTT
 - python
   - loguru
   - gunicorn
@@ -52,8 +53,8 @@
   - 开发软件
 - 收集网站
 - 微信开发
-  - 公众号
-- web框架
+  - 公众号授权
+- web 框架
   - django
   - drf
   - fastapi
