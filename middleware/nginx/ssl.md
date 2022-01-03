@@ -39,6 +39,7 @@ server {
     server_name domain.com;
 
     rewrite ^(.*) https://$server_name$1 permanent;
+    rewrite ^(.*)$ https://host$1 permanent;
 }
 server {
     listen 443 ssl;
