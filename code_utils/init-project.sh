@@ -19,14 +19,21 @@ cd $1
 mkdir apps
 mkdir apps/libs -p
 touch apps/libs/__init__.py
-touch apps/libs/init_app.py
+touch apps/libs/init.py
+touch apps/libs/database.py
+touch apps/libs/middleware.py
+touch apps/libs/exception.py
 mkdir apps/models -p
 touch apps/models/__init__.py
 touch apps/models/model.py
 mkdir apps/modules -p
 touch apps/modules/__init__.py
+touch apps/modules/resource.py
+touch apps/modules/token.py
 touch apps/__init__.py
 touch apps/application.py
+mkdir apps/test_api
+touch apps/test_api/__init__.py
 
 cat>apps/application.py<<EOF
 
@@ -40,12 +47,14 @@ EOF
 # common
 mkdir common
 touch common/__init__.py
+touch common/tools.py
 
 
 # conf
 mkdir conf
 touch conf/__init__.py
 touch conf/settings.py
+touch conf/const.py
 touch conf/product.toml
 touch conf/test.toml
 touch conf/product.local.toml
@@ -55,9 +64,11 @@ touch conf/test.local.toml
 # extensions
 mkdir extensions
 touch extensions/__init__.py
-touch extensions/define.py
+touch extensions/log.py
 touch extensions/response.py
-touch extensions/exception.py
+touch extensions/paginate.py
+touch extensions/route.py
+touch extensions/exceptions.py
 
 
 # redis_ext
@@ -70,25 +81,13 @@ touch redis_ext/sms.py
 
 # scripts
 mkdir scripts
+mkdir scripts/init_data
 touch scripts/__init__.py
 
 
 # services
 mkdir services
 touch services/__init__.py
-
-
-# sockets
-mkdir sockets
-touch sockets/__init__.py
-touch sockets/server.py
-touch sockets/namespace.py
-
-
-# mixins
-mkdir mixins
-touch mixins/__init__.py
-touch mixins/schema.py
 
 
 # tests
@@ -102,10 +101,12 @@ mkdir tests/fixture_data
 # tools
 mkdir tools
 touch tools/__init__.py
+touch tools/worker.py
 
 
 # mirrors
 mkdir mirrors
+touch mirrors/README.md
 touch mirrors/sources.list
 touch mirrors/requirements.txt
 touch mirrors/requirements-simple.txt
@@ -151,7 +152,7 @@ mkdir tmp logs
 touch .gitignore .dockerignore
 touch README.md CHANGELOG.md Dockerfile Makefile docker-entrypoint.sh
 touch config.py server.py
-touch pytest.ini pyproject.toml build.txt
+touch pytest.ini pyproject.toml
 
 cat>.gitignore<<EOF
 
@@ -164,6 +165,7 @@ cat>.gitignore<<EOF
 
 /conf/product.local.toml
 /conf/test.local.toml
+/docker-entrypoint.sh
 
 *.sqlite
 *.pyc
@@ -182,7 +184,7 @@ tmp
 logs
 docs
 
-**/__pycache__
+*.pyc
 EOF
 
 cat>CHANGELOG.md<<EOF
@@ -208,9 +210,9 @@ class Setting(BaseModel):
 
 @lru_cache()
 def get_settings() -> Setting:
-    CODE_ENV = os.environ.get('CODE_ENV', 'prd')
+    code_env = os.environ.get('CODE_ENV', 'prd')
 
-    if CODE_ENV == 'test':
+    if code_env == 'test':
         p = Path(BASE_DIR).joinpath('conf/test.local.toml')
     else:
         p = Path(BASE_DIR).joinpath('conf/product.local.toml')
@@ -244,20 +246,6 @@ location = "./migrations"
 src_folder = "./."
 EOF
 
-cat>build.txt<<EOF
-apps/libs
-apps/models
-apps/modules
-apps
-common
-conf
-extensions
-redis_ext
-scripts
-services
-sockets
-tests
-EOF
 
 cat>Dockerfile<<EOF
 FROM python:3.8-slim-buster
