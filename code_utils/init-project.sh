@@ -34,6 +34,9 @@ touch apps/__init__.py
 touch apps/application.py
 mkdir apps/test_api
 touch apps/test_api/__init__.py
+touch apps/test_api/entities.py
+touch apps/test_api/logics.py
+touch apps/test_api/resources.py
 
 cat>apps/application.py<<EOF
 
@@ -58,11 +61,12 @@ EOF
 
 cat>apps/libs/exception.py<<EOF
 import traceback
-from typing import Any
+from typing import Union, Any
 
 from fastapi import FastAPI, Request, status
 from fastapi.exceptions import HTTPException, RequestValidationError
 from fastapi.responses import JSONResponse
+from starlette.datastructures import URL
 from tortoise.validators import ValidationError
 
 from conf.const import StatusCode
@@ -70,7 +74,7 @@ from extensions.log import logger
 from extensions.exceptions import BaseHTTPException
 
 
-def log_message(method: str, url: str, message: Any):
+def log_message(method: str, url: Union[str, URL], message: Any):
     """log message when catch exception"""
 
     logger.error('start error, this is'.center(60, '*'))
@@ -187,8 +191,6 @@ def register_middleware(app: FastAPI):
 EOF
 
 cat>apps/models/mixin.py<<EOF
-from typing import Tuple, Type
-
 from tortoise import fields
 from tortoise.models import Model
 
@@ -242,8 +244,8 @@ class ModelMixin(object):
 
         results = self.to_dict(self, selects=selects, excludes=excludes)
         if second_attrs:
-            for attr, fields in second_attrs.items():
-                results.update({attr: self.to_dict(await getattr(self, attr), selects=fields)})
+            for attr, columns in second_attrs.items():
+                results.update({attr: self.to_dict(await getattr(self, attr), selects=columns)})
 
         return results
 
@@ -257,8 +259,8 @@ class ModelMixin(object):
 
         results = self.to_dict(self, selects=selects, excludes=excludes)
         if second_attrs:
-            for attr, fields in second_attrs.items():
-                results.update({attr: self.to_dict(getattr(self, attr), selects=fields)})
+            for attr, columns in second_attrs.items():
+                results.update({attr: self.to_dict(getattr(self, attr), selects=columns)})
 
         return results
 EOF
@@ -339,6 +341,23 @@ touch extensions/schema.py
 touch extensions/exceptions.py
 touch extensions/paginate.py
 touch extensions/response.py
+
+cat>extensions/__init__.py<<EOF
+from .log import logger
+from .route import Route
+from .schema import ErrorSchema, SchemaMixin, FilterParserMixin
+from .exceptions import (
+    BaseHTTPException,
+    BadRequest,
+    Unauthorized,
+    Forbidden,
+    NotFound,
+    MethodNotAllowed,
+    Locked
+)
+from .paginate import Pagination
+from .response import resp_success
+EOF
 
 cat>extensions/log.py<<EOF
 __all__ = ['logger']
@@ -611,18 +630,19 @@ class BaseRedisClient(object):
     PREFIX_KEY = ''
     CONNECTION_PARAMS = {'encoding': 'utf-8', 'decode_responses': True}
 
-    def __init__(self, key) -> None:
-        self.key = f'{self.PREFIX_KEY}:{key}'
+    def __init__(self) -> None:
+        self._key = None
         self.uri = 'redis://:{}@{}:{}/{}'.format(
             RedisConfig.REDIS_PASSWD, RedisConfig.REDIS_HOST, RedisConfig.REDIS_PORT, self.DB
         )
+        self.client: Redis = Redis.from_url(self.uri, **self.CONNECTION_PARAMS)
 
     @property
-    def client(self) -> Redis:
-        # source code
-        # connection_pool = ConnectionPool.from_url(url, **kwargs)
+    def key(self):
+        return self._key
 
-        return Redis.from_url(self.uri, **self.CONNECTION_PARAMS)
+    def set_key(self, value):
+        self._key = f'{self.PREFIX_KEY}:{value}'
 EOF
 
 
@@ -632,6 +652,67 @@ mkdir scripts/init_data
 touch scripts/insert.py
 touch scripts/__init__.py
 
+cat>scripts/insert.py<<EOF
+import asyncio
+import sys
+import json
+from pathlib import Path
+from typing import List
+from functools import wraps
+
+import click
+from tortoise import Tortoise
+from tortoise.transactions import atomic
+from loguru import logger
+
+BASEDIR = Path(__file__).parent.parent
+
+sys.path.append(BASEDIR.name)
+
+from config import ORM_LINK_CONF
+from apps.models import User
+
+model_map = {
+    'User': User
+}
+
+
+def _read_json_file(path: str) -> List[dict]:
+    """read json file and return dict"""
+
+    with open(path, 'r', encoding='utf-8') as f:
+        return json.loads(f.read())
+
+
+def coro(f):
+    @wraps(f)
+    def wrapper(*args, **kwargs):
+        loop = asyncio.get_event_loop()
+        try:
+            loop.run_until_complete(f(*args, **kwargs))
+        finally:
+            if f.__name__ != "cli":
+                loop.run_until_complete(Tortoise.close_connections())
+
+    return wrapper
+
+
+async def create(model, params: List[dict]):
+    for param in params:
+        instance = await model.get_or_none(id=param.get('id'))
+        if instance:
+            await instance.update_from_dict(param)
+            await instance.save()
+        else:
+            instance = await model.create(**param)
+
+
+@click.group()
+@click.pass_context
+@coro
+async def cli(ctx: click.Context):
+    await Tortoise.init(config=ORM_LINK_CONF)
+EOF
 
 # services
 mkdir services
