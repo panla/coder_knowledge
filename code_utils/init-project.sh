@@ -39,9 +39,15 @@ touch apps/test_api/logics.py
 touch apps/test_api/resources.py
 
 cat>apps/application.py<<EOF
+from fastapi import FastAPI
 
-def create_app():
-    app = None
+from apps.libs.init import init_app
+
+
+def create_app() -> FastAPI:
+    app = FastAPI()
+
+    app = init_app(app)
 
     return app
 EOF
@@ -190,13 +196,241 @@ def register_middleware(app: FastAPI):
         return response
 EOF
 
+cat>apps/libs/init.py<<EOF
+from fastapi import FastAPI
+
+from .database import init_db
+from .middleware import register_cross, register_middleware
+
+
+def init_app(app: FastAPI) -> FastAPI:
+
+    init_db(app)
+    register_cross(app)
+    register_middleware(app)
+
+    return app
+EOF
+
+cat>apps/models/fields.py<<EOF
+"""
+Num
+    8-bit : TinyInt     UnsignedTinyInt
+    16-bit: SmallInt    UnsignedSmallInt
+    24-bit: MediumInt   UnsignedMediumInt
+    32-bit: Int         UnsignedInt
+    64-bit: BitInt      UnsignedBitInt
+
+    FloatField: DOUBLE
+    DecimalField
+
+EnumField
+    IntEnumField    0 <= value < 32768
+    CharEnumField
+"""
+from typing import Any
+
+from tortoise.fields.base import Field
+
+
+class TinyIntField(Field, int):
+    """
+    Tiny integer field. (8-bit unsigned)
+
+    ``pk`` (bool):
+        True if field is Primary Key.
+    """
+
+    SQL_TYPE = "TINYINT"
+    allows_generated = True
+
+    def __init__(self, pk: bool = False, **kwargs: Any) -> None:
+        if pk:
+            kwargs["generated"] = bool(kwargs.get("generated", True))
+        super().__init__(pk=pk, **kwargs)
+
+    @property
+    def constraints(self) -> dict:
+        return {
+            "ge": 1 if self.generated or self.reference else -128,
+            "le": 127,
+        }
+
+    class _db_mysql:
+        GENERATED_SQL = "TINYINT NOT NULL PRIMARY KEY AUTO_INCREMENT"
+
+
+class MediumIntField(Field, int):
+    """
+    Medium integer field. (24-bit unsigned)
+
+    ``pk`` (bool):
+        True if field is Primary Key.
+    """
+
+    SQL_TYPE = "MEDIUMINT"
+    allows_generated = True
+
+    def __init__(self, pk: bool = False, **kwargs: Any) -> None:
+        if pk:
+            kwargs["generated"] = bool(kwargs.get("generated", True))
+        super().__init__(pk=pk, **kwargs)
+
+    @property
+    def constraints(self) -> dict:
+        return {
+            "ge": 1 if self.generated or self.reference else -8388608,
+            "le": 8388607,
+        }
+
+    class _db_mysql:
+        GENERATED_SQL = "MEDIUMINT NOT NULL PRIMARY KEY AUTO_INCREMENT"
+
+
+class UnsignedTinyIntField(Field, int):
+    """
+    Unsigned Tiny integer field. (8-bit unsigned)
+
+    ``pk`` (bool):
+        True if field is Primary Key.
+    """
+
+    SQL_TYPE = "TINYINT UNSIGNED"
+    allows_generated = True
+
+    def __init__(self, pk: bool = False, **kwargs: Any) -> None:
+        if pk:
+            kwargs["generated"] = bool(kwargs.get("generated", True))
+        super().__init__(pk=pk, **kwargs)
+
+    @property
+    def constraints(self) -> dict:
+        return {
+            "ge": 1 if self.generated or self.reference else 0,
+            "le": 255,
+        }
+
+    class _db_mysql:
+        GENERATED_SQL = "TINYINT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT"
+
+
+class UnsignedSmallIntField(Field, int):
+    """
+    Unsigned Small integer field. (16-bit unsigned)
+
+    ``pk`` (bool):
+        True if field is Primary Key.
+    """
+
+    SQL_TYPE = "SMALLINT UNSIGNED"
+    allows_generated = True
+
+    def __init__(self, pk: bool = False, **kwargs: Any) -> None:
+        if pk:
+            kwargs["generated"] = bool(kwargs.get("generated", True))
+        super().__init__(pk=pk, **kwargs)
+
+    @property
+    def constraints(self) -> dict:
+        return {
+            "ge": 1 if self.generated or self.reference else 0,
+            "le": 65535,
+        }
+
+    class _db_mysql:
+        GENERATED_SQL = "SMALLINT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT"
+
+
+class UnsignedMediumIntField(Field, int):
+    """
+    Unsigned Medium integer field. (24-bit unsigned)
+
+    ``pk`` (bool):
+        True if field is Primary Key.
+    """
+
+    SQL_TYPE = "MEDIUMINT UNSIGNED"
+    allows_generated = True
+
+    def __init__(self, pk: bool = False, **kwargs: Any) -> None:
+        if pk:
+            kwargs["generated"] = bool(kwargs.get("generated", True))
+        super().__init__(pk=pk, **kwargs)
+
+    @property
+    def constraints(self) -> dict:
+        return {
+            "ge": 1 if self.generated or self.reference else 0,
+            "le": 16777215,
+        }
+
+    class _db_mysql:
+        GENERATED_SQL = "MEDIUMINT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT"
+
+
+class UnsignedIntField(Field, int):
+    """
+    Unsigned Int integer field. (32-bit unsigned)
+
+    ``pk`` (bool):
+        True if field is Primary Key.
+    """
+
+    SQL_TYPE = "INT UNSIGNED"
+    allows_generated = True
+
+    def __init__(self, pk: bool = False, **kwargs: Any) -> None:
+        if pk:
+            kwargs["generated"] = bool(kwargs.get("generated", True))
+        super().__init__(pk=pk, **kwargs)
+
+    @property
+    def constraints(self) -> dict:
+        return {
+            "ge": 1 if self.generated or self.reference else 0,
+            "le": 4294967295,
+        }
+
+    class _db_mysql:
+        GENERATED_SQL = "INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT"
+
+
+class UnsignedBigIntField(Field, int):
+    """
+    Unsigned Big integer field. (64-bit unsigned)
+
+    ``pk`` (bool):
+        True if field is Primary Key.
+    """
+
+    SQL_TYPE = "BIGINT UNSIGNED"
+    allows_generated = True
+
+    def __init__(self, pk: bool = False, **kwargs: Any) -> None:
+        if pk:
+            kwargs["generated"] = bool(kwargs.get("generated", True))
+        super().__init__(pk=pk, **kwargs)
+
+    @property
+    def constraints(self) -> dict:
+        return {
+            "ge": 1 if self.generated or self.reference else 0,
+            "le": 18446744073709551615,
+        }
+
+    class _db_mysql:
+        GENERATED_SQL = "BIGINT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT"
+EOF
+
 cat>apps/models/mixin.py<<EOF
 from tortoise import fields
 from tortoise.models import Model
 
+from .fields import UnsignedBigIntField
+
 
 class BaseModel(Model):
-    id = fields.BigIntField(pk=True, description='主键')
+    id = UnsignedBigIntField(pk=True, description='主键')
     created_at = fields.DatetimeField(auto_now_add=True, null=False, description='创建时间')
     updated_at = fields.DatetimeField(auto_now=True, null=False, description='更新时间')
     is_deleted = fields.BooleanField(null=False, default=False, description='删除标识')
@@ -817,6 +1051,7 @@ cat>.gitignore<<EOF
 /conf/product.local.toml
 /conf/test.local.toml
 /docker-entrypoint.sh
+/gunicorn_config.py
 
 *.sqlite
 *.pyc

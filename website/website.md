@@ -163,6 +163,12 @@ python
 | <https://docs.mongoing.com/> | momgo 中文手册 |
 | <https://docs.mongodb.com/manual> | mongo 手册 |
 
+### InfluxDB
+
+| url | 网站 | 备注 |
+| :-: | :-: | :-: |
+| <https://docs.influxdata.com/influxdb/v2.1/> | InfluxDB |
+
 ## 中间件
 
 | url | 网站 | 备注 |
