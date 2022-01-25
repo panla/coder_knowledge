@@ -23,11 +23,11 @@ sudo make install
 配置参数
 
 ```bash
-./configure --user=root --group=root --prefix=/home/opt/nginx --sbin-path=/home/opt/nginx/sbin/nginx --with-file-aio --with-http_v2_module --with-http_realip_module --with-http_addition_module --with-http_xslt_module --with-http_xslt_module=dynamic --with-http_image_filter_module --with-http_image_filter_module=dynamic --with-http_geoip_module --with-http_geoip_module=dynamic --with-http_sub_module --with-http_dav_module --with-http_flv_module --with-http_mp4_module --with-http_gunzip_module --with-http_gzip_static_module --with-http_auth_request_module --with-http_random_index_module --with-http_secure_link_module --with-http_degradation_module --with-http_slice_module --with-http_stub_status_module --with-http_perl_module --with-http_perl_module=dynamic --with-perl=path --with-mail --with-mail=dynamic --with-mail_ssl_module --with-stream --with-stream=dynamic --with-stream_realip_module --with-stream_geoip_module --with-stream_geoip_module=dynamic --with-stream_ssl_preread_module --with-cpp_test_module  --with-perl=/usr/bin/perl5.26.3 --with-pcre-jit --with-pcre=/srv/temp/pcre-8.44 --with-zlib=/srv/temp/zlib-1.2.11 --with-openssl=/srv/temp/openssl-1.1.1j
+./configure --user=root --group=root --prefix=/opt/nginx --sbin-path=/opt/nginx/sbin/nginx --with-file-aio --with-http_v2_module --with-http_realip_module --with-http_addition_module --with-http_xslt_module --with-http_xslt_module=dynamic --with-http_image_filter_module --with-http_image_filter_module=dynamic --with-http_geoip_module --with-http_geoip_module=dynamic --with-http_sub_module --with-http_dav_module --with-http_flv_module --with-http_mp4_module --with-http_gunzip_module --with-http_gzip_static_module --with-http_auth_request_module --with-http_random_index_module --with-http_secure_link_module --with-http_degradation_module --with-http_slice_module --with-http_stub_status_module --with-http_perl_module --with-http_perl_module=dynamic --with-perl=path --with-mail --with-mail=dynamic --with-mail_ssl_module --with-stream --with-stream=dynamic --with-stream_realip_module --with-stream_geoip_module --with-stream_geoip_module=dynamic --with-stream_ssl_preread_module --with-cpp_test_module  --with-perl=/usr/bin/perl5.26.3 --with-pcre-jit --with-pcre=/srv/temp/pcre-8.44 --with-zlib=/srv/temp/zlib-1.2.11 --with-openssl=/srv/temp/openssl-1.1.1j
 ```
 
 ```bash
-./configure --user=root --group=root --prefix=/home/opt/nginx --sbin-path=/home/opt/nginx/sbin/nginx --with-file-aio --with-http_v2_module --with-http_realip_module --with-http_addition_module --with-http_xslt_module --with-http_xslt_module=dynamic --with-http_image_filter_module --with-http_image_filter_module=dynamic --with-http_sub_module --with-http_dav_module --with-http_flv_module --with-http_mp4_module --with-http_gunzip_module --with-http_gzip_static_module --with-http_auth_request_module --with-http_random_index_module --with-http_secure_link_module --with-http_degradation_module --with-http_slice_module --with-http_stub_status_module --with-http_perl_module --with-http_perl_module=dynamic --with-perl=path --with-mail --with-mail=dynamic --with-mail_ssl_module --with-stream --with-stream=dynamic --with-stream_realip_module --with-stream_ssl_preread_module --with-perl=/usr/bin/perl5.26.3 --with-pcre-jit --with-pcre=/srv/temp/pcre-8.44 --with-zlib=/srv/temp/zlib-1.2.11 --with-openssl=/srv/temp/openssl-1.1.1j
+./configure --user=root --group=root --prefix=/opt/nginx --sbin-path=/opt/nginx/sbin/nginx --with-file-aio --with-http_v2_module --with-http_realip_module --with-http_addition_module --with-http_xslt_module --with-http_xslt_module=dynamic --with-http_image_filter_module --with-http_image_filter_module=dynamic --with-http_sub_module --with-http_dav_module --with-http_flv_module --with-http_mp4_module --with-http_gunzip_module --with-http_gzip_static_module --with-http_auth_request_module --with-http_random_index_module --with-http_secure_link_module --with-http_degradation_module --with-http_slice_module --with-http_stub_status_module --with-http_perl_module --with-http_perl_module=dynamic --with-perl=path --with-mail --with-mail=dynamic --with-mail_ssl_module --with-stream --with-stream=dynamic --with-stream_realip_module --with-stream_ssl_preread_module --with-perl=/usr/bin/perl5.26.3 --with-pcre-jit --with-pcre=/srv/temp/pcre-8.44 --with-zlib=/srv/temp/zlib-1.2.11 --with-openssl=/srv/temp/openssl-1.1.1j
 ```
 
 其他参数
@@ -53,9 +53,9 @@ After=network-online.target remote-fs.target nss-lookup.target
 Wants=network-online.target
 
 [Service]
-PIDFile=/home/opt/nginx/logs/nginx.pid
-ExecStartPre=/home/opt/nginx/sbin/nginx -t
-ExecStart=/home/opt/nginx/sbin/nginx -g "daemon off;" -c /home/opt/nginx/conf/nginx.conf
+PIDFile=/opt/nginx/logs/nginx.pid
+ExecStartPre=/opt/nginx/sbin/nginx -t
+ExecStart=/opt/nginx/sbin/nginx -g "daemon off;" -c /opt/nginx/conf/nginx.conf
 ExecReload=/bin/kill -s HUP $MAINPID
 KillSignal=SIGQUIT
 TimeoutStopSec=5

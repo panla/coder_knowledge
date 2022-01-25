@@ -29,9 +29,9 @@ chmod 777 bin/*
     "tcp://0.0.0.0:2375",
     "unix:///var/run/docker.sock"
   ],
-  "pidfile": "/home/opt/docker/tmp/docker.pid",
-  "exec-root": "/home/opt/docker/run",
-  "data-root": "/home/opt/docker/lib"
+  "pidfile": "/opt/docker/tmp/docker.pid",
+  "exec-root": "/opt/docker/run",
+  "data-root": "/opt/docker/lib"
 }
 ```
 
@@ -48,7 +48,7 @@ Wants=network-online.target
 
 [Service]
 Type=notify
-ExecStart=/home/opt/docker/bin/dockerd --config-file=/home/opt/docker/daemon.json
+ExecStart=/opt/docker/bin/dockerd --config-file=/opt/docker/daemon.json
 ExecReload=/bin/kill -s HUP $MAINPID
 ExecStartPost=-chmod 666 /var/run/docker.sock
 LimitNOFILE=infinity
@@ -68,17 +68,17 @@ WantedBy=multi-user.target
 
 ```bash
 cd /usr/bin
-sudo ln -s /home/opt/docker/bin/* ./
+sudo ln -s /opt/docker/bin/* ./
 ```
 
 ## path
 
 ```text
-export PATH="/home/opt/docker/bin:$PATH"
+export PATH="/opt/docker/bin:$PATH"
 ```
 
 ## 安装 portainer
 
 ```bash
-docker run -d -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce
+docker run -d -p 127.0.0.1:9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce
 ```

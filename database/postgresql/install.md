@@ -44,7 +44,7 @@ dnf install pam-devel
 mkdir build
 cd build
 
-../configure --prefix=/home/opt/pgsql --exec-prefix=/home/opt/pgsql --with-pgport=5432 --with-openssl --with-uuid=e2fs --with-llvm --with-pam
+../configure --prefix=/opt/pgsql --exec-prefix=/opt/pgsql --with-pgport=5432 --with-openssl --with-uuid=e2fs --with-llvm --with-pam
 
 make world
 make install-world
@@ -83,9 +83,9 @@ make distclean
 ## 环境变量
 
 ```text
-export PATH="/home/opt/pgsql/bin:$PATH"
-export MANPATH="/home/opt/pgsql/share/man:$MANPATH"
-export LD_LIBRARY_PATH="/home/opt/pgsql/lib:$LD_LIBRARY_PATH"
+export PATH="/opt/pgsql/bin:$PATH"
+export MANPATH="/opt/pgsql/share/man:$MANPATH"
+export LD_LIBRARY_PATH="/opt/pgsql/lib:$LD_LIBRARY_PATH"
 ```
 
 ## systemd
@@ -98,9 +98,9 @@ Documentation=man:postgres(1)
 [Service]
 Type=forking
 User=postgres
-ExecStart=/home/opt/pgsql/bin/pg_ctl -D /home/opt/pgsql/data start
-ExecStop=/home/opt/pgsql/bin/pg_ctl stop -D /home/opt/pgsql/data -m fast
-ExecReload=/home/opt/pgsql/bin/pg_ctl reload -D /home/opt/pgsql/data -s
+ExecStart=/opt/pgsql/bin/pg_ctl -D /opt/pgsql/data start
+ExecStop=/opt/pgsql/bin/pg_ctl stop -D /opt/pgsql/data -m fast
+ExecReload=/opt/pgsql/bin/pg_ctl reload -D /opt/pgsql/data -s
 TimeoutSec=60
 
 [Install]
@@ -122,7 +122,7 @@ sudo useradd -g postgres postgres
 sudo passwd postgres
 
 su - postgres
-initdb -D /home/opt/pgsql/data -E UTF8 --locale=zh_CN.utf8
+initdb -D /opt/pgsql/data -E UTF8 --locale=zh_CN.utf8
 ```
 
 initdb 部分参数
@@ -139,20 +139,20 @@ initdb 部分参数
 `opt/pgsql/data/postgresql.conf`
 
 ```text
-unix_socket_directories = '/home/opt/pgsql/tmp'
+unix_socket_directories = '/opt/pgsql/tmp'
 unix_socket_group = 'postgres'
 unix_socket_permissions = 0777
 ```
 
 ```bash
-ln -s /home/opt/pgsql/tmp/.s.PGSQL.5432 /tmp/.s.PGSQL.5432
-ln -s /home/opt/pgsql/tmp/.s.PGSQL.5432.lock /tmp/.s.PGSQL.5432.lock
+ln -s /opt/pgsql/tmp/.s.PGSQL.5432 /tmp/.s.PGSQL.5432
+ln -s /opt/pgsql/tmp/.s.PGSQL.5432.lock /tmp/.s.PGSQL.5432.lock
 ```
 
 ## 启动
 
 ```bash
-pg_ctl -D /home/opt/pgsql/data start
+pg_ctl -D /opt/pgsql/data start
 sudo systemctl daemon-reload
 sudo systemctl start pgsql
 sudo systemctl status pgsql

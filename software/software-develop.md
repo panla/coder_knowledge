@@ -2,7 +2,7 @@
 
 [toc]
 
-开发软件，PyCharm, VSCode, Chrome, Postman
+开发软件，**PyCharm, VSCode, Chrome, Postman, dbeaver, Oss-Browser, Idea, ApiFox**
 
 ## 1 pycharm
 
@@ -223,4 +223,148 @@ pm.globals.set("token_local", token);
 var csrf_token = postman.getResponseCookie("csrftoken").value;
 // postman.clearGlobalVariable("local_csrf");
 postman.setGlobalVariable("local_csrf", csrf_token);
+```
+
+```javascript
+//把json字符串转化为对象
+var data=JSON.parse(responseBody);
+// 获取data对象的utoken值。
+var token=data.data.access_token;
+111
+// 环境变量
+pm.environment.set("dji_token_local", token);
+222
+//设置成全局变量
+pm.globals.set("token_local", token);
+```
+
+## 5 dbeaver
+
+### 5.1 下载
+
+[github](https://github.com/dbeaver/dbeaver/releases)
+[代下-1](https://www.offcloud.com/)
+[代下-2](https://shrill-pond-3e81.hunsh.workers.dev/)
+
+### 5.2 安装-配置
+
+窗口->首选项->连接->驱动->maven->添加
+
+```text
+name
+https://maven.aliyun.com/repository/public
+```
+
+### 5.3 build
+
+```bash
+git clone https://github.com/dbeaver/dbeaver.git dbeaver
+git clone xxx.xxx.xxx.com/dbeaver.git dbeaver
+cd dbeaver
+# 需要已经配置 java maven
+mvn clean package
+```
+
+### 5.4 desktop
+
+```text
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=DBeaver Community
+GenericName=UniversaL Database Manager
+Comment=Universal Database Manager and SQL Client.
+Path=/home/opt/dbeaver/
+Exec=/home/opt/dbeaver/dbeaver
+Icon=/home/opt/dbeaver/dbeaver.png
+Categories=IDE;Development
+WM_CLASS=DBeaver
+StartupWMClass=DBeaver
+StartupNotify=true
+Keywords=Database;SQL;IDE;JDBC;ODBC;MySQL;PostgreSQL;Oracle;DB2;MariaDB
+MimeType=application/sql
+Terminal=false
+```
+
+## 6 Oss-Browser
+
+OSS 浏览器
+
+```text
+[Desktop Entry]
+Type=Application
+Name=Oss-Browser
+Encoding=UTF-8
+Categories=Development;
+Exec=/extend/opt/oss-browser/oss-browser
+Icon=/extend/opt/oss-browser/resources/custom/icon.png
+Terminal=false
+```
+
+## 7 Idea
+
+```text
+[Desktop Entry]
+Type=Application
+Name=Idea
+GenericName=Java IDE
+Comment=Idea
+Exec=sh /extend/opt/idea/bin/idea.sh
+Icon=/extend/opt/idea/bin/idea.png
+Categories=Development;IDE;
+Actions=new-empty-window;
+Terminal=Idea
+
+[Desktop Action new-empty-window]
+Name=New Empty Window
+Exec=sh /extend/opt/idea/bin/idea.sh
+Icon=/extend/opt/idea/bin/idea.png
+Terminal=Idea
+```
+
+## 8 ApiFox
+
+```text
+[Desktop Entry]
+Name=ApiFox
+Comment=ApiFox
+GenericName=ApiFox
+Exec=/extend/opt/apifox/Apifox.AppImage
+Icon=/extend/opt/apifox/icon.png
+Type=Application
+StartupNotify=false
+StartupWMClass=ApiFox
+Categories=Development;
+Actions=new-empty-window;
+Keywords=api;
+
+[Desktop Action new-empty-window]
+Name=New Empty Window
+Exec=/extend/opt/apifox/Apifox.AppImage
+Icon=/extend/opt/apifox/icon.png
+```
+
+## 9 Another-Redis-Desktop-Manager
+
+```text
+[Desktop Entry]
+Name=RedisManager
+Comment=Redis Desktop Manager
+GenericName=Redis Desktop Manager
+# Exec=/extend/opt/ARDM/another-redis-desktop-manager --no-sandbox --unity-launch %F
+Exec=/extend/opt/ARDM/Another-Redis-Desktop-Manager.1.5.1.AppImage
+Icon=/extend/opt/ARDM/icon.png
+# Icon 可以在解压后的文件里找到
+Type=Application
+StartupNotify=false
+StartupWMClass=RedisManager
+Categories=Development;
+Actions=new-empty-window;
+Keywords=redis;
+
+[Desktop Action new-empty-window]
+Name=New Empty Window
+# Exec=/extend/opt/ARDM/another-redis-desktop-manager --no-sandbox --unity-launch %F
+Exec=/extend/opt/ARDM/Another-Redis-Desktop-Manager.1.5.1.AppImage
+Icon=/extend/opt/ARDM/icon.png
 ```

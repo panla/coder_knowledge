@@ -32,13 +32,22 @@ touch apps/modules/resource.py
 touch apps/modules/token.py
 touch apps/__init__.py
 touch apps/application.py
-mkdir apps/test_api
-touch apps/test_api/__init__.py
-touch apps/test_api/entities.py
-touch apps/test_api/logics.py
-touch apps/test_api/resources.py
+mkdir apps/v1_api
+touch apps/v1_api/__init__.py
+mkdir apps/v1_api/entities
+mkdir apps/v1_api/logics
+mkdir apps/v1_api/resources
+touch apps/v1_api/entities/__init__.py
+touch apps/v1_api/logics/__init__.py
+touch apps/v1_api/resources/__init__.py
 
-cat>apps/test_api/__init__.py<<EOF
+cat>apps/libs/__init__.py<<EOF
+from .exception import register_exception
+from .middleware import register_cross, register_middleware
+from .init import init_app
+EOF
+
+cat>apps/v1_api/__init__.py<<EOF
 from fastapi import FastAPI
 
 from apps.libs.exception import register_exception
@@ -58,19 +67,19 @@ def init_sub_app(app: FastAPI):
 
     register_exception(api_app)
     register_routers(api_app)
-    app.mount(path='/api/v100', app=api_app, name='v100_api')
+    app.mount(path='/api/v1', app=api_app, name='v1_api')
 
     return app
 EOF
 
-cat>apps/test_api/__init__.py<<EOF
+cat>apps/modules/__init__.py<<EOF
 from .resource import ResourceOp
 EOF
 
 cat>apps/application.py<<EOF
 from fastapi import FastAPI
 
-from apps.libs.init import init_app
+from apps.libs import init_app
 
 
 def create_app() -> FastAPI:
@@ -243,7 +252,6 @@ EOF
 
 cat>apps/models/fields.py<<EOF
 """
-"""
 Num
     8-bit : TinyInt     UnsignedTinyInt
     16-bit: SmallInt    UnsignedSmallInt
@@ -260,7 +268,7 @@ EnumField
 """
 from typing import Any
 
-from tortoise.fields.data import SmallIntField, IntField, BigIntField
+from tortoise.fields.data import IntField, BigIntField
 
 
 class TinyIntField(IntField):
@@ -344,7 +352,7 @@ class UnsignedTinyIntField(IntField):
         GENERATED_SQL = "TINYINT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT"
 
 
-class UnsignedSmallIntField(SmallIntField):
+class UnsignedSmallIntField(IntField):
     """
     Unsigned Small integer field. (16-bit unsigned)
 
@@ -550,14 +558,29 @@ EOF
 
 
 # commen
-mkdir commen
-touch commen/__init__.py
-touch commen/tools.py
+mkdir common
+touch common/__init__.py
+touch common/tools.py
 
-cat>commen/__init__.py<<EOF
+cat>common/__init__.py<<EOF
 from .tools import UidGenerator
 EOF
 
+cat>common/tools.py<<EOF
+import uuid
+
+
+class UidGenerator:
+
+    def u_id(self) -> str:
+        return f'{uuid.uuid4().hex}'
+
+    def __str__(self) -> str:
+        return self.u_id()
+
+    def __repr__(self) -> str:
+        return self.u_id()
+EOF
 
 # conf
 mkdir conf
@@ -599,6 +622,162 @@ class PaginateConst:
     MaxSize = 40
 EOF
 
+cat>conf/settings.py<<EOF
+from functools import lru_cache
+
+from pydantic import BaseModel
+
+
+class LogSetting(BaseModel):
+    # 日志
+
+    LOG_LEVEL: str = 'DEBUG'
+    LOG_PATH: str
+
+
+class DBSetting(BaseModel):
+    # mysql
+
+    DB_POOL_RECYCLE: str = 1000
+
+    DB_USER: str = 'root'
+    DB_PASSWD: str
+    DB_HOST: str = '127.0.0.1'
+    DB_PORT: int = 3306
+    DB_DATABASE: str
+    DB_MAX_SIZE: int = 5
+
+
+class MQSetting(BaseModel):
+    # rabbitmq
+
+    HOST: str
+    PORT: int
+    USER: str
+    PASSWD: str
+
+
+class RedisSetting(BaseModel):
+    # redis
+
+    HOST: str
+    PORT: int = 6379
+    USER: str
+    PASSWD: str
+
+
+class MQTTSetting(BaseModel):
+    # mqtt
+
+    HOST: str
+    PORT: int
+    USER: str
+    PASSWD: str
+    KEEPALIVE: int = 600
+
+
+class ORMSetting():
+    def __init__(self, db):
+        self.db = db
+
+    def _base_orm_conf(self, apps: dict) -> dict:
+        return {
+            'connections': {
+                'default': {
+                    'engine': 'tortoise.backends.mysql',
+                    'credentials': {
+                        'host': self.db.DB_HOST,
+                        'port': self.db.DB_PORT,
+                        'user': self.db.DB_USER,
+                        'password': self.db.DB_PASSWD,
+                        'database': self.db.DB_DATABASE,
+                        'minsize': 1,
+                        'maxsize': self.db.DB_MAX_SIZE,
+                        'charset': 'utf8mb4',
+                        'pool_recycle': self.db.DB_POOL_RECYCLE
+                    }
+                }
+            },
+            'apps': apps,
+            'use_tz': False,
+            'timezone': 'Asia/Shanghai'
+        }
+
+    @property
+    @lru_cache
+    def orm_link_conf(self) -> dict:
+        orm_apps_settings = {
+            'models': {
+                'models': [
+                    'aerich.models',
+                    'apps.models.models'
+                ],
+                'default_connection': 'default',
+            }
+        }
+        return self._base_orm_conf(orm_apps_settings)
+
+    @property
+    def orm_migrate_conf(self) -> dict:
+        orm_apps_settings = {
+            'models': {
+                'models': [
+                    'aerich.models',
+                    'apps.models.models'
+                ],
+                'default_connection': 'default',
+            }
+        }
+        return self._base_orm_conf(orm_apps_settings)
+
+    @property
+    def orm_test_migrate_conf(self) -> dict:
+        orm_apps_settings = {
+            'models': {
+                'models': [
+                    'aerich.models',
+                    'apps.models.models'
+                ],
+                'default_connection': 'default',
+            }
+        }
+        return self._base_orm_conf(orm_apps_settings)
+EOF
+
+cat>conf/product.toml<<EOF
+[log]
+LOG_LEVEL = "INFO"
+LOG_PATH = "/home/logs/x.log"
+
+[db]
+DB_POOL_RECYCLE = 1800
+
+DB_USER = "root"
+DB_PASSWD = "passwd"
+DB_HOST = "127.0.0.1"
+DB_PORT = 3306
+DB_DATABASE = "database"
+DB_MAX_SIZE = 500
+
+[mq]
+HOST = "127.0.0.1"
+PORT = 5672
+USER = "root"
+PASSWD = "root"
+
+[mqtt]
+HOST = "127.0.0.1"
+PORT = 1883
+USER = "backend"
+PASSWD = "backend"
+KEEPALIVE = 600
+
+[redis]
+HOST = "127.0.0.1"
+PORT = 6379
+USER = "default"
+PASSWD = "passwd"
+EOF
 
 # extensions
 mkdir extensions
@@ -656,7 +835,7 @@ from json import JSONDecodeError
 from fastapi import Request
 from fastapi.routing import APIRoute
 
-from extensions import logger
+from .log import logger
 
 
 class Route(APIRoute):
@@ -885,9 +1064,6 @@ touch redis_ext/lock.py
 touch redis_ext/sms.py
 
 cat>redis_ext/base.py<<EOF
-from typing import Union
-from datetime import timedelta
-
 from aioredis import Redis
 
 from config import RedisConfig
@@ -901,12 +1077,12 @@ class BaseRedisClient(object):
     def __init__(self) -> None:
         self._name = None
         self.uri = 'redis://{}:{}@{}:{}/{}'.format(
-            RedisConfig.USER, RedisConfig.REDIS_PASSWD, RedisConfig.REDIS_HOST, RedisConfig.REDIS_PORT, self.DB
+            RedisConfig.USER, RedisConfig.PASSWD, RedisConfig.HOST, RedisConfig.PORT, self.DB
         )
         self.client: Redis = Redis.from_url(self.uri, **self.CONNECTION_PARAMS)
 
     @property
-    def key(self):
+    def name(self):
         return self._name
 
     @name.setter
@@ -939,11 +1115,6 @@ BASEDIR = Path(__file__).parent.parent
 sys.path.append(BASEDIR.name)
 
 from config import ORM_LINK_CONF
-from apps.models import User
-
-model_map = {
-    'User': User
-}
 
 
 def _read_json_file(path: str) -> List[dict]:
@@ -981,12 +1152,120 @@ async def create(model, params: List[dict]):
 @coro
 async def cli(ctx: click.Context):
     await Tortoise.init(config=ORM_LINK_CONF)
+
+
+@click.command(help='create init users data')
+@click.pass_context
+@click.option('-f', '--file', help='json file')
+@coro
+@atomic()
+async def create_instances(ctx: click.Context, file: str):
+
+    pass
+
+
+cli.add_command(create_instances)
+
+if __name__ == '__main__':
+    cli()
 EOF
 
 # services
 mkdir services
 touch services/__init__.py
+mkdir services/mqtt_services
+mkdir services/celery_services
+touch services/mqtt_services/__init__.py
+touch services/celery_services/__init__.py
+touch services/mqtt_services/client.py
 
+cat>services/mqtt_services/client.py<<EOF
+import json
+
+from paho.mqtt.client import Client
+
+from extensions.log import logger
+
+
+class MqttClient:
+    def __init__(self) -> None:
+        self.client = Client()
+        self.client.on_connect = self.on_connect
+        self.client.on_message = self.on_message
+        self.client.on_publish = self.on_publish
+        self.client.on_disconnect = self.on_disconnect
+        self.client.on_unsubscribe = self.on_unsubscribe
+        self.client.on_subscribe = self.on_subscribe
+
+    def connect(self, host: str, port: int, user: str, passwd: str, keepalive: int = 600):
+        """加载账户，连接"""
+
+        self.client.username_pw_set(user, passwd)
+        self.client.connect(host=host, port=port, keepalive=keepalive)
+
+    def loop_start(self):
+        """loop"""
+        self.client.loop_start()
+
+    def loop_forever(self):
+        """循环保持"""
+
+        self.client.loop_forever()
+
+    def subscribe(self, topic: str):
+        """订阅 topic"""
+
+        self.client.subscribe(topic)
+
+    def publish(self, topic, payload, qos=0):
+        """发布"""
+
+        data = json.dumps(payload, ensure_ascii=False)
+        self.client.publish(topic=topic, payload=data, qos=qos)
+
+    def add_callback(self, topic, callback):
+        """向指定的 topic 添加回复/回调"""
+
+        self.client.message_callback_add(topic, callback)
+
+    def on_connect(self, client, userdata, flags, rc):
+        """连接事件"""
+
+        logger.info('on_connect'.center(40, '*'))
+        logger.info(f'Connected with result code: {rc}')
+
+    def on_message(self, client, userdata, msg):
+        """获得消息事件，触发动作，匹配不到 message_callback_add 时使用这个"""
+
+        logger.info('on_message'.center(40, '*'))
+        payload = msg.payload.decode('utf-8')
+        logger.info(f'on_message topic: {msg.topic}')
+        logger.info(payload)
+
+    def on_subscribe(self, client, userdata, mid, granted_qos):
+        """订阅事件"""
+
+        logger.info('on_subscribe'.center(40, '*'))
+        logger.info('on_subscribe: qos = {granted_qos}')
+
+    def on_unsubscribe(self, client, userdata, mid):
+        """取消订阅事件"""
+
+        logger.info('on_unsubscribe'.center(40, '*'))
+        logger.info('on_unsubscribe: qos = {granted_qos}')
+
+    def on_publish(self, client, userdata, mid):
+        """发布消息事件"""
+
+        logger.info('on_publish'.center(40, '*'))
+        logger.info(f'on_publish: mid = {mid}')
+
+    def on_disconnect(self, client, userdata, rc):
+        """断开连接事件"""
+
+        logger.info('on_disconnect'.center(40, '*'))
+        logger.info('Unexpected disconnected rc = {rc}')
+EOF
 
 # tests
 mkdir tests
@@ -1121,12 +1400,19 @@ from functools import lru_cache
 import pytomlpp
 from pydantic import BaseModel
 
+from conf.settings import (
+    LogSetting, DBSetting, MQTTSetting, ORMSetting, MQSetting, RedisSetting
+)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 class Setting(BaseModel):
-    pass
+    log: LogSetting
+    mqtt: MQTTSetting
+    db: DBSetting
+    mq: MQSetting
+    redis: RedisSetting
 
 
 @lru_cache()
@@ -1146,6 +1432,15 @@ def get_settings() -> Setting:
 
 
 Config = get_settings()
+
+ORM_LINK_CONF = ORMSetting(Config.db).orm_link_conf
+ORM_MIGRATE_CONF = ORMSetting(Config.db).orm_migrate_conf
+ORM_TEST_MIGRATE_CONF = ORMSetting(Config.db).orm_test_migrate_conf
+
+LogConfig = Config.log
+MQTTConfig = Config.mqtt
+RedisConfig = Config.redis
+MQConfig = Config.mq
 EOF
 
 cat>server.py<<EOF
@@ -1185,7 +1480,6 @@ RUN cp /mirrors/sources.list /etc/apt/sources.list \
 && apt update && apt upgrade -y && apt autoclean -y && apt autoremove -y \ 
 && apt install gcc -y && python -m pip install --upgrade pip -i https://mirrors.aliyun.com/pypi/simple/ \ 
 && pip3 install -r /mirrors/requirements.txt -i https://mirrors.aliyun.com/pypi/simple/ --no-cache-dir
-
 EOF
 
 echo "over"
