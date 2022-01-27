@@ -1,5 +1,7 @@
 # 网站集合
 
+[toc]
+
 ## 官网
 
 | url | 网站 | 备注 |
@@ -66,7 +68,7 @@ public
 | <https://github.com/winshining/nginx-http-flv-module/blob/master/README.CN.md> | nginx-http-flv 文档 | |
 | <https://design-patterns.readthedocs.io/zh_CN/latest/index.html#> | 图说设计模式 | |
 | <https://howhttps.works/> | HTTPS 工作原理 | |
-| <https://docs.emqx.cn/broker/v4.3/> | emqx | MQTT 服务器 |
+| <https://docs.emqx.cn/broker/v4.3/> | EMQX | MQTT 服务器 |
 
 python
 
@@ -196,3 +198,56 @@ python
 | <https://www.cnblogs.com/pongyc/p/14276712.html> | Nginx+FFmpeg实现RTSP转RTMP | 包含 ffmpeg 命令 |
 | <https://www.jianshu.com/p/465516750da6> | Python+docxtpl+plotly实现模板word文档图表生成 | |
 | <https://mp.weixin.qq.com/s/8zp9PBiZC5HbWeKNNaaNew> | 为什么指针被誉为现代编程语言的开山鼻祖的灵魂 | |
+| <https://www.cnblogs.com/wlandwl/> | 无涯博客 DDD | |
+| <https://docs.deepin.org/pages/66fec7/#%E5%A6%82%E4%BD%95%E4%BF%9D%E5%AD%98%E9%85%8D%E7%BD%AE> | deepin 双屏幕 | |
+| <https://zhuanlan.zhihu.com/p/351162895> | DDD 领域驱动设计总结 | |
+
+## 优秀项目
+
+| url | name | 备注 |
+| :-: | :-: | :-: |
+| <git@github.com:cython/cython.git> | Cython | |
+| <git@github.com:MagicStack/httptools.git> | httptools | Python HTTP |
+| <git@github.com:MagicStack/uvloop.git> | uvloop | Python async event loop |
+| <git@github.com:agronholm/anyio.git> | anyio | |
+| <git@github.com:python-trio/trio.git> | trio | Python async lib |
+| <git@github.com:Neoteroi/BlackSheep.git> | BlackSheep | Python async Web Framework |
+| <git@github.com:falconry/falcon.git> | falcon | Python Web Framework |
+| <git@github.com:tiangolo/fastapi.git> | fastapi | Python Async Web Framework |
+| <git@github.com:encode/starlette.git> | starlette | Python async Web Framework |
+| <git@github.com:flask-admin/flask-admin.git> | flask-admin | |
+| <git@github.com:pallets-eco/flask-caching.git> | flask-caching | flask Cache |
+| <git@github.com:pallets/flask-sqlalchemy.git> | flask-sqlalchemy | Python ORM |
+| <git@github.com:smagafurov/fastapi-jsonrpc.git> | fastapi-jsonrpc | fastapi JSONRPC |
+| <git@github.com:comeuplater/fastapi_cache.git> | fastapi_cache | fastapi Cache |
+| <git@github.com:sabuhish/fastapi-mqtt.git> | fastapi-mqtt | fastapi MQTT |
+| <git@github.com:wialon/gmqtt.git> | gmqtt | Python async MQTT |
+| <git@github.com:eerimoq/mqttools.git> | mqttools | Python MQTT |
+| <git@github.com:mossblaser/aiomqtt.git> | aiomqtt | Python async MQTT |
+| <git@github.com:tortoise/tortoise-orm.git> | Tortoise-ORM | Python async ORM |
+| <git@github.com:tortoise/tortoise-cli.git> | tortoise-cli | Python Tortoise-ORM cli |
+| <git@github.com:tortoise/aerich.git> | aerich | Python Tortoise-orm-database migrate |
+| <git@github.com:PyMySQL/mysqlclient.git> | mysqlclient | Python mysqlclient C driver |
+| <git@github.com:PyMySQL/PyMySQL.git> | pymysql | Python MySQL driver |
+| <git@github.com:MagicStack/asyncpg.git> | asyncpg | Python async pgsql driver |
+| <git@github.com:aio-libs/aiomysql.git> | aiomysql | Python async MySQL driver |
+| <git@github.com:aio-libs/aioredis-py.git> | aioredis | Python async Redis |
+| <git@github.com:Tinche/aiofiles.git> | aiofiles | Python async file operator |
+| <git@github.com:dbeaver/dbeaver.git> | dbeaver | database GUI Client |
+| <git@github.com:tiangolo/typer.git> | typer | Python cli |
+| <git@github.com:minibear2021/wechatpayv3.git> | wechatpayv3 | 微信支付 |
+| <git@github.com:wechatpy/wechatpy.git> | 微信开发 | |
+
+| url | name | 备注 |
+| :-: | :-: | :-: |
+| <https://github.com/xmuli/chinessChess.git> | chinessChee | |
+| <git@github.com:leosussan/fastapi-gino-arq-uvicorn.git> | fastapi GINO Example | |
+| <git@github.com:long2ice/fettler.git> | fettler | |
+| <git@github.com:miguelgrinberg/flask-celery-example.git> | flask Celery Example | |
+| <git@gitee.com:pankla/go-gin-example.git> | Go-Gin-Example | |
+| <git@github.com:macrozheng/mall.git> | Java EShop Example | |
+| <git@github.com:piccolo-orm/piccolo_api.git> | Python Piccolo Example | |
+| <git@github.com:long2ice/rearq.git> | rearq | 任务分发|
+| <git@github.com:utmhikari/start-fastapi.git> | start_api | fastapi blank example |
+| <git@github.com:astaxie/build-web-application-with-golang.git> | build-web-application-with-golang | |
+| Introduction-to-Golang | Introduction-to-Golang | |

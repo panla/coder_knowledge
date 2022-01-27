@@ -1,0 +1,90 @@
+version: "3.9"
+services:
+
+  redis_11:
+    image: redis:6.2-alpine
+    container_name: dev_study_redis_11
+    networks:
+      dev_net:
+        ipv4_address: 172.20.2.2
+    # restart: always
+    volumes:
+      - ./conf/redis_cluster/redis.conf:/etc/redis/redis.conf
+      - ./data/redis_cluster/1/data:/data
+    command: ['redis-server', '/etc/redis/redis.conf']
+    environment:
+      - TZ=Asia/Shanghai
+
+  redis_12:
+    image: redis:6.2-alpine
+    container_name: dev_study_redis_12
+    networks:
+      dev_net:
+        ipv4_address: 172.20.2.3
+    # restart: always
+    volumes:
+      - ./conf/redis_cluster/redis.conf:/etc/redis/redis.conf
+      - ./data/redis_cluster/2/data:/data
+    command: ['redis-server', '/etc/redis/redis.conf']
+    environment:
+      - TZ=Asia/Shanghai
+
+  redis_13:
+    image: redis:6.2-alpine
+    container_name: dev_study_redis_13
+    networks:
+      dev_net:
+        ipv4_address: 172.20.2.4
+    # restart: always
+    volumes:
+      - ./conf/redis_cluster/redis.conf:/etc/redis/redis.conf
+      - ./data/redis_cluster/3/data:/data
+    command: ['redis-server', '/etc/redis/redis.conf']
+    environment:
+      - TZ=Asia/Shanghai
+
+  redis_14:
+    image: redis:6.2-alpine
+    container_name: dev_study_redis_14
+    networks:
+      dev_net:
+        ipv4_address: 172.20.2.5
+    # restart: always
+    volumes:
+      - ./conf/redis_cluster/redis.conf:/etc/redis/redis.conf
+      - ./data/redis_cluster/4/data:/data
+    command: ['redis-server', '/etc/redis/redis.conf']
+    environment:
+      - TZ=Asia/Shanghai
+
+  redis_15:
+    image: redis:6.2-alpine
+    container_name: dev_study_redis_15
+    networks:
+      dev_net:
+        ipv4_address: 172.20.2.6
+    # restart: always
+    volumes:
+      - ./conf/redis_cluster/redis.conf:/etc/redis/redis.conf
+      - ./data/redis_cluster/5/data:/data
+    command: ['redis-server', '/etc/redis/redis.conf']
+    environment:
+      - TZ=Asia/Shanghai
+
+  redis_16:
+    image: redis:6.2-alpine
+    container_name: dev_study_redis_16
+    networks:
+      dev_net:
+        ipv4_address: 172.20.2.7
+    # restart: always
+    volumes:
+      - ./conf/redis_cluster/redis.conf:/etc/redis/redis.conf
+      - ./data/redis_cluster/6/data:/data
+    command: ['redis-server', '/etc/redis/redis.conf']
+    environment:
+      - TZ=Asia/Shanghai
+
+networks:
+  xxxxx_net:
+    external: true

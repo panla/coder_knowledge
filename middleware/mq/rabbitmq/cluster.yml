@@ -1,0 +1,50 @@
+version: '3.9'
+services:
+  rabbitmq-11:
+    image: rabbitmq:3.8-management
+    container_name: dev_study_rabbitmq_11
+    restart: always
+    hostname: myRabbitmq-11
+    volumes:
+      - ./data/rabbitmq-11:/var/lib/rabbitmq
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - RABBITMQ_DEFAULT_USER=root
+      - RABBITMQ_DEFAULT_PASS=root
+    networks:
+      dev_net:
+        ipv4_address: 172.20.1.2
+
+  rabbitmq-12:
+    image: rabbitmq:3.8-management
+    container_name: dev_study_rabbitmq_12
+    restart: always
+    hostname: myRabbitmq-12
+    volumes:
+      - ./data/rabbitmq-12:/var/lib/rabbitmq
+      - /etc/localtime:/etc/localtime:ro
+    # environment:
+    networks:
+      dev_net:
+        ipv4_address: 172.20.1.3
+    depends_on:
+      - rabbitmq-11
+
+  rabbitmq-13:
+    image: rabbitmq:3.8-management
+    container_name: dev_study_rabbitmq_13
+    restart: always
+    hostname: myRabbitmq-13
+    volumes:
+      - ./data/rabbitmq-13:/var/lib/rabbitmq
+      - /etc/localtime:/etc/localtime:ro
+    # environment:
+    networks:
+      dev_net:
+        ipv4_address: 172.20.1.4
+    depends_on:
+      - rabbitmq-11
+
+networks:
+  dev_net:
+    external: true

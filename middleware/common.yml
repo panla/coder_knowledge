@@ -1,0 +1,103 @@
+version: "3.9"
+services:
+  db:
+    image: mysql:8.0.26
+    container_name: xxxxx_db
+    volumes:
+      - ./conf/mysql:/etc/mysql/conf.d
+      - ./data/mysql/data:/var/lib/mysql
+    networks:
+      xxxxx_net:
+        ipv4_address: "172.24.0.3"
+    restart: always
+    ports:
+      - 8563:3306
+    environment:
+      - TZ=Asia/Shanghai
+      - LC_ALL=C.UTF-8
+      - LANG=C.UTF-8
+      - MYSQL_DATABASE=xxxxx
+      - MYSQL_ROOT_PASSWORD=bugaosuni
+
+  emqx:
+    image: emqx/emqx:latest
+    container_name: xxxxx_emqx
+    volumes:
+      - ./conf/emqx/emqx.conf:/opt/emqx/etc/emqx.conf
+      - ./conf/emqx/vm.args:/opt/emqx/etc/vm.args
+      - ./conf/emqx/emqx_auth_mnesia.conf:/opt/emqx/etc/plugins/emqx_auth_mnesia.conf
+      - ./conf/emqx/loaded_plugins:/opt/emqx/data/loaded_plugins
+    restart: always
+    ports:
+      - 8564:1883
+    networks:
+      xxxxx_net:
+        ipv4_address: "172.24.0.4"
+    environment:
+      - TZ=Asia/Shanghai
+
+  rabbitmq:
+    image: rabbitmq:3.8-management
+    container_name: xxxxx_rabbitmq
+    restart: always
+    hostname: xxxxx_rabbitmq-1
+    volumes:
+      - ./data/rabbitmq:/var/lib/rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=root
+      - RABBITMQ_DEFAULT_PASS=root
+    networks:
+      xxxxx_net:
+        ipv4_address: "172.24.0.5"
+
+  redis:
+    image: redis:6.2-alpine
+    container_name: xxxxx_redis
+    command: redis-server --requirepass 12345678
+    restart: always
+    networks:
+      xxxxx_net:
+        ipv4_address: "172.24.0.6"
+    volumes:
+      - ./data/redis/data:/data
+
+  api:
+    container_name: xxxxx_api
+    image: "xxxxx_api:latest"
+    build:
+      context: "./xxxxx_api"
+      dockerfile: ./Dockerfile
+    command: /bin/bash ./docker-entrypoint.sh
+    volumes:
+      - ./xxxxx_api:/home/project
+      - ./conf/api/product.local.toml:/home/project/conf/product.local.toml
+      - ./logs/api:/home/logs
+    networks:
+      xxxxx_net:
+        ipv4_address: "172.24.0.20"
+    restart: always
+    depends_on:
+      - db
+      - rabbitmq
+      - redis
+      - emqx
+
+  nginx:
+    image: panla/nginx-live-server:no-ffmpeg
+    container_name: xxxxx_nginx
+    volumes:
+      - ./conf/nginx/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - 8562:8000
+    networks:
+      xxxxx_net:
+        ipv4_address: 172.24.0.2
+    restart: always
+    environment:
+      - TZ=Asia/Shanghai
+    depends_on:
+      - api
+
+networks:
+  xxxxx_net:
+    external: true
