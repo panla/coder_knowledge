@@ -134,7 +134,7 @@ if __name__ == '__main__':
         mq = ProducerConsumerTool()
 
         mq.consume(callback=callback_func)
-        
+
     except KeyboardInterrupt:
         sys.exit('1')
 
@@ -164,7 +164,7 @@ if __name__ == '__main__':
         mq = PublishSubscribeTool()
 
         mq.receive(callback=callback_func)
-        
+
     except KeyboardInterrupt:
         sys.exit('1')
 ```
