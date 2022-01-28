@@ -1,5 +1,7 @@
 # README
 
+[toc]
+
 - 目标：实现Python项目源码加密保护，提升部分性能
 - 实现: 利用 Cython 把 Python 代码转为 Linux 动态链接库
 

@@ -1,5 +1,7 @@
 # pika
 
+[toc]
+
 ## task example
 
 1 **package.py**

@@ -1,5 +1,7 @@
 # Linux-Windows
 
+[toc]
+
 ## 使用 windows 平台或者替代软件
 
 ### sub system

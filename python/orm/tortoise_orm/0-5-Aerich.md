@@ -1,7 +1,11 @@
 # Aerich 迁移
 
-[Aerich](https://github.com/tortoise/aerich)
-[文档参考](https://tortoise-orm.readthedocs.io/en/latest/migration.html)
+[toc]
+
+## 参考
+
+- [Aerich](https://github.com/tortoise/aerich)
+- [文档参考](https://tortoise-orm.readthedocs.io/en/latest/migration.html)
 
 ## config
 

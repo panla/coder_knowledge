@@ -1,5 +1,7 @@
 # 序列器
 
+[toc]
+
 ## quick
 
 ```python

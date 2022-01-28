@@ -1,5 +1,7 @@
 # PostgreSQL 安装
 
+[toc]
+
 ## 下载源码
 
 [清华大学镜像](https://mirrors.tuna.tsinghua.edu.cn/postgresql/source/v13.1/)

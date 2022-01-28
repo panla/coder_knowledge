@@ -1,5 +1,7 @@
 # search 2
 
+[toc]
+
 ## collapse
 
 ```json

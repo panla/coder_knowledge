@@ -1,5 +1,9 @@
 # MySQL 数据查询
 
+[toc]
+
+## 基本格式
+
 ```sql
 SELECT *
 FROM tb_name 

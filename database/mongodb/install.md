@@ -1,5 +1,7 @@
 # MongoDB
 
+[toc]
+
 ## 下载安装
 
 [下载地址](https://www.mongodb.com/download-center/community)

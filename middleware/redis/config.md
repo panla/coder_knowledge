@@ -1,5 +1,7 @@
 # Redis config
 
+[toc]
+
 ## 配置项
 
 - 网络配置

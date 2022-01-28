@@ -1,5 +1,7 @@
 # MySQL DML
 
+[toc]
+
 ## insert
 
 ```sql

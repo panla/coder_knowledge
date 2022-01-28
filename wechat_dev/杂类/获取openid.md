@@ -1,5 +1,7 @@
 # 获取 openid
 
+[toc]
+
 ## 网页授权获取用户 openid
 
 <https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html>

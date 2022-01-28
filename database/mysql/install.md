@@ -1,5 +1,7 @@
 # MySQL
 
+[toc]
+
 ## 下载解压
 
 [清华大学镜像站](https://mirrors.tuna.tsinghua.edu.cn/mysql/downloads/MySQL-8.0/)

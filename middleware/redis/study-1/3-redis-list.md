@@ -1,5 +1,7 @@
 # use Redis List
 
+[toc]
+
 ## usage
 
 [Redis命令参考](http://redisdoc.com/index.html)

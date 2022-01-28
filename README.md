@@ -1,5 +1,7 @@
 # 进阶
 
+[toc]
+
 ## include
 
 - `code_utils`
@@ -34,9 +36,12 @@
 - 中间件等
   - es
   - mq
+    - RabbitMQ
   - nginx
   - redis
-  - emqx MQTT
+  - MQTT
+    - EMQX
+    - mosquitto
 - python
   - loguru
   - gunicorn
@@ -49,14 +54,17 @@
   - 排序查找
   - 单测
 - 软件
+  - linux-win
+  - miniconda
   - 基本软件
   - 开发软件
-- 收集网站
-- 微信开发
-  - 公众号授权
 - web 框架
   - django
   - drf
   - fastapi
   - flask
   - nameko
+- 收集网站
+- 微信开发
+  - 公众号授权
+  - 微信支付

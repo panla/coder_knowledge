@@ -1,5 +1,7 @@
 # rpmfusion
 
+[toc]
+
 ## 安装
 
 ```bash

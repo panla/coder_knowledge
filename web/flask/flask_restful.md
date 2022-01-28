@@ -1,5 +1,7 @@
 # flask-restful
 
+[toc]
+
 ```bash
 pip install flask-restful
 ```

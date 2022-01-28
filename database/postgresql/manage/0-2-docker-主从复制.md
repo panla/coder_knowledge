@@ -1,14 +1,18 @@
 # 实验
 
-[参考](https://blog.csdn.net/feinifi/article/details/96575568?utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-1.control&dist_request_id=&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-1.control)
+[toc]
 
-创建网络
+## 参考
+
+<https://blog.csdn.net/feinifi/article/details/96575568?utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-1.control&dist_request_id=&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EBlogCommendFromMachineLearnPai2%7Edefault-1.control>
+
+## 创建网络
 
 ```bash
 docker network create --driver bridge --subnet 172.18.0.0/16 --gateway 172.18.0.1 pgsql
 ```
 
-创建docker容器
+## 创建docker容器
 
 ```bash
 docker run -it --name pgmaster --net pgsql --ip 172.18.0.3 -p 15433:5433 -v /mnt/T1000/downs/used/postgresql-13.1:/srv/postgresql registry.cn-hangzhou.aliyuncs.com/panla/centos8_base:v1 bash
@@ -16,13 +20,13 @@ docker run -it --name pgmaster --net pgsql --ip 172.18.0.3 -p 15433:5433 -v /mnt
 docker run -it --name pgslave --net pgsql --ip 172.18.0.4 -p 25433:5433 -v /mnt/T1000/downs/used/postgresql-13.1:/srv/postgresql registry.cn-hangzhou.aliyuncs.com/panla/centos8_base:v1 bash
 ```
 
-docker 中安装依赖
+## docker 中安装依赖
 
 ```bash
 dnf install gcc gcc-c++ make readline-devel ncurses-c++-libs ncurses-devel zlib-devel openssl-devel libuuid-devel llvm-toolset llvm-devel cmake-filesystem llvm llvm-libs pam-devel glibc-common langpacks-zh_CN passwd -y
 ```
 
-docker 中编译postgrsql
+## docker 中编译 postgrsql
 
 ```bash
 ../configure --prefix=/opt/pgsql --exec-prefix=/opt/pgsql --with-pgport=5433  --with-openssl --with-uuid=e2fs --with-llvm --with-pam
@@ -33,7 +37,7 @@ make world
 make install-world
 ```
 
-docker 中创建用户，用户组
+## docker 中创建用户，用户组
 
 ```bash
 groupadd postgres
@@ -57,7 +61,7 @@ init
 initdb -D /opt/pgsql/data -E UTF8 --locale=zh_CN.utf8
 ```
 
-主库配置
+## 主库配置
 
 ```text
 isten_address = '*'
@@ -73,13 +77,13 @@ max_wal_senders= 10
 hot_standby = on
 ```
 
-start
+## start
 
 ```bash
 pg_ctl -D /opt/pgsql/data start
 ```
 
-从库同步数据
+## 从库同步数据
 
 ```bash
 pg_basebackup -h 172.18.0.3 -U repuser -p 5433 -F p -X s -v -P -R -D /opt/pgsql/data

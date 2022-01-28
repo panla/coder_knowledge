@@ -1,5 +1,7 @@
 # Redis
 
+[toc]
+
 ## 下载安装
 
 [下载地址](https://redis.io/download)

@@ -1,6 +1,10 @@
 # use Redis
 
-[参考文档](http://redisdoc.com/index.html)
+[toc]
+
+## 参考文档
+
+<http://redisdoc.com/index.html>
 
 ## usage
 

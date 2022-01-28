@@ -1,5 +1,7 @@
 # Redis 管理
 
+[toc]
+
 ## 系统设置
 
 - 系统内存：/etc/sysctl.conf vm.overcommit_memory = 1

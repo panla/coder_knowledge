@@ -1,5 +1,7 @@
 # 切换到 stream
 
+[toc]
+
 ```bash
 dnf install centos-release-stream
 

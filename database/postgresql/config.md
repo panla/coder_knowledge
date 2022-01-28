@@ -1,5 +1,7 @@
 # PGSQL Config
 
+[toc]
+
 ## 1 配置项 postgresql.conf
 
 ### 1.1 配置文件配置

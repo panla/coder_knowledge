@@ -1,5 +1,7 @@
 # install
 
+[toc]
+
 ## download
 
 <https://studygolang.com/dl>

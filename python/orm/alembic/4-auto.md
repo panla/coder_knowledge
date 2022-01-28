@@ -1,5 +1,7 @@
 # Autogenerate
 
+[toc]
+
 ## 将检测
 
 - 表的添加删除

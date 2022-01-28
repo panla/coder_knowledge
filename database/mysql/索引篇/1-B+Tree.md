@@ -1,5 +1,7 @@
 # B+Tree
 
+[toc]
+
 B-Tree变种，多路平衡树
 
 ![alt 算法图片](../images/B+Tree-1.png)

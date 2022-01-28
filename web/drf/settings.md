@@ -1,5 +1,7 @@
 # settings
 
+[toc]
+
 ## `REST_FRAMEWORK`
 
 ```text
