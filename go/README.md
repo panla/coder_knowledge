@@ -3,7 +3,7 @@
 读书笔记，学习总结
 
 - 系统基础
-  《Go语言圣经》
+  [Go语言圣经](https://books.studygolang.com/gopl-zh/ch0/ch0-01.html)
 - 基础全面型
   - 《Go语言编程》
   - 《Go程序设计语言》
