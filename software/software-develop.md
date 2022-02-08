@@ -119,6 +119,34 @@ Exec=/home/opt/VSCode/bin/code --no-sandbox --unity-launch %F
 Icon=/home/opt/VSCode/resources/app/resources/linux/code.png
 ```
 
+```json
+{
+    "files.autoSave": "afterDelay",
+    "editor.fontFamily": "Consolas, 'Courier New','monospace'",
+    "security.workspace.trust.untrustedFiles": "open",
+    "workbench.iconTheme": "vscode-icons",
+    "workbench.colorTheme": "Monokai",
+    "editor.tabCompletion": "on",
+    "editor.detectIndentation": false,
+    "go.formatTool": "goformat",
+    "editor.tabSize": 4,
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "files.exclude": {
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true
+    },
+    "todo-tree.general.showIconsInsteadOfTagsInStatusBar": true,
+    "cSpell.blockCheckingWhenAverageChunkSizeGreaterThan": 120,
+    "cSpell.showAutocompleteSuggestions": true,
+    "editor.rulers": [
+        121
+    ]
+}
+```
+
 ### 3.2 插件
 
 ```text
