@@ -132,18 +132,21 @@ Icon=/home/opt/VSCode/resources/app/resources/linux/code.png
     "editor.tabSize": 4,
     "editor.formatOnSave": true,
     "editor.formatOnPaste": true,
-    "files.exclude": {
-        "**/.classpath": true,
-        "**/.project": true,
-        "**/.settings": true,
-        "**/.factorypath": true
-    },
     "todo-tree.general.showIconsInsteadOfTagsInStatusBar": true,
     "cSpell.blockCheckingWhenAverageChunkSizeGreaterThan": 120,
     "cSpell.showAutocompleteSuggestions": true,
+    "workbench.editor.scrollToSwitchTabs": true,
+    "editor.fontSize": 15,
     "editor.rulers": [
         121
-    ]
+    ],
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "editor.bracketPairColorization.enabled": true
 }
 ```
 
