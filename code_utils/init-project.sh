@@ -34,12 +34,12 @@ touch apps/__init__.py
 touch apps/application.py
 mkdir apps/v1_api
 touch apps/v1_api/__init__.py
-mkdir apps/v1_api/entities
+mkdir apps/v1_api/schemas
 mkdir apps/v1_api/logics
-mkdir apps/v1_api/resources
-touch apps/v1_api/entities/__init__.py
+mkdir apps/v1_api/endpoints
+touch apps/v1_api/schemas/__init__.py
 touch apps/v1_api/logics/__init__.py
-touch apps/v1_api/resources/__init__.py
+touch apps/v1_api/endpoints/__init__.py
 
 cat>apps/libs/__init__.py<<EOF
 from .exception import register_exception
@@ -51,7 +51,7 @@ cat>apps/v1_api/__init__.py<<EOF
 from fastapi import FastAPI
 
 from apps.libs.exception import register_exception
-from .resources import user
+from .endpoints import user
 
 
 def register_routers(app: FastAPI):
