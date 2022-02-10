@@ -123,28 +123,30 @@ Icon=/home/opt/VSCode/resources/app/resources/linux/code.png
 {
     "files.autoSave": "afterDelay",
     "editor.fontFamily": "Consolas, 'Courier New','monospace'",
-    "security.workspace.trust.untrustedFiles": "open",
-    "workbench.iconTheme": "vscode-icons",
-    "workbench.colorTheme": "Monokai",
     "editor.tabCompletion": "on",
     "editor.detectIndentation": false,
-    "go.formatTool": "goformat",
     "editor.tabSize": 4,
     "editor.formatOnSave": true,
     "editor.formatOnPaste": true,
-    "files.exclude": {
-        "**/.classpath": true,
-        "**/.project": true,
-        "**/.settings": true,
-        "**/.factorypath": true
-    },
-    "todo-tree.general.showIconsInsteadOfTagsInStatusBar": true,
-    "cSpell.blockCheckingWhenAverageChunkSizeGreaterThan": 120,
-    "cSpell.showAutocompleteSuggestions": true,
+    "editor.fontSize": 15,
     "editor.rulers": [
         121
     ],
-    "editor.bracketPairColorization.enabled": true
+    "editor.bracketPairColorization.enabled": true,
+    "security.workspace.trust.untrustedFiles": "open",
+    "workbench.iconTheme": "vscode-icons",
+    "workbench.colorTheme": "Monokai",
+    "workbench.editor.scrollToSwitchTabs": true,
+    "go.formatTool": "goformat",
+    "todo-tree.general.showIconsInsteadOfTagsInStatusBar": true,
+    "cSpell.blockCheckingWhenAverageChunkSizeGreaterThan": 120,
+    "cSpell.showAutocompleteSuggestions": true,
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    }
 }
 ```
 
@@ -169,7 +171,7 @@ gitignore
 GitLens
 
 Bracket Pair Colorizer 2    括号匹配，不再维护
-Rainbow Brackets            括号匹配
+Rainbow Brackets            括号匹配 remove vscode 自带了相似功能
 indent-rainbow              缩进深度
 Trailing Spaces             多余空格
 
