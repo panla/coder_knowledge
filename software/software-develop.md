@@ -90,7 +90,7 @@ sudo dnf install vulkan-loader
 
 把下载链接的 `https://az764295.vo.msecnd.net` 替换为 `http://vscode.cdn.azure.cn`
 
-[最新下载cdn](http://vscode.cdn.azure.cn/stable/899d46d82c4c95423fb7e10e68eba52050e30ba3/code-stable-x64-1639562789.tar.gz)
+[最新下载cdn](http://vscode.cdn.azure.cn/stable/d6ee99e4c045a6716e5c653d7da8e9ae6f5a8b03/code-stable-x64-1644256096.tar.gz)
 
 解压
 
@@ -143,7 +143,8 @@ Icon=/home/opt/VSCode/resources/app/resources/linux/code.png
     "cSpell.showAutocompleteSuggestions": true,
     "editor.rulers": [
         121
-    ]
+    ],
+    "editor.bracketPairColorization.enabled": true
 }
 ```
 

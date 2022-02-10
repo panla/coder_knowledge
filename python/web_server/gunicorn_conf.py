@@ -38,3 +38,9 @@ timeout = 30
 
 # 等待活动连接上的请求的秒数
 keep_alive = 60
+
+# 请求达到这个数值后重启 worker
+max_requests = 500
+
+# 请求达到 max-requests 后允许的扩容
+max_requests_jitter = 20
