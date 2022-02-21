@@ -11,48 +11,72 @@ class RedisConfig:
 
 
 class CeleryConfig:
-    # 任务队列
+    # 1，任务队列 代理设置
     broker_url = f'amqp://{MQConfig.USER}:{MQConfig.PASSWD}@{MQConfig.HOST}:{MQConfig.PORT}'
-    # 结果存储
+
+    # 2，结果存储 默认，无
     result_backend  = f'redis://{RedisConfig.USER}:{RedisConfig.PASSWD}@{RedisConfig.HOST}:{RedisConfig.PORT}/0'
-    # 存储结果，过期时间为 一小时
+
+    # 3，存储结果，过期时间为 一小时
     result_expires = 60 * 60
-    # 禁用 UTC
+
+    # 4，禁用 UTC
     enable_utc = False
-    # 时区
+
+    # 5，时区
     timezone = 'Asia/Shanghai'
-    # 接收 JSON
+
+    # 6，允许的接收的内容类型/序列化程序的白名单 默认，json
     accept_content = ['json']
+    # 允许结果后端的内容类型/序列化程序的白名单 默认，与 accept_content 相同
+    # result_accept_content
+
+    # 7，以秒为单位的任务硬时间限制 默认，无
+    # task_time_limit = 100
 
     DefaultExchangeType = 'direct'
 
+    class QueueNameConst:
+        default = 'celery-default-queue'
+        test = 'celery-test-queue'
+        pay = 'celery-pay-queue'
+
     class ExchangeConst:
-        default = 'celery-default'
-        pay = 'celery-pay'
+        default = 'celery-default-exchange'
+        test = 'celery-test-exchange'
+        pay = 'celery-pay-exchange'
 
     class RoutingKeyConst:
-        default = 'default-tasks'
-        pay = 'pay-tasks'
+        default = 'celery-default-routing'
+        test = 'celery-test-routing'
+        pay = 'celery-pay-routing'
 
-    class QueueNameConst:
-        default = 'celery-default-tasks'
-        pay = 'celery-pay-tasks'
-
+    # 8，default
+    # 消息没有路由或没有指定自定义队列使用的默认队列名称，默认值，celery
+    task_default_queue = QueueNameConst.default
+    # 当没有为设置中键指定自定义交换时使用的交换的名称
+    task_default_exchange = ExchangeConst.default
+    # 当没有为设置中键指定自定义交换类型时使用的交换类型，默认值，direct
+    task_default_exchange_type = DefaultExchangeType
+    # 当没有为设置中键指定自定义路由键时使用的路由键
+    task_default_routing_key = RoutingKeyConst.default
 
     define_exchange = {
-        'default': Exchange(ExchangeConst.default, type=DefaultExchangeType),
-        'pay': Exchange(ExchangeConst.pay, type=DefaultExchangeType)
+        'test': Exchange(name=ExchangeConst.test, type=DefaultExchangeType),
+        'pay': Exchange(name=ExchangeConst.pay, type=DefaultExchangeType)
     }
 
+    # 9，消息路由 使用 kombu.Queue
     task_queues = (
-        Queue(QueueNameConst.default, routing_key=RoutingKeyConst.default, exchange=define_exchange.get('default')),
-        Queue(QueueNameConst.pay, routing_key=RoutingKeyConst.pay, exchange=define_exchange.get('pay'))
+        Queue(name=QueueNameConst.pay, exchange=define_exchange.get('pay'), routing_key=RoutingKeyConst.pay),
     )
 
+    # 10，路由列表把任务路由到队列的路由
     task_routes = {
-        'start_task': {'exchange': define_exchange.get('pay').name, 'routing_key': RoutingKeyConst.pay}
+        'pay_task': {'exchange': define_exchange.get('pay').name, 'routing_key': RoutingKeyConst.pay}
     }
 
+    # 11，定时任务
     beat_schedule = {
         'a': {
             'task': 'services.tasks.hello',
@@ -63,3 +87,6 @@ class CeleryConfig:
             'schedule': crontab(minute=10) # 每个小时的 第 10 分钟执行一次
         }
     }
+
+    # 重写配置中任何任务属性
+    # task_annotations
