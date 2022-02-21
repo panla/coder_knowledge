@@ -90,7 +90,7 @@ sudo dnf install vulkan-loader
 
 把下载链接的 `https://az764295.vo.msecnd.net` 替换为 `http://vscode.cdn.azure.cn`
 
-[最新下载cdn](http://vscode.cdn.azure.cn/stable/d6ee99e4c045a6716e5c653d7da8e9ae6f5a8b03/code-stable-x64-1644256096.tar.gz)
+[最新下载cdn](http://vscode.cdn.azure.cn/stable/f80445acd5a3dadef24aa209168452a3d97cc326/code-stable-x64-1644446282.tar.gz)
 
 解压
 
