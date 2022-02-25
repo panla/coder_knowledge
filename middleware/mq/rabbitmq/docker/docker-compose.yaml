@@ -5,17 +5,18 @@ services:
     container_name: rabbitmq-1
     restart: always
     hostname: myRabbitmq-1
-    ports:
-      - 127.0.0.1:15673:15672
-      - 127.0.0.1:15672:5672
-    volumes:
-      - ./data:/var/lib/rabbitmq
     environment:
       - RABBITMQ_DEFAULT_USER=root
       - RABBITMQ_DEFAULT_PASS=root
     networks:
       mq_net:
         ipv4_address: "172.21.0.2"
+    ports:
+      - 127.0.0.1:15673:15672
+      - 127.0.0.1:15672:5672
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./data:/var/lib/rabbitmq
 
 networks:
   mq_net:
