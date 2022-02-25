@@ -1,0 +1,35 @@
+# 集群名称 相同名称的集群会自动识别
+cluster.name: "dev_study_es"
+
+# 节点名称 默认 hostname
+node.name: "es_11"
+
+network.host: 0.0.0.0
+
+# 当您第一次启动 Elasticsearch 集群时，
+# 集群引导步骤会确定在第一次选举中计票的符合主节点资格的节点列表
+# 主节点列表
+cluster.initial_master_nodes:
+  - 172.20.3.3
+  - 172.20.3.4
+  - 172.20.3.5
+
+# 广播节点
+# discovery.zen.ping.unicast.hosts: []
+
+# 发现和形成集群设置
+# discovery.seed_hosts 此设置提供集群中其他节点的列表
+# 1
+# discovery.seed_hosts: ["192.168.1.10:9300", "192.168.1.11", "seeds.mydomain.com"]
+# 2
+# discovery.seed_hosts:
+#   - 192.168.1.10:9300
+#   - 192.168.1.11
+#   - seeds.mydomain.com
+
+discovery.seed_hosts:
+  - 172.20.3.4
+  - 172.20.3.5
+
+http.cors.enabled: true
+http.cors.allow-origin: "*"

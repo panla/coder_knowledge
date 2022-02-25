@@ -1,85 +1,95 @@
 version: "3.9"
 services:
-  es1:
-    container_name: es1
-    image: elasticsearch:7.12.0
+  es_11:
+    image: elasticsearch:7.17.0
+    container_name: dev_study_es_11
     restart: always
+    networks:
+      dev_net:
+        ipv4_address: 172.20.3.3
     ports:
-      - 19200:9200
-      - 19300:9300
-    networks:
-      es:
-        ipv4_address: 172.18.0.3
+      - 20301:9200
     volumes:
-      - ./data/es1:/usr/share/elasticsearch/data
-      - ./logs/es1:/usr/share/elasticsearch/logs
-      - ./plugins/es1:/usr/share/elasticsearch/plugins
+      - /etc/localtime:/etc/localtime:ro
+      - ./conf/es_cluster/es_11/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - ./conf/es_cluster/es_11/jvm.options:/usr/share/elasticsearch/config/jvm.options
+      - ./data/es_cluster/es_11/data:/usr/share/elasticsearch/data
+      - ./data/es_cluster/es_11/plugins:/usr/share/elasticsearch/plugins
+      - ./logs/es_11:/usr/share/elasticsearch/logs
     environment:
-      - TZ=Asia/Shanghai
       - LC_ALL=C.UTF-8
       - LANG=C.UTF-8
-      - node.name=es1
-      - cluster.name=es-docker-cluster
-      - discovery.seed_hosts=172.18.0.4, 172.18.0.5
-      - cluster.initial_master_nodes=172.18.0.3, 172.18.0.4, 172.18.0.5
-      - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
-  es2:
-    container_name: es2
-    image: elasticsearch:7.12.0
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+
+  es_12:
+    image: elasticsearch:7.17.0
+    container_name: dev_study_es_12
     restart: always
     networks:
-      es:
-        ipv4_address: 172.18.0.4
+      dev_net:
+        ipv4_address: 172.20.3.4
+    ports:
+      - 20302:9200
     volumes:
-      - ./data/es2:/usr/share/elasticsearch/data
-      - ./logs/es2:/usr/share/elasticsearch/logs
-      - ./plugins/es2:/usr/share/elasticsearch/plugins
+      - /etc/localtime:/etc/localtime:ro
+      - ./conf/es_cluster/es_12/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - ./conf/es_cluster/es_12/jvm.options:/usr/share/elasticsearch/config/jvm.options
+      - ./data/es_cluster/es_12/data:/usr/share/elasticsearch/data
+      - ./data/es_cluster/es_12/plugins:/usr/share/elasticsearch/plugins
+      - ./logs/es_12:/usr/share/elasticsearch/logs
     environment:
-      - TZ=Asia/Shanghai
       - LC_ALL=C.UTF-8
       - LANG=C.UTF-8
-      - node.name=es2
-      - cluster.name=es-docker-cluster
-      - discovery.seed_hosts=172.18.0.3, 172.18.0.5
-      - cluster.initial_master_nodes=172.18.0.3, 172.18.0.4, 172.18.0.5
-      - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
-  es3:
-    container_name: es3
-    image: elasticsearch:7.12.0
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+
+  es_13:
+    image: elasticsearch:7.17.0
+    container_name: dev_study_es_13
     restart: always
     networks:
-      es:
-        ipv4_address: 172.18.0.5
+      dev_net:
+        ipv4_address: 172.20.3.5
+    ports:
+      - 20303:9200
     volumes:
-      - ./data/es3:/usr/share/elasticsearch/data
-      - ./logs/es3:/usr/share/elasticsearch/logs
-      - ./plugins/es3:/usr/share/elasticsearch/plugins
+      - /etc/localtime:/etc/localtime:ro
+      - ./conf/es_cluster/es_13/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - ./conf/es_cluster/es_13/jvm.options:/usr/share/elasticsearch/config/jvm.options
+      - ./data/es_cluster/es_13/data:/usr/share/elasticsearch/data
+      - ./data/es_cluster/es_13/plugins:/usr/share/elasticsearch/plugins
+      - ./logs/es_13:/usr/share/elasticsearch/logs
     environment:
-      - TZ=Asia/Shanghai
       - LC_ALL=C.UTF-8
       - LANG=C.UTF-8
-      - node.name=es3
-      - cluster.name=es-docker-cluster
-      - discovery.seed_hosts=172.18.0.3, 172.18.0.4
-      - cluster.initial_master_nodes=172.18.0.3, 172.18.0.4, 172.18.0.5
-      - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+
   kibana:
-    container_name: kibana
-    image: kibana:7.12.0
+    image: kibana:7.17.0
+    container_name: dev_study_kibana
     restart: always
     ports:
-      - 15601:5601
+      - 20300:5601
     networks:
-      es:
-        ipv4_address: 172.18.0.2
+      dev_net:
+        ipv4_address: 172.20.3.2
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
     environment:
-      TZ: "Asia/Shanghai"
       LC_ALL: C.UTF-8
       LANG: C.UTF-8
-      ELASTICSEARCH_HOSTS: "http://172.18.0.3:9200"
+      ELASTICSEARCH_HOSTS: "http://172.20.3.3:9200"
     depends_on:
-      - es1
+      - es_11
 
 networks:
-  es:
+  dev_net:
     external: true
