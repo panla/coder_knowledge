@@ -14,7 +14,8 @@ ssl_protocols    指定SSL协议
 
 ```text
 ssl_protocols TLSv1.2 TLSv1.3;
-ssl_ciphers ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256;
+ssl_ciphers xyz;
+
 ```
 
 ## 优化
@@ -50,9 +51,12 @@ server {
     ssl on;
     ssl_certificate     /etc/nginx/ssl/domain.com.pem;
     ssl_certificate_key /etc/nginx/ssl/domain.com.key;
+
+    ssl_session_cache shared:SSL:10m;
     ssl_session_timeout 5m;
-    ssl_ciphers ALL:!DH:!EXPORT:!RC4:+HIGH:+MEDIUM:!eNULL;;
-    ssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3;
+
+    ssl_protocols TLSv1.1 TLSv1.2 TLSv1.3;
+    ssl_ciphers 'ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA256:DHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-SHA:ECDHE-RSA-AES128-SHA:DHE-RSA-AES256-SHA256:DHE-RSA-AES128-SHA256:DHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA:ECDHE-RSA-DES-CBC3-SHA:EDH-RSA-DES-CBC3-SHA:HIGH:!aNULL:!eNULL:!EXPORT:!CAMELLIA:!DES:!MD5:!PSK:!RC4';
 
     location / {
         proxy_pass  http://127.0.0.1:8000;
@@ -76,14 +80,26 @@ server {
     ssl on;
     ssl_certificate     /etc/nginx/ssl/domain.com.pem;
     ssl_certificate_key /etc/nginx/ssl/domain.com.key;
+
+    ssl_session_cache shared:SSL:1m;
     ssl_session_timeout 5m;
-    ssl_ciphers ALL:!DH:!EXPORT:!RC4:+HIGH:+MEDIUM:!eNULL;;
-    ssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3;
+
+    ssl_protocols TLSv1.1 TLSv1.2 TLSv1.3;
+    ssl_ciphers 'ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA256:DHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-SHA:ECDHE-RSA-AES128-SHA:DHE-RSA-AES256-SHA256:DHE-RSA-AES128-SHA256:DHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA:ECDHE-RSA-DES-CBC3-SHA:EDH-RSA-DES-CBC3-SHA:HIGH:!aNULL:!eNULL:!EXPORT:!CAMELLIA:!DES:!MD5:!PSK:!RC4';
 
     location / {
         proxy_pass  http://127.0.0.1:8000;
     }
 }
+```
+
+```text
+// 赫尔曼秘钥
+// 在 ssh 运行， openssl 生成 2048 位的密钥而不是当作参数写入 nginx.conf 文件。
+openssl dhparam -out dhparam.pem 2048;
+
+// 在 .conf 中配置
+ssl_dhparam /path/to/dhparam.pem;
 ```
 
 ## 3---?
