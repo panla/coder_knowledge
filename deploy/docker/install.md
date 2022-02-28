@@ -47,7 +47,7 @@ Description=Docker Application Container Engine
 Documentation=https://docs.docker.com
 After=network-online.target firewalld.service containerd.service
 Wants=network-online.target
-Requires=docker.socket
+# Requires=docker.socket
 
 [Service]
 Type=notify
