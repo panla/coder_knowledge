@@ -2,95 +2,73 @@ version: "3.9"
 services:
 
   redis_11:
-    image: redis:6.2-alpine
+    image: redis:6.2
     container_name: dev_study_redis_11
     command: ['redis-server', '/etc/redis/redis.conf']
     restart: always
-    networks:
-      dev_net:
-        ipv4_address: 172.20.2.2
-    ports:
-      - 20201:6379
+    network_mode: "host"
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - ./conf/redis_cluster/redis.conf:/etc/redis/redis.conf
+      - ./conf/redis_cluster/redis_11.conf:/etc/redis/redis.conf
+      - ./conf/redis_cluster/tls:/tls
       - ./data/redis_cluster/1/data:/data
 
   redis_12:
-    image: redis:6.2-alpine
+    image: redis:6.2
     container_name: dev_study_redis_12
     command: ['redis-server', '/etc/redis/redis.conf']
     restart: always
-    networks:
-      dev_net:
-        ipv4_address: 172.20.2.3
-    ports:
-      - 20202:6379
+    network_mode: "host"
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - ./conf/redis_cluster/redis.conf:/etc/redis/redis.conf
+      - ./conf/redis_cluster/redis_12.conf:/etc/redis/redis.conf
+      - ./conf/redis_cluster/tls:/tls
       - ./data/redis_cluster/2/data:/data
 
   redis_13:
-    image: redis:6.2-alpine
+    image: redis:6.2
     container_name: dev_study_redis_13
     command: ['redis-server', '/etc/redis/redis.conf']
     restart: always
-    networks:
-      dev_net:
-        ipv4_address: 172.20.2.4
-    ports:
-      - 20203:6379
+    network_mode: "host"
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - ./conf/redis_cluster/redis.conf:/etc/redis/redis.conf
+      - ./conf/redis_cluster/redis_13.conf:/etc/redis/redis.conf
+      - ./conf/redis_cluster/tls:/tls
       - ./data/redis_cluster/3/data:/data
 
   redis_14:
-    image: redis:6.2-alpine
+    image: redis:6.2
     container_name: dev_study_redis_14
     command: ['redis-server', '/etc/redis/redis.conf']
     restart: always
-    networks:
-      dev_net:
-        ipv4_address: 172.20.2.5
-    ports:
-      - 20204:6379
+    network_mode: "host"
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - ./conf/redis_cluster/redis.conf:/etc/redis/redis.conf
+      - ./conf/redis_cluster/redis_14.conf:/etc/redis/redis.conf
+      - ./conf/redis_cluster/tls:/tls
       - ./data/redis_cluster/4/data:/data
 
   redis_15:
-    image: redis:6.2-alpine
+    image: redis:6.2
     container_name: dev_study_redis_15
     command: ['redis-server', '/etc/redis/redis.conf']
     restart: always
-    networks:
-      dev_net:
-        ipv4_address: 172.20.2.6
-    ports:
-      - 20205:6379
+    network_mode: "host"
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - ./conf/redis_cluster/redis.conf:/etc/redis/redis.conf
+      - ./conf/redis_cluster/redis_15.conf:/etc/redis/redis.conf
+      - ./conf/redis_cluster/tls:/tls
       - ./data/redis_cluster/5/data:/data
 
   redis_16:
-    image: redis:6.2-alpine
+    image: redis:6.2
     container_name: dev_study_redis_16
     command: ['redis-server', '/etc/redis/redis.conf']
     restart: always
-    networks:
-      dev_net:
-        ipv4_address: 172.20.2.7
-    ports:
-      - 20206:6379
+    network_mode: "host"
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - ./conf/redis_cluster/redis.conf:/etc/redis/redis.conf
+      - ./conf/redis_cluster/redis_16.conf:/etc/redis/redis.conf
+      - ./conf/redis_cluster/tls:/tls
       - ./data/redis_cluster/6/data:/data
-
-networks:
-  xxxxx_net:
-    external: true
