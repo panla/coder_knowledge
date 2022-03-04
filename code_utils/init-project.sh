@@ -239,6 +239,7 @@ from fastapi import FastAPI
 
 from .database import init_db
 from .middleware import register_cross, register_middleware
+from apps.v1_api import init_sub_app as init_v1_api_app
 
 
 def init_app(app: FastAPI) -> FastAPI:
@@ -246,6 +247,8 @@ def init_app(app: FastAPI) -> FastAPI:
     init_db(app)
     register_cross(app)
     register_middleware(app)
+
+    init_v1_api_app(app)
 
     return app
 EOF
@@ -467,11 +470,12 @@ from tortoise.models import Model
 from .fields import UnsignedBigIntField
 
 
-class BaseModel(Model):
-    id = UnsignedBigIntField(pk=True, description='主键')
-    created_at = fields.DatetimeField(auto_now_add=True, null=False, description='创建时间')
-    updated_at = fields.DatetimeField(auto_now=True, null=False, description='更新时间')
-    is_deleted = fields.BooleanField(null=False, default=False, description='删除标识')
+class AbstractModel(Model):
+    id = UnsignedBigIntField(pk=True)
+    uid = fields.CharField(max_length=100)
+    created_at = fields.DatetimeField(auto_now_add=True, null=False)
+    updated_at = fields.DatetimeField(auto_now=True, null=False)
+    is_deleted = fields.BooleanField(null=False, default=False)
 
     @property
     def created_time(self) -> str:
@@ -538,12 +542,14 @@ class ModelMixin(object):
 EOF
 
 cat>apps/modules/resource.py<<EOF
+from tortoise.models import Model
+
 from extensions import NotFound
 
 
 class ResourceOp():
     def __init__(self, model, pk):
-        self.model = model
+        self.model: Model = model
         self.pk = pk
 
     async def instance(self, is_deleted=None):
@@ -553,7 +559,7 @@ class ResourceOp():
         _instance = await _instances.first()
         if not _instance:
             raise NotFound(message=f'Model = {self.model.__name__}, pk = {self.pk} is not exists')
-        return _instance
+        return _instances, _instance
 EOF
 
 
@@ -620,10 +626,18 @@ class PaginateConst:
 
     MinNum = 1
     MaxSize = 40
+
+
+class EnvConst:
+
+    TEST = 'test'
+    PRD = 'prd'
+    DEV = 'dev'
 EOF
 
 cat>conf/settings.py<<EOF
 from functools import lru_cache
+from typing import Optional
 
 from pydantic import BaseModel
 
@@ -631,21 +645,21 @@ from pydantic import BaseModel
 class LogSetting(BaseModel):
     # 日志
 
-    LOG_LEVEL: str = 'DEBUG'
-    LOG_PATH: str
+    LEVEL: Optional[str] = 'DEBUG'
+    PATH: str
 
 
 class DBSetting(BaseModel):
     # mysql
 
-    DB_POOL_RECYCLE: str = 1000
+    POOL_RECYCLE: Optional[int] = 1000
 
-    DB_USER: str = 'root'
-    DB_PASSWD: str
-    DB_HOST: str = '127.0.0.1'
-    DB_PORT: int = 3306
-    DB_DATABASE: str
-    DB_MAX_SIZE: int = 5
+    USER: Optional[str] = 'root'
+    PASSWD: str
+    HOST: Optional[str] = '127.0.0.1'
+    PORT: Optional[int] = 3306
+    DATABASE: str
+    MAX_SIZE: Optional[int] = 5
 
 
 class MQSetting(BaseModel):
@@ -661,9 +675,10 @@ class RedisSetting(BaseModel):
     # redis
 
     HOST: str
-    PORT: int = 6379
+    PORT: Optional[int] = 6379
     USER: str
     PASSWD: str
+    MAX_CONNECTIONS: Optional[int] = 10000
 
 
 class MQTTSetting(BaseModel):
@@ -673,7 +688,7 @@ class MQTTSetting(BaseModel):
     PORT: int
     USER: str
     PASSWD: str
-    KEEPALIVE: int = 600
+    KEEPALIVE: Optional[int] = 600
 
 
 class ORMSetting():
@@ -686,15 +701,15 @@ class ORMSetting():
                 'default': {
                     'engine': 'tortoise.backends.mysql',
                     'credentials': {
-                        'host': self.db.DB_HOST,
-                        'port': self.db.DB_PORT,
-                        'user': self.db.DB_USER,
-                        'password': self.db.DB_PASSWD,
-                        'database': self.db.DB_DATABASE,
+                        'host': self.db.HOST,
+                        'port': self.db.PORT,
+                        'user': self.db.USER,
+                        'password': self.db.PASSWD,
+                        'database': self.db.DATABASE,
                         'minsize': 1,
-                        'maxsize': self.db.DB_MAX_SIZE,
+                        'maxsize': self.db.MAX_SIZE,
                         'charset': 'utf8mb4',
-                        'pool_recycle': self.db.DB_POOL_RECYCLE
+                        'pool_recycle': self.db.POOL_RECYCLE
                     }
                 }
             },
@@ -746,18 +761,53 @@ EOF
 
 cat>conf/product.toml<<EOF
 [log]
-LOG_LEVEL = "INFO"
-LOG_PATH = "/home/logs/x.log"
+LEVEL = "INFO"
+PATH = "/home/logs/x.log"
 
 [db]
-DB_POOL_RECYCLE = 1800
+POOL_RECYCLE = 1800
 
-DB_USER = "root"
-DB_PASSWD = "passwd"
-DB_HOST = "127.0.0.1"
-DB_PORT = 3306
-DB_DATABASE = "database"
-DB_MAX_SIZE = 500
+USER = "root"
+PASSWD = "passwd"
+HOST = "127.0.0.1"
+PORT = 3306
+DATABASE = "database"
+MAX_SIZE = 500
+
+[mq]
+HOST = "127.0.0.1"
+PORT = 5672
+USER = "root"
+PASSWD = "root"
+
+[mqtt]
+HOST = "127.0.0.1"
+PORT = 1883
+USER = "backend"
+PASSWD = "backend"
+KEEPALIVE = 600
+
+[redis]
+HOST = "127.0.0.1"
+PORT = 6379
+USER = "default"
+PASSWD = "passwd"
+EOF
+
+cat>conf/test.toml<<EOF
+[log]
+LEVEL = "INFO"
+PATH = "/home/logs/x-test.log"
+
+[db]
+POOL_RECYCLE = 1800
+
+USER = "root"
+PASSWD = "passwd"
+HOST = "127.0.0.1"
+PORT = 3306
+DATABASE = "database"
+MAX_SIZE = 500
 
 [mq]
 HOST = "127.0.0.1"
@@ -816,17 +866,17 @@ from loguru import logger
 
 from config import LogConfig
 
-LOG_LEVEL = LogConfig.LOG_LEVEL
-LOG_PATH = LogConfig.LOG_PATH
+LEVEL = LogConfig.LEVEL
+PATH = LogConfig.PATH
 
-Path(LOG_PATH).parent.mkdir(parents=True, exist_ok=True)
+Path(PATH).parent.mkdir(parents=True, exist_ok=True)
 
 logger.remove()
 
 logger.add(
-    LOG_PATH, level=LOG_LEVEL.upper(), rotation="00:00", backtrace=True, diagnose=True, enqueue=True,
+    PATH, level=LEVEL.upper(), rotation="00:00", backtrace=True, diagnose=True, enqueue=True,
 )
-logger.add(sys.stdout, level=LOG_LEVEL.upper(), backtrace=True, diagnose=True, enqueue=True)
+logger.add(sys.stdout, level=LEVEL.upper(), backtrace=True, diagnose=True, enqueue=True)
 EOF
 
 cat>extensions/route.py<<EOF
@@ -850,7 +900,7 @@ class Route(APIRoute):
             logger.info(f'{request.method} {request.url}')
 
             methods = ['POST', 'PUT', 'PATCH']
-            content_type = request.headers.get('content-type')
+            content_type = request.headers.get('content-type', '')
 
             if request.method in methods and 'application/json' in content_type:
                 try:
@@ -947,7 +997,7 @@ class FilterParserMixin(BaseModel):
     """search list data"""
 
     page: Optional[int] = Query(PaginateConst.DefaultNum, title='page', gte=PaginateConst.MinNum)
-    pagesize: Optional[int] = Query(PaginateConst.DefaultSize, title='pagesize', gte=1, lte=PaginateConst.MaxSize)
+    page_size: Optional[int] = Query(PaginateConst.DefaultSize, title='page_size', gte=1, lte=PaginateConst.MaxSize)
 EOF
 
 cat>extensions/exceptions.py<<EOF
@@ -1026,23 +1076,24 @@ class Pagination(object):
             self,
             query: QuerySet,
             page: int = PaginateConst.DefaultNum,
-            pagesize: int = PaginateConst.DefaultSize
+            page_size: int = PaginateConst.DefaultSize
     ) -> None:
         self.query = query
         self.page = page
-        self.pagesize = pagesize
+        self.page_size = page_size
 
     def items(self) -> QuerySet[MODEL]:
-        return self.query.offset((self.page - 1) * self.pagesize).limit(self.pagesize)
+        return self.query.offset((self.page - 1) * self.page_size).limit(self.page_size)
 EOF
 
 cat>extensions/response.py<<EOF
 from typing import Any
 
 from extensions import logger
+from conf.const import StatusCode
 
 
-def resp_success(message: str = '', print_msg: str = '', data: Any = None):
+def resp_success(code: int = StatusCode.success, message: str = '', print_msg: str = '', data: Any = None):
     if print_msg:
         pass
     else:
@@ -1052,7 +1103,7 @@ def resp_success(message: str = '', print_msg: str = '', data: Any = None):
     if print_msg:
         logger.info(print_msg)
 
-    return {'message': message, 'data': data}
+    return {'code': code, 'message': message, 'data': data}
 EOF
 
 
@@ -1064,22 +1115,57 @@ touch redis_ext/lock.py
 touch redis_ext/sms.py
 
 cat>redis_ext/base.py<<EOF
-from aioredis import Redis
+import os
+import threading
+from typing import Union
+from datetime import timedelta
+
+from aioredis.client import Redis
+from aioredis.connection import ConnectionPool
 
 from config import RedisConfig
+from conf.const import EnvConst
+
+REDIS_CONNECTION_PARAMS = {
+    'max_connections': RedisConfig.MAX_CONNECTIONS,
+    'username': RedisConfig.USER,
+    'password': RedisConfig.PASSWD,
+    'host': RedisConfig.HOST,
+    'port': RedisConfig.PORT,
+    'encoding': 'utf-8',
+    'decode_responses': True
+}
+
+REDIS_POOL_CACHE = dict()
 
 
-class BaseRedisClient(object):
+class Pool:
+    lock = threading.Lock()
+
+    @classmethod
+    def make_pool(cls, db: int = 0):
+        with cls.lock:
+            global REDIS_POOL_CACHE
+
+            if REDIS_POOL_CACHE.get(str(db)):
+                pass
+            else:
+                REDIS_POOL_CACHE[str(db)] = ConnectionPool(db=db, **REDIS_CONNECTION_PARAMS)
+            return REDIS_POOL_CACHE.get(str(db))
+
+
+class BaseRedis(object):
     DB = 0
     PREFIX_KEY = ''
-    CONNECTION_PARAMS = {'encoding': 'utf-8', 'decode_responses': True}
 
     def __init__(self) -> None:
         self._name = None
-        self.uri = 'redis://{}:{}@{}:{}/{}'.format(
-            RedisConfig.USER, RedisConfig.PASSWD, RedisConfig.HOST, RedisConfig.PORT, self.DB
-        )
-        self.client: Redis = Redis.from_url(self.uri, **self.CONNECTION_PARAMS)
+
+        # TODO FIX
+        if os.environ.get('CODE_ENV') == EnvConst.TEST:
+            self.client: Redis = Redis(connection_pool=ConnectionPool(db=self.DB, **REDIS_CONNECTION_PARAMS))
+        else:
+            self.client: Redis = Redis(connection_pool=Pool.make_pool(db=self.DB))
 
     @property
     def name(self):
@@ -1088,6 +1174,79 @@ class BaseRedisClient(object):
     @name.setter
     def name(self, value):
         self._name = f'{self.PREFIX_KEY}:{value}'
+
+    def get(self):
+        """
+        Return the value at key ``name``, or None if the key doesn't exist
+        """
+
+        return self.client.get(name=self.name)
+
+    def set(self, value, ex: Union[int, timedelta] = None, px: Union[int, timedelta] = None):
+        """Set the value at key ``name`` to ``value``
+
+        ``ex`` sets an expired flag on key ``name`` for ``ex`` seconds.
+        ``px`` sets an expired flag on key ``name`` for ``px`` milliseconds.
+        """
+
+        return self.client.set(name=self.name, value=value, ex=ex, px=px)
+
+    def set_nx(self, value):
+        """Set the value of key ``name`` to ``value`` if key doesn't exist"""
+
+        return self.client.setnx(name=self.name, value=value)
+
+    def getset(self, value):
+        """
+        Sets the value at key ``name`` to ``value``
+        and returns the old value at key ``name`` atomically.
+        """
+
+        return self.client.getset(name=self.name, value=value)
+
+    def set_kv(self, key, value):
+        """
+        Set ``key`` to ``value`` within hash ``name``,
+        ``mapping`` accepts a dict of key/value pairs that that will be
+        added to hash ``name``.
+        Returns the number of fields that were added.
+        """
+
+        return self.client.hset(name=self.name, key=key, value=value)
+
+    def get_kv(self, key):
+        """Return the value of ``key`` within the hash ``name``"""
+
+        return self.client.hget(name=self.name, key=key)
+
+    def set_mapping(self, mapping: dict):
+        """
+        Set key to value within hash ``name`` for each corresponding
+        key and value from the ``mapping`` dict.
+        """
+
+        return self.client.hmset(name=self.name, mapping=mapping)
+
+    def get_all_values(self):
+        """Return a Python dict of the hash's name/value pairs"""
+
+        return self.client.hgetall(name=self.name)
+
+    def expire(self, seconds):
+        """
+        Set an expired flag on key ``name`` for ``time`` seconds. ``time``
+        can be represented by an integer or a Python timedelta object.
+        """
+
+        return self.client.expire(name=self.name, time=seconds)
+
+    def delete(self):
+        """Delete one or more keys specified by ``names``"""
+
+        return self.client.delete(self.name)
+
+    def exists(self):
+        return self.client.exists(self.name)
 EOF
 
 
@@ -1175,9 +1334,84 @@ mkdir services
 touch services/__init__.py
 mkdir services/mqtt_services
 mkdir services/celery_services
-touch services/mqtt_services/__init__.py
 touch services/celery_services/__init__.py
+touch services/celery_services/application.py
+touch services/celery_services/config.py
+touch services/mqtt_services/__init__.py
 touch services/mqtt_services/client.py
+
+cat>services/celery_services/config.py<<EOF
+from kombu import Queue, Exchange
+
+from config import MQConfig, RedisConfig
+
+
+class CeleryConfig:
+    # 1，任务队列 代理设置
+    broker_url = f'amqp://{MQConfig.USER}:{MQConfig.PASSWD}@{MQConfig.HOST}:{MQConfig.PORT}'
+
+    # 2，结果存储 默认，无
+    result_backend  = f'redis://{RedisConfig.USER}:{RedisConfig.PASSWD}@{RedisConfig.HOST}:{RedisConfig.PORT}/0'
+
+    # 3，存储结果，过期时间为 一小时
+    result_expires = 60 * 60
+
+    # 4，禁用 UTC
+    enable_utc = False
+
+    # 5，时区
+    timezone = 'Asia/Shanghai'
+
+    # 6，允许的接收的内容类型/序列化程序的白名单 默认，json
+    accept_content = ['json']
+    # 允许结果后端的内容类型/序列化程序的白名单 默认，与 accept_content 相同
+    # result_accept_content
+
+    # 7，以秒为单位的任务硬时间限制 默认，无
+    # task_time_limit = 100
+
+    DefaultExchangeType = 'direct'
+
+    class QueueNameConst:
+        default = 'celery-default-queue'
+        test = 'celery-test-queue'
+        pay = 'celery-pay-queue'
+
+    class ExchangeConst:
+        default = 'celery-default-exchange'
+        test = 'celery-test-exchange'
+        pay = 'celery-pay-exchange'
+
+    class RoutingKeyConst:
+        default = 'celery-default-routing'
+        test = 'celery-test-routing'
+        pay = 'celery-pay-routing'
+
+    # 8，default
+    # 消息没有路由或没有指定自定义队列使用的默认队列名称，默认值，celery
+    task_default_queue = QueueNameConst.default
+    # 当没有为设置中键指定自定义交换时使用的交换的名称
+    task_default_exchange = ExchangeConst.default
+    # 当没有为设置中键指定自定义交换类型时使用的交换类型，默认值，direct
+    task_default_exchange_type = DefaultExchangeType
+    # 当没有为设置中键指定自定义路由键时使用的路由键
+    task_default_routing_key = RoutingKeyConst.default
+
+    define_exchange = {
+        'test': Exchange(name=ExchangeConst.test, type=DefaultExchangeType),
+        'pay': Exchange(name=ExchangeConst.pay, type=DefaultExchangeType)
+    }
+
+    # 9，消息路由 使用 kombu.Queue
+    task_queues = (
+        Queue(name=QueueNameConst.pay, exchange=define_exchange.get('pay'), routing_key=RoutingKeyConst.pay),
+    )
+
+    # 10，路由列表把任务路由到队列的路由
+    task_routes = {
+        'pay': {'exchange': define_exchange.get('pay').name, 'routing_key': RoutingKeyConst.pay}
+    }
+EOF
 
 cat>services/mqtt_services/client.py<<EOF
 import json
@@ -1269,11 +1503,94 @@ EOF
 
 # tests
 mkdir tests
+mkdir tests/fixture_data
 touch tests/__init__.py
 touch tests/conftest.py
 touch tests/utils.py
-mkdir tests/fixture_data
+touch tests/load_db.py
 
+cat>tests/__init__.py<<EOF
+import sys
+from pathlib import Path
+
+BASE_DIR = Path(__file__).parent.parent
+
+sys.path.append(BASE_DIR)
+
+from config import ORM_TEST_MIGRATE_CONF
+from apps.application import create_app
+from extensions import NotFound, BadRequest
+EOF
+
+cat>tests/conftest.py<<EOF
+__all__ = [
+    'client'
+]
+
+from typing import Generator
+
+import pytest
+from tortoise import run_async
+from fastapi.testclient import TestClient
+
+from tests import create_app
+from tests.load_db import create_database, delete_database
+
+
+@pytest.fixture(scope="session", autouse=True)
+def client() -> Generator:
+    try:
+        # create db and create table and create data
+        run_async(create_database())
+
+        # set token into environ
+        # run_async(generate_token())
+        with TestClient(create_app()) as test_client:
+            yield test_client
+    finally:
+        # drop db
+        run_async(delete_database())
+EOF
+
+cat>tests/load_db.py<<EOF
+__all__ = [
+    'create_database', 'delete_database'
+]
+
+from tortoise import Tortoise
+
+from tests import ORM_TEST_MIGRATE_CONF, BASE_DIR
+
+
+async def _write_data():
+
+    print('write pre data over')
+
+
+async def create_database():
+    """create database and create tables"""
+
+    # create database
+    await Tortoise.init(config=ORM_TEST_MIGRATE_CONF, _create_db=True)
+    print('create database over')
+
+    # create tables
+    await Tortoise.generate_schemas()
+    print('create tables over')
+
+    await _write_data()
+
+
+async def delete_database():
+    """drop database"""
+
+    # link to database
+    await Tortoise.init(config=ORM_TEST_MIGRATE_CONF)
+
+    # drop database
+    await Tortoise._drop_databases()
+    print('drop database over')
+EOF
 
 # tools
 mkdir tools
@@ -1344,14 +1661,172 @@ default-time-zone=+08:00
 max_connections=2000
 EOF
 
+cat>docs/deploy/nginx.conf<<EOF
+user root;
+
+worker_processes  4;
+#error_log  logs/error.log;
+
+events {
+    worker_connections  1024;
+}
+
+http {
+    tcp_nopush on;
+    directio 512;
+    # aio on;
+    include mime.types;
+    default_type application/octet-stream;
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"';
+
+    sendfile on;
+    keepalive_timeout 300;
+    client_max_body_size 3072m;
+    client_body_buffer_size 10M;
+
+    gzip on;
+
+    gzip_min_length 1k;
+    gzip_buffers 500 16k;
+    gzip_http_version 1.1;
+    gzip_comp_level 6;
+    gzip_types text/plain application/javascript application/x-javascript text/css text/javascript application/xml application/x-httpd-php image/jpeg image/gif image/png application/vnd.google-earth.kml+xml;
+    gzip_vary on;
+
+    upstream backend {
+        server 172.20.6.20:8000;
+        # server 172.20.6.21:8000;
+    }
+
+    # HTTP server required to serve the player and HLS fragments
+    server {
+        listen 8000;
+        server_name 127.0.0.1
+        charset utf-8
+
+        proxy_connect_timeout 300s;
+        proxy_send_timeout 300s;
+        proxy_read_timeout 300s;
+
+        location /live {
+            # 打开 HTTP 播放 FLV 直播流功能
+            flv_live on;
+
+            # 支持 'Transfer-Encoding: chunked' 方式回复
+            # 部分浏览器需要关闭
+            chunked_transfer_encoding on;
+
+            # Disable cache
+            # add_header Cache-Control no-cache;
+
+            # CORS setup
+            add_header 'Access-Control-Allow-Origin' '*' always;
+            add_header 'Access-Control-Expose-Headers' 'Content-Length';
+
+            # allow CORS preflight requests
+            if ($request_method = 'OPTIONS') {
+                add_header 'Access-Control-Allow-Origin' '*';
+                add_header 'Access-Control-Max-Age' 1728000;
+                add_header 'Content-Type' 'text/plain charset=UTF-8';
+                add_header 'Content-Length' 0;
+                return 204;
+            }
+        }
+
+        # This URL provides RTMP statistics in XML
+        location /stat {
+            rtmp_stat all;
+            # Use stat.xsl stylesheet
+            rtmp_stat_stylesheet stat.xsl;
+        }
+
+        location /stat.xsl {
+            # XML stylesheet to view RTMP stats.
+            root /usr/local/nginx/html;
+        }
+
+        location /media  {
+            # static media data
+            add_header 'Access-Control-Allow-Origin' '*';
+
+            alias /docker_media;
+        }
+
+        location /api {
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-Proto $scheme;
+
+            # backend api server
+            proxy_pass http://backend;
+        }
+    }
+
+    server {
+        listen       8010;
+        server_name  localhost;
+
+        location / {
+            root   /web/front;
+            try_files $uri $uri/ /index.html;
+            index  index.html index.htm;
+        }
+    }
+
+}
+
+# RTMP configuration
+rtmp {
+
+    max_streams            128;
+    timeout                30s;
+    drop_idle_publisher    30s;
+
+    server {
+        # Listen on standard RTMP port
+        listen 1935;
+        chunk_size 4000;
+        # ping 30s;
+        # notify_method get;
+
+        # This application is to accept incoming stream
+        application live {
+            # Allows live input
+            live on;
+            allow play all;
+
+            # 打开 GOP 缓存，减少首屏等待时间，增加延迟
+            # 关闭 GOP 缓存，延迟低些，首屏等待
+            gop_cache on;
+        }
+    }
+}
+EOF
 
 # other
 mkdir tmp logs
 
 touch .gitignore .dockerignore
 touch README.md CHANGELOG.md Dockerfile Makefile docker-entrypoint.sh
-touch config.py server.py
-touch pytest.ini pyproject.toml
+touch config.py server.py pyproject.toml
+
+cat>Makefile<<EOF
+
+up_require:
+	pip install -r mirrors/requirements.txt
+
+up_dev_require:
+	pip install -r mirrors/requirements-dev.txt
+
+test:
+	CODE_ENV=test pytest --rootdir ./tests -s
+
+run:
+	uvicorn main:app --reload
+EOF
 
 cat>.gitignore<<EOF
 
@@ -1390,6 +1865,7 @@ EOF
 cat>CHANGELOG.md<<EOF
 # ChangeLog
 
+## 0.1
 EOF
 
 cat>config.py<<EOF
@@ -1449,17 +1925,14 @@ from apps.application import create_app
 app = create_app()
 EOF
 
-cat>pytest.ini<<EOF
-[pytest]
-filterwarnings =
-    ignore::DeprecationWarning
-EOF
-
 cat>pyproject.toml<<EOF
 [tool.aerich]
 tortoise_orm = "config.ORM_MIGRATE_CONF"
 location = "./migrations"
 src_folder = "./."
+
+[tool.pytest.ini_options]
+filterwarnings = ["ignore::DeprecationWarning"]
 EOF
 
 
@@ -1483,3 +1956,67 @@ RUN cp /mirrors/sources.list /etc/apt/sources.list \
 EOF
 
 echo "over"
+
+cat>README.md<<EOF
+# README
+
+>
+
+## keywords
+
+## environment
+
+- [require packets for work](./mirrors/requirements.txt)
+- [require packets for dev and test](./mirrors/requirements-dev.txt)
+
+## command
+
+## dir and file
+
+### project file
+
+- [A Global Config File](./config.py)
+- [Dir or File for Using Cython cythonize](./build.txt)
+- [The Program Entry File](./server.py)
+- [Dockerfile](./Dockerfile)
+- [Makefile](./Makefile)
+- [The Conf File of Aerich](./pyproject.toml)
+- [The Change Log of Different Version for This Project](./CHANGELOG.md)
+
+### some tools
+
+- [The Script of Insert Some Data Into Database](./scripts/insert.py)
+- [The Extend uvicorn Worker](./tools/worker.py)
+
+## deploy and dir
+
+### build and run
+
+### the project dir example
+
+.
+├── api
+├── conf
+│   ├── xxx_api
+│   │   ├── product.local.toml
+│   │   ├── test.local.toml
+│   │   ├── docker-entrypoint.sh
+│   │   └── gunicorn_config.py
+│   ├── mysql
+│   │   └── my.cnf
+│   └── redis
+│       └── redis.conf
+├── data
+│   ├── mysql
+│   │   └── data
+│   └── redis
+│       └── data
+│           └── dump.rdb
+├── docker-compose.yml
+└── logs
+    └── xxx_api
+        ├── x.log
+        ├── x-test.log
+        ├── x-local.log
+        └── x-local-test.log
+EOF
