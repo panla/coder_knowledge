@@ -202,3 +202,9 @@ python
 | <https://docs.deepin.org/pages/66fec7/#%E5%A6%82%E4%BD%95%E4%BF%9D%E5%AD%98%E9%85%8D%E7%BD%AE> | deepin 双屏幕 | |
 | <https://zhuanlan.zhihu.com/p/351162895> | DDD 领域驱动设计总结 | |
 | <https://blog.csdn.net/qq_28533563/article/details/107932737> | RabbitMQ 高可用集群搭建 | |
+
+## book
+
+| url | name | |
+| :-: | :-: | :-: |
+| <https://www.kancloud.cn/aceld/golang/1958309> | Golang修养之路 | |
