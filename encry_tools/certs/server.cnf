@@ -1,0 +1,28 @@
+[req]
+distinguished_name = req_distinguished_name
+req_extensions = v3_req
+
+[req_distinguished_name]
+countryName = CN
+countryName_default = CN
+stateOrProvinceName = Shanghai
+stateOrProvinceName_default = Shanghai
+localityName = Shanghai
+localityName_default = Shanghai
+organizationName = MyORG
+organizationName_default = MyORG
+organizationalUnitName  = MyORG
+organizationalUnitName_default  = MyORG
+commonName = ip or domain
+commonName_max  = 64
+emailAddress = email@email.com
+
+[v3_req]
+# Extensions to add to a certificate request
+basicConstraints = CA:TRUE
+keyUsage = nonRepudiation, digitalSignature, keyEncipherment
+subjectAltName = @alt_names
+
+[alt_names]
+IP.1 = 100.100.100.100
+DNS.1 = xx.com

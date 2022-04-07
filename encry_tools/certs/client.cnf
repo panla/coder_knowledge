@@ -1,0 +1,17 @@
+[req]
+distinguished_name = req_distinguished_name
+
+[req_distinguished_name]
+countryName = CN
+countryName_default = CN
+stateOrProvinceName = Shanghai
+stateOrProvinceName_default = Shanghai
+localityName = Shanghai
+localityName_default = Shanghai
+organizationName = MyORG
+organizationName_default = MyORG
+organizationalUnitName  = MyORG
+organizationalUnitName_default  = MyORG
+commonName = MyORGClient
+commonName_max  = 64
+emailAddress = email@email.com
