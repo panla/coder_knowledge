@@ -13,7 +13,8 @@ export GOROOT=/opt/go
 export PATH=$PATH:$GOROOT/bin
 export GOPATH=/home/user/study/go_path
 # 配置 GOPROXY 环境变量
-export GOPROXY=https://goproxy.io,direct
+# export GOPROXY=https://goproxy.io,direct
+export GOPROXY=https://goproxy.cn,direct
 # GOPROXY=https://mirrors.aliyun.com/goproxy/
 export GO111MODULE=on
 ```
