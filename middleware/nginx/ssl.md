@@ -80,6 +80,9 @@ server {
     ssl on;
     ssl_certificate     /etc/nginx/ssl/domain.com.pem;
     ssl_certificate_key /etc/nginx/ssl/domain.com.key;
+    # 双向认证
+    ssl_client_certificate /etc/nginx/ssl/ca.cer;
+    ssl_verify_client on;
 
     ssl_session_cache shared:SSL:1m;
     ssl_session_timeout 5m;
