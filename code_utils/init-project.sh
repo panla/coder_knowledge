@@ -1480,13 +1480,13 @@ class MqttClient:
         """订阅事件"""
 
         logger.info('on_subscribe'.center(40, '*'))
-        logger.info('on_subscribe: qos = {granted_qos}')
+        logger.info(f'on_subscribe: qos = {granted_qos}')
 
     def on_unsubscribe(self, client, userdata, mid):
         """取消订阅事件"""
 
         logger.info('on_unsubscribe'.center(40, '*'))
-        logger.info('on_unsubscribe: qos = {granted_qos}')
+        logger.info(f'on_unsubscribe: qos = {granted_qos}')
 
     def on_publish(self, client, userdata, mid):
         """发布消息事件"""
@@ -1498,7 +1498,7 @@ class MqttClient:
         """断开连接事件"""
 
         logger.info('on_disconnect'.center(40, '*'))
-        logger.info('Unexpected disconnected rc = {rc}')
+        logger.info(f'Unexpected disconnected rc = {rc}')
 EOF
 
 # tests
@@ -1661,150 +1661,6 @@ default-time-zone=+08:00
 max_connections=2000
 EOF
 
-cat>docs/deploy/nginx.conf<<EOF
-user root;
-
-worker_processes  4;
-#error_log  logs/error.log;
-
-events {
-    worker_connections  1024;
-}
-
-http {
-    tcp_nopush on;
-    directio 512;
-    # aio on;
-    include mime.types;
-    default_type application/octet-stream;
-    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
-                      '$status $body_bytes_sent "$http_referer" '
-                      '"$http_user_agent" "$http_x_forwarded_for"';
-
-    sendfile on;
-    keepalive_timeout 300;
-    client_max_body_size 3072m;
-    client_body_buffer_size 10M;
-
-    gzip on;
-
-    gzip_min_length 1k;
-    gzip_buffers 500 16k;
-    gzip_http_version 1.1;
-    gzip_comp_level 6;
-    gzip_types text/plain application/javascript application/x-javascript text/css text/javascript application/xml application/x-httpd-php image/jpeg image/gif image/png application/vnd.google-earth.kml+xml;
-    gzip_vary on;
-
-    upstream backend {
-        server 172.20.6.20:8000;
-        # server 172.20.6.21:8000;
-    }
-
-    # HTTP server required to serve the player and HLS fragments
-    server {
-        listen 8000;
-        server_name 127.0.0.1
-        charset utf-8
-
-        proxy_connect_timeout 300s;
-        proxy_send_timeout 300s;
-        proxy_read_timeout 300s;
-
-        location /live {
-            # 打开 HTTP 播放 FLV 直播流功能
-            flv_live on;
-
-            # 支持 'Transfer-Encoding: chunked' 方式回复
-            # 部分浏览器需要关闭
-            chunked_transfer_encoding on;
-
-            # Disable cache
-            # add_header Cache-Control no-cache;
-
-            # CORS setup
-            add_header 'Access-Control-Allow-Origin' '*' always;
-            add_header 'Access-Control-Expose-Headers' 'Content-Length';
-
-            # allow CORS preflight requests
-            if ($request_method = 'OPTIONS') {
-                add_header 'Access-Control-Allow-Origin' '*';
-                add_header 'Access-Control-Max-Age' 1728000;
-                add_header 'Content-Type' 'text/plain charset=UTF-8';
-                add_header 'Content-Length' 0;
-                return 204;
-            }
-        }
-
-        # This URL provides RTMP statistics in XML
-        location /stat {
-            rtmp_stat all;
-            # Use stat.xsl stylesheet
-            rtmp_stat_stylesheet stat.xsl;
-        }
-
-        location /stat.xsl {
-            # XML stylesheet to view RTMP stats.
-            root /usr/local/nginx/html;
-        }
-
-        location /media  {
-            # static media data
-            add_header 'Access-Control-Allow-Origin' '*';
-
-            alias /docker_media;
-        }
-
-        location /api {
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header Host $host;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header X-Forwarded-Proto $scheme;
-
-            # backend api server
-            proxy_pass http://backend;
-        }
-    }
-
-    server {
-        listen       8010;
-        server_name  localhost;
-
-        location / {
-            root   /web/front;
-            try_files $uri $uri/ /index.html;
-            index  index.html index.htm;
-        }
-    }
-
-}
-
-# RTMP configuration
-rtmp {
-
-    max_streams            128;
-    timeout                30s;
-    drop_idle_publisher    30s;
-
-    server {
-        # Listen on standard RTMP port
-        listen 1935;
-        chunk_size 4000;
-        # ping 30s;
-        # notify_method get;
-
-        # This application is to accept incoming stream
-        application live {
-            # Allows live input
-            live on;
-            allow play all;
-
-            # 打开 GOP 缓存，减少首屏等待时间，增加延迟
-            # 关闭 GOP 缓存，延迟低些，首屏等待
-            gop_cache on;
-        }
-    }
-}
-EOF
 
 # other
 mkdir tmp logs
