@@ -32,6 +32,12 @@ ssl_ciphers xyz;
 开启 SSL session 缓存
     ssl_session_cache shared:SSL:50m;     # 1m 4000个，
     ssl_session_timeout 1h;               # 1小时过期 1 hour during which sessions can be re-used.
+
+双向校验
+    ssl_certificate     /server.pem;
+    ssl_certificate_key /server.key;
+    ssl_client_certificate /ca.cer;
+    ssl_verify_client on;
 ```
 
 ## 1-rewrite
