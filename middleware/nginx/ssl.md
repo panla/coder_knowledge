@@ -109,6 +109,10 @@ openssl dhparam -out dhparam.pem 2048;
 
 // 在 .conf 中配置
 ssl_dhparam /path/to/dhparam.pem;
+
+
+// 证书密码
+ssl_password_file
 ```
 
 ## 3---?
