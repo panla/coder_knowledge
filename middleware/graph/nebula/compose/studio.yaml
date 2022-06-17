@@ -1,0 +1,22 @@
+version: '3.9'
+services:
+
+  studio:
+    image: vesoft/nebula-graph-studio:v3.3.0
+    container_name: nebula-studio
+    # restart: alyways
+    networks:
+      - nebula-net
+    ports:
+      - "9500:7001"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    # depends_on:
+    #   - metad0
+    #   - graphd0
+    #   - storaged0
+
+networks:
+  nebula-net:
+    external: true
+

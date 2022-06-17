@@ -334,15 +334,30 @@ services:
     cap_add:
       - SYS_PTRACE
 
+  studio:
+    image: vesoft/nebula-graph-studio:v3.3.0
+    container_name: nebula-studio
+    # restart: alyways
+    networks:
+      - nebula-net
+    ports:
+      - "9500:7001"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    # depends_on:
+    #   - metad0
+    #   - graphd0
+    #   - storaged0
+
   console:
-    image: vesoft/nebula-console:latest
+    image: vesoft/nebula-console:v3.0.0
     container_name: nebula-console
     entrypoint: ""
     command:
       - sh
       - -c
       - |
-        sleep 3 &&
+        sleep 15 &&
         nebula-console -addr nebula-graphd0 -port 9669 -u root -p nebula -e 'ADD HOSTS "nebula-storaged0":9779,"nebula-storaged1":9779,"nebula-storaged2":9779' &&
         sleep 36000
     # restart: alyways
@@ -352,27 +367,11 @@ services:
       - /etc/localtime:/etc/localtime:ro
     depends_on:
       - graphd0
-
-  studio:
-    image: vesoft/nebula-graph-studio:v3.3.0
-    container_name: nebula-studio
-    networks:
-      - nebula-net
-    ports:
-      - "9500:7001"
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-    depends_on:
-      - metad0
-      - metad1
-      - metad2
-      - graphd0
-      - graphd1
-      - graphd2
-      - storaged0
-      - storaged1
-      - storaged2
+      - stoaraged0
+      - stoaraged1
+      - stoaraged2
 
 networks:
   nebula-net:
     external: true
+
