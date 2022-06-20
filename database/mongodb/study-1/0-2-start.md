@@ -18,7 +18,7 @@ db.auth(user, passwd)
 数据库管理角色：
     dbAdmin：允许用户在指定的数据库中执行管理函数，创建索引，删除查看统计
     dbOwner：
-    userAdmin：允许用户向system.usera集合写入，可以创建删除管理用户
+    userAdmin：允许用户向system.users集合写入，可以创建删除管理用户
 集群管理角色：clusterAdmin clusterManager clusterMonitor hostManager
 备份恢复角色：backup restore
 所有数据库角色：
