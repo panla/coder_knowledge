@@ -21,19 +21,24 @@ touch apps/libs/init.py
 touch apps/libs/database.py
 touch apps/libs/middleware.py
 touch apps/libs/exception.py
+touch apps/libs/app_events.py
+
 mkdir apps/models -p
 touch apps/models/__init__.py
 touch apps/models/models.py
 touch apps/models/fields.py
 touch apps/models/mixin.py
+
 mkdir apps/modules -p
 touch apps/modules/__init__.py
 touch apps/modules/resource.py
 touch apps/modules/token.py
 touch apps/__init__.py
 touch apps/application.py
+
 mkdir apps/v1_api
 touch apps/v1_api/__init__.py
+
 mkdir apps/v1_api/schemas
 mkdir apps/v1_api/logics
 mkdir apps/v1_api/endpoints
@@ -1117,11 +1122,11 @@ touch redis_ext/sms.py
 cat>redis_ext/base.py<<EOF
 import os
 import threading
-from typing import Union
 from datetime import timedelta
+from typing import Union, Optional
 
-from aioredis.client import Redis
-from aioredis.connection import ConnectionPool
+from redis.asyncio import Redis
+from redis.asyncio.connection import ConnectionPool
 
 from config import RedisConfig
 from conf.const import EnvConst
@@ -1136,22 +1141,29 @@ REDIS_CONNECTION_PARAMS = {
     'decode_responses': True
 }
 
-REDIS_POOL_CACHE = dict()
-
 
 class Pool:
+    cache = dict()
     lock = threading.Lock()
+    instance = None
 
-    @classmethod
-    def make_pool(cls, db: int = 0):
+    def __init__(self, db: int = 0) -> None:
+        self.db = db
+
+    def __new__(cls, db: int = 0):
+        db = str(db)
+
         with cls.lock:
-            global REDIS_POOL_CACHE
+            if not cls.instance:
+                cls.instance = super().__new__(cls)
 
-            if REDIS_POOL_CACHE.get(str(db)):
-                pass
-            else:
-                REDIS_POOL_CACHE[str(db)] = ConnectionPool(db=db, **REDIS_CONNECTION_PARAMS)
-            return REDIS_POOL_CACHE.get(str(db))
+            if not cls.cache.get(db):
+                cls.cache[db] = ConnectionPool(db=db, **REDIS_CONNECTION_PARAMS)
+
+            return cls.instance
+
+    def pool(self):
+        return self.cache.get(str(self.db))
 
 
 class BaseRedis(object):
@@ -1165,7 +1177,7 @@ class BaseRedis(object):
         if os.environ.get('CODE_ENV') == EnvConst.TEST:
             self.client: Redis = Redis(connection_pool=ConnectionPool(db=self.DB, **REDIS_CONNECTION_PARAMS))
         else:
-            self.client: Redis = Redis(connection_pool=Pool.make_pool(db=self.DB))
+            self.client: Redis = Redis(connection_pool=Pool(self.DB).pool())
 
     @property
     def name(self):
@@ -1174,63 +1186,6 @@ class BaseRedis(object):
     @name.setter
     def name(self, value):
         self._name = f'{self.PREFIX_KEY}:{value}'
-
-    def get(self):
-        """
-        Return the value at key ``name``, or None if the key doesn't exist
-        """
-
-        return self.client.get(name=self.name)
-
-    def set(self, value, ex: Union[int, timedelta] = None, px: Union[int, timedelta] = None):
-        """Set the value at key ``name`` to ``value``
-
-        ``ex`` sets an expired flag on key ``name`` for ``ex`` seconds.
-        ``px`` sets an expired flag on key ``name`` for ``px`` milliseconds.
-        """
-
-        return self.client.set(name=self.name, value=value, ex=ex, px=px)
-
-    def set_nx(self, value):
-        """Set the value of key ``name`` to ``value`` if key doesn't exist"""
-
-        return self.client.setnx(name=self.name, value=value)
-
-    def getset(self, value):
-        """
-        Sets the value at key ``name`` to ``value``
-        and returns the old value at key ``name`` atomically.
-        """
-
-        return self.client.getset(name=self.name, value=value)
-
-    def set_kv(self, key, value):
-        """
-        Set ``key`` to ``value`` within hash ``name``,
-        ``mapping`` accepts a dict of key/value pairs that that will be
-        added to hash ``name``.
-        Returns the number of fields that were added.
-        """
-
-        return self.client.hset(name=self.name, key=key, value=value)
-
-    def get_kv(self, key):
-        """Return the value of ``key`` within the hash ``name``"""
-
-        return self.client.hget(name=self.name, key=key)
-
-    def set_mapping(self, mapping: dict):
-        """
-        Set key to value within hash ``name`` for each corresponding
-        key and value from the ``mapping`` dict.
-        """
-
-        return self.client.hmset(name=self.name, mapping=mapping)
-
-    def get_all_values(self):
-        """Return a Python dict of the hash's name/value pairs"""
-
-        return self.client.hgetall(name=self.name)
 
     def expire(self, seconds):
         """
@@ -1246,7 +1201,136 @@ class BaseRedis(object):
         return self.client.delete(self.name)
 
     def exists(self):
+        """Returns the number of ``names`` that exist"""
+
         return self.client.exists(self.name)
+
+    def get(self):
+        """
+        Return the value at key ``name``, or None if the key doesn't exist
+        """
+
+        return self.client.get(name=self.name)
+
+    def incr_by(self, amount: int = 1):
+        """value += amount"""
+
+        return self.client.incrby(name=self.name, amount=amount)
+
+    def set(
+            self,
+            value,
+            ex: Union[int, timedelta] = None,
+            px: Union[int, timedelta] = None,
+            nx: bool = False,
+            xx: bool = False,
+            get: bool = False
+    ):
+        """Set the value at key ``name`` to ``value``
+
+        ``ex`` sets an expired flag on key ``name`` for ``ex`` seconds.
+
+        ``px`` sets an expired flag on key ``name`` for ``px`` milliseconds.
+
+        ``nx`` if set to True, set the value at key ``name`` to ``value`` only
+            if it does not exist.
+
+        ``xx`` if set to True, set the value at key ``name`` to ``value`` only
+            if it already exists.
+
+        ``get`` if True, set the value at key ``name`` to ``value`` and return
+            the old value stored at key, or None if the key did not exist.
+            (Available since Redis 6.2)
+        """
+
+        return self.client.set(name=self.name, value=value, ex=ex, px=px, nx=nx, xx=xx, get=get)
+
+    def set_nx(self, value):
+        """Set the value of key ``name`` to ``value`` if key doesn't exist"""
+
+        return self.client.setnx(name=self.name, value=value)
+
+    def hash_set(self, key: Optional[str] = None, value: Optional[str] = None, mapping: Optional[dict] = None):
+        """
+        Set ``key`` to ``value`` within hash ``name``,
+        ``mapping`` accepts a dict of key/value pairs that that will be
+        added to hash ``name``.
+        Returns the number of fields that were added.
+        """
+
+        return self.client.hset(name=self.name, key=key, value=value, mapping=mapping)
+
+    def hash_get(self, key):
+        """hash, Return the value of ``key`` within the hash ``name``"""
+
+        return self.client.hget(name=self.name, key=key)
+
+    def hash_get_all_values(self):
+        """hash, Return a Python dict of the hash's name/value pairs"""
+
+        return self.client.hgetall(name=self.name)
+
+    def hash_del_key(self, keys: list):
+        """hash, Delete ``keys`` from hash ``name``
+
+        have * need list         ([key, key, key])
+        no   * need multiple key (key, key, key)
+        """
+
+        self.client.hdel(self.name, *keys)
+
+    def list_right_push(self, values: list):
+        """list, Push ``values`` onto the tail of the list ``name``"""
+
+        return self.client.rpush(self.name, *values)
+
+    def list_left_range(self, start: int = 0, end: int = -1):
+        """list, Return a slice of the list ``name`` between position ``start`` and ``end``"""
+
+        return self.client.lrange(name=self.name, start=start, end=end)
+
+    def list_set(self, index, value):
+        """list, Set element at ``index`` of list ``name`` to ``value``"""
+
+        return self.client.lset(name=self.name, index=index, value=value)
+EOF
+
+cat>redis_ext/lock.py<<EOF
+import time
+from typing import Union, Tuple
+
+from .base import BaseRedis
+
+
+class BaseLockRedis(BaseRedis):
+    """full key: Lock:{key}"""
+
+    DB = 2
+    PREFIX_KEY = 'Lock'
+    TIMEOUT = 3600
+
+    async def get_lock(self) -> Tuple[bool, Union[str, None]]:
+        """get the lock"""
+
+        current_time = time.time()
+        current_value = current_time + self.TIMEOUT
+
+        lock = await self.set(value=current_value, ex=self.TIMEOUT, nx=True)
+        if lock:
+            # it had exists
+            return True, str(current_value)
+
+        # it had not exists
+        old_lock = await self.get()
+
+        if old_lock and current_time > float(old_lock):
+            # expired
+            # get old and set new
+            old_value = await self.set(value=current_value, ex=self.TIMEOUT, get=True)
+            if not old_value or old_lock == old_value:
+                return True, str(current_value)
+            return False, None
+        return False, None
 EOF
 
 
@@ -1418,7 +1502,7 @@ import json
 
 from paho.mqtt.client import Client
 
-from extensions.log import logger
+from extensions import logger
 
 
 class MqttClient:
@@ -1432,33 +1516,36 @@ class MqttClient:
         self.client.on_subscribe = self.on_subscribe
 
     def connect(self, host: str, port: int, user: str, passwd: str, keepalive: int = 600):
-        """加载账户，连接"""
+        """connect server"""
 
+        # set user passwd
         self.client.username_pw_set(user, passwd)
+        # connect
         self.client.connect(host=host, port=port, keepalive=keepalive)
 
     def loop_start(self):
-        """loop"""
+        """loop start"""
+
         self.client.loop_start()
 
     def loop_forever(self):
-        """循环保持"""
+        """loop forever"""
 
         self.client.loop_forever()
 
     def subscribe(self, topic: str):
-        """订阅 topic"""
+        """subscribe topic"""
 
         self.client.subscribe(topic)
 
-    def publish(self, topic, payload, qos=0):
-        """发布"""
+    def publish(self, topic, msg, qos=0, retain=False, properties=None):
+        """publish msg"""
 
-        data = json.dumps(payload, ensure_ascii=False)
-        self.client.publish(topic=topic, payload=data, qos=qos)
+        payload = json.dumps(msg, ensure_ascii=False)
+        self.client.publish(topic=topic, payload=payload, qos=qos, retain=retain, properties=properties)
 
     def add_callback(self, topic, callback):
-        """向指定的 topic 添加回复/回调"""
+        """message_callback_add"""
 
         self.client.message_callback_add(topic, callback)
 
@@ -1468,13 +1555,12 @@ class MqttClient:
         logger.info('on_connect'.center(40, '*'))
         logger.info(f'Connected with result code: {rc}')
 
-    def on_message(self, client, userdata, msg):
-        """获得消息事件，触发动作，匹配不到 message_callback_add 时使用这个"""
+    def on_disconnect(self, client, userdata, rc):
+        """断开连接事件"""
 
-        logger.info('on_message'.center(40, '*'))
-        payload = msg.payload.decode('utf-8')
-        logger.info(f'on_message topic: {msg.topic}')
-        logger.info(payload)
+        # logger.info('on_disconnect'.center(40, '*'))
+        # logger.info('Unexpected disconnected rc = {rc}')
+        pass
 
     def on_subscribe(self, client, userdata, mid, granted_qos):
         """订阅事件"""
@@ -1485,8 +1571,9 @@ class MqttClient:
     def on_unsubscribe(self, client, userdata, mid):
         """取消订阅事件"""
 
-        logger.info('on_unsubscribe'.center(40, '*'))
-        logger.info(f'on_unsubscribe: qos = {granted_qos}')
+        # logger.info('on_unsubscribe'.center(40, '*'))
+        # logger.info('on_unsubscribe: qos = {granted_qos}')
+        pass
 
     def on_publish(self, client, userdata, mid):
         """发布消息事件"""
@@ -1494,11 +1581,13 @@ class MqttClient:
         logger.info('on_publish'.center(40, '*'))
         logger.info(f'on_publish: mid = {mid}')
 
-    def on_disconnect(self, client, userdata, rc):
-        """断开连接事件"""
+    def on_message(self, client, userdata, msg):
+        """获得消息事件，触发动作，匹配不到 message_callback_add 时使用这个"""
 
-        logger.info('on_disconnect'.center(40, '*'))
-        logger.info(f'Unexpected disconnected rc = {rc}')
+        logger.info('on_message'.center(40, '*'))
+        payload = msg.payload.decode('utf-8')
+        logger.info(f'on_message topic: {msg.topic}')
+        logger.info(payload)
 EOF
 
 # tests
@@ -1659,6 +1748,8 @@ init_connect='SET NAMES utf8mb4'
 
 default-time-zone=+08:00
 max_connections=2000
+
+expire_logs_days = 7
 EOF
 
 
@@ -1721,7 +1812,17 @@ EOF
 cat>CHANGELOG.md<<EOF
 # ChangeLog
 
-## 0.1
+## 1
+
+### 1.0
+
+#### 1.0.1
+
+## 0
+
+### 0.1
+
+#### 0.0.1
 EOF
 
 cat>config.py<<EOF
