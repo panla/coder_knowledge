@@ -29,6 +29,7 @@ auth.user.2.password = user_1
 {emqx_rule_engine, true}.
 {emqx_bridge_mqtt, false}.
 {emqx_auth_mnesia, true}.
+{emqx_auth_jwt, true}.
 
 ```
 
