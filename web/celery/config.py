@@ -3,11 +3,17 @@ from celery.schedules import crontab
 
 
 class MQConfig:
-    pass
+    USER = ''
+    PASSWD = ''
+    HOST = ''
+    PORT = ''
 
 
 class RedisConfig:
-    pass
+    USER = ''
+    PASSWD = ''
+    HOST = ''
+    PORT = ''
 
 
 class CeleryConfig:
