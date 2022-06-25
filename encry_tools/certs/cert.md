@@ -1,5 +1,7 @@
 # 证书
 
+[toc]
+
 ## 1 参考
 
 NGINX 配置 SSL 双向认证与自签名证书
@@ -68,4 +70,38 @@ openssl req -new -key client.pem -out client.csr
 
 ```bash
 openssl x509 -req -sha256 -in client.csr -CA ca-cert.pem -CAkey ca-key.pem -CAcreateserial -days 265 -out client-cert.pem
+```
+
+## 4 证书转换
+
+### 4.1 去除秘钥密码
+
+```shell
+openssl rsa -in client.key -out client.key.unsecure
+```
+
+### 4.2 .pem .cer 转 bks
+
+```shell
+# 生成 .p12
+openssl pkcs12 -export -nodes -in client.cer -inkey client.key -out client.p12
+
+# 生成 .bks
+keytool -importkeystore -srckeystore client.p12 -srcstoretype pkcs12 -destkeystore client.bks -deststoretype bks -provider org.bouncycastle.jce.provider.BouncyCastleProvider -providerpath bcprov-ext-jdk15on-1.70.jar
+
+# 查看证书列表
+keytool -list -rfc -keystore client.bks -storetype BKS -provider org.bouncycastle.jce.provider.BouncyCastleProvider -storepass 'bks秘钥库密码' -providerpath bcprov-ext-jdk15on-1.70.jar
+```
+
+### 4.3 .cer 转 .pfx
+
+```bash
+# 生成 pfx
+openssl pkcs12 -export -in client.cer -inkey client.key -out client.pfx
+```
+
+### 4.4 校验
+
+```shell
+openssl verify -CAfile ca.cer server.cer client.cer
 ```
