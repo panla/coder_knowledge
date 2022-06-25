@@ -2,14 +2,11 @@
 
 [toc]
 
-## include
-
 ## code_utils
 
 - 进制转换
 - 同步异步阻塞非阻塞
 - bitmap
-- 加密解密
 - 查找
 - 初始化项目脚本
 
@@ -36,6 +33,7 @@
 
 ## 加密
 
+- 自签名证书
 - 加密解密
 - Cython 保护 python 源码与加解密
 
@@ -53,13 +51,11 @@
 ## 中间件等
 
 - es
-- mq
-  - RabbitMQ
-- MQTT
-  - EMQX
-  - mosquitto
+- RabbitMQ
+- EMQX
 - nginx
 - redis
+- nebula-graph
 
 ## python
 
@@ -83,16 +79,11 @@
 
 ## web 框架
 
+- celery
 - django
 - drf
 - fastapi
 - flask
-
-## 任务分发
-
-- rearq
-- celery
-- nameko
 
 ## 收集网站
 
