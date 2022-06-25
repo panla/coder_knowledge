@@ -4,31 +4,34 @@ services:
     container_name: es0
     image: elasticsearch:7.12.0
     restart: always
-    ports:
-      - 9200:9200
-      - 9300:9300
     networks:
       es:
         ipv4_address: 172.18.0.3
+    ports:
+      - 9200:9200
+      - 9300:9300
     volumes:
+      - /etc/localtime:/etc/localtime:ro
       - ./data/es0:/usr/share/elasticsearch/data
       - ./logs/es0:/usr/share/elasticsearch/logs
       - ./plugins/es1:/usr/share/elasticsearch/plugins
     environment:
-      - TZ=Asia/Shanghai
       - LC_ALL=C.UTF-8
       - LANG=C.UTF-8
       - discovery.type=single-node
       - "ES_JAVA_OPTS=-Xms128m -Xmx128m"
+
   kibana:
     container_name: kibana
     image: kibana:7.12.0
     restart: always
-    ports:
-      - 15601:5601
     networks:
       es:
         ipv4_address: 172.18.0.2
+    ports:
+      - 15601:5601
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
     environment:
       TZ: "Asia/Shanghai"
       LC_ALL: C.UTF-8
