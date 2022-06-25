@@ -1,14 +1,11 @@
+from abc import ABC
+
 from celery.app.task import Task
 
-from loguru import logger
+from extensions.log import logger
 
 
-class BaseTask(Task):
-
-    def run(self, *args, **kwargs):
-        """The body of the task executed by workers."""
-        # raise NotImplementedError('Tasks must define the run method.')
-        pass
+class BaseTask(Task, ABC):
 
     def before_start(self, task_id, args, kwargs):
         """Handler called before the task starts.
