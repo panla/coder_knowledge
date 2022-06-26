@@ -1,9 +1,15 @@
-# MQTT
+# README
 
-## 订阅
+[toc]
 
-subscribe
+## 1 容器配置
 
-模糊匹配
+[docker-compose](./docker/docker-compose.yml)
 
-先订阅 模糊匹配规则，再 `message_callback_add`
+## 2 emqx.conf
+
+### 2.1 禁止匿名用户
+
+```conf
+allow_anonymous = false
+```
