@@ -49,14 +49,14 @@ cluster.discovery = manual
 ### 2.2 集群节点其他配置
 
 ```conf
-
 # 支持集群脑裂自动恢复
 cluster.autoheal = on
 
 # 从集群自动删除宕机节点
 cluster.autoclean = 5m
 
-# 单机伪分布式, 所有监听端口加上偏移
+# 本应多台服务器，组集群
+# 单机时，需要处理端口问题，将原先所有 emqx 节点监听的端口 port 加上一个偏移 offset 作为新的 emqx2 节点的监听端口
 ```
 
 ### 2.3 节点配置
@@ -66,8 +66,31 @@ cluster.autoclean = 5m
 node.name = emqx-1@192.168.1.10
 node.name = emqx-2@192.168.1.11
 
-# ENV EMQX_NODE_NAME=emqx@s1.emqx.io
+# 如果是 docker 在配置 emqx.conf 后还要，
+# 还需要配置  EMQX_NODE_NAME=emqx-1@192.168.1.10
+# TODO 这一点比较奇怪，单纯配置 emqx.conf 没有发挥作用
+```
 
+### 2.4 dir
+
+```text
+.
+├── conf
+│   ├── certs
+│   │   ├── cacert.pem
+│   │   ├── cert.pem
+│   │   └── key.pem
+│   ├── emqx-1
+│   │   └── emqx.conf
+│   ├── emqx-2
+│   │   └── emqx.conf
+│   ├── loaded
+│   │   └── loaded_plugins
+│   └── plugins
+│       ├── emqx_auth_http.conf
+│       ├── emqx_auth_jwt.conf
+│       └── emqx_auth_mnesia.conf
+└── docker-compose.yaml
 ```
 
 ## 3 负载均衡
