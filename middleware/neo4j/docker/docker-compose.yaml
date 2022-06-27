@@ -1,0 +1,22 @@
+version: "3.9"
+
+services:
+
+  neo4j:
+    image: neo4j:4.4.8-community
+    container_name: dev_study_neo4j
+    restart: always
+    networks:
+      dev_net:
+        ipv4_address: "172.20.8.3"
+    ports:
+      - 9301:7474
+      - 9302:7687
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./data/neo4j/data:/data
+
+
+networks:
+  dev_net:
+    external: true
