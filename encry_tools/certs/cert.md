@@ -2,25 +2,21 @@
 
 [toc]
 
-## 1 参考
+## 1 参考一
 
 NGINX 配置 SSL 双向认证与自签名证书
 
 <https://blog.csdn.net/zkt286468541/article/details/80864184>
 
-IP 自签名证书
+### 1.1 CA
 
-<https://www.cnblogs.com/dirigent/p/15246731.html>
-
-## 2 参考一
-
-### 2.1 CA 私钥
+#### 1.1.1 CA 私钥
 
 ```bash
 openssl genrsa -out ca-key.pem 2048
 ```
 
-### 2.2 CA 根证书
+#### 1.1.2 CA 根证书
 
 ```bash
 openssl req -new -x509 -days 365 -key ca-key.pem -out ca-cert.pem
@@ -28,14 +24,17 @@ openssl req -new -x509 -days 365 -key ca-key.pem -out ca-cert.pem
 # Common Name: Root
 ```
 
-### 2.3 Server 私钥
+### 1.2 Server
+
+#### 1.1.1 Server 私钥
 
 ```bash
 openssl genrsa -out server.pem 2048
 openssl rsa -in server.pem -out server-key.pem
+# 将生成的私钥转换为 RSA 私钥文件格式
 ```
 
-### 2.4 Server 签发请求
+#### 1.2.2 Server 签发请求
 
 ```bash
 openssl req -new -key server.pem -out server.csr
@@ -44,20 +43,23 @@ openssl req -new -key server.pem -out server.csr
 # A challenge password []:Server
 ```
 
-### 2.5 签发 Server
+#### 1.2.3 签发 Server
 
 ```bash
-openssl x509 -req -sha256 -in server.csr -CA ca-cert.pem -CAkey ca-key.pem -CAcreateserial -days 265 -out server-cert.pem
+openssl x509 -req -sha256 -in server.csr -days 365 -CA ca-cert.pem -CAkey ca-key.pem -CAcreateserial -out server-cert.pem
 ```
 
-## 2.6 Client 私钥
+### 1.3
+
+#### 1.3.1 Client 私钥
 
 ```bash
 openssl genrsa -out client.pem 2048
 openssl rsa -in client.pem -out client-key.pem
+# 将生成的私钥转换为 RSA 私钥文件格式
 ```
 
-### 2.7 Client 签发请求
+#### 1.3.2 Client 签发请求
 
 ```bash
 openssl req -new -key client.pem -out client.csr
@@ -66,42 +68,74 @@ openssl req -new -key client.pem -out client.csr
 # A challenge password []:Client
 ```
 
-### 2.8 签发 Client
+#### 1.3.3 签发 Client
 
 ```bash
-openssl x509 -req -sha256 -in client.csr -CA ca-cert.pem -CAkey ca-key.pem -CAcreateserial -days 265 -out client-cert.pem
+openssl x509 -req -sha256 -in client.csr -days 365 -CA ca-cert.pem -CAkey ca-key.pem -CAcreateserial -out client-cert.pem
 ```
 
-## 4 证书转换
+## 2 参考二
 
-### 4.1 去除秘钥密码
+2 与 1 相近，合并了生成私钥与签发请求步骤
 
-```shell
-openssl rsa -in client.key -out client.key.unsecure
-```
+<https://www.jianshu.com/p/63ba67e133ce>
 
-### 4.2 .pem .cer 转 bks
+### 2.1 CA
 
-```shell
-# 生成 .p12
-openssl pkcs12 -export -nodes -in client.cer -inkey client.key -out client.p12
-
-# 生成 .bks
-keytool -importkeystore -srckeystore client.p12 -srcstoretype pkcs12 -destkeystore client.bks -deststoretype bks -provider org.bouncycastle.jce.provider.BouncyCastleProvider -providerpath bcprov-ext-jdk15on-1.70.jar
-
-# 查看证书列表
-keytool -list -rfc -keystore client.bks -storetype BKS -provider org.bouncycastle.jce.provider.BouncyCastleProvider -storepass 'bks秘钥库密码' -providerpath bcprov-ext-jdk15on-1.70.jar
-```
-
-### 4.3 .cer 转 .pfx
+#### 2.1.1 CA 私钥
 
 ```bash
-# 生成 pfx
-openssl pkcs12 -export -in client.cer -inkey client.key -out client.pfx
+openssl genrsa 2048 > ca-key.pem
 ```
 
-### 4.4 校验
+#### 2.1.2 CA 根证书
 
-```shell
-openssl verify -CAfile ca.cer server.cer client.cer
+```bash
+openssl req -new -x509 -days 365 -sha256 -nodes -key ca-key.pem > ca-cert.pem
+
+# Common Name: Root
 ```
+
+### 2.2 Server
+
+#### 2.2.1 Server 私钥和请求
+
+```bash
+openssl req -sha256 -newkey rsa:2048 -days 365 -nodes -keyout server.pem > server-req.pem
+
+# 将生成的私钥转换为 RSA 私钥文件格式
+openssl rsa -in server.pem -out server-key.pem
+```
+
+#### 2.2.2 签发 Server
+
+```bash
+openssl x509 -req -sha256 -in server-req.pem -days 365 -CA ca-cert.pem -CAkey ca-key.pem -set_serial 01 > server-cert.pem
+```
+
+### 2.3 Client
+
+#### 2.3.1 Client 私钥和请求
+
+```bash
+openssl req -sha256 -newkey rsa:2048 -days 365 -nodes -keyout client.pem > client-req.pem
+
+# 将生成的私钥转换为 RSA 私钥文件格式
+openssl rsa -in client.pem -out client-key.pem
+```
+
+#### 2.3.2 签发 Client
+
+```bash
+openssl x509 -req -sha256 -in client-req.pem -days 365 -CA ca-cert.pem -CAkey ca-key.pem -set_serial 01 > client-cert.pem
+```
+
+## 3 参考三
+
+IP 自签名证书
+
+<https://www.cnblogs.com/dirigent/p/15246731.html>
+
+与 1，2相比 3 使用 des 来生成私钥，以及加上了 针对 IP 的证书
+
+### 3.1 CA
