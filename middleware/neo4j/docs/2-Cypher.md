@@ -45,3 +45,26 @@
 ```Cypher
 acted_in = (:Person)-[:ACTED_IN]->(:Movie)
 ```
+
+## 2 Practice Patterns
+
+### 2.1 创建 CREATE
+
+```Cypher
+# 创建 title=The Matrix, released=1997 的电影
+# 节点：movie
+# 标签：Movie
+# 属性：title, released
+
+CREATE(movie:Movie {title: "The Matrix", released: 1997})
+RETURN movie
+```
+
+### 2.2 匹配 MATCH
+
+```Cypher
+# 匹配查询 title=The Matrix 的电影
+
+MATCH (movie:Movie {title: "The Matrix"})
+RETURN movie
+```
