@@ -5,3 +5,4 @@
 *.pyc
 
 /encry_tools/build.txt
+/middleware/neo4j/tmp
