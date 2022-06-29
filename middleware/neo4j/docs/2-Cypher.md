@@ -1,5 +1,7 @@
 # Cypher
 
+[toc]
+
 ## 1 Patterns
 
 ### 1.1 节点语法
@@ -56,15 +58,141 @@ acted_in = (:Person)-[:ACTED_IN]->(:Movie)
 # 标签：Movie
 # 属性：title, released
 
-CREATE(movie:Movie {title: "The Matrix", released: 1997})
+CREATE(movie:Movie {title: 'The Matrix', released: 1997})
 RETURN movie
 ```
 
 ### 2.2 匹配 MATCH
 
-```Cypher
-# 匹配查询 title=The Matrix 的电影
+#### 2.2.1 特别的
 
-MATCH (movie:Movie {title: "The Matrix"})
+清空删除节点
+
+```Cypher
+MATCH (n)
+OPTIONAL MATCH (n)-[r]-()
+DELETE n, r
+```
+
+查询所有
+
+```Cypher
+MATCH (p)
+OPTIONAL MATCH (p:Person)-[r]-(m:Movie)
+RETURN p, r, m
+```
+
+#### 2.2.2 MATCH
+
+匹配查询 title=The Matrix 的电影
+
+```Cypher
+MATCH (movie:Movie {title: 'The Matrix'})
 RETURN movie
 ```
+
+查询 id=1的 point
+
+```Cypher
+MATCH (p:Point {id: 1})
+RETURN p
+```
+
+查询 id=1的 point
+
+```Cypher
+MATCH (p:Point)
+WHERE p.id = 1
+RETURN p
+```
+
+查寻，id=1 的point 的下一个点
+
+```Cypher
+MATCH (p:Point {id: 1})-[r:NEXT]->(p2:Point)
+RETURN  p, r, p2
+```
+
+#### 2.2.3 附加结构，查询，作为变量进行创建
+
+```Cypher
+MATCH (p:Person {name: 'Tom Hanks'})
+CREATE (m:Movie {title: 'Cloud Atlas', released: 2012})
+CREATE (p)-[r:ACTED_IN {roles: ['Zachry']}]->(m)
+RETURN p, r, m
+```
+
+#### 2.2.4 完成模式 Completing patterns
+
+幂等，查找或创建
+
+```Cypher
+# 查询 title='Cloud Atlas' 的 movie，如果存在，就设置 released = 2012，如果不存在就创建
+
+MERGE (m:Movie {title: 'Cloud Atlas'})
+ON CREATE SET m.released = 2012
+RETURN m
+```
+
+## 3 correct results
+
+### 3.2 过略结果
+
+WHERE combined with AND, OR, XOR, NOT
+
+```Cypher
+MATCH (m:Movie)
+WHERE m.title = 'The Matrix'
+RETURN m
+```
+
+```Cypher
+MATCH (p:Person)-[r:ACTED_IN]->(m:Movie)
+WHERE p.name =~ 'K.+' OR m.released > 2000 OR 'Neo' IN r.roles
+RETURN p, r, m
+```
+
+### 3.3 return
+
+### 3.4 汇总
+
+```Cypher
+MATCH (:Person)
+RETURN count(*) AS people
+```
+
+### 3.5 排序，分页
+
+```Cypher
+MATCH (p:Person)-[:ACTED_IN]->(m:Movie)
+RETURN p, count(*) AS num
+ORDER BY num DESC LIMIT 10
+```
+
+### 3.6 收集聚合
+
+```Cypher
+MATCH (m:Movie)<-[:ACTED_IN]-(p:Person)
+RETURN m.title AS movie, collect(p.name) AS cast, count(*) AS actors
+```
+
+## 4 较为复杂的语句
+
+### 4.2 联合 UNION
+
+同时列出导演和演员
+
+```Cypher
+MATCH (actor:Person)-[r:ACTED_IN]->(movie:Movie)
+RETURN actor.name AS name, type(r) AS type, movie.title AS title
+UNION
+MATCH (director:Person)-[r:DIRECTED]->(movie:Movie)
+RETURN director.name AS name, type(r) AS type, movie.title AS title
+```
+
+```Cypher
+MATCH (p:Person)-[r:ACTED_IN|DIRECTED]->(movie:Movie)
+RETURN p.name AS name, type(r) AS type, movie.title AS title
+```
+
+### 4.3 WITH
