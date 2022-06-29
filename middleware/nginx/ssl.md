@@ -115,24 +115,6 @@ ssl_dhparam /path/to/dhparam.pem;
 ssl_password_file
 ```
 
-## 3---?
-
-```conf
-server {
-    listen 443 ssl;
-
-    ssl_certificate   cert/example.pem;
-    ssl_certificate_key  cert/example.key;
-    ssl_session_timeout 5m;
-    ssl_ciphers ALL:!DH:!EXPORT:!RC4:+HIGH:+MEDIUM:!eNULL;;
-    ssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3;
-
-    if ($scheme != "https") {
-        return 301 https://$host$request_uri;
-    }
-}
-```
-
 ## 4 ssl_ciphers
 
 ### 4.1

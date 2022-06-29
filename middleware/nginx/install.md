@@ -44,12 +44,12 @@ http://nginx.org/en/docs/
 --with-perl=path    可执行文件
 ```
 
-nginx -V
+nginx -V (debian:bullseye-slim)
 
 ```text
 nginx version: nginx/1.22.0
-built by gcc 6.3.0 20170516 (Debian 6.3.0-18+deb9u1)
-built with OpenSSL 1.1.0l  10 Sep 2019
+built by gcc 10.2.1 20210110 (Debian 10.2.1-6)
+built with OpenSSL 1.1.1n  15 Mar 2022
 TLS SNI support enabled
 configure arguments: --sbin-path=/usr/local/sbin/nginx --conf-path=/etc/nginx/nginx.conf --error-log-path=/var/log/nginx/error.log --http-log-path=/var/log/nginx/access.log --pid-path=/var/run/nginx/nginx.pid --lock-path=/var/lock/nginx.lock --http-client-body-temp-path=/tmp/nginx-client-body --with-http_realip_module --with-stream_realip_module --with-http_ssl_module --with-stream_ssl_preread_module --with-http_v2_module --with-http_addition_module --with-http_flv_module --with-http_mp4_module --with-http_gunzip_module --with-http_gzip_static_module --with-stream --with-stream=dynamic --with-threads --with-file-aio --with-http_sub_module --with-http_dav_module --with-http_auth_request_module --with-http_slice_module --with-http_stub_status_module --with-http_random_index_module --with-http_secure_link_module --with-http_degradation_module --add-module=/tmp/build/nginx-http-flv-module
 ```
