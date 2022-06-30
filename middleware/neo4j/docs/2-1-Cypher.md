@@ -136,9 +136,11 @@ RETURN m
 
 ## 3 correct results
 
-### 3.2 过略结果
+### 3.2 过滤结果
 
-WHERE combined with AND, OR, XOR, NOT
+WHERE combined with AND, OR, XOR, NOT, IN
+
+=~
 
 ```Cypher
 MATCH (m:Movie)
@@ -196,3 +198,58 @@ RETURN p.name AS name, type(r) AS type, movie.title AS title
 ```
 
 ### 4.3 WITH
+
+管道，每个片段都处理签一个片段的输出，其结果输入进下一个片段
+
+```Cypher
+MATCH (person:Person)-[:ACTED_IN]->(m:Movie)
+WITH person, count(*) AS appearances, collect(m.title) AS movies
+WHERE appearances > 1
+RETURN person.name, appearances, movies
+```
+
+### 4.4 SET
+
+更新
+
+```Cypher
+MATCH (n {name: 'pandora'})
+SET n.name = 'athena'
+RETURN n
+```
+
+### 4.5 DELETE
+
+### 4.6 REMOVE
+
+## 5 定义一个模式
+
+### 5.2 使用索引
+
+加速，提高性能
+
+```Cypher
+CREATE INDEX point_index_1 FOR (p:Point) ON (p.point_id)
+CREATE INDEX point_index_1 FOR (p:Point) ON (p.uid)
+
+CREATE INDEX point_index_1 FOR (p:Point) ON (p.point_id, p.name)
+
+# 查看定义了哪些索引，索引名称，标签或类型，属性，索引类型 BTREE
+SHOW INDEXES YIELD name, labelOrTypes, properties, type
+```
+
+### 5.3 使用约束
+
+#### 5.3.1 唯一约束
+
+```Cypher
+CREATE CONSTRAINT constraint_example_1 FOR (movie:Movie) REQUIRE movie.title IS UNIQUE
+
+SHOW CONSTRAINTS YIELD id, name, type, entityType, labelOrTypes, properties, ownedIndexId
+```
+
+### 5.4 创建数据库 企业版
+
+```Cypher
+CREATE database movieGraph
+```
