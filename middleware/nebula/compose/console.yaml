@@ -9,12 +9,13 @@ services:
       - sh
       - -c
       - |
-        sleep 3 &&
+        sleep 15 &&
         nebula-console -addr nebula-graphd0 -port 9669 -u root -p nebula -e 'ADD HOSTS "nebula-storaged0":9779,"nebula-storaged1":9779,"nebula-storaged2":9779' &&
         sleep 36000
-    # restart: alyways
+    restart: always
     networks:
-      - nebula-net
+      dev_net:
+        ipv4_address: "172.20.5.2"
     volumes:
       - /etc/localtime:/etc/localtime:ro
     # depends_on:
@@ -24,6 +25,5 @@ services:
     #   - stoaraged2
 
 networks:
-  nebula-net:
+  dev_net:
     external: true
-

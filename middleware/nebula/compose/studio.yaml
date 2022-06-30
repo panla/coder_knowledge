@@ -4,9 +4,10 @@ services:
   studio:
     image: vesoft/nebula-graph-studio:v3.3.0
     container_name: nebula-studio
-    # restart: alyways
+    restart: always
     networks:
-      - nebula-net
+      dev_net:
+        ipv4_address: "172.20.6.2"
     ports:
       - "9500:7001"
     volumes:
@@ -17,6 +18,5 @@ services:
     #   - storaged0
 
 networks:
-  nebula-net:
+  dev_net:
     external: true
-

@@ -14,9 +14,10 @@ services:
       - --log_dir=/logs
       - --v=0
       - --minloglevel=0
-    # restart: alyways
+    restart: always
     networks:
-      - nebula-net
+      dev_net:
+        ipv4_address: "172.20.5.3"
     ports:
       - "9501:9559"
       - "9502:19559"
@@ -49,9 +50,10 @@ services:
       - --log_dir=/logs
       - --v=0
       - --minloglevel=0
-    # restart: alyways
+    restart: always
     networks:
-      - nebula-net
+      dev_net:
+        ipv4_address: "172.20.5.4"
     ports:
       - "9504:9559"
       - "9505:19559"
@@ -84,9 +86,10 @@ services:
       - --log_dir=/logs
       - --v=0
       - --minloglevel=0
-    # restart: alyways
+    restart: always
     networks:
-      - nebula-net
+      dev_net:
+        ipv4_address: "172.20.5.5"
     ports:
       - "9507:9559"
       - "9508:19559"
@@ -106,116 +109,6 @@ services:
     cap_add:
       - SYS_PTRACE
 
-  graphd0:
-    image: vesoft/nebula-graphd:v3.1.0
-    container_name: nebula-graphd0
-    command:
-      - --meta_server_addrs=nebula-metad0:9559,nebula-metad1:9559,nebula-metad2:9559
-      - --port=9669
-      - --local_ip=nebula-graphd0
-      - --ws_ip=nebula-graphd0
-      - --ws_http_port=19669
-      - --log_dir=/logs
-      - --v=0
-      - --minloglevel=0
-    # restart: alyways
-    networks:
-      - nebula-net
-    ports:
-      - "9601:9669"
-      - "9602:19669"
-      - "9603:19670"
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - ./logs/graph0:/logs
-    environment:
-      USER: root
-    depends_on:
-      - storaged0
-      - storaged1
-      - storaged2
-    healthcheck:
-      test: ["CMD", "curl", "-sf", "http://nebula-graphd0:19669/status"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 20s
-    cap_add:
-      - SYS_PTRACE
-
-  graphd1:
-    image: vesoft/nebula-graphd:v3.1.0
-    container_name: nebula-graphd1
-    command:
-      - --meta_server_addrs=nebula-metad0:9559,nebula-metad1:9559,nebula-metad2:9559
-      - --port=9669
-      - --local_ip=nebula-graphd1
-      - --ws_ip=nebula-graphd1
-      - --ws_http_port=19669
-      - --log_dir=/logs
-      - --v=0
-      - --minloglevel=0
-    # restart: alyways
-    networks:
-      - nebula-net
-    ports:
-      - "9604:9669"
-      - "9605:19669"
-      - "9606:19670"
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - ./logs/graph1:/logs
-    environment:
-      USER: root
-    depends_on:
-      - storaged0
-      - storaged1
-      - storaged2
-    healthcheck:
-      test: ["CMD", "curl", "-sf", "http://nebula-graphd1:19669/status"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 20s
-    cap_add:
-      - SYS_PTRACE
-
-  graphd2:
-    image: vesoft/nebula-graphd:v3.1.0
-    container_name: nebula-graphd2
-    command:
-      - --meta_server_addrs=nebula-metad0:9559,nebula-metad1:9559,nebula-metad2:9559
-      - --port=9669
-      - --local_ip=nebula-graphd2
-      - --ws_ip=nebula-graphd2
-      - --ws_http_port=19669
-      - --log_dir=/logs
-      - --v=0
-      - --minloglevel=0
-    # restart: alyways
-    networks:
-      - nebula-net
-    ports:
-      - "9607:9669"
-      - "9608:19669"
-      - "9609:19670"
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - ./logs/graph2:/logs
-    environment:
-      USER: root
-    depends_on:
-      - storaged0
-      - storaged1
-      - storaged2
-    healthcheck:
-      test: ["CMD", "curl", "-sf", "http://nebula-graphd2:19669/status"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 20s
-    cap_add:
-      - SYS_PTRACE
 
   storaged0:
     image: vesoft/nebula-storaged:v3.1.0
@@ -230,9 +123,10 @@ services:
       - --log_dir=/logs
       - --v=0
       - --minloglevel=0
-    # restart: alyways
+    restart: always
     networks:
-      - nebula-net
+      dev_net:
+        ipv4_address: "172.20.7.3"
     ports:
       - "9701:9779"
       - "9702:19779"
@@ -269,9 +163,10 @@ services:
       - --log_dir=/logs
       - --v=0
       - --minloglevel=0
-    # restart: alyways
+    restart: always
     networks:
-      - nebula-net
+      dev_net:
+        ipv4_address: "172.20.7.4"
     ports:
       - "9704:9779"
       - "9705:19779"
@@ -308,9 +203,10 @@ services:
       - --log_dir=/logs
       - --v=0
       - --minloglevel=0
-    # restart: alyways
+    restart: always
     networks:
-      - nebula-net
+      dev_net:
+        ipv4_address: "172.20.7.5"
     ports:
       - "9707:9779"
       - "9708:19779"
@@ -334,44 +230,121 @@ services:
     cap_add:
       - SYS_PTRACE
 
-  studio:
-    image: vesoft/nebula-graph-studio:v3.3.0
-    container_name: nebula-studio
-    # restart: alyways
-    networks:
-      - nebula-net
-    ports:
-      - "9500:7001"
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-    # depends_on:
-    #   - metad0
-    #   - graphd0
-    #   - storaged0
 
-  console:
-    image: vesoft/nebula-console:v3.0.0
-    container_name: nebula-console
-    entrypoint: ""
+  graphd0:
+    image: vesoft/nebula-graphd:v3.1.0
+    container_name: nebula-graphd0
     command:
-      - sh
-      - -c
-      - |
-        sleep 15 &&
-        nebula-console -addr nebula-graphd0 -port 9669 -u root -p nebula -e 'ADD HOSTS "nebula-storaged0":9779,"nebula-storaged1":9779,"nebula-storaged2":9779' &&
-        sleep 36000
-    # restart: alyways
+      - --meta_server_addrs=nebula-metad0:9559,nebula-metad1:9559,nebula-metad2:9559
+      - --port=9669
+      - --local_ip=nebula-graphd0
+      - --ws_ip=nebula-graphd0
+      - --ws_http_port=19669
+      - --log_dir=/logs
+      - --v=0
+      - --minloglevel=0
+    restart: always
     networks:
-      - nebula-net
+      dev_net:
+        ipv4_address: "172.20.6.3"
+    ports:
+      - "9601:9669"
+      - "9602:19669"
+      - "9603:19670"
     volumes:
       - /etc/localtime:/etc/localtime:ro
+      - ./logs/graph0:/logs
+    environment:
+      USER: root
     depends_on:
-      - graphd0
-      - stoaraged0
-      - stoaraged1
-      - stoaraged2
+      - storaged0
+      - storaged1
+      - storaged2
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://nebula-graphd0:19669/status"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+    cap_add:
+      - SYS_PTRACE
+
+  graphd1:
+    image: vesoft/nebula-graphd:v3.1.0
+    container_name: nebula-graphd1
+    command:
+      - --meta_server_addrs=nebula-metad0:9559,nebula-metad1:9559,nebula-metad2:9559
+      - --port=9669
+      - --local_ip=nebula-graphd1
+      - --ws_ip=nebula-graphd1
+      - --ws_http_port=19669
+      - --log_dir=/logs
+      - --v=0
+      - --minloglevel=0
+    restart: always
+    networks:
+      dev_net:
+        ipv4_address: "172.20.6.4"
+    ports:
+      - "9604:9669"
+      - "9605:19669"
+      - "9606:19670"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./logs/graph1:/logs
+    environment:
+      USER: root
+    depends_on:
+      - storaged0
+      - storaged1
+      - storaged2
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://nebula-graphd1:19669/status"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+    cap_add:
+      - SYS_PTRACE
+
+  graphd2:
+    image: vesoft/nebula-graphd:v3.1.0
+    container_name: nebula-graphd2
+    command:
+      - --meta_server_addrs=nebula-metad0:9559,nebula-metad1:9559,nebula-metad2:9559
+      - --port=9669
+      - --local_ip=nebula-graphd2
+      - --ws_ip=nebula-graphd2
+      - --ws_http_port=19669
+      - --log_dir=/logs
+      - --v=0
+      - --minloglevel=0
+    restart: always
+    networks:
+      dev_net:
+        ipv4_address: "172.20.6.5"
+    ports:
+      - "9607:9669"
+      - "9608:19669"
+      - "9609:19670"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./logs/graph2:/logs
+    environment:
+      USER: root
+    depends_on:
+      - storaged0
+      - storaged1
+      - storaged2
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://nebula-graphd2:19669/status"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+    cap_add:
+      - SYS_PTRACE
 
 networks:
-  nebula-net:
+  dev_net:
     external: true
-
