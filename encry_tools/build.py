@@ -1,3 +1,12 @@
+"""
+使用
+from setuptools.command.build_py import build_py
+from setuptools import setup
+时
+
+setup 加上 zip_safe=False
+"""
+
 import argparse
 import os
 import sys
