@@ -8,6 +8,8 @@
 | 8084 | 默认值 MQTT/Websocket/SSL 端口 |
 | 8081 | 默认 管理 API 端口|
 | 18083 | 默认 Dashboard 端口 |
+| 18084 | 默认 Dashboard HTTPS 端口 |
+| 11883 | 默认 listener.tcp.internal |
 
 集群
 
