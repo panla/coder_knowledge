@@ -4,11 +4,10 @@
 
 ## code_utils
 
-- 进制转换
-- 同步异步阻塞非阻塞
 - bitmap
 - 查找
-- 初始化项目脚本
+- 雪花算法ID
+- 状态机
 
 ## 数据结构
 
@@ -23,7 +22,7 @@
 
 - mongodb
 - mysql
-- pgsql
+- postgresql
 
 ## 部署
 
@@ -50,17 +49,17 @@
 
 ## 中间件等
 
-- es
-- RabbitMQ
+- elasticsearch
 - EMQX
+- nebula Graph
+- neo4j
 - nginx
+- RabbitMQ
 - redis
-- nebula-graph
 
 ## python
 
 - loguru
-- gunicorn
 - orm
   - alembic
   - gino
@@ -69,6 +68,9 @@
 - `socket.io`
 - 排序查找
 - 单测
+- web server
+  - gunicorn
+  - uvicorn
 
 ## 软件
 
@@ -76,6 +78,14 @@
 - miniconda
 - 基本软件
 - 开发软件
+
+## 杂项
+
+- 进制转换
+- 客户端版本升级
+- 随机字符串
+- 同步异步阻塞非阻塞
+- 初始化项目脚本
 
 ## web 框架
 
