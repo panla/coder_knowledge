@@ -1,11 +1,20 @@
+"""
+雪花算法
+0 0000000-00000000-00000000-00000000-00000000-00 0000000000 000000000000
+"""
+
 import time
 from datetime import datetime
 
 from loguru import logger
 
-# 64位ID的划分
+# 64位ID的划分 1 + 41 + 10 + 12
+# WORKER_ID_BITS 和 DATA_CENTER_ID_BITS 组成工作进程位，最大 1024 个
+# 工作ID位数 最大 31个
 WORKER_ID_BITS = 5
+# 数据中心位数 最大 31 个
 DATA_CENTER_ID_BITS = 5
+# 增长序列号位数 同毫秒内产生的不同 ID，最大 4095 个
 SEQUENCE_BITS = 12
 
 # 最大取值计算, 31, 2**5-1, 0b11111
@@ -17,7 +26,7 @@ WORKER_ID_SHIFT = SEQUENCE_BITS
 DATA_CENTER_ID_SHIFT = SEQUENCE_BITS + WORKER_ID_BITS
 TIMESTAMP_LEFT_SHIFT = SEQUENCE_BITS + WORKER_ID_BITS + DATA_CENTER_ID_BITS
 
-# 序号循环掩码
+# 序号循环掩码，4095
 SEQUENCE_MASK = -1 ^ (-1 << SEQUENCE_BITS)
 
 # 起始时间戳 毫秒
@@ -103,7 +112,12 @@ class IdWorker(object):
 
 
 if __name__ == '__main__':
+    """ 日志打印相当耗时"""
+
     worker = IdWorker(1, 2, 0)
 
-    for i in range(1, 100):
-        print(worker.get_id())
+    s_time = time.time()
+    for i in range(1, 2000000):
+        # print(worker.get_id())
+        id_ = worker.get_id()
+    print(time.time() - s_time)
