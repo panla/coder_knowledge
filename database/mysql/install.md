@@ -37,7 +37,7 @@ sudo chown -R mysql:mysql mysql
 
 `/opt/mysql/my.cnf`
 
-```text
+```conf
 [client]
 port = 3306
 socket = /opt/mysql/tmp/mysql.sock
@@ -56,11 +56,22 @@ basedir = /opt/mysql
 # 数据路径
 datadir = /opt/mysql/data
 
-# bin-log
+# bin-log，二进制日志，默认开启
 log-bin = /opt/mysql/logs/binlogs/binlog
+# bin log 每个文件的最大大小
+max_binlog_size = 500M
 
-# log-error
+# log-error，错误日志，默认开启
 log-error = /opt/mysql/logs/mysql.err
+
+# 通用查询日志，默认关闭
+general_log=ON
+general_log_file=/opt/mysql/logs/mysql_general.log
+
+# 慢查询日志，执行时间超过 long_query_time 的语句，默认关闭
+slow_query_log=ON
+long_query_time=5
+slow_query_log_file=/opt/mysql/logs/mysql_slow_query.log
 
 # 进程号文件
 pid-file = /opt/mysql/tmp/mysql.pid
@@ -85,6 +96,9 @@ default-time-zone=+08:00
 
 # 最大连接数
 max_connections=2000
+
+# 日志过期时间
+expire_logs_days = 7
 ```
 
 ### service
