@@ -1,7 +1,9 @@
-########################################################################################################################
-# cryptography 多次执行 encrypt 结果不同，用 decrypt 来比较
+"""
+对称加解密
+cryptography 多次执行 encrypt 结果不同，用 decrypt 来比较
 # 解密时应用加密时对应的秘钥
 #   <---->  加密解密双向
+"""
 
 from cryptography.fernet import Fernet
 
@@ -45,7 +47,7 @@ def func_1():
     b'yJbnD2L3Hva8vJlHoLcb1akPwhtGxFyO2nrhti9_F48='
     b'gAAAAABitn12y4Ty8_F1DhpE8vh9PiHwpQrxVJEIE967O9GA1_dc5bgNiaeZZpYnbyTFJv7cwNzdCFFUq63D4S5H20YQlL306A=='
     b'abcdefg'
-    
+
     b'abcdefg'
     b'9oebXV2MXLgFMO7DW8aq-qTQjOoJKYF35OlWT3fMV80='
     b'gAAAAABitn12OSZMcnzRbHPRDQ8quqMTbxpVRlFs_7O7CH66pPWyUPfg_UEHpWRBOtKEpHpZ7khQx7loCTiTr8BYjVnMh_z9eA=='
@@ -87,7 +89,7 @@ def func_2():
     b's8jsjr_7JU9lh1uW-BCoXiKunXfXE2-m4dft5YbKVGc='
     b'gAAAAABitn2aUfN8buOO6e8w5tpqn92qCy5CxvDpSWUFJebRipFwHHPbHc-bz6DLidKoXUr2vmfI0--F1vJj3JpV89wZtf1QAQ=='
     b'abcdefg'
-    
+
     b'abcdefg'
     b's8jsjr_7JU9lh1uW-BCoXiKunXfXE2-m4dft5YbKVGc='
     b'gAAAAABitn2ais5OM5Rv0g8aC7b3kaHMHK2J2Prh5sdh_X-J46lsnHzltDGNfINF-GoZNYcDfEJQ8JqCxKwMGO-kqLV_9e3GsQ=='
