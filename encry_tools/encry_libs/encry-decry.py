@@ -58,14 +58,14 @@ def write_file(data, path: str, is_byte: bool = True):
             f.write(data)
 
 
-# 加载私钥
+# 加载私钥，产生私钥对象
 private_key = serialization.load_pem_private_key(
     data=read_file(private_key_file), password=None, backend=default_backend()
 )
-# 加载公钥
+# 加载公钥，产生公钥对象
 public_key = serialization.load_pem_public_key(data=read_file(public_key_file), backend=default_backend())
 
-# 生成加密
+# 用公钥来加密，生成加密后的数据
 encrypt_data = public_key.encrypt(
     plaintext=read_file(origin_file,),
     padding=padding.OAEP(
@@ -74,10 +74,10 @@ encrypt_data = public_key.encrypt(
         label=None
     )
 )
-# 保存加密内容
+# 保存加密后的数据
 write_file(encrypt_data, encrypt_file)
 
-# 生成解密
+# 用私钥来解密，生成解密后的数据
 decrypt_data = private_key.decrypt(
     ciphertext=encrypt_data,
     padding=padding.OAEP(
@@ -86,10 +86,10 @@ decrypt_data = private_key.decrypt(
         label=None
     )
 )
-# 保存解密
+# 保存解密后的数据
 write_file(decrypt_data, decrypt_file)
 
-# 私钥签名
+# 私钥签名数据
 signature_data = private_key.sign(
     data=read_file(origin_file),
     padding=padding.PSS(
@@ -100,7 +100,7 @@ signature_data = private_key.sign(
 )
 
 # 公钥校验，校验失败的抛出错误
-r = public_key.verify(
+public_key.verify(
     signature=signature_data,
     data=read_file(origin_file),
     padding=padding.PSS(
@@ -109,4 +109,3 @@ r = public_key.verify(
     ),
     algorithm=hashes.SHA256()
 )
-print(r)

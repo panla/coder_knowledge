@@ -1,5 +1,7 @@
 """
 使用 cryptography 生成 RSA 公私钥
+
+用私钥来生成 X.509 证书
 """
 
 from cryptography.hazmat.primitives.asymmetric import rsa
@@ -10,6 +12,8 @@ from cryptography.hazmat.primitives.serialization import NoEncryption, BestAvail
 private_key_file = './rsa_private_key.pem'
 # RSA 公钥文件路径
 public_key_file = './rsa_public_key.pem'
+# 服务端证书请求文件路径
+server_csr_file = './server-csr.pem'
 
 
 def write_file(data, path: str, is_byte: bool = True):
@@ -60,3 +64,55 @@ public_key_data = public_key.public_bytes(
 
 write_file(private_key_data, private_key_file)
 write_file(public_key_data, public_key_file)
+
+"""
+# 待定
+
+from datetime import datetime, timedelta
+from ipaddress import IPv4Address
+from time import time
+
+from cryptography import x509
+from cryptography.x509.oid import NameOID
+from cryptography.hazmat.primitives import hashes
+
+subject_name = issuer = x509.Name([
+    x509.NameAttribute(NameOID.COUNTRY_NAME, u"US"),
+    x509.NameAttribute(NameOID.STATE_OR_PROVINCE_NAME, u"California"),
+    x509.NameAttribute(NameOID.LOCALITY_NAME, u"San Francisco"),
+    x509.NameAttribute(NameOID.ORGANIZATION_NAME, u"My Company"),
+    x509.NameAttribute(NameOID.COMMON_NAME, u"Root"),
+])
+
+ip_address = [
+    x509.IPAddress(IPv4Address('192.168.9.90')),
+    x509.IPAddress(IPv4Address('192.168.9.96')),
+    x509.IPAddress(IPv4Address('192.168.9.99')),
+    x509.IPAddress(IPv4Address('192.168.9.114')),
+]
+cert = x509.CertificateBuilder(
+    ).subject_name(
+        name=subject_name
+    ).issuer_name(
+        name=issuer
+    ).public_key(
+        key=public_key
+    ).serial_number(
+        number=x509.random_serial_number()
+    ).not_valid_before(
+        time=datetime.utcnow()
+    ).not_valid_after(
+        time=datetime.utcnow() + timedelta(days=365)
+    ).add_extension(
+        extval=x509.SubjectAlternativeName(general_names=ip_address),
+        critical=False
+    ).sign(
+        private_key=private_key,
+        algorithm=hashes.SHA256()
+    )
+
+
+csr_data = cert.public_bytes(encoding=Encoding.PEM)
+
+write_file(csr_data, server_csr_file)
+"""
