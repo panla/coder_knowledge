@@ -207,10 +207,17 @@ sudo apt install fzf
 cd .oh-my-zsh/custom/plugins
 git clone git@gitee.com:pankla/zsh-autosuggestions.git
 git clone git@gitee.com:pankla/zsh-syntax-highlighting.git
+git clone https://github.com/zsh-users/zsh-history-substring-search
 ```
 
 插件
 
 ```text
-plugins=(git fzf z sudo zsh-interactive-cd zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(
+         git compleat sudo docker fzf z 
+         zsh-interactive-cd 
+         zsh-autosuggestions 
+         zsh-syntax-highlighting 
+         zsh-history-substring-search
+)
 ```
