@@ -1,0 +1,22 @@
+{
+    "origin_dir": "./api",
+    "target_dir": "./api_2",
+    "rules": {
+        "not_copy": [
+            "docs",
+            "tmp",
+            ".git",
+            "__pycache__",
+            "README.md",
+            "CHANGELOG.md",
+            ".gitignore"
+        ],
+        "not_copy_re_files": [
+            ".pyc"
+        ],
+        "not_build_files": [
+            "__init__.py",
+            "server.py"
+        ]
+    }
+}
