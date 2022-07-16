@@ -163,7 +163,8 @@ class BuildOperator:
                 full_path = os.path.join(root, name)
                 if re.findall('build\/lib\.linux-', full_path) and '.so' in full_path:
                     os.remove(full_path)
-                    os.removedirs(os.path.dirname(full_path))
+                    if not os.listdir(os.path.dirname(full_path)):
+                        os.removedirs(os.path.dirname(full_path))
 
         for root, _, names in os.walk(self.target_dir):
             for name in names:

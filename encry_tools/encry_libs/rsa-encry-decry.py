@@ -1,5 +1,5 @@
 """
-公钥加密-私钥解密，私钥签名-公钥验证
+使用 RSA 公钥加密-私钥解密，私钥签名-公钥验证
 """
 
 from cryptography.hazmat.backends import default_backend
