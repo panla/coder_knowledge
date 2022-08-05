@@ -2,7 +2,7 @@ version: "3.9"
 services:
 
   emqx:
-    image: emqx/emqx:4.3.16
+    image: emqx/emqx:4.4.6
     container_name: dev_study_emqx
     restart: always
     networks:
