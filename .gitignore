@@ -1,8 +1,11 @@
-/tmp/
 /.idea/
 /.vscode/
+
+/tmp/
 /logs/
+
 *.pyc
+*.DS_Store
 
 /encry_tools/build.txt
 /middleware/neo4j/tmp
