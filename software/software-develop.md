@@ -90,7 +90,10 @@ sudo dnf install vulkan-loader
 
 把下载链接的 `https://az764295.vo.msecnd.net` 替换为 `http://vscode.cdn.azure.cn`
 
-[最新下载cdn](http://vscode.cdn.azure.cn/stable/784b0177c56c607789f9638da7b6bf3230d47a8c/code-stable-x64-1662018655.tar.gz)
+[最新下载 linux cdn](http://vscode.cdn.azure.cn/stable/784b0177c56c607789f9638da7b6bf3230d47a8c/code-stable-x64-1662018655.tar.gz)
+
+[最新下载 mac m1 cdn](http://vscode.cdn.azure.cn/stable/784b0177c56c607789f9638da7b6bf3230d47a8c/VSCode-darwin-arm64.zip)
+
 解压
 
 Desktop 文件
@@ -121,31 +124,36 @@ Icon=/home/opt/VSCode/resources/app/resources/linux/code.png
 ```json
 {
     "files.autoSave": "afterDelay",
+    "workbench.iconTheme": "vscode-icons",
+    "workbench.colorTheme": "Monokai",
+    "workbench.editor.scrollToSwitchTabs": true,
+    "security.workspace.trust.untrustedFiles": "open",
+    "workbench.colorCustomizations": {
+        "editor.lineHighlightBackground": "#dd1b1b23",
+        "editor.lineHighlightBorder": "#f030304d",
+    },
     "editor.fontFamily": "Consolas, 'Courier New','monospace'",
     "editor.tabCompletion": "on",
     "editor.detectIndentation": false,
     "editor.tabSize": 4,
+    "editor.fontSize": 14,
     "editor.formatOnSave": true,
     "editor.formatOnPaste": true,
-    "editor.fontSize": 15,
     "editor.rulers": [
         121
     ],
     "editor.bracketPairColorization.enabled": true,
-    "security.workspace.trust.untrustedFiles": "open",
-    "workbench.iconTheme": "vscode-icons",
-    "workbench.colorTheme": "Monokai",
-    "workbench.editor.scrollToSwitchTabs": true,
-    "go.formatTool": "goformat",
-    "todo-tree.general.showIconsInsteadOfTagsInStatusBar": true,
-    "cSpell.blockCheckingWhenAverageChunkSizeGreaterThan": 120,
+    "editor.renderLineHighlight": "all",
+    "cSpell.blockCheckingWhenAverageChunkSizeGreaterThan": 121,
     "cSpell.showAutocompleteSuggestions": true,
+    "todo-tree.general.showIconsInsteadOfTagsInStatusBar": true,
     "[json]": {
         "editor.defaultFormatter": "vscode.json-language-features"
     },
     "[jsonc]": {
         "editor.defaultFormatter": "vscode.json-language-features"
-    }
+    },
+    "go.formatTool": "goformat"
 }
 ```
 

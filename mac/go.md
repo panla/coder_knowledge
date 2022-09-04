@@ -1,3 +1,20 @@
+# go
+
+## 目录与文件占用
+
+```text
+/usr/loca/go
+/System/Volumes/Data/usr/local/go
+
+/private/etc/paths.d/go
+
+/Users/user/Library/Caches/go-pkg-mod
+/System/Volumes/Data/Users/user/Library/Caches/go-pkg-mod
+```
+
+## go env
+
+```text
 GO111MODULE="on"
 GOARCH="arm64"
 GOBIN=""
@@ -36,3 +53,5 @@ CGO_FFLAGS="-g -O2"
 CGO_LDFLAGS="-g -O2"
 PKG_CONFIG="pkg-config"
 GOGCCFLAGS="-fPIC -arch arm64 -pthread -fno-caret-diagnostics -Qunused-arguments -fmessage-length=0 -fdebug-prefix-map=/var/folders/vx/_ld20x852v199gnxcqzhk_0w0000gn/T/go-build1371083859=/tmp/go-build -gno-record-gcc-switches -fno-common"
+
+```
