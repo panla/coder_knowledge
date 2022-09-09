@@ -1,74 +1,74 @@
 version: "3.9"
 services:
 
-  redis_9201:
+  node-9201:
     image: redis:6.2
-    container_name: dev_study_redis_9201
+    container_name: redis-cluster-node-9201
     command: ['redis-server', '/etc/redis/redis.conf']
     restart: always
     network_mode: "host"
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - ./conf/redis_cluster/redis_9201.conf:/etc/redis/redis.conf
+      - ./conf/configs/node-9201.conf:/etc/redis/redis.conf
       - ./conf/tls:/tls
-      - ./data/redis_cluster/9201/data:/data
+      - ./data/node-9201/data:/data
 
-  redis_9202:
+  node-9202:
     image: redis:6.2
-    container_name: dev_study_redis_9202
+    container_name: redis-cluster-node-9202
     command: ['redis-server', '/etc/redis/redis.conf']
     restart: always
     network_mode: "host"
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - ./conf/redis_cluster/redis_9202.conf:/etc/redis/redis.conf
+      - ./conf/configs/node-9202.conf:/etc/redis/redis.conf
       - ./conf/tls:/tls
-      - ./data/redis_cluster/9202/data:/data
+      - ./data/node-9202/data:/data
 
-  redis_9203:
+  node-9203:
     image: redis:6.2
-    container_name: dev_study_redis_9203
+    container_name: redis-cluster-node-9203
     command: ['redis-server', '/etc/redis/redis.conf']
     restart: always
     network_mode: "host"
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - ./conf/redis_cluster/redis_9203.conf:/etc/redis/redis.conf
+      - ./conf/configs/node-9203.conf:/etc/redis/redis.conf
       - ./conf/tls:/tls
-      - ./data/redis_cluster/9203/data:/data
+      - ./data/node-9203/data:/data
 
-  redis_9204:
+  node-9204:
     image: redis:6.2
-    container_name: dev_study_redis_9204
+    container_name: redis-cluster-node-9204
     command: ['redis-server', '/etc/redis/redis.conf']
     restart: always
     network_mode: "host"
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - ./conf/redis_cluster/redis_9204.conf:/etc/redis/redis.conf
+      - ./conf/configs/node-9204.conf:/etc/redis/redis.conf
       - ./conf/tls:/tls
-      - ./data/redis_cluster/9204/data:/data
+      - ./data/node-9204/data:/data
 
-  redis_9205:
+  node-9205:
     image: redis:6.2
-    container_name: dev_study_redis_9205
+    container_name: redis-cluster-node-9205
     command: ['redis-server', '/etc/redis/redis.conf']
     restart: always
     network_mode: "host"
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - ./conf/redis_cluster/redis_9205.conf:/etc/redis/redis.conf
+      - ./conf/configs/node-9205.conf:/etc/redis/redis.conf
       - ./conf/tls:/tls
-      - ./data/redis_cluster/9205/data:/data
+      - ./data/node-9205/data:/data
 
-  redis_9206:
+  node-9206:
     image: redis:6.2
-    container_name: dev_study_redis_9206
+    container_name: redis-cluster-node-9206
     command: ['redis-server', '/etc/redis/redis.conf']
     restart: always
     network_mode: "host"
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - ./conf/redis_cluster/redis_9206.conf:/etc/redis/redis.conf
+      - ./conf/configs/node-9206.conf:/etc/redis/redis.conf
       - ./conf/tls:/tls
-      - ./data/redis_cluster/9206/data:/data
+      - ./data/node-9206/data:/data
