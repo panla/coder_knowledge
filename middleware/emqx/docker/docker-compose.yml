@@ -1,22 +1,29 @@
 version: "3.9"
-services:
-
-  emqx:
-    image: emqx/emqx:4.4.6
-    container_name: dev_study_emqx
-    restart: always
-    networks:
-      custom_net:
-        ipv4_address: "172.25.0.4"
-    ports:
-      - 8753:1883
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - ./conf/emqx/emqx.conf:/opt/emqx/etc/emqx.conf
-      - ./conf/emqx/emqx_auth_mnesia.conf:/opt/emqx/etc/plugins/emqx_auth_mnesia.conf
-      - ./conf/emqx/emqx_auth_jwt.conf:/opt/emqx/etc/plugins/emqx_auth_jwt.conf
-      - ./conf/emqx/loaded_plugins:/opt/emqx/data/loaded_plugins
 
 networks:
-  custom_net:
+  dev_net:
     external: true
+
+services:
+
+  emqx_01:
+    image: emqx/emqx:4.4.9
+    container_name: dev_study_emqx_01
+    restart: always
+    networks:
+      dev_net:
+        ipv4_address: "172.18.0.2"
+    ports:
+      - 9800:18083
+      - 9801:1883
+      - 9802:8883
+      - 9803:8083
+      - 9804:8084
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./conf/emqx_01/etc/emqx.conf:/opt/emqx/etc/emqx.conf
+      - ./conf/emqx_01/etc/acl.conf:/opt/emqx/etc/acl.conf
+      - ./conf/emqx_01/etc/certs:/opt/emqx/etc/certs
+      - ./conf/emqx_01/etc/plugins/emqx_auth_mnesia.conf:/opt/emqx/etc/plugins/emqx_auth_mnesia.conf
+      - ./conf/emqx_01/etc/plugins/emqx_auth_jwt.conf:/opt/emqx/etc/plugins/emqx_auth_jwt.conf
+      - ./conf/emqx_01/data/loaded_plugins:/opt/emqx/data/loaded_plugins

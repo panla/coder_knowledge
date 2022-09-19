@@ -1,21 +1,21 @@
 # 端口
 
-| port | desc |
-| :-: | :-: |
-| 1883 | 默认 MQTT 协议端口 |
-| 8883 | 默认 MQTT/SSL 端口 |
-| 8083 | 默认 MQTT/WebSocket 端口 |
-| 8084 | 默认值 MQTT/Websocket/SSL 端口 |
-| 8081 | 默认 管理 API 端口|
-| 18083 | 默认 Dashboard 端口 |
-| 18084 | 默认 Dashboard HTTPS 端口 |
-| 11883 | 默认 listener.tcp.internal |
+## 一般
 
-集群
+- 1883: MQTT/TCP - External TCP Listener for MQTT Protocol
+- 8883: MQTT/SSL - External SSL Listener for MQTT Protocol
+- 8083: External WebSocket listener for MQTT protocol
+- 8084: External WebSocket/SSL listener for MQTT Protocol
+- 18083: The port that the Dashboard HTTP listener will bind.
+- 18084: The port that the Dashboard HTTPS listener will bind.
+- 11883: The IP address and port that the internal MQTT/TCP protocol listener
 
-| port | desc |
-| :-: | :-: |
-| 4369 | EPMD 模式 集群节点发现端口 |
-| 4370 | 集群节点发现端口 |
-| 4370 | Docker 集群 RPC 端口 |
-| 5370 | 集群节点 PRC 端口 |
+## 集群
+
+- 4369 4370: Cluster Multicast Ports
+- 5369: 集群端口
+  - TCP port number for RPC server to listen on.
+  - Only takes effect when `rpc.port_discovery` = `manual`.
+  - All nodes in the cluster should agree to this same config.
+- 5370: RPC port discovery
+  - The strategy for discovering the RPC listening port of other nodes.
