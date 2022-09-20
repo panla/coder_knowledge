@@ -21,30 +21,37 @@
 - 192.168.9.114
 
 ```yaml
-version: "3.9"
+version: "3"
+
+networks:
+  dev_net:
+    external: true
+
 services:
 
   emqx-1:
-    image: emqx/emqx:4.4.6
-    container_name: dev_study_emqx-1
+    image: emqx/emqx:4.4.9
+    container_name: emqx-cluster-node-1
     restart: always
     networks:
       dev_net:
-        ipv4_address: "172.20.7.3"
+        ipv4_address: "172.18.7.3"
     ports:
       - 4370:4370
       - 5369:5369
-      - 1883:1883
-      - 8883:8883
-      - 18083:18083
+      - 9200:18083
+      - 9201:1883
+      - 9202:8883
+      - 9203:8083
+      - 9204:8084
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - ./conf/loaded/loaded_plugins:/opt/emqx/data/loaded_plugins
-      - ./conf/plugins/emqx_auth_jwt.conf:/opt/emqx/etc/plugins/emqx_auth_jwt.conf
-      - ./conf/plugins/emqx_auth_mnesia.conf:/opt/emqx/etc/plugins/emqx_auth_mnesia.conf
-      - ./conf/certs/cacert.pem:/opt/emqx/etc/certs/cacert.pem
-      - ./conf/certs/cert.pem:/opt/emqx/etc/certs/cert.pem
-      - ./conf/certs/key.pem:/opt/emqx/etc/certs/key.pem
+      - ./conf/emqx-1/etc/emqx.conf:/opt/emqx/etc/emqx.conf
+      - ./conf/emqx-1/etc/acl.conf:/opt/emqx/etc/acl.conf
+      - ./conf/emqx-1/etc/certs:/opt/emqx/etc/certs
+      - ./conf/emqx-1/etc/plugins/emqx_auth_mnesia.conf:/opt/emqx/etc/plugins/emqx_auth_mnesia.conf
+      - ./conf/emqx-1/etc/plugins/emqx_auth_jwt.conf:/opt/emqx/etc/plugins/emqx_auth_jwt.conf
+      - ./conf/emqx-1/data/loaded_plugins:/opt/emqx/data/loaded_plugins
     environment:
       - EMQX_NAME=emqx
       - EMQX_HOST=192.168.9.96
@@ -61,39 +68,48 @@ networks:
 - 192.168.9.96
 - 192.168.9.114
 
+```text
+修改 cluster.name
+修改 node.name
+修改 node.cookie
+```
+
 ```yaml
 version: "3"
-services:
-
-  emqx-1:
-    image: emqx/emqx:4.4.6
-    container_name: dev_study_emqx-1
-    restart: always
-    networks:
-      dev_net:
-        ipv4_address: "172.20.7.3"
-    ports:
-      - 4370:4370
-      - 5369:5369
-      - 1883:1883
-      - 8883:8883
-      - 18083:18083
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - ./conf/emqx-1/emqx.conf:/opt/emqx/etc/emqx.conf
-      - ./conf/loaded/loaded_plugins:/opt/emqx/data/loaded_plugins
-      - ./conf/plugins/emqx_auth_jwt.conf:/opt/emqx/etc/plugins/emqx_auth_jwt.conf
-      - ./conf/plugins/emqx_auth_mnesia.conf:/opt/emqx/etc/plugins/emqx_auth_mnesia.conf
-      - ./conf/certs/cacert.pem:/opt/emqx/etc/certs/cacert.pem
-      - ./conf/certs/cert.pem:/opt/emqx/etc/certs/cert.pem
-      - ./conf/certs/key.pem:/opt/emqx/etc/certs/key.pem
-
-    environment:
-      - EMQX_NODE_NAME=emqx@192.168.9.96
 
 networks:
   dev_net:
     external: true
+
+services:
+
+  emqx-1:
+    image: emqx/emqx:4.4.9
+    container_name: emqx-cluster-node-1
+    restart: always
+    networks:
+      dev_net:
+        ipv4_address: "172.18.7.3"
+    ports:
+      - 4370:4370
+      - 5369:5369
+      - 9200:18083
+      - 9201:1883
+      - 9202:8883
+      - 9203:8083
+      - 9204:8084
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./conf/emqx-1/etc/emqx.conf:/opt/emqx/etc/emqx.conf
+      - ./conf/emqx-1/etc/acl.conf:/opt/emqx/etc/acl.conf
+      - ./conf/emqx-1/etc/certs:/opt/emqx/etc/certs
+      - ./conf/emqx-1/etc/plugins/emqx_auth_mnesia.conf:/opt/emqx/etc/plugins/emqx_auth_mnesia.conf
+      - ./conf/emqx-1/etc/plugins/emqx_auth_jwt.conf:/opt/emqx/etc/plugins/emqx_auth_jwt.conf
+      - ./conf/emqx-1/data/loaded_plugins:/opt/emqx/data/loaded_plugins
+    environment:
+      - EMQX_NODE_NAME=emqx@192.168.9.99
+      # - EMQX_NODE_NAME=emqx@192.168.9.114
+
 ```
 
 加入
