@@ -1,5 +1,10 @@
 # 4 认证
 
+## 4.0 校验
+
+同时开启了 username-passwd 校验和 JWT 校验，而且 JWT 中校验 client_id==username
+那么此时需要用 client_id 生成 token 并且 username 不能符合 username-passwd 校验，否则 passwd 不通过
+
 ## 4.1 mnesia 预设账户配置
 
 `etc/plugins/emqx_auth_mnesia.conf`
