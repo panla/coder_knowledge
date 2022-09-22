@@ -89,7 +89,7 @@ services:
     restart: always
     networks:
       dev_net:
-        ipv4_address: "172.18.7.3"
+        ipv4_address: "172.18.2.3"
     ports:
       - 4370:4370
       - 5369:5369
