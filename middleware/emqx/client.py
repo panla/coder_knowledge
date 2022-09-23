@@ -4,12 +4,13 @@ pip install paho-mqtt
 
 import json
 import ssl
-from typing import Any
+from typing import Any, List
 
 from paho.mqtt.client import Client, MQTTv311, MQTTv5
 from paho.mqtt.subscribeoptions import SubscribeOptions
 from paho.mqtt.properties import Properties
 from paho.mqtt.packettypes import PacketTypes
+from paho.mqtt.reasoncodes import ReasonCodes
 
 from loguru import logger
 
@@ -17,47 +18,74 @@ from loguru import logger
 class MqttClient:
     def __init__(
             self,
+            host: str,
+            port: int,
+            client_id: str,
+            username: str,
+            password: str,
+            keep_alive: int = 600,
             version: int = MQTTv311,
             properties: Properties = None,
             ca_cert: str = None,
-            client_cert: str = None,
-            client_key: str = None,
+            cert_path: str = None,
+            key_path: str = None,
             keyfile_passwd: str = None
     ) -> None:
         """__init__
 
         Args:
+            host (str): MQTT Server Host.
+            port (int): MQTT Server Port.
+            client_id (str): Client ClientID.
+            username (str): Client UserName.
+            password (str): Client Password.
+            keep_alive (int, optional): MQTT Connect KeepAlive.
             version (int, optional): MQTT Version. Defaults to MQTTv311.
             properties (Properties, optional): when MQTTv5 use this. Defaults to None.
             ca_cert (str, optional): TLS CA cert file. Defaults to None.
-            client_cert (str, optional): TLS Client cert file. Defaults to None.
-            client_key (str, optional): TLS Client key. Defaults to None.
+            cert_path (str, optional): TLS Client cert path. Defaults to None.
+            key_path (str, optional): TLS Client key path. Defaults to None.
             keyfile_passwd (str, optional): TLS Client key password. Defaults to None.
         """
 
+        self._host = host
+        self._port = port
+        self.client_id = client_id
+        self.username = username
+        self.password = password
+        self._keep_alive = keep_alive
         self.version = version
         self.properties = properties
-        self.ca_cert = ca_cert
-        self.client_cert = client_cert
-        self.client_key = client_key
-        self.keyfile_passwd = keyfile_passwd
+        self._ca_cert = ca_cert
+        self._cert_path = cert_path
+        self._key_path = key_path
+        self._keyfile_passwd = keyfile_passwd
 
-        self.client = Client(protocol=version)
-        self.client.on_connect = self.on_connect
-        # self.client.on_disconnect = self.on_disconnect
-        self.client.on_subscribe = self.on_subscribe
-        # self.client.on_unsubscribe = self.on_unsubscribe
+        self.unique = self.client_id or self.username
+
+        self.client = Client(client_id=self.client_id, protocol=version)
+        if version == MQTTv5:
+            self.client.on_connect = self.on_connect_v5
+            self.client.on_disconnect = self.on_disconnect_v5
+            self.client.on_subscribe = self.on_subscribe_v5
+            self.client.on_unsubscribe = self.on_unsubscribe_v5
+        else:
+            self.client.on_connect = self.on_connect_v3
+            self.client.on_disconnect = self.on_disconnect_v3
+            self.client.on_subscribe = self.on_subscribe_v3
+            self.client.on_unsubscribe = self.on_unsubscribe_v3
+
         self.client.on_publish = self.on_publish
         self.client.on_message = self.on_message
 
     def set_ssl_context(self):
         """set SSL context to use SSL"""
 
-        if self.ca_cert and self.client_cert and self.client_key:
+        if self._ca_cert and self._cert_path and self._key_path:
             context = ssl.SSLContext(protocol=ssl.PROTOCOL_TLS)
             context.check_hostname = False
-            context.load_cert_chain(certfile=self.client_cert, keyfile=self.client_key, password=self.keyfile_passwd)
-            context.load_verify_locations(self.ca_cert)
+            context.load_cert_chain(certfile=self._cert_path, keyfile=self._key_path, password=self._keyfile_passwd)
+            context.load_verify_locations(self._ca_cert)
             context.verify_mode = ssl.CERT_REQUIRED
 
             self.client.tls_set_context(context=context)
@@ -72,15 +100,15 @@ class MqttClient:
             return properties
         return None
 
-    def connect(self, host: str, port: int, user: str, passwd: str, keep_alive: int = 600):
+    def connect(self):
         """Verify and Connect to a remote broker."""
 
-        self.client.username_pw_set(user, passwd)
+        self.client.username_pw_set(self.username, self.password)
         self.set_ssl_context()
 
-        return self.client.connect(host, port, keep_alive, properties=self.properties)
+        return self.client.connect(self._host, self._port, self._keep_alive, properties=self.properties)
 
-    def disconnect(self, rc: int = None):
+    def disconnect(self, rc: ReasonCodes = None):
         """Disconnect a connected client from the broker.
         rc: (MQTT v5.0 only) a ReasonCodes instance setting the MQTT v5.0
         rc to be sent with the disconnect.  It is optional, the receiver
@@ -89,10 +117,20 @@ class MqttClient:
 
         return self.client.disconnect(rc, properties=self.properties)
 
-    def loop_forever(self):
+    def loop_start(self):
+        """loop start"""
+
+        self.client.loop_start()
+
+    def loop_stop(self, force: bool = False):
+        """loop stop"""
+
+        self.client.loop_stop(force=force)
+
+    def loop_forever(self, timeout: float = 1.0):
         """loop forever"""
 
-        self.client.loop_forever()
+        self.client.loop_forever(timeout=timeout)
 
     def add_callback(self, topic, callback):
         """Register a message callback for a specific topic."""
@@ -125,34 +163,61 @@ class MqttClient:
             topic=topic, payload=payload, qos=qos, retain=retain, properties=self.properties
         )
 
-    def on_connect(self, client: Client, userdata: Any, flags: dict, rc: int, properties: Properties = None):
+    def on_connect_v3(self, client: Client, userdata: Any, flags: dict, rc: int):
         """Define the connected callback implementation."""
 
-        logger.info(f'on_connect flags {flags} result code: {rc}'.center(60, '*'))
+        logger.info(f'{self.unique} on_connect flags {flags} rc {rc}'.center(60, '*'))
 
-    # def on_disconnect(self, client: Client, userdata: Any, rc: int, properties: Properties = None):
-    #     """If implemented, called when the client disconnects from the broker."""
-    #
-    #     logger.info(f'on_disconnected rc {rc}'.center(60, '*'))
+    def on_connect_v5(
+            self, client: Client, userdata: Any, flags: dict, reason_code: ReasonCodes, properties: Properties
+    ):
+        """Define the connected callback implementation."""
 
-    def on_subscribe(self, client: Client, userdata: Any, mid: int, granted_qos: tuple, properties: Properties = None):
+        logger.info(f'{self.unique} on_connect flags {flags} rc {reason_code}'.center(60, '*'))
+
+    def on_disconnect_v3(self, client: Client, userdata: Any, rc: int):
+        """If implemented, called when the client disconnects from the broker."""
+
+        logger.info(f'{self.unique} on_disconnected rc {rc}'.center(60, '*'))
+
+    def on_disconnect_v5(self, client: Client, userdata: Any, rc: int, properties: Properties = None):
+        """If implemented, called when the client disconnects from the broker."""
+
+        logger.info(f'{self.unique} on_disconnected rc {rc}'.center(60, '*'))
+
+    def on_subscribe_v3(self, client: Client, userdata: Any, mid: int, granted_qos: tuple):
         """Define the subscribed callback implementation."""
 
-        logger.info(f'on_subscribe: mid {mid} granted_qos = {granted_qos}'.center(60, '*'))
+        logger.info(f'{self.unique} on_subscribe: mid {mid} granted_qos {granted_qos}'.center(60, '*'))
 
-    # def on_unsubscribe(self, client: Client, userdata: Any, mid: int, properties: Properties = None):
-    #     """Define the unsubscribe callback implementation."""
-    #
-    #     logger.info(f'on_unsubscribe: mid = {mid}'.center(60, '*'))
+    def on_subscribe_v5(
+            self, client: Client, userdata: Any, mid: int, reason_codes: List[ReasonCodes], properties: Properties
+    ):
+        """Define the subscribed callback implementation."""
 
-    def on_publish(self, client: Client, userdata: Any, mid: int, properties: Properties = None):
+        _reason_codes = [rc.json() for rc in reason_codes]
+        logger.info(f'{self.unique} on_subscribe: mid {mid} reason_codes {_reason_codes}'.center(60, '*'))
+
+    def on_unsubscribe_v3(self, client: Client, userdata: Any, mid: int):
+        """Define the un subscribe callback implementation."""
+
+        logger.info(f'{self.unique} on_unsubscribe: mid {mid}'.center(60, '*'))
+
+    def on_unsubscribe_v5(
+            self, client: Client, userdata: Any, mid: int, properties: Properties, reason_code: ReasonCodes
+    ):
+        """Define the un subscribe callback implementation."""
+
+        logger.info(f'{self.unique} on_unsubscribe: mid {mid} reason_code {reason_code}'.center(60, '*'))
+
+    def on_publish(self, client: Client, userdata: Any, mid: int):
         """Define the published message callback implementation."""
 
-        logger.info(f'on_publish: mid = {mid}'.center(60, '*'))
+        logger.info(f'{self.unique} on_publish: mid {mid}'.center(60, '*'))
 
-    def on_message(self, client: Client, userdata: Any, msg, properties: Properties = None):
+    def on_message(self, client: Client, userdata: Any, message):
         """Define the message received callback implementation. use this when can`t match message_callback_add"""
 
-        logger.info(f'on_message topic {msg.topic}'.center(60, '*'))
-        payload = msg.payload.decode('utf-8')
+        logger.info(f'{self.unique} on_message topic {message.topic}'.center(60, '*'))
+        payload = message.payload.decode('utf-8')
         logger.info(payload)

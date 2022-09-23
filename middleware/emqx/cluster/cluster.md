@@ -49,9 +49,8 @@ services:
       - ./conf/emqx-1/etc/emqx.conf:/opt/emqx/etc/emqx.conf
       - ./conf/emqx-1/etc/acl.conf:/opt/emqx/etc/acl.conf
       - ./conf/emqx-1/etc/certs:/opt/emqx/etc/certs
-      - ./conf/emqx-1/etc/plugins/emqx_auth_mnesia.conf:/opt/emqx/etc/plugins/emqx_auth_mnesia.conf
-      - ./conf/emqx-1/etc/plugins/emqx_auth_jwt.conf:/opt/emqx/etc/plugins/emqx_auth_jwt.conf
       - ./conf/emqx-1/data/loaded_plugins:/opt/emqx/data/loaded_plugins
+      - ./conf/emqx-1/etc/plugins:/opt/emqx/etc/plugins
     environment:
       - EMQX_NAME=emqx
       - EMQX_HOST=192.168.9.96
@@ -103,9 +102,8 @@ services:
       - ./conf/emqx-1/etc/emqx.conf:/opt/emqx/etc/emqx.conf
       - ./conf/emqx-1/etc/acl.conf:/opt/emqx/etc/acl.conf
       - ./conf/emqx-1/etc/certs:/opt/emqx/etc/certs
-      - ./conf/emqx-1/etc/plugins/emqx_auth_mnesia.conf:/opt/emqx/etc/plugins/emqx_auth_mnesia.conf
-      - ./conf/emqx-1/etc/plugins/emqx_auth_jwt.conf:/opt/emqx/etc/plugins/emqx_auth_jwt.conf
       - ./conf/emqx-1/data/loaded_plugins:/opt/emqx/data/loaded_plugins
+      - ./conf/emqx-1/etc/plugins:/opt/emqx/etc/plugins
     environment:
       - EMQX_NODE_NAME=emqx@192.168.9.99
       # - EMQX_NODE_NAME=emqx@192.168.9.114
@@ -155,13 +153,11 @@ services:
       - 18083:18083
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - ./conf/emqx-1/emqx.conf:/opt/emqx/etc/emqx.conf
-      - ./conf/loaded/loaded_plugins:/opt/emqx/data/loaded_plugins
-      - ./conf/plugins/emqx_auth_jwt.conf:/opt/emqx/etc/plugins/emqx_auth_jwt.conf
-      - ./conf/plugins/emqx_auth_mnesia.conf:/opt/emqx/etc/plugins/emqx_auth_mnesia.conf
-      - ./conf/certs/cacert.pem:/opt/emqx/etc/certs/cacert.pem
-      - ./conf/certs/cert.pem:/opt/emqx/etc/certs/cert.pem
-      - ./conf/certs/key.pem:/opt/emqx/etc/certs/key.pem
+      - ./conf/emqx-1/etc/emqx.conf:/opt/emqx/etc/emqx.conf
+      - ./conf/emqx-1/etc/acl.conf:/opt/emqx/etc/acl.conf
+      - ./conf/emqx-1/etc/certs:/opt/emqx/etc/certs
+      - ./conf/emqx-1/data/loaded_plugins:/opt/emqx/data/loaded_plugins
+      - ./conf/emqx-1/etc/plugins:/opt/emqx/etc/plugins
 
     environment:
       - EMQX_NODE_NAME=emqx@192.168.9.114
@@ -179,13 +175,11 @@ services:
       - 18083:18083
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - ./conf/emqx-2/emqx.conf:/opt/emqx/etc/emqx.conf
-      - ./conf/loaded/loaded_plugins:/opt/emqx/data/loaded_plugins
-      - ./conf/plugins/emqx_auth_jwt.conf:/opt/emqx/etc/plugins/emqx_auth_jwt.conf
-      # 这里不用账号了  - ./conf/plugins/emqx_auth_mnesia.conf:/opt/emqx/etc/plugins/emqx_auth_mnesia.conf
-      - ./conf/certs/cacert.pem:/opt/emqx/etc/certs/cacert.pem
-      - ./conf/certs/cert.pem:/opt/emqx/etc/certs/cert.pem
-      - ./conf/certs/key.pem:/opt/emqx/etc/certs/key.pem
+      - ./conf/emqx-1/etc/emqx.conf:/opt/emqx/etc/emqx.conf
+      - ./conf/emqx-1/etc/acl.conf:/opt/emqx/etc/acl.conf
+      - ./conf/emqx-1/etc/certs:/opt/emqx/etc/certs
+      - ./conf/emqx-1/data/loaded_plugins:/opt/emqx/data/loaded_plugins
+      - ./conf/emqx-1/etc/plugins:/opt/emqx/etc/plugins
 
     environment:
       - EMQX_NODE_NAME=emqx@192.168.9.96
