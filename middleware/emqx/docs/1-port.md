@@ -19,3 +19,5 @@
   - All nodes in the cluster should agree to this same config.
 - 5370: RPC port discovery
   - The strategy for discovering the RPC listening port of other nodes.
+
+集群 RPC，Docker 容器中的 EMQX 使用静态端口 5369 进行集群 RPC。
