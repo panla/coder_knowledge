@@ -90,9 +90,11 @@ sudo dnf install vulkan-loader
 
 把下载链接的 `https://az764295.vo.msecnd.net` 替换为 `http://vscode.cdn.azure.cn`
 
-[最新下载 linux-86-64 cdn](http://vscode.cdn.azure.cn/stable/74b1f979648cc44d385a2286793c226e611f59e7/code-stable-x64-1663191492.tar.gz)
+[最新下载 linux-86-64 cdn](http://vscode.cdn.azure.cn/stable/d045a5eda657f4d7b676dedbfa7aab8207f8a075/code-stable-x64-1665614670.tar.gz)
 
-[最新下载 macos m1-arm64 cdn](http://vscode.cdn.azure.cn/stable/74b1f979648cc44d385a2286793c226e611f59e7/VSCode-darwin-arm64.zip)
+[最新下载 macos m1-arm64 cdn](http://vscode.cdn.azure.cn/stable/d045a5eda657f4d7b676dedbfa7aab8207f8a075/VSCode-darwin-arm64.zip)
+
+[windows](http://vscode.cdn.azure.cn/stable/d045a5eda657f4d7b676dedbfa7aab8207f8a075/VSCode-win32-x64-1.72.2.zip)
 
 解压
 
