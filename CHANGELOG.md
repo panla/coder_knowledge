@@ -7,3 +7,4 @@
 - 1.1 Update: 开发软件使用
 - 1.2 Update & Add: 补充 ROS 学习文档
 - 1.3 Add: 补充 ROS Python 部分demo
+- 1.4 Add & Update: 补充，更新，合并了 Go 学习文档

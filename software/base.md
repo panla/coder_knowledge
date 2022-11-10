@@ -248,4 +248,5 @@ export PATH=${JAVA_HOME}/bin:$PATH
 
 ```text
 export PATH="/opt/apache-maven/bin:$PATH"
+export M2_HOME="/extend/opt/apache-maven"
 ```

@@ -4,6 +4,12 @@
 
 ## 书籍
 
+### doc
+
+- 《Golang修养之路》<https://www.kancloud.cn/aceld/golang>
+- 《Go语言圣经》<https://books.studygolang.com/gopl-zh/ch0/ch0-01.html>
+- 《Go语言核心编程》
+
 ### 基础学习
 
 - 《Head First Go语言程序设计》
