@@ -43,3 +43,17 @@ roslaunch [package] [filename.launch]
 
 </launch>
 ```
+
+较高层级结构，包含并覆盖另一个文件
+
+```xml
+<launch>
+
+    <include file="$(find person)/config/person.launch" />
+
+        <arg name="age" default="2" />
+
+    </include>
+
+</launch>
+```

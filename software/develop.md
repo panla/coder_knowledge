@@ -2,7 +2,9 @@
 
 [toc]
 
-开发软件，**PyCharm, VSCode, Chrome, Postman, dbeaver, Oss-Browser, Idea, ApiFox**
+## 0
+
+开发软件，**PyCharm, VSCode, Idea, Postman, ApiFox, Another-Redis-Desktop-Manager, dbeaver, Studio3T, Oss-Browser, Chrome**
 
 ## 1 pycharm
 
@@ -67,34 +69,19 @@ Terminal=PyCharm
 cwm-plugin  cwm-plugin-projector  editorconfig  github  markdown  space  svn4idea  yaml
 ```
 
-## 2 chrome
+## 2 vscode
 
-### 2.1 下载链接
-
-[下载链接chrome64bit.com](https://www.chrome64bit.com/index.php/google-chrome-64-bit-for-linux)
-
-### 2.2 install Error
-
-```bash
-sudo dnf provides */xxxx
-sudo dnf install libappindicator-gtk3
-sudo dnf install liberation-fonts
-sudo dnf install vulkan-loader
-```
-
-## 3 vscode
-
-### 3.1 下载安装
+### 2.1 下载安装
 
 [下载地址](https://code.visualstudio.com/Download)
 
 把下载链接的 `https://az764295.vo.msecnd.net` 替换为 `http://vscode.cdn.azure.cn`
 
-[最新下载 linux-86-64](http://vscode.cdn.azure.cn/stable/8fa188b2b301d36553cbc9ce1b0a146ccb93351f/code-stable-x64-1667319089.tar.gz)
+[最新下载 linux-86-64](http://vscode.cdn.azure.cn/stable/6261075646f055b99068d3688932416f2346dd3b/code-stable-x64-1667967614.tar.gz)
 
-[最新下载 apple m1](http://vscode.cdn.azure.cn/stable/8fa188b2b301d36553cbc9ce1b0a146ccb93351f/VSCode-darwin-arm64.zip)
+[最新下载 apple m1](http://vscode.cdn.azure.cn/stable/6261075646f055b99068d3688932416f2346dd3b/VSCode-darwin-arm64.zip)
 
-[最新下载 windows](http://vscode.cdn.azure.cn/stable/8fa188b2b301d36553cbc9ce1b0a146ccb93351f/VSCode-win32-x64-1.73.0.zip)
+[最新下载 windows](http://vscode.cdn.azure.cn/stable/6261075646f055b99068d3688932416f2346dd3b/VSCode-win32-x64-1.73.1.zip)
 
 解压
 
@@ -159,30 +146,34 @@ Icon=/home/opt/VSCode/resources/app/resources/linux/code.png
 }
 ```
 
-### 3.2 插件
+### 2.2 插件
 
 ```text
+vscode-icons                图标
 Chinese Language
 Better Comments             高亮注释
 Todo Tree                   高亮快速找到 TODO FIXME
-vscode-icons                图标
-Remnote-Containers          连接进入容器
+indent-rainbow              缩进深度
+Trailing Spaces             多余空格
+Code Spell Checker          拼写检查
 
 Better TOML                 toml
 MySQL Syntax                mysql语法辅助-remove
-Markdown Preview Enhanced   md 展示
-markdownlint                md 语法
 Prettify JSON               json
 YAML                        yaml-remove
+XML Tools                   XML
+Markdown Preview Enhanced   md 展示
+markdownlint                md 语法
 
 Git Graph
 gitignore
 GitLens
 
-Bracket Pair Colorizer 2    括号匹配，不再维护
-Rainbow Brackets            括号匹配 remove vscode 自带了相似功能
-indent-rainbow              缩进深度
-Trailing Spaces             多余空格
+CMake
+CMake Tools
+
+Remnote-Containers          连接进入容器
+Dev Containers
 
 Pylance
 Python
@@ -191,27 +182,20 @@ Python Indent
 Python Type Hint            类型标记
 
 C/C++
-C++ Intellisense
 Better C++ Synatx
-
-Cython                      remove
-Language-Cython             remove
-vscode-cython-annotate      remove
 
 Go
 Go Doc
-Go Nightly                  stop
-Go Outliner                 remove
 ```
 
-### 3.3 字体与空格宽度
+### 2.3 字体与空格宽度
 
 ```text
 Consolas, 'Courier New','monospace'
 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'
 ```
 
-### 3.4 错误
+### 2.4 错误
 
 ```text
 error while loading shared libraries: libXss.so.1
@@ -219,6 +203,27 @@ error while loading shared libraries: libXss.so.1
 
 ```bash
 dnf install libXScrnSaver
+```
+
+## 3 Idea
+
+```text
+[Desktop Entry]
+Type=Application
+Name=Idea
+GenericName=Java IDE
+Comment=Idea
+Exec=sh /extend/opt/idea/bin/idea.sh
+Icon=/extend/opt/idea/bin/idea.png
+Categories=Development;IDE;
+Actions=new-empty-window;
+Terminal=Idea
+
+[Desktop Action new-empty-window]
+Name=New Empty Window
+Exec=sh /extend/opt/idea/bin/idea.sh
+Icon=/extend/opt/idea/bin/idea.png
+Terminal=Idea
 ```
 
 ## 4 postman
@@ -278,91 +283,7 @@ pm.environment.set("dji_token_local", token);
 pm.globals.set("token_local", token);
 ```
 
-## 5 dbeaver
-
-### 5.1 下载
-
-[github](https://github.com/dbeaver/dbeaver/releases)
-[代下-1](https://www.offcloud.com/)
-[代下-2](https://shrill-pond-3e81.hunsh.workers.dev/)
-
-### 5.2 安装-配置
-
-窗口->首选项->连接->驱动->maven->添加
-
-```text
-name
-https://maven.aliyun.com/repository/public
-```
-
-### 5.3 build
-
-```bash
-git clone https://github.com/dbeaver/dbeaver.git dbeaver
-git clone xxx.xxx.xxx.com/dbeaver.git dbeaver
-cd dbeaver
-# 需要已经配置 java maven
-mvn clean package
-```
-
-### 5.4 desktop
-
-```text
-[Desktop Entry]
-Version=1.0
-Type=Application
-Name=DBeaver Community
-GenericName=UniversaL Database Manager
-Comment=Universal Database Manager and SQL Client.
-Path=/home/opt/dbeaver/
-Exec=/home/opt/dbeaver/dbeaver
-Icon=/home/opt/dbeaver/dbeaver.png
-Categories=IDE;Development
-WM_CLASS=DBeaver
-StartupWMClass=DBeaver
-StartupNotify=true
-Keywords=Database;SQL;IDE;JDBC;ODBC;MySQL;PostgreSQL;Oracle;DB2;MariaDB
-MimeType=application/sql
-Terminal=false
-```
-
-## 6 Oss-Browser
-
-OSS 浏览器
-
-```text
-[Desktop Entry]
-Type=Application
-Name=Oss-Browser
-Encoding=UTF-8
-Categories=Development;
-Exec=/extend/opt/oss-browser/oss-browser
-Icon=/extend/opt/oss-browser/resources/custom/icon.png
-Terminal=false
-```
-
-## 7 Idea
-
-```text
-[Desktop Entry]
-Type=Application
-Name=Idea
-GenericName=Java IDE
-Comment=Idea
-Exec=sh /extend/opt/idea/bin/idea.sh
-Icon=/extend/opt/idea/bin/idea.png
-Categories=Development;IDE;
-Actions=new-empty-window;
-Terminal=Idea
-
-[Desktop Action new-empty-window]
-Name=New Empty Window
-Exec=sh /extend/opt/idea/bin/idea.sh
-Icon=/extend/opt/idea/bin/idea.png
-Terminal=Idea
-```
-
-## 8 ApiFox
+## 5 ApiFox
 
 ```text
 [Desktop Entry]
@@ -384,7 +305,30 @@ Exec=/extend/opt/apifox/Apifox.AppImage
 Icon=/extend/opt/apifox/icon.png
 ```
 
-## 9 Another-Redis-Desktop-Manager
+## 5 ApiPost
+
+```text
+[Desktop Entry]
+Actions=new-empty-window;
+Categories=Development;
+Comment=ApiPost
+GenericName=ApiPost
+Keywords=api;
+Name=ApiPost
+StartupNotify=false
+StartupWMClass=ApiFox
+Type=Application
+X-Deepin-Vendor=user-custom
+Exec=/extend/opt/apipost/apipost7
+Icon=/extend/opt/apipost/icon.ico
+
+[Desktop Action new-empty-window]
+Name=New Empty Window
+Exec=/extend/opt/apipost/apipost7
+Icon=/extend/opt/apipost/icon.ico
+```
+
+## 7 Another-Redis-Desktop-Manager
 
 ```text
 [Desktop Entry]
@@ -407,4 +351,94 @@ Name=New Empty Window
 # Exec=/extend/opt/ARDM/another-redis-desktop-manager --no-sandbox --unity-launch %F
 Exec=/extend/opt/ARDM/Another-Redis-Desktop-Manager.1.5.1.AppImage
 Icon=/extend/opt/ARDM/icon.png
+```
+
+## 8 dbeaver
+
+### 8.1 下载
+
+[github](https://github.com/dbeaver/dbeaver/releases)
+[代下-1](https://www.offcloud.com/)
+[代下-2](https://shrill-pond-3e81.hunsh.workers.dev/)
+
+### 8.2 安装-配置
+
+窗口->首选项->连接->驱动->maven->添加
+
+```text
+name
+https://maven.aliyun.com/repository/public
+```
+
+### 8.3 build
+
+```bash
+git clone https://github.com/dbeaver/dbeaver.git dbeaver
+git clone xxx.xxx.xxx.com/dbeaver.git dbeaver
+cd dbeaver
+# 需要已经配置 java maven
+mvn clean package
+```
+
+### 8.4 desktop
+
+```text
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=DBeaver Community
+GenericName=UniversaL Database Manager
+Comment=Universal Database Manager and SQL Client.
+Path=/home/opt/dbeaver/
+Exec=/home/opt/dbeaver/dbeaver
+Icon=/home/opt/dbeaver/dbeaver.png
+Categories=IDE;Development
+WM_CLASS=DBeaver
+StartupWMClass=DBeaver
+StartupNotify=true
+Keywords=Database;SQL;IDE;JDBC;ODBC;MySQL;PostgreSQL;Oracle;DB2;MariaDB
+MimeType=application/sql
+Terminal=false
+```
+
+## 9 Studio3T
+
+```text
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Type=Application
+Name=Studio 3T
+Exec="/extend/opt/studio3t/Studio-3T"  %U
+Icon=/extend/opt/studio3t/.install4j/i4j_extf_2_kzs8aq_703o14.png
+StartupWMClass=install4j-t3-dataman-mongodb-app-Studio3TAp
+```
+
+## 10 Oss-Browser
+
+OSS 浏览器
+
+```text
+[Desktop Entry]
+Type=Application
+Name=Oss-Browser
+Encoding=UTF-8
+Categories=Development;
+Exec=/extend/opt/oss-browser/oss-browser
+Icon=/extend/opt/oss-browser/resources/custom/icon.png
+Terminal=false
+```
+
+## 11 chrome
+
+### 11.1 下载链接
+
+[下载链接chrome64bit.com](https://www.chrome64bit.com/index.php/google-chrome-64-bit-for-linux)
+
+### 11.2 install Error
+
+```bash
+sudo dnf provides */xxxx
+sudo dnf install libappindicator-gtk3
+sudo dnf install liberation-fonts
+sudo dnf install vulkan-loader
 ```

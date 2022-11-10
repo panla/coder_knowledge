@@ -1,8 +1,10 @@
-# software
+# BASE
 
 [toc]
 
-环境，**Git, SSH, JDK, Maven, vim, tmux, ohmyzsh**
+## 0
+
+开发软件，**git, ssh, vim, ohmyzsh, tmux, JDK, maven**
 
 ## 1 git
 
@@ -49,30 +51,28 @@ git config --global alias.st status
 https://www.ipaddress.com/
 
 github.com
-
-github.global.ssl.fastly.net
-
-assets-cdn.github.com
-
-avatars1.githubusercontent.com
-
-====================================================
-199.232.69.194 github.global.ssl.fastly.net
-
-140.82.112.4 github.com
-
-185.199.108.153 assert-cdn.github.com
-
-185.199.108.133 avatars1.githubusercontent.com
-
-====================================================
-
-修改 /etc/resolv.conf 新增
-nameserver 8.8.8.8
-nameserver 8.8.4.4
 ```
 
-## 2 ssh config
+## 2 ssh 公私钥连接
+
+### 2.2 cmd
+
+```bash
+ssh user@地址
+ssh 别名
+```
+
+### 2.1客户端
+
+`~/.ssh/config`
+
+```text
+Host 别名
+    HostName ip地址
+    Port 端口
+    User 远程用户名
+    IdentityFile ~/.ssh/id_rsa 本机私钥
+```
 
 ```text
 Host test
@@ -82,52 +82,33 @@ Host test
     IdentityFile ~/.ssh/id_rsa
 ```
 
-## 3 jdk jre
+### 2.2 服务器
+
+`/etc/ssh/sshd_config`
 
 ```text
-export JAVA_HOME=/home/opt/jdk-11.0.9
-export CLASSPATH=.:${JAVA_HOME}/lib
-export PATH=${JAVA_HOME}/bin:$PATH
+Port 22
+ListenAddress 0.0.0.0
+ListenAddress ::
+
+HostKey /etc/ssh/ssh_host_rsa_key
+HostKey /etc/ssh/ssh_host_ecdsa_key
+HostKey /etc/ssh/ssh_host_ed25519_key
+
+# 是否允许root登录
+PermitRootLogin no
+
+# 是否允许公钥登录
+PubkeyAuthentication yes
+AuthorizedKeysFile %h/.ssh/authorized_keys
+
+# 是否允许密码登录
+PasswordAuthentication no
 ```
 
-## 4 maven
+服务器 `~/.ssh/authorized_keys` 上加入公钥 并且 `chmod 400`
 
-### 4.1 下载
-
-[maven.apache.org](http://maven.apache.org/download.cgi)
-
-解压到 `/home/opt/apache-maven`
-
-### 4.2 setting.xml 配置
-
-`conf/settings.xml`
-
-一 阿里云镜像
-
-```text
-<mirrors>
-  <mirror>
-    <id>aliyunmaven</id>
-    <mirrorOf>*</mirrorOf>
-    <name>Aliyun Mirror.</name>
-    <url>https://maven.aliyun.com/repository/public</url>
-  </mirror>
-</mirrors>
-```
-
-二 本地缓存目录
-
-```text
-<localRepository>/home/opt/apache-maven-3.6.3/repository</localRepository>
-```
-
-### 4.3 profile
-
-```text
-export PATH="/opt/apache-maven/bin:$PATH"
-```
-
-## 5 vim 部分配置
+## 3 Vim
 
 `~/.vimrc`
 
@@ -174,23 +155,9 @@ set incsearch
 set mouse=a
 ```
 
-## 6 tmux
+## 4 ohmyzsh
 
-```bash
-git clone git@github.com:gpakosz/.tmux.git
-```
-
-```text
-# ~/.tmux.conf
-
-set -g prefix C-a
-
-unbind C-b
-
-set -g default-terminal "screen-256color"
-```
-
-## 7 ohmyzsh
+### 4.1 install
 
 ```bash
 git clone https://gitee.com/pankla/ohmyzsh.git oh-my-zsh
@@ -210,7 +177,7 @@ git clone git@gitee.com:pankla/zsh-syntax-highlighting.git
 git clone https://github.com/zsh-users/zsh-history-substring-search
 ```
 
-插件
+### 4.2 插件
 
 ```text
 plugins=(
@@ -220,4 +187,65 @@ plugins=(
          zsh-syntax-highlighting 
          zsh-history-substring-search
 )
+```
+
+## 5 tmux
+
+```bash
+git clone git@github.com:gpakosz/.tmux.git
+```
+
+```text
+# ~/.tmux.conf
+
+set -g prefix C-a
+
+unbind C-b
+
+set -g default-terminal "screen-256color"
+```
+
+## 6 JDK
+
+```text
+export JAVA_HOME=/home/opt/jdk-11.0.9
+export CLASSPATH=.:${JAVA_HOME}/lib
+export PATH=${JAVA_HOME}/bin:$PATH
+```
+
+## 7 maven
+
+### 7.1 下载
+
+- [maven.apache.org](http://maven.apache.org/download.cgi)
+
+解压到 `/home/opt/apache-maven`
+
+### 7.2 setting.xml 配置
+
+`conf/settings.xml`
+
+一 阿里云镜像
+
+```text
+<mirrors>
+  <mirror>
+    <id>aliyunmaven</id>
+    <mirrorOf>*</mirrorOf>
+    <name>Aliyun Mirror.</name>
+    <url>https://maven.aliyun.com/repository/public</url>
+  </mirror>
+</mirrors>
+```
+
+二 本地缓存目录
+
+```text
+<localRepository>/home/opt/apache-maven-3.6.3/repository</localRepository>
+```
+
+### 7.3 profile
+
+```text
+export PATH="/opt/apache-maven/bin:$PATH"
 ```

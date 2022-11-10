@@ -21,3 +21,4 @@
 - rostopic: 获取 topic 信息
 - roslaunch: 启动 launch
 - rosbag: 录制数据
+- rosdep: 管理依赖
