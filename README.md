@@ -47,6 +47,8 @@
 - 网络
 - shell
 
+## mac
+
 ## 中间件等
 
 - elasticsearch
@@ -71,6 +73,8 @@
 - web server
   - gunicorn
   - uvicorn
+
+## ros
 
 ## 软件
 

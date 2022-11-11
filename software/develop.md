@@ -110,17 +110,19 @@ Exec=/home/opt/VSCode/bin/code --no-sandbox --unity-launch %F
 Icon=/home/opt/VSCode/resources/app/resources/linux/code.png
 ```
 
+### 2.2 user.json
+
 ```json
 {
     "files.autoSave": "afterDelay",
     "workbench.iconTheme": "vscode-icons",
     "workbench.colorTheme": "Monokai",
     "workbench.editor.scrollToSwitchTabs": true,
-    "security.workspace.trust.untrustedFiles": "open",
     "workbench.colorCustomizations": {
         "editor.lineHighlightBackground": "#dd1b1b23",
         "editor.lineHighlightBorder": "#f030304d",
     },
+    "security.workspace.trust.untrustedFiles": "open",
     "editor.fontFamily": "Consolas, 'Courier New','monospace'",
     "editor.tabCompletion": "on",
     "editor.detectIndentation": false,
@@ -142,11 +144,12 @@ Icon=/home/opt/VSCode/resources/app/resources/linux/code.png
     "[jsonc]": {
         "editor.defaultFormatter": "vscode.json-language-features"
     },
-    "go.formatTool": "goformat"
+    "go.formatTool": "goformat",
+    "python.analysis.inlayHints.functionReturnTypes": true
 }
 ```
 
-### 2.2 插件
+### 2.3 插件
 
 ```text
 vscode-icons                图标
@@ -188,14 +191,14 @@ Go
 Go Doc
 ```
 
-### 2.3 字体与空格宽度
+### 2.4 字体与空格宽度
 
 ```text
 Consolas, 'Courier New','monospace'
 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'
 ```
 
-### 2.4 错误
+### 2.5 错误
 
 ```text
 error while loading shared libraries: libXss.so.1
