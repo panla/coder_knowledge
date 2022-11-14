@@ -143,15 +143,15 @@
 
 - [pgsql 13](http://www.postgres.cn/docs/13/)
 - [pgpool cluster example](https://www.pgpool.net/docs/latest/en/html/example-cluster.html)
+- [PolarDB for PostgreSQL](https://apsaradb.github.io/PolarDB-for-PostgreSQL/zh/)
 
 ### 6.2 mongo
 
 - [MongoDB官网](https://www.mongodb.com/)
 - [MongoDB中文网](https://mongodb.net.cn/)
 - [mongo](https://docs.mongodb.com/manual/tutorial/getting-started/)
-- [momgo 中文手册](https://docs.mongoing.com/)
+- [mongo 中文手册](https://docs.mongoing.com/)
 - [mongo 手册](https://docs.mongodb.com/manual)
-
 
 ## 7 中间件
 
@@ -163,6 +163,7 @@
 
 ### 7.2 ES
 
+- [ES](https://www.elastic.co/cn/elasticsearch/)
 - [ES 7.12](https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html)
 - [ES 中文7.3](https://learnku.com/docs/elasticsearch73/7.3)
 
