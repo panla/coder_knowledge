@@ -1,6 +1,12 @@
 # ufw
 
-## command
+[toc]
+
+## 0
+
+ufw 防火墙
+
+## 1 command
 
 ```bash
 # 查看状态
@@ -12,7 +18,7 @@ ufw status verbose
 ufw reload
 ```
 
-## allow app
+## 2 allow app
 
 ```bash
 # 增加允许
@@ -22,7 +28,7 @@ ufw allow ssh
 ufw delete allow ssh
 ```
 
-## allow port
+## 3 allow port
 
 ```bash
 # 允许 TCP/UDP 外部访问
