@@ -1,8 +1,14 @@
 version: "3.9"
+
+networks:
+  dev_net:
+    external: true
+
 services:
+
   es_11:
     image: elasticsearch:7.17.0
-    container_name: dev_study_es_11
+    container_name: es-cluster-node-11
     restart: always
     networks:
       dev_net:
@@ -26,7 +32,7 @@ services:
 
   es_12:
     image: elasticsearch:7.17.0
-    container_name: dev_study_es_12
+    container_name: es-cluster-node-12
     restart: always
     networks:
       dev_net:
@@ -50,7 +56,7 @@ services:
 
   es_13:
     image: elasticsearch:7.17.0
-    container_name: dev_study_es_13
+    container_name: es-cluster-node-13
     restart: always
     networks:
       dev_net:
@@ -74,13 +80,13 @@ services:
 
   kibana:
     image: kibana:7.17.0
-    container_name: dev_study_kibana
+    container_name: es-cluster-kibana
     restart: always
-    ports:
-      - 20300:5601
     networks:
       dev_net:
         ipv4_address: 172.20.3.2
+    ports:
+      - 20300:5601
     volumes:
       - /etc/localtime:/etc/localtime:ro
     environment:
@@ -89,7 +95,3 @@ services:
       ELASTICSEARCH_HOSTS: "http://172.20.3.3:9200"
     depends_on:
       - es_11
-
-networks:
-  dev_net:
-    external: true

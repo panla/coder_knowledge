@@ -1,8 +1,14 @@
 version: '3.9'
+
+networks:
+  mq_net:
+    external: true
+
 services:
+
   rabbitmq:
     image: rabbitmq:3.8-management
-    container_name: rabbitmq-1
+    container_name: dev_study_rabbitmq_1
     restart: always
     hostname: myRabbitmq-1
     environment:
@@ -17,7 +23,3 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./data:/var/lib/rabbitmq
-
-networks:
-  mq_net:
-    external: true

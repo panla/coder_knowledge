@@ -1,9 +1,19 @@
 version: "3.9"
+
+networks:
+  es:
+    external: true
+
 services:
-  es1:
-    container_name: es0
+  es-1:
     image: elasticsearch:7.12.0
+    container_name: dev_study_es_1
     restart: always
+    environment:
+      - LC_ALL=C.UTF-8
+      - LANG=C.UTF-8
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms128m -Xmx128m"
     networks:
       es:
         ipv4_address: 172.18.0.3
@@ -15,16 +25,16 @@ services:
       - ./data/es0:/usr/share/elasticsearch/data
       - ./logs/es0:/usr/share/elasticsearch/logs
       - ./plugins/es1:/usr/share/elasticsearch/plugins
-    environment:
-      - LC_ALL=C.UTF-8
-      - LANG=C.UTF-8
-      - discovery.type=single-node
-      - "ES_JAVA_OPTS=-Xms128m -Xmx128m"
+
 
   kibana:
-    container_name: kibana
     image: kibana:7.12.0
+    container_name: dev_study_kibana
     restart: always
+    environment:
+      LC_ALL: C.UTF-8
+      LANG: C.UTF-8
+      ELASTICSEARCH_HOSTS: "http://172.18.0.3:9200"
     networks:
       es:
         ipv4_address: 172.18.0.2
@@ -32,14 +42,5 @@ services:
       - 15601:5601
     volumes:
       - /etc/localtime:/etc/localtime:ro
-    environment:
-      TZ: "Asia/Shanghai"
-      LC_ALL: C.UTF-8
-      LANG: C.UTF-8
-      ELASTICSEARCH_HOSTS: "http://172.18.0.3:9200"
     depends_on:
-      - es1
-
-networks:
-  es:
-    external: true
+      - es-1

@@ -1,9 +1,14 @@
 version: '3.9'
+
+networks:
+  dev_net:
+    external: true
+
 services:
 
   rabbitmq-11:
     image: rabbitmq:3.8-management
-    container_name: dev_study_rabbitmq_11
+    container_name: rabbitmq-cluster-node-11
     restart: always
     hostname: myNode-11
     volumes:
@@ -23,7 +28,7 @@ services:
 
   rabbitmq-12:
     image: rabbitmq:3.8-management
-    container_name: dev_study_rabbitmq_12
+    container_name: rabbitmq-cluster-node-12
     restart: always
     hostname: myNode-12
     environment:
@@ -44,7 +49,7 @@ services:
 
   rabbitmq-13:
     image: rabbitmq:3.8-management
-    container_name: dev_study_rabbitmq_13
+    container_name: rabbitmq-cluster-node-13
     restart: always
     hostname: myNode-13
     environment:
@@ -62,7 +67,3 @@ services:
       - ./data/rabbitmq_cluster/rabbitmq-13:/var/lib/rabbitmq
     depends_on:
       - rabbitmq-11
-
-networks:
-  dev_net:
-    external: true
