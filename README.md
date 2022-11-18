@@ -51,13 +51,16 @@
 
 ## 中间件等
 
+- apinto
 - elasticsearch
 - EMQX
+- kafka
 - nebula Graph
 - neo4j
 - nginx
 - RabbitMQ
 - redis
+- rocketmq
 
 ## python
 

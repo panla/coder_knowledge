@@ -175,6 +175,10 @@
 
 - [EMQX 4.3](https://docs.emqx.cn/broker/v4.3/)
 
+### 7.5 RocketMQ
+
+- [RocketMQ org docs](https://rocketmq.apache.org/zh/docs/)
+
 ## 8 study
 
 - [为什么指针被誉为现代编程语言的开山鼻祖的灵魂](https://mp.weixin.qq.com/s/8zp9PBiZC5HbWeKNNaaNew)
