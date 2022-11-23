@@ -6,21 +6,26 @@ from redis.connection import ConnectionPool
 
 
 class RedisConfig:
-    MAX_CONNECTIONS = 100000
-    USER = None
-    PASSWD = '12345678'
     HOST = 'ip'
     PORT = 6379
+    PASSWD = '12345678'
+    SOCKET_TIMEOUT = 10
+    SOCKET_CONNECT_TIMEOUT = 10
+    MAX_CONNECTIONS = 100000
+    USER = None
 
 
 REDIS_CONNECTION_PARAMS = {
-    'max_connections': RedisConfig.MAX_CONNECTIONS,
-    'username': RedisConfig.USER,
-    'password': RedisConfig.PASSWD,
     'host': RedisConfig.HOST,
     'port': RedisConfig.PORT,
+    'password': RedisConfig.PASSWD,
+    'socket_timeout': RedisConfig.SOCKET_TIMEOUT,
+    'socket_connect_timeout': RedisConfig.SOCKET_CONNECT_TIMEOUT,
+    'socket_keepalive': True,
     'encoding': 'utf-8',
-    'decode_responses': True
+    'decode_responses': True,
+    'max_connections': RedisConfig.MAX_CONNECTIONS,
+    'username': RedisConfig.USER
 }
 
 

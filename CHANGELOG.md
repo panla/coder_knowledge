@@ -2,6 +2,11 @@
 
 ## 2022-11
 
+### 2022-11-23
+
+- 1 Add: 增加 CMake 管理 Cython/Python 项目示例
+- 2 update: 补充更新 Celery demo base config
+
 ### 2022-11-17
 
 - 1.1 Add & Update: 补充添加 创建自签名证书方法

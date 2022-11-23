@@ -32,6 +32,8 @@ docker buildx ls
 
 ```bash
 docker run --rm --privileged tonistiigi/binfmt:latest --install all
+
+docker run --rm --privileged moby/buildkit:latest --install all
 ```
 
 ## build and push
