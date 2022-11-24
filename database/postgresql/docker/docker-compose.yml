@@ -1,21 +1,27 @@
 version: "3.9"
+
+networks:
+  common_net:
+    external: true
+
 services:
-  db:
-    image: postgres:13.3
-    container_name: pgsql_133
-    volumes:
-      - ./data/pgsql/data:/var/lib/postgresql/data
-    networks:
-      dev_net:
-        ipv4_address: 172.20.0.4
+
+  pgsql-1:
+    image: postgres:14.6
+    container_name: dev_study_pgsql_1
     restart: always
     environment:
-      - TZ=Asia/Shanghai
       - LC_ALL=C.UTF-8
       - LANG=C.UTF-8
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=study
-
-networks:
-  dev_net:
-    external: true
+      - POSTGRES_PASSWORD=postgres
+    networks:
+      common_net:
+        ipv4_address: "172.19.0.6"
+    ports:
+      - 9860:5432
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - ./data/pgsql-1/data:/var/lib/postgresql/data
+      - ./conf/pgsql-1/postgresql.conf:/var/lib/postgresql/conf/postgresql.conf

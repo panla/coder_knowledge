@@ -46,6 +46,7 @@ services:
       - 9204:8084
     volumes:
       - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
       - ./conf/emqx-1/etc/emqx.conf:/opt/emqx/etc/emqx.conf
       - ./conf/emqx-1/etc/acl.conf:/opt/emqx/etc/acl.conf
       - ./conf/emqx-1/etc/certs:/opt/emqx/etc/certs
@@ -99,6 +100,7 @@ services:
       - 9204:8084
     volumes:
       - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
       - ./conf/emqx-1/etc/emqx.conf:/opt/emqx/etc/emqx.conf
       - ./conf/emqx-1/etc/acl.conf:/opt/emqx/etc/acl.conf
       - ./conf/emqx-1/etc/certs:/opt/emqx/etc/certs
@@ -153,6 +155,7 @@ services:
       - 18083:18083
     volumes:
       - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
       - ./conf/emqx-1/etc/emqx.conf:/opt/emqx/etc/emqx.conf
       - ./conf/emqx-1/etc/acl.conf:/opt/emqx/etc/acl.conf
       - ./conf/emqx-1/etc/certs:/opt/emqx/etc/certs
@@ -175,6 +178,7 @@ services:
       - 18083:18083
     volumes:
       - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
       - ./conf/emqx-1/etc/emqx.conf:/opt/emqx/etc/emqx.conf
       - ./conf/emqx-1/etc/acl.conf:/opt/emqx/etc/acl.conf
       - ./conf/emqx-1/etc/certs:/opt/emqx/etc/certs

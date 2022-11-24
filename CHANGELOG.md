@@ -2,6 +2,13 @@
 
 ## 2022-11
 
+### 2022-11-24
+
+- 1 Add: postgres 14.6 配置文件，和最小化配置
+- 2 Update: 容器 docker-compose.yaml 文件编写
+- 3 Update: 文件夹结构
+- 4 Add: openssl 非对称签名
+
 ### 2022-11-23
 
 - 1 Add: 增加 CMake 管理 Cython/Python 项目示例

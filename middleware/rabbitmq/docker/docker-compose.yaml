@@ -22,4 +22,5 @@ services:
       - 127.0.0.1:15672:5672
     volumes:
       - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
       - ./data:/var/lib/rabbitmq

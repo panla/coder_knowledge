@@ -22,6 +22,7 @@ services:
       - 9300:9300
     volumes:
       - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
       - ./data/es0:/usr/share/elasticsearch/data
       - ./logs/es0:/usr/share/elasticsearch/logs
       - ./plugins/es1:/usr/share/elasticsearch/plugins
@@ -42,5 +43,6 @@ services:
       - 15601:5601
     volumes:
       - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
     depends_on:
       - es-1

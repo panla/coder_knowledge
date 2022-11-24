@@ -1,5 +1,9 @@
 version: "3.9"
 
+networks:
+  dev_net:
+    external: true
+
 services:
 
   neo4j:
@@ -14,9 +18,5 @@ services:
       - 9302:7687
     volumes:
       - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
       - ./data/neo4j/data:/data
-
-
-networks:
-  dev_net:
-    external: true

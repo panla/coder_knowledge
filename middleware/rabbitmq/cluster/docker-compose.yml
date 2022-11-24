@@ -13,6 +13,7 @@ services:
     hostname: myNode-11
     volumes:
       - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
       - ./conf/rabbitmq_cluster/erlang.cookie:/var/lib/rabbitmq/.erlang.cookie
       - ./data/rabbitmq_cluster/rabbitmq-11:/var/lib/rabbitmq
     environment:
@@ -42,6 +43,7 @@ services:
       - 20102:5672
     volumes:
       - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
       - ./conf/rabbitmq_cluster/erlang.cookie:/var/lib/rabbitmq/.erlang.cookie
       - ./data/rabbitmq_cluster/rabbitmq-12:/var/lib/rabbitmq
     depends_on:
@@ -63,6 +65,7 @@ services:
       - 20103:5672
     volumes:
       - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
       - ./conf/rabbitmq_cluster/erlang.cookie:/var/lib/rabbitmq/.erlang.cookie
       - ./data/rabbitmq_cluster/rabbitmq-13:/var/lib/rabbitmq
     depends_on:
