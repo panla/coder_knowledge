@@ -1,0 +1,49 @@
+## 前提
+# 以下测试为 每次提交都对同一文件的同一行进行了修改
+
+分支 master commit 1-2-3-4-5-6-7-8
+
+想要去除 3 7-8 但本地还要保存
+
+在一个新的位置拉下最新代码
+
+## 操作一
+# 新拉一份代码
+git clone
+# 切到临时分支
+git checkout 2(2指的是 commit hash)
+# 重命名为 tmp 分支
+git checkout -b tmp
+# 合并 提交 4
+git cherry-pick 4
+
+# 此时有可能出现冲突也有可能出现合并，处理后，add commit
+
+# 继续合并指定 commit
+# 合并 提交 5
+git cherry-pick 5
+# 合并 提交 6
+git cherry-pick 6
+
+# 此时 本地 tmp 分支的提交为 1-2-fix-4-5-6 就去除了 3 7 8
+
+
+## 操作二
+# 切换至 master 分支
+git checkout master
+# 当前分支重命名为 dev，即 master->dev
+git branch -m dev
+# 切换至 tmp 分支
+git checkout tmp
+# 当前分支重命名为 master，即 tmp->master
+git branch -m master
+# 强制提交
+git push --set-upstream origin master --force
+
+# 此时，本机和远程的 master 提交相同
+# 本机所做的其他更新在 dev 分支
+
+
+## 最后
+可以先复制一份本机项目，新创建一个远程仓库，同步过去，进行测试查看效果
+大概率要处理冲突
