@@ -20,15 +20,15 @@
 
 ## 数据库
 
-- mongodb
-- mysql
-- postgresql
+- Mongo
+- MySQL
+- PostgreSQL
 
 ## 部署
 
-- docker
+- Docker
 - `gitlab-ci`
-- jenkins
+- Jenkins
 
 ## 加密
 
@@ -51,16 +51,18 @@
 
 ## 中间件等
 
-- apinto
-- elasticsearch
+- APINTO
+- ElasticSearch
 - EMQX
-- kafka
-- nebula Graph
-- neo4j
-- nginx
+- HAProxy
+- Kafka
+- Keepalived
+- Nebula Graph
+- Neo4j
+- Nginx
 - RabbitMQ
-- redis
-- rocketmq
+- Redis
+- RocketMQ
 
 ## python
 
@@ -77,12 +79,12 @@
   - gunicorn
   - uvicorn
 
-## ros
+## ROS
 
 ## 软件
 
 - linux-win
-- miniconda
+- Miniconda
 - 基本软件
 - 开发软件
 

@@ -2,6 +2,11 @@
 
 ## 2022-11
 
+### 2022-11-25
+
+- 1 Update: 更新文件夹机构
+- 2 Add: HAProxy，Keepalived
+
 ### 2022-11-24
 
 - 1 Add: postgres 14.6 配置文件，和最小化配置

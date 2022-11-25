@@ -1,0 +1,10 @@
+
+CREATE(p1:Point {id: 1, point_name: '1'})-[t1:NEXT {distance: 10, lanes_number: 1, branch: 1}]->(p2:Point {id: 2, point_name: '2'})
+CREATE(p2)-[t2:NEXT {distance: 10, lanes_number: 1, branch: 1}]->(p3:Point {id: 3, point_name: '3'})
+CREATE(p3)-[t3:NEXT {distance: 10, lanes_number: 1, branch: 1}]->(p4:Point {id: 4, point_name: '4'})
+CREATE(p4)-[t4:NEXT {distance: 10, lanes_number: 1, branch: 1}]->(p3)
+CREATE(p3)-[t5:NEXT {distance: 10, lanes_number: 1, branch: 1}]->(p2)
+CREATE(p2)-[t6:NEXT {distance: 10, lanes_number: 1, branch: 1}]->(p1)
+RETURN p1,p2,p3,p4,t1,t2,t3,t4,t5,t6
+
+
