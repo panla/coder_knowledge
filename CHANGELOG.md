@@ -2,6 +2,11 @@
 
 ## 2022-11
 
+### 2022-11-28
+
+- 1 Update: .gitignore
+- 2 Add: funboost
+
 ### 2022-11-25
 
 - 1 Update: 更新文件夹机构

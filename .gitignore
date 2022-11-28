@@ -8,4 +8,4 @@
 *.DS_Store
 
 /encry_tools/build.txt
-/middleware/neo4j/tmp
+/middleware/Neo4j/tmp

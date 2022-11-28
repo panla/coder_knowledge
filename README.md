@@ -103,6 +103,7 @@
 - drf
 - fastapi
 - flask
+- funboost
 
 ## 收集网站
 
