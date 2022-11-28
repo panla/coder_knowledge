@@ -6,6 +6,8 @@
 
 - 1 Update: .gitignore
 - 2 Add: funboost
+- 3 Update: mysql my.cnf
+- 4 Add: ZMQ demo
 
 ### 2022-11-25
 

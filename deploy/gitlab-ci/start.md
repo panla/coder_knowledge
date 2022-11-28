@@ -22,9 +22,9 @@ after_script
 
 stages
     决定对应 job 的执行顺序
-    定义被 job 调用的 stages, 允许有多级的 piplines
-    相同 statge 的 job 可以平行执行
-    下一个 statge 的 job 会在前一个 statge 的 job 成功后执行
+    定义被 job 调用的 stages, 允许有多级的 pipelines
+    相同 stage 的 job 可以平行执行
+    下一个 stage 的 job 会在前一个 stage 的 job 成功后执行
     未定义 stages 时，默认为 build
     一个 job 未指定 stage 时，会分配到 test 部分
 stages:

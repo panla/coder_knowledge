@@ -1,80 +1,151 @@
 version: "3.9"
+
+networks:
+  common_net:
+    external: true
+
 services:
-  mysql_8025:
-    image: mysql:8.0.25
-    container_name: dev_mysql_8025
-    volumes:
-      - ./conf/mysql:/etc/mysql/conf.d
-      - ./data/mysql/data:/var/lib/mysql
+
+  emqx-1:
+    image: emqx/emqx:4.4.9
+    container_name: dev_study_emqx_1
+    restart: always
     networks:
-      dev_net:
-        ipv4_address: 172.20.0.2
+      common_net:
+        ipv4_address: "172.19.0.2"
+    ports:
+      - 9800:18083
+      - 9801:1883
+      - 9802:8883
+      - 9803:8083
+      - 9804:8084
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - ./conf/emqx-1/etc/emqx.conf:/opt/emqx/etc/emqx.conf
+      - ./conf/emqx-1/etc/acl.conf:/opt/emqx/etc/acl.conf
+      - ./conf/certs:/opt/emqx/etc/certs
+      - ./conf/emqx-1/etc/plugins/emqx_auth_mnesia.conf:/opt/emqx/etc/plugins/emqx_auth_mnesia.conf
+      - ./conf/emqx-1/etc/plugins/emqx_auth_jwt.conf:/opt/emqx/etc/plugins/emqx_auth_jwt.conf
+      - ./conf/emqx-1/data/loaded_plugins:/opt/emqx/data/loaded_plugins
+
+  redis-1:
+    image: redis:6.2
+    container_name: dev_study_redis_1
+    command: ['redis-server', '/etc/redis/redis.conf']
+    restart: always
+    networks:
+      common_net:
+        ipv4_address: "172.19.0.3"
+    ports:
+      - 9830:6379
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - ./conf/redis-1/redis.conf:/etc/redis/redis.conf
+      - ./conf/certs:/tls
+      - ./data/redis-1/data:/data
+
+  mongo-1:
+    image: mongo:4.4.16
+    container_name: dev_study_mongo_1
+    restart: always
+    networks:
+      common_net:
+        ipv4_address: "172.19.0.4"
+    ports:
+      - 9840:27017
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+
+  pgsql-1:
+    image: postgres:14.6
+    container_name: dev_study_pgsql_1
     restart: always
     environment:
-      - TZ=Asia/Shanghai
       - LC_ALL=C.UTF-8
       - LANG=C.UTF-8
-      - MYSQL_ROOT_PASSWORD=12345678
-  rabbitmq:
-    image: rabbitmq:3.8.17-management
-    container_name: rabbitmq-1
-    restart: always
-    hostname: myRabbitmq-1
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    networks:
+      common_net:
+        ipv4_address: "172.19.0.5"
     ports:
-      - 127.0.0.1:15673:15672
-      - 127.0.0.1:15672:5672
+      - 9850:5432
     volumes:
-      - ./data:/var/lib/rabbitmq
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - ./data/pgsql-1/data:/var/lib/postgresql/data
+      - ./conf/pgsql-1/postgresql.conf:/var/lib/postgresql/conf/postgresql.conf
+
+  postgis-1:
+    image: panla/postgis:14-3.3
+    container_name: dev_study_postgis_1
+    restart: always
+    environment:
+      - LC_ALL=C.UTF-8
+      - LANG=C.UTF-8
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    networks:
+      common_net:
+        ipv4_address: "172.19.0.6"
+    ports:
+      - 9851:5432
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - ./data/postgis-1/data:/var/lib/postgresql/data
+      - ./conf/postgis-1/postgresql.conf:/var/lib/postgresql/conf/postgresql.conf
+
+  mysql-1:
+    image: mysql:8.0.29
+    container_name: dev_study_mysql_1
+    restart: always
+    networks:
+      common_net:
+        ipv4_address: "172.19.0.7"
+    ports:
+      - 9856:3306
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - ./conf/mysql-1/my.cnf:/etc/my.cnf
+      - ./data/mysql-1/data:/var/lib/mysql
+    environment:
+      - LC_ALL=C.UTF-8
+      - LANG=C.UTF-8
+      - MYSQL_DATABASE=example
+      - MYSQL_ROOT_PASSWORD=Iz4xHjh3KT5VSx86rMBweA
+
+  rabbit-1:
+    image: rabbitmq:3.9-management
+    container_name: dev_study_rabbit_1
+    restart: always
+    hostname: myRabbit-1
     environment:
       - RABBITMQ_DEFAULT_USER=root
       - RABBITMQ_DEFAULT_PASS=root
     networks:
-      dev_net:
-        ipv4_address: 172.20.0.3
-  pgsql_133:
-    image: postgres:13.3
-    container_name: pgsql_133
+      common_net:
+        ipv4_address: "172.19.0.8"
+    ports:
+      - 9860:15672
+      - 9861:5672
     volumes:
-      - ./data/pgsql/data:/var/lib/postgresql/data
-    networks:
-      dev_net:
-        ipv4_address: 172.20.0.4
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - ./data:/var/lib/rabbitmq
+
+  nginx:
+    image: panla/nginx-live-server:2022-11-22
+    container_name: dev_study_nginx_1
     restart: always
-    environment:
-      - TZ=Asia/Shanghai
-      - LC_ALL=C.UTF-8
-      - LANG=C.UTF-8
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=12345678
-  redis_624:
-    image: redis:6.2.4-alpine
-    container_name: redis_624
     networks:
-      dev_net:
-        ipv4_address: 172.20.0.5
-    restart: always
+      common_net:
+        ipv4_address: "172.19.0.20"
     volumes:
-      - ./data/redis/data:/data
-    command: redis-server --requirepass 12345678
-    environment:
-      - TZ=Asia/Shanghai
-  jenkins:
-    image: jenkins/jenkins:lts-slim
-    container_name: dev_jenkins
-    networks:
-      dev_net:
-        ipv4_address: 172.20.0.6
-    restart: always
-    volumes:
-      - ./data/jenkins:/var/jenkins_home
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /home/opt/docker/bin/docker:/usr/bin/docker
-      - /home/opt/docker/bin/docker-compose:/usr/bin/docker-compose
-      - /home/boonray/.git-credentials:/var/jenkins_home/.git-credentials
-      - /home/boonray/srv:/home/boonray/srv
-    environment:
-      - TZ=Asia/Shanghai
-      - "JENKINS_JAVA_OPTS=-Xms256m -Xmx256m"
-networks:
-  dev_net:
-    external: true
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - ./conf/nginx-1/nginx.conf:/etc/nginx/nginx.conf
+      - ./conf/nginx-1/cert:/cert
