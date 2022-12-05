@@ -9,7 +9,7 @@
 - 雪花算法ID
 - 状态机
 
-## 数据结构
+## data_struct
 
 - 线性表
 - 栈和队列
@@ -18,19 +18,21 @@
 - 查找
 - 排序
 
-## 数据库
+## database
 
 - Mongo
 - MySQL
 - PostgreSQL
 
-## 部署
+## deploy
 
 - Docker
+- Drone
 - `gitlab-ci`
 - Jenkins
+- Tekton
 
-## 加密
+## 加密，密码，证书
 
 - 自签名证书
 - 加密解密
@@ -40,7 +42,7 @@
 
 - go语言核心编程
 
-## linux
+## Linux
 
 - centos 安装与配置
 - 命令行命令
@@ -49,14 +51,22 @@
 
 ## mac
 
-## 中间件等
+- brew
+- docker
+- go
+- install
+- jdk
+
+## middleware
 
 - APINTO
+- APIFIX
 - ElasticSearch
 - EMQX
 - HAProxy
 - Kafka
 - Keepalived
+- Kong
 - Nebula Graph
 - Neo4j
 - Nginx
@@ -64,7 +74,7 @@
 - Redis
 - RocketMQ
 
-## python
+## Python
 
 - loguru
 - orm
@@ -81,7 +91,7 @@
 
 ## ROS
 
-## 软件
+## 开发软件
 
 - linux-win
 - Miniconda
@@ -96,7 +106,7 @@
 - 同步异步阻塞非阻塞
 - 初始化项目脚本
 
-## web 框架
+## web framework
 
 - celery
 - django
@@ -105,9 +115,9 @@
 - flask
 - funboost
 
-## 收集网站
+## websites
 
-## 微信开发
+## WeChat
 
 - 公众号授权
 - 微信支付

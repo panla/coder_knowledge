@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 2022-12
+
+### 2022-12-05
+
+- 1 Update: Project Dir Struct
+
 ## 2022-11
 
 ### 2022-11-30

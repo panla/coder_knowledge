@@ -179,6 +179,14 @@
 
 - [RocketMQ org docs](https://rocketmq.apache.org/zh/docs/)
 
+### 7.6 网关
+
+- [APISIX](https://apisix.apache.org/zh/docs/apisix/getting-started/)
+
+### 7.7 WebRTC
+
+- [kurento](https://doc-kurento-zh.readthedocs.io/zh/latest/user/tutorials.html)
+
 ## 8 study
 
 - [为什么指针被誉为现代编程语言的开山鼻祖的灵魂](https://mp.weixin.qq.com/s/8zp9PBiZC5HbWeKNNaaNew)
