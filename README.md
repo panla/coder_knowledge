@@ -108,12 +108,14 @@
 
 ## web framework
 
-- celery
-- django
-- drf
-- fastapi
-- flask
-- funboost
+- Celery
+- Django
+- FastAPI
+- Flask
+- Funboost
+- gRPC
+- zeroMQ
+- web server
 
 ## websites
 
