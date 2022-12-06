@@ -187,26 +187,45 @@
 
 - [kurento](https://doc-kurento-zh.readthedocs.io/zh/latest/user/tutorials.html)
 
-## 8 study
+## 8 book
 
-- [为什么指针被誉为现代编程语言的开山鼻祖的灵魂](https://mp.weixin.qq.com/s/8zp9PBiZC5HbWeKNNaaNew)
-- [flask-sqlalchemy事务简单处理](https://blog.csdn.net/qq_36355119/article/details/90269264)
-- [SQLAlchemy session的autocommit autoflush](https://www.jianshu.com/p/b219c3dd4d1e)
+- [《Golang修养之路》](https://www.kancloud.cn/aceld/golang/1958309)
+
+## 9 study
+
+### 9.1 消息队列
+
+- [消息队列原理与选型](https://mp.weixin.qq.com/s/Gb9k_LxQhOPDcMGxDJ9Jvw)
+- [什么是消息队列](https://zhuanlan.zhihu.com/p/157112243)
+
+### 9.2 部署，运维
+
+- [Docker buildx](https://blog.csdn.net/Canger_/article/details/122239139)
 - [gitlab-runner 的 executors 之 docker](https://blog.csdn.net/weixin_30471065/article/details/101487911)
 - [Docker安装Gitlab和Gitlab-Runner](https://developer.aliyun.com/article/719968)
-- [Debian 10 Buster 国内常用镜像源](https://cloud.tencent.com/developer/article/1590080)
 - [Redis 三主三从伪集群](https://blog.csdn.net/qq_41125219/article/details/118686281)
 - [Redis](https://github.com/prefect12/Redis)
 - [docker mysql 集群](https://www.cnblogs.com/crazymagic/articles/13951461.html)
 - [RabbitMQ 高可用集群搭建](https://blog.csdn.net/qq_28533563/article/details/107932737)
+- [Debian 10 Buster 国内常用镜像源](https://cloud.tencent.com/developer/article/1590080)
 - [无插件web直播解决方案](https://blog.csdn.net/string_kai/article/details/100598268)
 - [Nginx+FFmpeg实现RTSP转RTMP](https://www.cnblogs.com/pongyc/p/14276712.html)
-- [MQTT在Python中的使用](https://blog.csdn.net/XC_SunnyBoy/article/details/115790445)
-- [Python+docxtpl+plotly实现模板word文档图表生成](https://www.jianshu.com/p/465516750da6)
 - [deepin 双屏幕](https://docs.deepin.org/pages/66fec7/#%E5%A6%82%E4%BD%95%E4%BF%9D%E5%AD%98%E9%85%8D%E7%BD%AE)
+
+### 9.3 编程
+
+- [为什么指针被誉为现代编程语言的开山鼻祖的灵魂](https://mp.weixin.qq.com/s/8zp9PBiZC5HbWeKNNaaNew)
 - [无涯博客 DDD](https://www.cnblogs.com/wlandwl/)
 - [DDD 领域驱动设计总结](https://zhuanlan.zhihu.com/p/351162895)
 
-## book
+### 9.4 Python 相关
 
-- [《Golang修养之路》](https://www.kancloud.cn/aceld/golang/1958309)
+- [flask-sqlalchemy事务简单处理](https://blog.csdn.net/qq_36355119/article/details/90269264)
+- [SQLAlchemy session的autocommit autoflush](https://www.jianshu.com/p/b219c3dd4d1e)
+- [MQTT在Python中的使用](https://blog.csdn.net/XC_SunnyBoy/article/details/115790445)
+- [Python+docxtpl+plotly实现模板word文档图表生成](https://www.jianshu.com/p/465516750da6)
+- [Python-docx读写Word文档](https://blog.csdn.net/zhouz92/article/details/107066709)
+
+### 9.5 Golang 相关
+
+- [Go语言基础之指针](https://juejin.cn/post/7172760065672216612)

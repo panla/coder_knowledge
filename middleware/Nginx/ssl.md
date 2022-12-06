@@ -2,6 +2,10 @@
 
 [toc]
 
+## doc
+
+- [mozilla.org ssl-config](https://ssl-config.mozilla.org/)
+
 ## 配置项
 
 ```text
@@ -78,8 +82,11 @@ server {
     listen 80;
     server_name domain.com;
 
-    return 301 https://$host$request_uri;
+    location / {
+        return 301 https://$host$request_uri;
+    }
 }
+
 server {
     listen 443 ssl;
     server_name domain.com;
@@ -91,7 +98,7 @@ server {
     ssl_client_certificate /etc/nginx/ssl/ca.cer;
     ssl_verify_client on;
 
-    ssl_session_cache shared:SSL:1m;
+    ssl_session_cache shared:SSL:10m;
     ssl_session_timeout 5m;
 
     ssl_protocols TLSv1.1 TLSv1.2 TLSv1.3;
@@ -126,6 +133,7 @@ mozilla 推荐 <https://wiki.mozilla.org/Security/Server_Side_TLS>
 现代兼容性
     证书类型：ECDSA (P-256)
     证书有效期：90天
+    TLS 曲线：X25519, prime256v1, secp384r1
 
     密码套件：TLS1.3
         TLS_AES_128_GCM_SHA256:
@@ -135,6 +143,8 @@ mozilla 推荐 <https://wiki.mozilla.org/Security/Server_Side_TLS>
 中级兼容性
     证书类型：ECDSA (P-256)（推荐）或RSA（2048 位）
     证书有效期：90 天（推荐）至366 天
+    TLS 曲线：X25519, prime256v1, secp384r1
+
     密码套件：TLS1.3 TLS1.2
         TLS_AES_128_GCM_SHA256:
         TLS_AES_256_GCM_SHA384:
@@ -150,4 +160,10 @@ mozilla 推荐 <https://wiki.mozilla.org/Security/Server_Side_TLS>
         DHE-RSA-AES256-GCM-SHA384:
 
         !aNULL:!eNULL:!EXPORT:!CAMELLIA:!DES:!MD5:!PSK:!RC4
+```
+
+```text
+椭圆曲线数字签名算法(ECDSA) 是使用椭圆曲线密码(ECC) 对 数字签名算法(DSA)的模拟
+
+秘钥交换算法(ECDHE)，在 DHE 算法的基础上利用了 ECC 椭圆曲线特性，更少的计算量
 ```
