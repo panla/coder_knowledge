@@ -7,7 +7,9 @@
 
 ## 4.1 mnesia 预设账户配置
 
-`etc/plugins/emqx_auth_mnesia.conf`
+配置文件：`etc/plugins/emqx_auth_mnesia.conf`
+
+并在 `data/loaded_plugins` 中开启 `emqx_auth_mnesia`
 
 ```conf
 auth.user.2.username = user_1
@@ -16,7 +18,9 @@ auth.user.2.password = user_1
 
 ## 4.2 jwt
 
-`etc/plugins/emqx_auth_jwt.conf`
+配置文件：`etc/plugins/emqx_auth_jwt.conf`
+
+并在 `data/loaded_plugins` 中开启 `emqx_auth_jwt`
 
 ```conf
 # 秘钥
@@ -35,7 +39,9 @@ auth.jwt.verify_claims.username = %u
 
 ## 4.3 http
 
-`etc/plugins/emqx_auth_http.conf`
+配置文件：`etc/plugins/emqx_auth_http.conf`
+
+并在 `data/loaded_plugins` 中开启 `emqx_auth_http`
 
 ```conf
 # EMQX 在设备连接事件中使用当前客户端相关信息作为参数，向用户自定义的认证服务发起请求查询权限，通过返回的 HTTP 响应状态码 (HTTP statusCode) 来处理认证请求

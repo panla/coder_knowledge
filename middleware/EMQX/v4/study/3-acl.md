@@ -17,7 +17,9 @@
 
 ### 1.2 Mnesia ACL
 
-`etc/plugins/emqx_auth_mnesia.conf`
+配置文件：`etc/plugins/emqx_auth_mnesia.conf`
+
+并在 `data/loaded_plugins` 中开启 `emqx_auth_mnesia`
 
 允许 client or clientid 发布 `test/client` 主题
 
@@ -33,7 +35,9 @@
 
 ### 1.3 HTTP ACL
 
-`etc/plugins/emqx_auth_http.conf`
+配置文件：`etc/plugins/emqx_auth_http.conf`
+
+并在 `data/loaded_plugins` 中开启 `emqx_auth_http`
 
 ```conf
 auth.http.acl_req = http://127.0.0.1:8000//api/v1/users/acl
@@ -49,7 +53,9 @@ auth.http.acl_req.params = access=%A,username=%u,clientid=%c,ipaddr=%a,topic=%t,
 
 ### 1.4 JWT ACL
 
-`etc/plugins/emqx_auth_jwt.conf`
+配置文件：`etc/plugins/emqx_auth_jwt.conf`
+
+并在 `data/loaded_plugins` 中开启 `emqx_auth_jwt`
 
 ```conf
 # 需要在 token 中指定 ACL 字段

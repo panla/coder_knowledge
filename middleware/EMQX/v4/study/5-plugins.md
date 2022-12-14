@@ -2,7 +2,7 @@
 
 ## 5.1 loaded plugins 加载插件设置
 
-`/opt/emqx/data/loaded_plugins`
+配置文件：`/opt/emqx/data/loaded_plugins`
 
 ```conf
 # loaded_plugins

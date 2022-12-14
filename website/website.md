@@ -139,10 +139,11 @@
 
 ## 6 db
 
-### 6.1 pgsql
+### 6.1 PostgreSQL
 
-- [pgsql 13](http://www.postgres.cn/docs/13/)
-- [pgpool cluster example](https://www.pgpool.net/docs/latest/en/html/example-cluster.html)
+- [PostgreSQL 13](http://www.postgres.cn/docs/13/)
+- [PostgreSQL 14](http://www.postgres.cn/docs/14/index.html)
+- [PGpool cluster example](https://www.pgpool.net/docs/latest/en/html/example-cluster.html)
 - [PolarDB for PostgreSQL](https://apsaradb.github.io/PolarDB-for-PostgreSQL/zh/)
 
 ### 6.2 mongo
@@ -152,6 +153,11 @@
 - [mongo](https://docs.mongodb.com/manual/tutorial/getting-started/)
 - [mongo 中文手册](https://docs.mongoing.com/)
 - [mongo 手册](https://docs.mongodb.com/manual)
+
+### 6.3 MySQL 代理，集群，负载均衡
+
+- [PXC](https://docs.percona.com/percona-xtradb-cluster/8.0/intro.html)
+- [ProxySQL](https://proxysql.com/)
 
 ## 7 中间件
 
@@ -193,6 +199,11 @@
 
 ## 9 study
 
+### 9.0 大集合
+
+- [煎鱼eddycjy](https://juejin.cn/user/1116759543784856)
+- [后端技术图谱](https://juejin.cn/post/6844903602369232904)
+
 ### 9.1 消息队列
 
 - [消息队列原理与选型](https://mp.weixin.qq.com/s/Gb9k_LxQhOPDcMGxDJ9Jvw)
@@ -229,3 +240,7 @@
 ### 9.5 Golang 相关
 
 - [Go语言基础之指针](https://juejin.cn/post/7172760065672216612)
+
+### 9.6 数据结构
+
+- [B树](https://juejin.cn/post/7174639541272199226)
