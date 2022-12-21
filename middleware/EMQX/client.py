@@ -3,6 +3,7 @@ pip install paho-mqtt
 """
 
 import json
+import os
 import ssl
 from typing import Any, List
 
@@ -25,7 +26,9 @@ class MqttClient:
             password: str,
             keep_alive: int = 600,
             version: int = MQTTv311,
+            clean_session: bool = True,
             properties: Properties = None,
+            use_cert: bool = False,
             ca_cert: str = None,
             cert_path: str = None,
             key_path: str = None,
@@ -39,9 +42,10 @@ class MqttClient:
             client_id (str): Client ClientID.
             username (str): Client UserName.
             password (str): Client Password.
-            keep_alive (int, optional): MQTT Connect KeepAlive.
-            version (int, optional): MQTT Version. Defaults to MQTTv311.
+            keep_alive (int, 600): MQTT Connect KeepAlive.
+            version (int, MQTTv311): MQTT Version. Defaults to MQTTv311.
             properties (Properties, optional): when MQTTv5 use this. Defaults to None.
+            use_cert (bool, False): Client Use SSL/TLS.
             ca_cert (str, optional): TLS CA cert file. Defaults to None.
             cert_path (str, optional): TLS Client cert path. Defaults to None.
             key_path (str, optional): TLS Client key path. Defaults to None.
@@ -50,20 +54,20 @@ class MqttClient:
 
         self._host = host
         self._port = port
-        self.client_id = client_id
-        self.username = username
-        self.password = password
+        self._username = username
+        self._password = password
         self._keep_alive = keep_alive
-        self.version = version
-        self.properties = properties
+
+        self._properties = properties
+        self._use_cert = use_cert
         self._ca_cert = ca_cert
         self._cert_path = cert_path
         self._key_path = key_path
         self._keyfile_passwd = keyfile_passwd
 
-        self.unique = self.client_id or self.username
+        self.unique = client_id or username
 
-        self.client = Client(client_id=self.client_id, protocol=version)
+        self.client = Client(client_id=client_id, clean_session=clean_session, protocol=version)
         if version == MQTTv5:
             self.client.on_connect = self.on_connect_v5
             self.client.on_disconnect = self.on_disconnect_v5
@@ -81,13 +85,20 @@ class MqttClient:
     def set_ssl_context(self):
         """set SSL context to use SSL"""
 
-        if self._ca_cert and self._cert_path and self._key_path:
+        if self._use_cert:
+
+            for file in [self._ca_cert, self._cert_path, self._key_path]:
+                if not os.path.isfile(file):
+                    logger.warning(f'set ssl, but {file} not exists')
+                    break
+
             context = ssl.SSLContext(protocol=ssl.PROTOCOL_TLS)
             context.check_hostname = False
             context.load_cert_chain(certfile=self._cert_path, keyfile=self._key_path, password=self._keyfile_passwd)
             context.load_verify_locations(self._ca_cert)
             context.verify_mode = ssl.CERT_REQUIRED
 
+            self.client._ssl_context = None
             self.client.tls_set_context(context=context)
 
     @staticmethod
@@ -103,10 +114,10 @@ class MqttClient:
     def connect(self):
         """Verify and Connect to a remote broker."""
 
-        self.client.username_pw_set(self.username, self.password)
+        self.client.username_pw_set(self._username, self._password)
         self.set_ssl_context()
 
-        return self.client.connect(self._host, self._port, self._keep_alive, properties=self.properties)
+        return self.client.connect(self._host, self._port, self._keep_alive, properties=self._properties)
 
     def disconnect(self, rc: ReasonCodes = None):
         """Disconnect a connected client from the broker.
@@ -115,7 +126,7 @@ class MqttClient:
         then assuming that 0 (success) is the value.
         """
 
-        return self.client.disconnect(rc, properties=self.properties)
+        return self.client.disconnect(rc, properties=self._properties)
 
     def loop_start(self):
         """loop start"""
@@ -145,12 +156,12 @@ class MqttClient:
             if MQTTv5 then example options=SubscribeOptions(qos=2)
         """
 
-        return self.client.subscribe(topic, qos=qos, options=options, properties=self.properties)
+        return self.client.subscribe(topic, qos=qos, options=options, properties=self._properties)
 
     def unsubscribe(self, topic: str):
         """Unsubscribe the client to one or more topics."""
 
-        return self.client.unsubscribe(topic=topic, properties=self.properties)
+        return self.client.unsubscribe(topic=topic, properties=self._properties)
 
     def publish(self, topic, payload=None, qos: int = 0, retain: bool = False, flag: bool = True):
         """Publish a message on a topic."""
@@ -160,7 +171,7 @@ class MqttClient:
             payload = json.dumps(payload, ensure_ascii=False)
 
         return self.client.publish(
-            topic=topic, payload=payload, qos=qos, retain=retain, properties=self.properties
+            topic=topic, payload=payload, qos=qos, retain=retain, properties=self._properties
         )
 
     def on_connect_v3(self, client: Client, userdata: Any, flags: dict, rc: int):
