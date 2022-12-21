@@ -3,13 +3,13 @@
 ## 目录与文件占用
 
 ```text
-/usr/loca/go
+/usr/local/go
 /System/Volumes/Data/usr/local/go
-
-/private/etc/paths.d/go
 
 /Users/user/Library/Caches/go-pkg-mod
 /System/Volumes/Data/Users/user/Library/Caches/go-pkg-mod
+
+/private/etc/paths.d/go
 ```
 
 ## go env

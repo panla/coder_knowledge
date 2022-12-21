@@ -41,3 +41,7 @@ go mod tidy
 go mod download
 go mod vendor
 ```
+
+## 3 work
+
+go work

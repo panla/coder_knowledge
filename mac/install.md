@@ -8,20 +8,20 @@ Apple M1
 
 - brew
 - git tree fzf
-- ohmyzsh
-- AnotherRedisManagerDesktop
-- miniconda
-- PyCharm
-- VSCode
 - iTerm2
-- dbeaver
+- miniconda
+- ohmyzsh
+- VSCode
 - jdk
-- 百度网盘
+- dbeaver
+- PyCharm
 - GoogleChrome
 - docker desktop
+- 百度网盘
 - 向日葵
 - 微信
 - Postman
+- AnotherRedisManagerDesktop
 
 ## 1 Pycharm
 

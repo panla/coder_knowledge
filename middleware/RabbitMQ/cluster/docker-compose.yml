@@ -11,11 +11,6 @@ services:
     container_name: rabbitmq-cluster-node-11
     restart: always
     hostname: myNode-11
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /etc/timezone:/etc/timezone:ro
-      - ./conf/rabbitmq_cluster/erlang.cookie:/var/lib/rabbitmq/.erlang.cookie
-      - ./data/rabbitmq_cluster/rabbitmq-11:/var/lib/rabbitmq
     environment:
       - RABBITMQ_DEFAULT_USER=root
       - RABBITMQ_DEFAULT_PASS=root
@@ -26,6 +21,11 @@ services:
     ports:
       - 20100:15672
       - 20101:5672
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - ./conf/rabbitmq_cluster/erlang.cookie:/var/lib/rabbitmq/.erlang.cookie
+      - ./data/rabbitmq_cluster/rabbitmq-11:/var/lib/rabbitmq
 
   rabbitmq-12:
     image: rabbitmq:3.8-management
