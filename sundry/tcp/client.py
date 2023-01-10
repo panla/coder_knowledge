@@ -1,0 +1,62 @@
+import socket
+import threading
+import time
+
+
+class TCPClient:
+    def __init__(self, address, port) -> None:
+        self.address = address
+        self.port = port
+
+        self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.connect_flag = False
+
+    def connect(self):
+
+        try:
+            self.client.connect((self.address, self.port))
+            self.connect_flag = True
+        except Exception as exc:
+            print(f'{time.time()} {exc}')
+            self.connect_flag = False
+
+    def send_msg(self, data):
+
+        if self.connect_flag:
+
+            self.client.send(data)
+
+            data = self.client.recv(1024)
+            print(f'{time.time()} 接收到 ', data.decode('utf-8'))
+
+    def receive_msg(self):
+
+        while True:
+            if self.connect_flag:
+
+                data = self.client.recv(1024)
+                print(f'{time.time()} 接收到 ', data.decode('utf-8'))
+
+    def work(self):
+
+        self.connect()
+
+        # 起另一个线程，会丢数据
+        # thread = threading.Thread(target=self.receive_msg)
+        # thread.setDaemon(True)
+        # thread.start()
+
+    def close(self):
+        self.client.close()
+
+
+if __name__ == '__main__':
+    tcp_client = TCPClient('192.168.9.96', 8750)
+    tcp_client.work()
+
+    time.sleep(2)
+
+    for i in range(100):
+        tcp_client.send_msg(f'走你 {i}'.encode('utf-8'))
+
+    tcp_client.close()
