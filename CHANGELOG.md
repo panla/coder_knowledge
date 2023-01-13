@@ -2,6 +2,8 @@
 
 ## 2023-01
 
+- 2023-01-13
+  - 1 Add: 从 c++ 生成动态链接库供 Python 调用 demo
 - 2023-01-10
   - 1 Add: 补充 TCP UDP Serial demo
   - 2 Add: 补充 Golang 学习
