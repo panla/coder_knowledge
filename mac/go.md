@@ -3,6 +3,9 @@
 ## 目录与文件占用
 
 ```text
+# 环境变量文件
+/etc/paths.d/go
+
 /usr/local/go
 /System/Volumes/Data/usr/local/go
 
