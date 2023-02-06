@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 2023-02
+
+- 2023-02-06
+  - Update VSCode Download link
+
 ## 2023-01
 
 - 2023-01-13
