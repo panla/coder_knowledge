@@ -53,6 +53,12 @@ https://www.ipaddress.com/
 github.com
 ```
 
+### 1.4 代理
+
+```bash
+git config --global http.proxy http://ip:port
+```
+
 ## 2 ssh 公私钥连接
 
 ### 2.2 cmd

@@ -3,7 +3,8 @@
 ## 2023-02
 
 - 2023-02-06
-  - Update VSCode Download link
+  - Update: VSCode Download link
+  - Add: 补充 Go 编译指令，Git和Ubuntu代理
 - 2022-02-05
   - Update 补充 mac 下go环境变量文件配置
 
