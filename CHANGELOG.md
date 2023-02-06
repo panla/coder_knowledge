@@ -4,6 +4,8 @@
 
 - 2023-02-06
   - Update VSCode Download link
+- 2022-02-05
+  - Update 补充 mac 下go环境变量文件配置
 
 ## 2023-01
 
