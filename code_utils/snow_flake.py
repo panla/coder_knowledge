@@ -1,54 +1,41 @@
 """
 雪花算法
 0 0000000-00000000-00000000-00000000-00000000-00 0000000000 000000000000
+
+1. 第一位取0，符号位，0 代表非负数
+
+2. 机器位共计10位，全部表示机器时，可以表示1024台
+
+3. twepoch 从项目开始的时间，用生成ID的时间减去开始时间作为时间戳，可以用的更久
+
+4. -1L ^ (-1L << x) 表示 x 位的二进制数可以表示多少个数
+
+5. 时间回拨，如果回拨较小，可以继续等待，如果较大，继续等待将不利
+
+6. 前端精度，雪花算法结果长度可以达到19位，先转 string 再输出到前端
+
 """
 
 import time
 from datetime import datetime
 
-from loguru import logger
 
-# 64位ID的划分 1 + 41 + 10 + 12
-# DATA_CENTER_ID_BITS 和 WORKER_ID_BITS 组成工作进程位，最大 1024 个
-# 数据中心位数 最大 31 个
-DATA_CENTER_ID_BITS = 5
-# 工作ID位数 最大 31个
-WORKER_ID_BITS = 5
-# 增长序列号位数 同毫秒内产生的不同 ID，最大 4095 个
-SEQUENCE_BITS = 12
-
-# 最大取值计算, 31, 2**5-1, 0b11111
-MAX_DATA_CENTER_ID = -1 ^ (-1 << DATA_CENTER_ID_BITS)
-MAX_WORKER_ID = -1 ^ (-1 << WORKER_ID_BITS)
-
-# 移位偏移计算
-WORKER_ID_SHIFT = SEQUENCE_BITS
-DATA_CENTER_ID_SHIFT = SEQUENCE_BITS + WORKER_ID_BITS
-TIMESTAMP_LEFT_SHIFT = SEQUENCE_BITS + WORKER_ID_BITS + DATA_CENTER_ID_BITS
-
-# 序号循环掩码，4095
-SEQUENCE_MASK = -1 ^ (-1 << SEQUENCE_BITS)
-
-# 起始时间戳 毫秒
-TIME_EPOCH = int(datetime.fromisoformat("2022-07-07 00:00:00.000000").timestamp() * 1000)
-# TIME_EPOCH = int(datetime.fromisoformat("2022-07-07 00:00:00.000000").timestamp())
-
-
-class InvalidSystemClock(Exception):
-    pass
-
-
-class IdWorker(object):
+class IdWorker:
     """
     用于生成IDs
     """
 
     def __init__(
-        self,
-        data_center_id,
-        worker_id,
-        sequence: int = 0
-        ):
+            self,
+            time_epoch: int,
+            sequence_mask: int,
+            timestamp_shift: int,
+            data_center_id_shift: int,
+            worker_id_shift: int,
+            data_center_id: int = 0,
+            worker_id: int = 0,
+            sequence: int = 0
+    ):
         """初始化
 
         :param data_center_id: 数据中心（机器区域）ID
@@ -56,18 +43,20 @@ class IdWorker(object):
         :param sequence: 序号
         """
 
-        # sanity check
-        if worker_id > MAX_WORKER_ID or worker_id < 0:
-            raise ValueError(f'worker_id {worker_id} 越界')
-
-        if data_center_id > MAX_DATA_CENTER_ID or data_center_id < 0:
-            raise ValueError(f'data_center_id {data_center_id} 越界')
+        self.time_epoch = time_epoch
+        self.sequence_mask = sequence_mask
+        self.timestamp_shift = timestamp_shift
+        self.data_center_id_shift = data_center_id_shift
+        self.worker_id_shift = worker_id_shift
 
         self.data_center_id = data_center_id
         self.worker_id = worker_id
-        self.sequence = sequence
+        self.data_center_id_value = self.data_center_id << self.data_center_id_shift
+        self.worker_id_value = self.worker_id << self.worker_id_shift
 
-        self.last_timestamp = -1  # 上次计算的时间戳
+        self._sequence = sequence
+
+        self._last_timestamp = -1  # 上次计算的时间戳
 
     @staticmethod
     def _gen_timestamp() -> int:
@@ -76,9 +65,8 @@ class IdWorker(object):
         :return:int timestamp
         """
         return int(time.time() * 1000)
-        # return int(time.time())
 
-    def _til_next_mir_time(self, last_timestamp) -> int:
+    def _get_next_mir_time(self, last_timestamp) -> int:
         """等到下一毫秒
         """
 
@@ -87,7 +75,7 @@ class IdWorker(object):
             timestamp = self._gen_timestamp()
         return timestamp
 
-    def get_id(self) -> str:
+    def get_id(self) -> int:
         """获取新ID
 
         :return:
@@ -96,33 +84,79 @@ class IdWorker(object):
         timestamp = self._gen_timestamp()
 
         # 时钟回拨
-        if timestamp < self.last_timestamp:
-            logger.error('clock is moving backwards. Rejecting requests until {}'.format(self.last_timestamp))
-            raise InvalidSystemClock
+        if timestamp < self._last_timestamp:
+            raise ValueError('clock is moving backwards. Rejecting requests until {}'.format(self._last_timestamp))
 
-        if timestamp == self.last_timestamp:
-            self.sequence = (self.sequence + 1) & SEQUENCE_MASK
-            if self.sequence == 0:
-                timestamp = self._til_next_mir_time(self.last_timestamp)
+        if timestamp == self._last_timestamp:
+            self._sequence = (self._sequence + 1) & self.sequence_mask
+            if self._sequence == 0:
+                timestamp = self._get_next_mir_time(self._last_timestamp)
         else:
-            self.sequence = 0
+            self._sequence = 0
 
-        self.last_timestamp = timestamp
+        self._last_timestamp = timestamp
 
-        a = (timestamp - TIME_EPOCH) << TIMESTAMP_LEFT_SHIFT
-        b = self.data_center_id << DATA_CENTER_ID_SHIFT
-        c = self.worker_id << WORKER_ID_SHIFT
+        timestamp_value = (timestamp - self.time_epoch) << self.timestamp_shift
 
-        return a | b | c | self.sequence
+        return timestamp_value | self.data_center_id_value | self.worker_id_value | self._sequence
+
+
+class IdOp:
+    def __init__(
+            self,
+            start_time: str,
+            data_center_id_bits: int = 5,
+            worker_id_bits: int = 5,
+            sequence_bits: int = 12,
+            data_center_id: int = 0,
+            worker_id: int = 0,
+            sequence: int = 0
+    ):
+        """
+        :param start_time (str): 起始时间，例如 2023-02-07 00:00:00.000000
+        :param data_center_id_bits (Optional[int] = 5): 数据中心位长
+        :param worker_id_bits (Optional[int] = 5): 工作ID位长
+        :param sequence_bits (Optional[int] = 12): 增长序列位长
+        """
+
+        # 起始时间戳
+        start_time = int(datetime.fromisoformat(start_time).timestamp() * 1000)
+
+        # 数据中心，工作ID，最大取值计算, 5: 31, 0b11111
+        max_data_center_id = -1 ^ (-1 << data_center_id_bits)
+        max_work_id = -1 ^ (-1 << worker_id_bits)
+
+        # 移位偏移量
+        work_id_shift = sequence_bits
+        data_center_id_shift = sequence_bits + worker_id_bits
+        timestamp_shift = data_center_id_shift + data_center_id_bits
+
+        # 序号循环掩码, 12: 4095，同毫秒内产生的不同 ID
+        sequence_mask = -1 ^ (-1 << sequence_bits)
+
+        # sanity check
+        if data_center_id > max_data_center_id or data_center_id < 0:
+            raise ValueError(f'data_center_id {data_center_id} 越界')
+        if worker_id > max_work_id or worker_id < 0:
+            raise ValueError(f'worker_id {worker_id} 越界')
+
+        self.id_worker = IdWorker(
+            start_time, sequence_mask, timestamp_shift, data_center_id_shift,
+            work_id_shift, data_center_id, worker_id, sequence
+        )
+
+    def get_id(self):
+
+        return self.id_worker.get_id()
 
 
 if __name__ == '__main__':
     """ 日志打印相当耗时"""
 
-    worker = IdWorker(1, 2, 0)
+    op = IdOp('2023-02-07 00:00:00.000000')
 
     s_time = time.time()
-    for i in range(1, 2000000):
+    for i in range(1, 10000000):
         # print(worker.get_id())
-        id_ = worker.get_id()
+        id_ = op.get_id()
     print(time.time() - s_time)

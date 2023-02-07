@@ -4,6 +4,7 @@
 
 - 2023-02-07
   - Update: 更新 CPP 示例，更新Python-SnowFlake 实现示例
+  - Update: 优化 code_utils/snow_flake.py
 - 2023-02-06
   - Update: VSCode Download link
   - Add: 补充 Go 编译指令，Git和Ubuntu代理
