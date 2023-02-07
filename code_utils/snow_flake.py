@@ -9,17 +9,17 @@ from datetime import datetime
 from loguru import logger
 
 # 64位ID的划分 1 + 41 + 10 + 12
-# WORKER_ID_BITS 和 DATA_CENTER_ID_BITS 组成工作进程位，最大 1024 个
-# 工作ID位数 最大 31个
-WORKER_ID_BITS = 5
+# DATA_CENTER_ID_BITS 和 WORKER_ID_BITS 组成工作进程位，最大 1024 个
 # 数据中心位数 最大 31 个
 DATA_CENTER_ID_BITS = 5
+# 工作ID位数 最大 31个
+WORKER_ID_BITS = 5
 # 增长序列号位数 同毫秒内产生的不同 ID，最大 4095 个
 SEQUENCE_BITS = 12
 
 # 最大取值计算, 31, 2**5-1, 0b11111
-MAX_WORKER_ID = -1 ^ (-1 << WORKER_ID_BITS)
 MAX_DATA_CENTER_ID = -1 ^ (-1 << DATA_CENTER_ID_BITS)
+MAX_WORKER_ID = -1 ^ (-1 << WORKER_ID_BITS)
 
 # 移位偏移计算
 WORKER_ID_SHIFT = SEQUENCE_BITS
@@ -43,7 +43,12 @@ class IdWorker(object):
     用于生成IDs
     """
 
-    def __init__(self, data_center_id, worker_id, sequence: int = 0):
+    def __init__(
+        self,
+        data_center_id,
+        worker_id,
+        sequence: int = 0
+        ):
         """初始化
 
         :param data_center_id: 数据中心（机器区域）ID
