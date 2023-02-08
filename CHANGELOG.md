@@ -5,6 +5,7 @@
 - 2023-02-08
   - Update: 更新 TCP/UDP 使用示例
   - Delete: 删除 cpp/demo
+  - Update: 更新 snow_flake.py demo
 - 2023-02-07
   - Update: 更新 CPP 示例，更新Python-SnowFlake 实现示例
   - Update: 优化 code_utils/snow_flake.py

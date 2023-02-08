@@ -151,12 +151,14 @@ class IdOp:
 
 
 if __name__ == '__main__':
-    """ 日志打印相当耗时"""
+    # 日志打印相当的耗时
 
-    op = IdOp('2023-02-07 00:00:00.000000')
+    # 测试的时候时以当前时间作为开始时间
+    op = IdOp(datetime.fromtimestamp(time.time()).strftime("%Y-%m-%d %H:%M:%S.%f"))
 
     s_time = time.time()
-    for i in range(1, 10000000):
-        # print(worker.get_id())
+    for i in range(1, 10):
+        time.sleep(1)
         id_ = op.get_id()
+        print(id_)
     print(time.time() - s_time)
