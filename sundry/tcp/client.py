@@ -4,9 +4,10 @@ import time
 
 
 class TCPClient:
-    def __init__(self, address, port) -> None:
-        self.address = address
-        self.port = port
+    def __init__(self, host: str, port: int, buff_size: int = 1024, encoding: str = 'utf-8') -> None:
+        self.addr = (host, port)
+        self.buff_size = buff_size
+        self.encoding = encoding
 
         self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.connect_flag = False
@@ -14,7 +15,7 @@ class TCPClient:
     def connect(self):
 
         try:
-            self.client.connect((self.address, self.port))
+            self.client.connect(self.addr)
             self.connect_flag = True
         except Exception as exc:
             print(f'{time.time()} {exc}')
@@ -27,15 +28,15 @@ class TCPClient:
             self.client.send(data)
 
             data = self.client.recv(1024)
-            print(f'{time.time()} 接收到 ', data.decode('utf-8'))
+            print(f'{time.time()} 接收到 ', data.decode(self.encoding))
 
     def receive_msg(self):
 
         while True:
             if self.connect_flag:
 
-                data = self.client.recv(1024)
-                print(f'{time.time()} 接收到 ', data.decode('utf-8'))
+                data = self.client.recv(self.buff_size)
+                print(f'{time.time()} 接收到 ', data.decode(self.encoding))
 
     def work(self):
 

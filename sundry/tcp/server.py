@@ -5,11 +5,13 @@ import time
 
 class handleClient(threading.Thread):
 
-    def __init__(self, client, addr) -> None:
+    def __init__(self, client, addr: tuple, buff_size: int = 1024, encoding: str = 'utf-8') -> None:
         super().__init__()
 
         self.client = client
         self.addr = addr
+        self.buff_size = buff_size
+        self.encoding = encoding
 
     def run(self):
 
@@ -18,10 +20,10 @@ class handleClient(threading.Thread):
         while True:
 
             try:
-                original_data = self.client.recv(1024)
-                data = original_data.decode('utf-8')
+                original_data = self.client.recv(self.buff_size)
+                data = original_data.decode(self.encoding)
             except Exception as exc:
-                data = f"{exc}".encode('utf-8')
+                data = f"{exc}".encode(self.encoding)
                 print(f'{time.time()} 异常 {data}')
 
             print(f'{time.time()} 接收到 {data}')
@@ -38,12 +40,12 @@ class handleClient(threading.Thread):
 
 
 class TcpServer(threading.Thread):
-    def __init__(self, address, port):
+    def __init__(self, host, port):
         super().__init__()
 
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, True)
-        self.server.bind((address, port))
+        self.server.bind((host, port))
         self.server.listen(128)
 
     def run(self):
