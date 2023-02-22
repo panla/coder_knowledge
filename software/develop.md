@@ -4,7 +4,7 @@
 
 ## 0
 
-开发软件，**PyCharm, VSCode, Idea, Postman, ApiFox, Another-Redis-Desktop-Manager, dbeaver, Studio3T, Oss-Browser, Chrome**
+开发软件，**PyCharm, VSCode, Idea, Postman, ApiFox, Another-Redis-Desktop-Manager, DBeaver, Studio3T, Oss-Browser, Chrome**
 
 ## 1 pycharm
 
@@ -77,13 +77,13 @@ cwm-plugin  cwm-plugin-projector  editorconfig  github  markdown  space  svn4ide
 
 把下载链接的 `https://az764295.vo.msecnd.net` 替换为 `http://vscode.cdn.azure.cn`
 
-[默认](https://az764295.vo.msecnd.net/stable/e2816fe719a4026ffa1ee0189dc89bdfdbafb164/code-stable-x64-1675266941.tar.gz)
+[默认](https://az764295.vo.msecnd.net/stable/441438abd1ac652551dbe4d408dfcec8a499b8bf/code-stable-x64-1675893708.tar.gz)
 
-[最新下载 linux-86-64](http://vscode.cdn.azure.cn/stable/e2816fe719a4026ffa1ee0189dc89bdfdbafb164/code-stable-x64-1675266941.tar.gz)
+[最新下载 linux-86-64](http://vscode.cdn.azure.cn/stable/441438abd1ac652551dbe4d408dfcec8a499b8bf/code-stable-x64-1675893708.tar.gz)
 
-[最新下载 apple m1](http://vscode.cdn.azure.cn/stable/e2816fe719a4026ffa1ee0189dc89bdfdbafb164/VSCode-darwin-arm64.zip)
+[最新下载 apple m1](http://vscode.cdn.azure.cn/stable/441438abd1ac652551dbe4d408dfcec8a499b8bf/VSCode-darwin-arm64.zip)
 
-[最新下载 windows](http://vscode.cdn.azure.cn/stable/e2816fe719a4026ffa1ee0189dc89bdfdbafb164/VSCode-win32-x64-1.75.0.zip)
+[最新下载 windows](http://vscode.cdn.azure.cn/stable/441438abd1ac652551dbe4d408dfcec8a499b8bf/VSCode-win32-x64-1.75.1.zip)
 
 解压
 
@@ -153,45 +153,36 @@ Icon=/home/opt/VSCode/resources/app/resources/linux/code.png
 
 ### 2.3 插件
 
-```text
-vscode-icons                图标
-Chinese Language
-Better Comments             高亮注释
-Todo Tree                   高亮快速找到 TODO FIXME
-indent-rainbow              缩进深度
-Trailing Spaces             多余空格
-Code Spell Checker          拼写检查
-
-Better TOML                 toml
-MySQL Syntax                mysql语法辅助-remove
-Prettify JSON               json
-YAML                        yaml-remove
-XML Tools                   XML
-Markdown Preview Enhanced   md 展示
-markdownlint                md 语法
-
-Git Graph
-gitignore
-GitLens
-
-CMake
-CMake Tools
-
-Remnote-Containers          连接进入容器
-Dev Containers
-
-Pylance
-Python
-Python Docstring Generator  生成文档
-Python Indent
-Python Type Hint            类型标记
-
-C/C++
-Better C++ Synatx
-
-Go
-Go Doc
-```
+| 插件 | 作用 | 其他 |
+| :-: | :-: | :-: |
+| Chinese Language | 中文 | 通用 |
+| vscode-icons | 文件图标 | 通用 |
+| Better Comments | 注释 | 通用 |
+| Todo Tree | TODO 注释 | 通用 |
+| Trailing Spaces | 空格检查 | 通用 |
+| Code Spell Checker | 拼写检查 | 通用 |
+| indent-rainbow | 缩进展示 | 通用 |
+| Better TOML | 语言语法支持 | 文件 |
+| Prettify JSON | 格式化 | 文件 |
+| XML Tools | XML | 文件 |
+| Markdown Preview Enhanced | 展示 | 文件 |
+| markdownlint | 语言语法支持 | 文件 |
+| CMake | 语言语法支持 | CMake |
+| Better C++ Syntax | C++ 语法支持 | C/C++ |
+| C/C++ | IntelliSense/Debugging/Code Browsing | C/C++ |
+| Git Graph | View Git Graph | Git |
+| gitignore |  | Git |
+| GitLens |  | Git |
+| Go | Go 语言语法支持 | Go |
+| Python | 语言语法支持 | Python |
+| Pylance | 语言语法支持 | Python |
+| Python Indent | Python 缩进 | Python |
+| Python Type Hint | 类型标记 | Python |
+| autoDocstring - Python Docstring Generator |  | Python |
+| Dev Containers | 进入容器 | Container |
+| Go Doc |  | Go 可不用 |
+| CMake Tools |  | CMake 可不用 |
+| C/C++ Snippets | Code Snippets | C/C++ 可不用 |
 
 ### 2.4 字体与空格宽度
 
