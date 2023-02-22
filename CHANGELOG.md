@@ -2,6 +2,8 @@
 
 ## 2023-02
 
+- 2023-02-22
+  - Update: 更新 Deepin 的升级内核说明
 - 2023-02-08
   - Update: 更新 TCP/UDP 使用示例
   - Delete: 删除 cpp/demo
