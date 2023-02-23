@@ -2,6 +2,8 @@
 
 ## 2023-02
 
+- 2023-02-23
+  - Update: 更新 LICENSE 文件换行符 -> LF
 - 2023-02-22
   - Update: 更新 Deepin 的升级内核说明
   - Update: 更新 VSCode 链接和插件
