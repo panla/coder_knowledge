@@ -114,6 +114,9 @@ Icon=/home/opt/VSCode/resources/app/resources/linux/code.png
 
 ### 2.2 user.json
 
+- macos `/Users/user/Library/Application Support/Code/User/settings.json`
+- linux `~/.config/Code/User/settings.json`
+
 ```json
 {
     "files.autoSave": "afterDelay",
@@ -147,7 +150,12 @@ Icon=/home/opt/VSCode/resources/app/resources/linux/code.png
         "editor.defaultFormatter": "vscode.json-language-features"
     },
     "go.formatTool": "goformat",
-    "python.analysis.inlayHints.functionReturnTypes": true
+    "python.analysis.inlayHints.functionReturnTypes": true,
+        "[python]": {
+        "editor.formatOnType": true
+    },
+    "debug.console.fontSize": 13,
+    "terminal.integrated.fontSize": 13
 }
 ```
 

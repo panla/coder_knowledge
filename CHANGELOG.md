@@ -2,6 +2,8 @@
 
 ## 2023-02
 
+- 2023-02-28
+  - Update: VSCode user setting.json
 - 2023-02-23
   - Update: 更新 LICENSE 文件换行符 -> LF
 - 2023-02-22
