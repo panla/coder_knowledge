@@ -1,7 +1,11 @@
 # CHANGELOG
 
+[toc]
+
 ## 2023-03
 
+- 2023-03-10
+  - Update: nginx default conf
 - 2023-03-06
   - Upgrade: 升级VSCode版本链接
 
