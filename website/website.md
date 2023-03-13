@@ -60,7 +60,15 @@
 
 ## 5 Python 开发
 
-### 5.1 python lib
+### 5.0 Python 相关
+
+- [flask-sqlalchemy事务简单处理](https://blog.csdn.net/qq_36355119/article/details/90269264)
+- [SQLAlchemy session的autocommit autoflush](https://www.jianshu.com/p/b219c3dd4d1e)
+- [MQTT在Python中的使用](https://blog.csdn.net/XC_SunnyBoy/article/details/115790445)
+- [Python+docxtpl+plotly实现模板word文档图表生成](https://www.jianshu.com/p/465516750da6)
+- [Python-docx读写Word文档](https://blog.csdn.net/zhouz92/article/details/107066709)
+
+### 5.1 Python lib
 
 - [plotly](https://plotly.com/python/plotly-fundamentals/) python 画图
 - [python-paho-mqtt](https://www.cnblogs.com/lnn123/p/10837754.html)
@@ -71,7 +79,7 @@
 - [click](https://click.palletsprojects.com/en/8.0.x/) Python 命令行工具
 - [cython](https://cython.readthedocs.io/en/latest/index.html)
 
-### 5.2 orm
+### 5.2 Python ORM
 
 - [tortoise-orm](https://tortoise.github.io/toc.html)
 - [sqlalchemy](https://www.osgeo.cn/sqlalchemy/)
@@ -81,11 +89,11 @@
 - [peewee](http://docs.peewee-orm.com/en/latest/)
 - [piccolo](https://piccolo-orm.readthedocs.io/en/stable/)
 
-### 5.3 测试
+### 5.3 Python 测试
 
 - [pytest](https://www.osgeo.cn/pytest/contents.html)
 
-### 5.4 web framework
+### 5.4 Python web framework
 
 - [fastapi](https://fastapi.tiangolo.com/zh/)
 - [flask](https://flask.palletsprojects.com/en/2.0.x/)
@@ -94,40 +102,39 @@
 - [muffin](https://klen.github.io/muffin/)
 - [emmett](https://emmett.sh/docs/2.3.x)
 
-### 5.5 message
+### 5.5 Python message
 
 - [celery](https://docs.celeryproject.org/en/stable/) 任务分发
 - [socket.io](https://python-socketio.readthedocs.io/en/latest/intro.html)
 - [graphql](https://strawberry.rocks/docs)
 
-### 5.6 driver
+### 5.6 Python driver
 
-#### 5.6.1 Mysql
+#### 5.6.1 Python Mysql
 
 - [aiomysql](https://aiomysql.readthedocs.io/en/latest/)
 - [asyncmy](https://github.com/long2ice/asyncmy) github
 - [mysqlclient](https://github.com/PyMySQL/mysqlclient) github
 
-#### 5.6.2 PostgreSQL
+#### 5.6.2 Python PostgreSQL
 
 - [asyncpg](https://github.com/MagicStack/asyncpg) github
 - [psycopg](https://github.com/psycopg/psycopg) github
 
-#### 5.6.3 MongoDB
+#### 5.6.3 Python MongoDB
 
 - [motor](https://github.com/mongodb/motor) github
 - [odmantic](https://github.com/art049/odmantic) github
 
-#### 5.6.4 Redis
+#### 5.6.4 Python Redis
 
 - [redis-py](https://github.com/redis/redis-py) github
 
-#### 5.6.5 MQTT
+#### 5.6.5 Python MQTT
 
 - [paho,mqtt.python](https://github.com/eclipse/paho.mqtt.python)
-- [paho,mqtt.golang](https://github.com/eclipse/paho.mqtt.golang)
 
-#### 5.6.6 RabbitMQ
+#### 5.6.6 Python RabbitMQ
 
 - [pika](https://pika.readthedocs.io/en/stable/) Python rabbitmq 库
 
@@ -137,7 +144,7 @@
 - [uvicorn](https://www.uvicorn.org/)
 - [anyio](https://anyio.readthedocs.io/en/stable/)
 
-## 6 db
+## 6 DB
 
 ### 6.1 PostgreSQL
 
@@ -146,7 +153,7 @@
 - [PGpool cluster example](https://www.pgpool.net/docs/latest/en/html/example-cluster.html)
 - [PolarDB for PostgreSQL](https://apsaradb.github.io/PolarDB-for-PostgreSQL/zh/)
 
-### 6.2 mongo
+### 6.2 MongoDB
 
 - [MongoDB官网](https://www.mongodb.com/)
 - [MongoDB中文网](https://mongodb.net.cn/)
@@ -158,6 +165,8 @@
 
 - [PXC](https://docs.percona.com/percona-xtradb-cluster/8.0/intro.html)
 - [ProxySQL](https://proxysql.com/)
+- [Vitess](https://vitess.io/zh/docs/17.0/)
+- [docker mysql 集群](https://www.cnblogs.com/crazymagic/articles/13951461.html)
 
 ## 7 中间件
 
@@ -166,6 +175,8 @@
 - [Redis 中文](http://www.redis.cn/)
 - [Redis 英文](https://redis.io/)
 - [Redis命令使用文档](http://redisdoc.com/index.html)
+- [Redis 三主三从伪集群](https://blog.csdn.net/qq_41125219/article/details/118686281)
+- [Redis](https://github.com/prefect12/Redis)
 
 ### 7.2 ES
 
@@ -177,25 +188,50 @@
 
 - [InfluxDB](https://docs.influxdata.com/influxdb/v2.1/)
 
-### 7.4 MQTT
-
-- [EMQX 4.3](https://docs.emqx.cn/broker/v4.3/)
-
-### 7.5 RocketMQ
-
-- [RocketMQ org docs](https://rocketmq.apache.org/zh/docs/)
-
-### 7.6 网关
+### 7.4 网关
 
 - [APISIX](https://apisix.apache.org/zh/docs/apisix/getting-started/)
 
-### 7.7 WebRTC
+### 7.5 WebRTC
 
 - [kurento](https://doc-kurento-zh.readthedocs.io/zh/latest/user/tutorials.html)
 
-## 8 book
+### 7.6 MQTT
 
-- [《Golang修养之路》](https://www.kancloud.cn/aceld/golang/1958309)
+- [EMQX 4.3](https://docs.emqx.cn/broker/v4.3/)
+
+### 7.7 RocketMQ
+
+- [RocketMQ org docs](https://rocketmq.apache.org/zh/docs/)
+
+### 7.8 RabbitMQ
+
+- [RabbitMQ 高可用集群搭建](https://blog.csdn.net/qq_28533563/article/details/107932737)
+
+## 8 Golang
+
+### 8.0 Golang 相关
+
+- [Go语言基础之指针](https://juejin.cn/post/7172760065672216612)
+- [基础语法50问](https://juejin.cn/post/7160639446612705316)
+- [Golang中make与new有何区别](https://github.com/aceld/golang/blob/main/4%E3%80%81Golang%E4%B8%ADmake%E4%B8%8Enew%E6%9C%89%E4%BD%95%E5%8C%BA%E5%88%AB%EF%BC%9F.md)
+- [Golang中的Defer](https://github.com/aceld/golang/blob/main/7%E3%80%81Golang%E4%B8%AD%E7%9A%84Defer%E5%BF%85%E6%8E%8C%E6%8F%A1%E7%9A%847%E7%9F%A5%E8%AF%86%E7%82%B9.md)
+
+### 8.1 Go Lib
+
+- [paho,mqtt.golang](https://github.com/eclipse/paho.mqtt.golang)
+
+### 8.2 Go ORM
+
+- [gorm](https://gorm.io/zh_CN/docs/index.html)
+
+### 8.3 Go Web
+
+- [Go Gin 简明教程](https://geektutu.com/post/quick-go-gin.html)
+
+### 8.4 Go LeetCode
+
+- [LeetCode CookBook](https://books.halfrost.com/leetcode/)
 
 ## 9 study
 
@@ -214,10 +250,6 @@
 - [Docker buildx](https://blog.csdn.net/Canger_/article/details/122239139)
 - [gitlab-runner 的 executors 之 docker](https://blog.csdn.net/weixin_30471065/article/details/101487911)
 - [Docker安装Gitlab和Gitlab-Runner](https://developer.aliyun.com/article/719968)
-- [Redis 三主三从伪集群](https://blog.csdn.net/qq_41125219/article/details/118686281)
-- [Redis](https://github.com/prefect12/Redis)
-- [docker mysql 集群](https://www.cnblogs.com/crazymagic/articles/13951461.html)
-- [RabbitMQ 高可用集群搭建](https://blog.csdn.net/qq_28533563/article/details/107932737)
 - [Debian 10 Buster 国内常用镜像源](https://cloud.tencent.com/developer/article/1590080)
 - [无插件web直播解决方案](https://blog.csdn.net/string_kai/article/details/100598268)
 - [Nginx+FFmpeg实现RTSP转RTMP](https://www.cnblogs.com/pongyc/p/14276712.html)
@@ -228,18 +260,6 @@
 - [为什么指针被誉为现代编程语言的开山鼻祖的灵魂](https://mp.weixin.qq.com/s/8zp9PBiZC5HbWeKNNaaNew)
 - [无涯博客 DDD](https://www.cnblogs.com/wlandwl/)
 - [DDD 领域驱动设计总结](https://zhuanlan.zhihu.com/p/351162895)
-
-### 9.4 Python 相关
-
-- [flask-sqlalchemy事务简单处理](https://blog.csdn.net/qq_36355119/article/details/90269264)
-- [SQLAlchemy session的autocommit autoflush](https://www.jianshu.com/p/b219c3dd4d1e)
-- [MQTT在Python中的使用](https://blog.csdn.net/XC_SunnyBoy/article/details/115790445)
-- [Python+docxtpl+plotly实现模板word文档图表生成](https://www.jianshu.com/p/465516750da6)
-- [Python-docx读写Word文档](https://blog.csdn.net/zhouz92/article/details/107066709)
-
-### 9.5 Golang 相关
-
-- [Go语言基础之指针](https://juejin.cn/post/7172760065672216612)
 
 ### 9.6 数据结构
 
