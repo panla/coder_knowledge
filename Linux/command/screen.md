@@ -29,3 +29,21 @@ dnf install screen
 
 - C-a d 退出
 - C-a c 创建新 shell 窗口
+
+## 5 开机自启动
+
+```text
+1
+    先编写一个程序运行脚本 【不能后台运行】
+
+2
+    界面自启动，ubuntu 桌面启动后才启动
+    Startup Application
+
+    screen -dmS $Name [-L -Logfile screen] 日志路径 第一步中的脚本绝对路径
+
+3
+    screen -r $Name
+    Ctrl A 前缀指令
+    Ctrl A + D
+```

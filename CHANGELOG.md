@@ -4,6 +4,9 @@
 
 ## 2023-03
 
+- 2023-03-17
+  - Rename: Linux/centos
+  - Add: screen, ntp
 - 2023-03-15
   - Add: 增加CRC校验示例
 - 2023-03-13

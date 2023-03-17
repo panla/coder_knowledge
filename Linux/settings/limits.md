@@ -26,6 +26,8 @@ ulimit -n 100000
 
 ## sysctl.conf
 
+`/etc/sysctl.conf`
+
 ```conf
 ; 进程可以同时打开的最大句柄数，直接限制最大并发连接数
 fs.file-max = 9223372036854775807
