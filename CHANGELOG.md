@@ -4,6 +4,8 @@
 
 ## 2023-03
 
+- 2023-03-19
+  - Update compile nginx command on alpine
 - 2023-03-17
   - Rename: Linux/centos
   - Add: screen, ntp

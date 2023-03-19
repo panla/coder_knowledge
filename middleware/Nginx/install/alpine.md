@@ -1,5 +1,22 @@
 # Alpine
 
+## depend
+
+```bash
+sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \
+&& apk update --no-cache \
+&& apk add --no-cache \
+    libc-dev gcc make \
+    linux-headers \
+    ca-certificates \
+    tzdata \
+    yasm freetype-dev \
+    gd-dev geoip-dev \
+    libmaxminddb-dev \
+```
+
+## Compilation
+
 ```bash
 ./configure --with-cc-opt='-static -static-libgcc' --with-ld-opt=-static \
 --prefix=/usr/local/nginx \
@@ -12,8 +29,8 @@
 --pid-path=/var/run/nginx/nginx.pid \
 --lock-path=/var/lock/nginx.lock \
 --http-client-body-temp-path=/opt/nginx-client-body \
+--with-file-aio \
 --with-threads \
---with-pcre-jit \
 --with-http_ssl_module \
 --with-http_realip_module \
 --with-http_addition_module \
@@ -39,9 +56,10 @@
 --with-mail \
 --with-mail_ssl_module \
 --with-compat \
---with-pcre=/opt/build/pcre2-10.42 \
---with-openssl=/opt/build/openssl-1.1.1t \
---with-zlib=/opt/build/zlib-1.2.13 \
+--with-pcre-jit \
+--with-pcre=/opt/build/pcre2 \
+--with-openssl=/opt/build/openssl \
+--with-zlib=/opt/build/zlib \
 --add-module=/opt/build/nginx-http-flv-module \
 --add-module=/opt/build/ngx_http_consistent_hash \
 
