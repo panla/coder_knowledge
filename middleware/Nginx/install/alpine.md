@@ -20,42 +20,47 @@ sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \
 ```bash
 ./configure --with-cc-opt='-static -static-libgcc' --with-ld-opt=-static \
 --prefix=/usr/local/nginx \
---user=root \
---group=root \
 --sbin-path=/usr/local/sbin/nginx \
 --conf-path=/etc/nginx/nginx.conf \
---error-log-path=/var/log/nginx/error.log \
---http-log-path=/var/log/nginx/access.log \
---pid-path=/var/run/nginx/nginx.pid \
---lock-path=/var/lock/nginx.lock \
---http-client-body-temp-path=/opt/nginx-client-body \
---with-file-aio \
+--error-log-path=/usr/local/nginx/logs/error.log \
+--http-log-path=/usr/local/nginx/logs/access.log \
+--pid-path=/usr/local/nginx/run/nginx.pid \
+--lock-path=/usr/local/nginx/run/nginx.lock \
+--user=root \
+--group=root \
+--with-select_module \
+--with-poll_module \
 --with-threads \
+--with-file-aio \
 --with-http_ssl_module \
+--with-http_v2_module \
 --with-http_realip_module \
 --with-http_addition_module \
---with-http_v2_module \
+--with-http_image_filter_module=dynamic \
+--with-http_geoip_module=dynamic \
 --with-http_sub_module \
 --with-http_dav_module \
 --with-http_flv_module \
 --with-http_mp4_module \
 --with-http_gunzip_module \
 --with-http_gzip_static_module \
+--with-http_auth_request_module  \
 --with-http_random_index_module \
 --with-http_secure_link_module \
---with-http_slice_module \
 --with-http_degradation_module \
---with-http_auth_request_module  \
+--with-http_slice_module \
 --with-http_stub_status_module \
---with-http_geoip_module=dynamic \
 --with-stream \
 --with-stream=dynamic \
 --with-stream_realip_module \
---with-stream_ssl_preread_module \
 --with-stream_geoip_module=dynamic \
+--with-stream_ssl_preread_module \
+--with-google_perftools_module \
 --with-mail \
 --with-mail_ssl_module \
 --with-compat \
+
+--with-pcre
 --with-pcre-jit \
 --with-pcre=/opt/build/pcre2 \
 --with-openssl=/opt/build/openssl \
@@ -63,4 +68,9 @@ sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \
 --add-module=/opt/build/nginx-http-flv-module \
 --add-module=/opt/build/ngx_http_consistent_hash \
 
+```
+
+```text
+--with-cc-opt="-I /usr/local/include -D FD_SETSIZE=2048 -static -static-libgcc"
+--with-ld-opt="-L /usr/local/lib"
 ```
