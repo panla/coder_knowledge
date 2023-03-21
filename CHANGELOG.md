@@ -6,6 +6,7 @@
 
 - 2023-03-21
   - Update: Nginx Compilation Modules
+  - Add: Python struct
 - 2023-03-20
   - Update compile nginx command on alpine
 - 2023-03-19
