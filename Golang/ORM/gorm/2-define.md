@@ -1,10 +1,93 @@
 # 声明模型
 
+[toc]
+
 ## doc
 
 <https://gorm.io/zh_CN/docs/models.html>
 
-## 字段标签
+## 模型定义
+
+标准 struct
+
+由 Go 基本数据类型、实现了 Scanner 和 Valuer 接口的自定义类型及其指针或别名组成
+
+- Scanner <https://pkg.go.dev/database/sql#Scanner>
+- Valuer <https://pkg.go.dev/database/sql/driver#Valuer>
+
+## 约定
+
+约定优于配置
+
+```text
+ID             作为主键
+结构体名的      蛇形复数 作为表名
+字段名          蛇形    作为列名
+
+CreatedAt
+UpdatedAt
+DeletedAt
+```
+
+## Model
+
+```go
+type Model struct {
+    ID        uint           `gorm:"primaryKey"`
+    CreatedAt time.Time
+    UpdatedAt time.Time
+    DeletedAt gorm.DeletedAt `gorm:"index"`
+}
+```
+
+## 高级选项
+
+### 字段权限控制
+
+```text
+写权限
+<-        创建和更新
+<-:create 创建
+<-:update 更新
+<-:false  无权限
+
+读
+->        只读
+->:false  无权限
+
+忽略
+-         无读写
+-:all     无读写迁移
+-:migrate 无迁移
+```
+
+### 时间
+
+Time, 秒, 毫秒 milli, 纳秒 nano
+
+```text
+time.Time                           当前时间
+int                                 时间戳秒数
+int64 `gorm:"autoCreateTime"`       时间戳秒数
+int64 `gorm:"autoUpdateTime:milli"` 时间戳毫秒
+int64 `gorm:"autoUpdateTime:nano"`  时间戳纳秒
+```
+
+### 嵌入
+
+```go
+type User struct {
+    Name string
+}
+
+type Blog struct {
+    ID int
+    Author Author `gorm:"embedded"`
+    Author Author `gorm:"embedded;embeddedPrefix:author_"`
+}
+```
+
+### 字段标签
 
 | tagName | desc | example |
 | :-: | :-: | :-: |
@@ -31,9 +114,13 @@
 | - | 忽略该字段 | - 无读写，-:migration，无迁移权限，-:all 无读写迁移权限 |
 | comment | 迁移时的字段注释 |  |
 
-## index
+### index
 
 ```text
 `gorm:"index:idx_name,unique"`
 
 ```
+
+### 约束
+
+### 关联
