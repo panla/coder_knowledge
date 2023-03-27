@@ -1,18 +1,20 @@
 version: "3.9"
-services:
-  jenkins:
-    image: jenkins/jenkins:lts-jdk11
-    container_name: dev_jenkins
-    networks:
-      dev_net:
-        ipv4_address: 172.20.0.6
-    restart: always
-    volumes:
-      - ./data/jenkins:/var/jenkins_home
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /opt/docker/bin/docker:/usr/bin/docker
-    environment:
-      - TZ=Asia/Shanghai
+
 networks:
   dev_net:
     external: true
+
+services:
+
+  jenkins:
+    image: jenkins/jenkins:lts-jdk11
+    container_name: dev_jenkins
+    restart: always
+    networks:
+      dev_net:
+        ipv4_address: 172.20.0.6
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /opt/docker/bin/docker:/usr/bin/docker
+      - ./data/jenkins:/var/jenkins_home
