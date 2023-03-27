@@ -214,7 +214,7 @@ set -g default-terminal "screen-256color"
 ## 6 JDK
 
 ```text
-export JAVA_HOME=/home/opt/jdk-11.0.9
+export JAVA_HOME=/opt/jdk-11.0.9
 export CLASSPATH=.:${JAVA_HOME}/lib
 export PATH=${JAVA_HOME}/bin:$PATH
 ```
@@ -225,7 +225,7 @@ export PATH=${JAVA_HOME}/bin:$PATH
 
 - [maven.apache.org](http://maven.apache.org/download.cgi)
 
-解压到 `/home/opt/apache-maven`
+解压到 `/opt/apache-maven`
 
 ### 7.2 setting.xml 配置
 
@@ -247,7 +247,7 @@ export PATH=${JAVA_HOME}/bin:$PATH
 二 本地缓存目录
 
 ```text
-<localRepository>/home/opt/apache-maven-3.6.3/repository</localRepository>
+<localRepository>/opt/apache-maven-3.6.3/repository</localRepository>
 ```
 
 ### 7.3 profile

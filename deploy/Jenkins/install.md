@@ -10,7 +10,7 @@
 
 ```bash
 JENKINS_HOME=$HOME/softer/jenkins java -jar jenkins.war --help
-JENKINS_HOME=/home/opt/jenkins java -jar jenkins.war
+JENKINS_HOME=/opt/jenkins java -jar jenkins.war
 ```
 
 ### 换插件源

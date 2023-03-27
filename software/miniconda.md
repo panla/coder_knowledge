@@ -20,7 +20,7 @@ sudo sh Miniconda3-py38_4.8.2-Linux-x86_64.sh -f -b -p /opt/Miniconda3
 修改 user group
 
 ```bash
-sudo chown -R user:user /home/opt/Miniconda3
+sudo chown -R user:user /opt/Miniconda3
 ```
 
 init

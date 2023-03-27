@@ -12,7 +12,7 @@ docker buildx
 
 ### linux 中安装
 
-linux: `~/.docker/cli-plugins`
+linux: `~/.docker/cli-plugins/docker-buildx`
 
 daemon.json 增加 `"experimental": true`
 

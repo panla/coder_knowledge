@@ -1,6 +1,6 @@
 # docker
 
-## 目录文件占用
+## 1 目录文件占用
 
 ```text
 /usr/local/bin/*docker*
@@ -34,7 +34,7 @@
 /var/run/docker.sock -> /Users/user/.docker/run/docker.sock
 ```
 
-## 查看容器占用
+## 2 查看容器占用
 
 <https://blog.csdn.net/m0_38112165/article/details/120116336>
 
@@ -48,6 +48,12 @@ docker run -it --privileged --pid=host golang:1.19.1-bullseye nsenter -t 1 -m -u
 4 查看各个容器数据，可以删除过多的日志
 ```
 
-## 3.3 镜像不同指令集
+## 3 镜像不同指令集
 
 arm64 aarch64
+
+## 4 buildx
+
+```text
+"experimental": "enabled"
+```

@@ -20,10 +20,10 @@ chmod 777 ./*
 ### 1.2 idea.properties
 
 ```text
-idea.config.path=/home/opt/PyCharm/PyCharmCE/config
-idea.system.path=/home/opt/PyCharm/PyCharmCE/system
-idea.plugins.path=/home/opt/PyCharm/PyCharmCE/config/plugins
-idea.log.path=/home/opt/PyCharm/PyCharmCE/system/log
+idea.config.path=/opt/PyCharm/PyCharmCE/config
+idea.system.path=/opt/PyCharm/PyCharmCE/system
+idea.plugins.path=/opt/PyCharm/PyCharmCE/config/plugins
+idea.log.path=/opt/PyCharm/PyCharmCE/system/log
 ```
 
 ### 1.3 pycharm64.vmoptions
@@ -44,16 +44,16 @@ Type=Application
 Name=PyCharm
 GenericName=IDE
 Comment=Python IDE
-Exec=sh /home/opt/PyCharm-202112/bin/pycharm.sh
-Icon=/home/opt/PyCharm-202112/bin/pycharm.png
+Exec=sh /opt/PyCharm-202112/bin/pycharm.sh
+Icon=/opt/PyCharm-202112/bin/pycharm.png
 Categories=Development;IDE;
 Actions=new-empty-window;
 Terminal=PyCharm
 
 [Desktop Action new-empty-window]
 Name=New Empty Window
-Exec=sh /home/opt/PyCharm-202112/bin/pycharm.sh
-Icon=/home/opt/PyCharm-202112/bin/pycharm.png
+Exec=sh /opt/PyCharm-202112/bin/pycharm.sh
+Icon=/opt/PyCharm-202112/bin/pycharm.png
 Terminal=PyCharm
 ```
 
@@ -77,13 +77,15 @@ cwm-plugin  cwm-plugin-projector  editorconfig  github  markdown  space  svn4ide
 
 把下载链接的 `https://az764295.vo.msecnd.net` 替换为 `http://vscode.cdn.azure.cn`
 
-[默认](https://az764295.vo.msecnd.net/stable/92da9481c0904c6adfe372c12da3b7748d74bdcb/code-stable-x64-1677667829.tar.gz)
+V1.76.2
 
-[最新下载 linux-86-64](http://vscode.cdn.azure.cn/stable/92da9481c0904c6adfe372c12da3b7748d74bdcb/code-stable-x64-1677667829.tar.gz)
+[默认](https://az764295.vo.msecnd.net/stable/ee2b180d582a7f601fa6ecfdad8d9fd269ab1884/code-stable-x64-1678818101.tar.gz)
 
-[最新下载 apple m1](http://vscode.cdn.azure.cn/stable/92da9481c0904c6adfe372c12da3b7748d74bdcb/VSCode-darwin-arm64.zip)
+[最新下载 linux-86-64](http://vscode.cdn.azure.cn/stable/ee2b180d582a7f601fa6ecfdad8d9fd269ab1884/code-stable-x64-1678818101.tar.gz)
 
-[最新下载 windows](http://vscode.cdn.azure.cn/stable/92da9481c0904c6adfe372c12da3b7748d74bdcb/VSCode-win32-x64-1.76.0.zip)
+[最新下载 apple m1](http://vscode.cdn.azure.cn/stable/ee2b180d582a7f601fa6ecfdad8d9fd269ab1884/VSCode-darwin-arm64.zip)
+
+[最新下载 windows](http://vscode.cdn.azure.cn/stable/ee2b180d582a7f601fa6ecfdad8d9fd269ab1884/VSCode-win32-x64-1.76.2.zip)
 
 解压
 
@@ -96,8 +98,8 @@ Desktop 文件
 Name=Visual Studio Code
 Comment=Code Editing. Redefined.
 GenericName=Text Editor
-Exec=/home/opt/VSCode/bin/code --no-sandbox --unity-launch %F
-Icon=/home/opt/VSCode/resources/app/resources/linux/code.png
+Exec=/opt/VSCode/bin/code --no-sandbox --unity-launch %F
+Icon=/opt/VSCode/resources/app/resources/linux/code.png
 Type=Application
 StartupNotify=false
 StartupWMClass=Code
@@ -108,8 +110,8 @@ Keywords=vscode;
 
 [Desktop Action new-empty-window]
 Name=New Empty Window
-Exec=/home/opt/VSCode/bin/code --no-sandbox --unity-launch %F
-Icon=/home/opt/VSCode/resources/app/resources/linux/code.png
+Exec=/opt/VSCode/bin/code --no-sandbox --unity-launch %F
+Icon=/opt/VSCode/resources/app/resources/linux/code.png
 ```
 
 ### 2.2 user.json
@@ -244,8 +246,8 @@ Type=Application
 Name=Postman
 Encoding=UTF-8
 Categories=Development;
-Exec=/home/opt/Postman/app/Postman
-Icon=/home/opt/Postman/app/resources/app/assets/icon.png
+Exec=/opt/Postman/app/Postman
+Icon=/opt/Postman/app/resources/app/assets/icon.png
 Terminal=false
 ```
 
@@ -393,9 +395,9 @@ Type=Application
 Name=DBeaver Community
 GenericName=UniversaL Database Manager
 Comment=Universal Database Manager and SQL Client.
-Path=/home/opt/dbeaver/
-Exec=/home/opt/dbeaver/dbeaver
-Icon=/home/opt/dbeaver/dbeaver.png
+Path=/opt/dbeaver/
+Exec=/opt/dbeaver/dbeaver
+Icon=/opt/dbeaver/dbeaver.png
 Categories=IDE;Development
 WM_CLASS=DBeaver
 StartupWMClass=DBeaver
