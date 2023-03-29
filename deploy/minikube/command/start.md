@@ -340,9 +340,18 @@ Use "minikube options" for a list of global command-line options (applies to all
 ## example
 
 ```bash
-minikube start --driver=docker --container-runtime=containerd --extra-config=kubelet.cgroup-driver=systemd --image-mirror-country='cn'
+minikube start --driver=docker --container-runtime=containerd --image-mirror-country='cn'
+--extra-config=kubelet.cgroup-driver=systemd
 
---container-runtime=The container runtime to be used.
+--driver=驱动
+    defaults to auto-detect
+    virtualbox
+    kvm2
+    qemu2
+    docker
+    podman
+
+--container-runtime=容器运行时
     auto default
     docker
     cri-o

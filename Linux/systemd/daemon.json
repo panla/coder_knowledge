@@ -1,0 +1,10 @@
+{
+    "hosts": [
+        "tcp://0.0.0.0:2375",
+        "unix:///run/docker.sock"
+    ],
+    "pidfile": "/opt/docker/tmp/docker.pid",
+    "exec-root": "/opt/docker/run",
+    "data-root": "/opt/docker/lib",
+    "experimental": true
+}
