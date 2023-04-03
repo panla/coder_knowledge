@@ -3,13 +3,12 @@ import time
 
 
 class Sender:
-    def __init__(self, ip: str, port: int, flag: bool, encoding: str = 'utf-8') -> None:
+    def __init__(self, ip: str, port: int, broadcast: bool = False, encoding: str = 'utf-8') -> None:
         self.addr = (ip, port)
-        self.flag = flag
         self.encoding = encoding
 
         self.client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        if self.flag:
+        if broadcast:
             self.client.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
 
     def work(self):

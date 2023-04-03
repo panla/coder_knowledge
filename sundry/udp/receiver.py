@@ -3,14 +3,21 @@ import time
 
 
 class Server:
-    def __init__(self, ip: str, port: int, flag: bool, buff_size: int = 1024, encoding: str = 'utf-8') -> None:
+    def __init__(
+            self,
+            ip: str,
+            port: int,
+            broadcast: bool = False,
+            buff_size: int = 1024,
+            encoding: str = 'utf-8'
+    ) -> None:
         self.addr = (ip, port)
-        self.flag = flag
         self.buff_size = buff_size
         self.encoding = encoding
 
         self.client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        if self.flag:
+        self.client.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        if broadcast:
             self.client.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
 
     def work(self):

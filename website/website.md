@@ -216,6 +216,7 @@
 - [基础语法50问](https://juejin.cn/post/7160639446612705316)
 - [Golang中make与new有何区别](https://github.com/aceld/golang/blob/main/4%E3%80%81Golang%E4%B8%ADmake%E4%B8%8Enew%E6%9C%89%E4%BD%95%E5%8C%BA%E5%88%AB%EF%BC%9F.md)
 - [Golang中的Defer](https://github.com/aceld/golang/blob/main/7%E3%80%81Golang%E4%B8%AD%E7%9A%84Defer%E5%BF%85%E6%8E%8C%E6%8F%A1%E7%9A%847%E7%9F%A5%E8%AF%86%E7%82%B9.md)
+- [百篇掘金Golang文章](https://juejin.cn/post/6953073994383753223)
 
 ### 8.1 Go Lib
 

@@ -10,16 +10,18 @@ services:
     image: mysql:8.0.29
     container_name: dev_study_mysql_1
     restart: always
-    networks:
-      dev_net:
-        ipv4_address: "172.20.5.3"
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - /etc/timezone:/etc/timezone:ro
-      - ./conf/mysql-1/my.cnf:/etc/my.cnf
-      - ./data/mysql-1/data:/var/lib/mysql
     environment:
       - LC_ALL=C.UTF-8
       - LANG=C.UTF-8
       - MYSQL_DATABASE=example
       - MYSQL_ROOT_PASSWORD=Iz4xHjh3KT5VSx86rMBweA
+    networks:
+      dev_net:
+        ipv4_address: "172.20.5.3"
+    ports:
+      - 3306:3306
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - ./conf/mysql-1/my.cnf:/etc/my.cnf
+      - ./data/mysql-1/data:/var/lib/mysql
