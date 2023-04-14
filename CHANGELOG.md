@@ -4,6 +4,8 @@
 
 ## 2023-04
 
+- 2023-04-14
+  - Add: 增加 RabbitMQ ExchangeType 描述,更新时间同步
 - 2023-04-06
   - Update: Marked Web
 - 2023-04-04
