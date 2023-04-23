@@ -4,6 +4,8 @@
 
 ## 2023-04
 
+- 2023-04-23
+  - Add: 补充 Git Linux HTTP Proxy, Update: 更新默认Nginx.conf
 - 2023-04-18
   - Add: 补充MySQL配置文件
 - 2023-04-14
