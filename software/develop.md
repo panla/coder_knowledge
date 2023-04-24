@@ -153,11 +153,13 @@ Icon=/opt/VSCode/resources/app/resources/linux/code.png
     },
     "go.formatTool": "goformat",
     "python.analysis.inlayHints.functionReturnTypes": true,
-        "[python]": {
+    "[python]": {
         "editor.formatOnType": true
     },
-    "debug.console.fontSize": 13,
-    "terminal.integrated.fontSize": 13
+    "debug.console.fontSize": 14,
+    "terminal.integrated.fontSize": 14,
+    "scm.inputFontSize": 14,
+    "interactiveSession.editor.fontSize": 13
 }
 ```
 
