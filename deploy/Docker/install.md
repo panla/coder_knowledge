@@ -33,7 +33,8 @@ chmod 777 bin/*
   ],
   "pidfile": "/opt/docker/tmp/docker.pid",
   "exec-root": "/opt/docker/run",
-  "data-root": "/opt/docker/lib"
+  "data-root": "/opt/docker/lib",
+  "experimental": true
 }
 ```
 
@@ -41,7 +42,7 @@ chmod 777 bin/*
 
 `/usr/lib/systemd/system/docker.service`
 
-```text
+```conf
 [Unit]
 Description=Docker Application Container Engine
 Documentation=https://docs.docker.com
@@ -90,7 +91,7 @@ WantedBy=multi-user.target
 
 containerd.service
 
-```text
+```conf
 [Unit]
 Description=containerd container runtime
 Documentation=https://containerd.io
@@ -128,11 +129,11 @@ sudo ln -s /opt/docker/bin/* ./
 
 ## path
 
-```text
+```bash
 export PATH="/opt/docker/bin:$PATH"
 ```
 
-```text
+```bash
 cd /usr/local/bin
 
 sudo ln -s /opt/docker/bin/* ./
@@ -145,5 +146,5 @@ sudo apt install apparmor
 ```
 
 ```bash
-docker run -d -p 127.0.0.1:9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce
+docker run -d -p 127.0.0.1:19000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce
 ```
