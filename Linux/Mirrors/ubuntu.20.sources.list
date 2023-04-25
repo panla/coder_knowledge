@@ -1,0 +1,41 @@
+# Ubuntu 20 focal
+# 默认注释了源码镜像以提高 apt update 速度，如有需要可自行取消注释
+
+
+# 清华源
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-updates main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-updates main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-backports main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-backports main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-security main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-security main restricted universe multiverse
+
+
+# 阿里云源
+deb https://mirrors.aliyun.com/ubuntu/ focal main restricted universe multiverse
+# deb-src https://mirrors.aliyun.com/ubuntu/ focal main restricted universe multiverse
+deb https://mirrors.aliyun.com/ubuntu/ focal-updates main restricted universe multiverse
+# deb-src https://mirrors.aliyun.com/ubuntu/ focal-updates main restricted universe multiverse
+deb https://mirrors.aliyun.com/ubuntu/ focal-backports main restricted universe multiverse
+# deb-src https://mirrors.aliyun.com/ubuntu/ focal-backports main restricted universe multiverse
+deb https://mirrors.aliyun.com/ubuntu/ focal-security main restricted universe multiverse
+# deb-src https://mirrors.aliyun.com/ubuntu/ focal-security main restricted universe multiverse
+
+# deb https://mirrors.aliyun.com/ubuntu/ focal-proposed main restricted universe multiverse
+# deb-src https://mirrors.aliyun.com/ubuntu/ focal-proposed main restricted universe multiverse
+
+
+# 华为云源
+deb https://repo.huaweicloud.com/ubuntu/ focal main restricted universe multiverse
+# deb-src https://repo.huaweicloud.com/ubuntu/ focal main restricted universe multiverse
+deb https://repo.huaweicloud.com/ubuntu/ focal-updates main restricted universe multiverse
+# deb-src https://repo.huaweicloud.com/ubuntu/ focal-updates main restricted universe multiverse
+deb https://repo.huaweicloud.com/ubuntu/ focal-backports main restricted universe multiverse
+# deb-src https://repo.huaweicloud.com/ubuntu/ focal-backports main restricted universe multiverse
+deb https://repo.huaweicloud.com/ubuntu/ focal-security main restricted universe multiverse
+# deb-src https://repo.huaweicloud.com/ubuntu/ focal-security main restricted universe multiverse
+
+# deb https://repo.huaweicloud.com/ubuntu/ focal-proposed main restricted universe multiverse
+# deb-src https://repo.huaweicloud.com/ubuntu/ focal-proposed main restricted universe multiverse

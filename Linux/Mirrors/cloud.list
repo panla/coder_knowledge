@@ -1,0 +1,7 @@
+https
+sudo apt-get install ca-certificates
+
+
+阿里云 ECS
+http://mirrors.cloud.aliyuncs.com
+
