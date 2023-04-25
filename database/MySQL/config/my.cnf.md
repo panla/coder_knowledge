@@ -46,6 +46,7 @@ Version: MySQL8.0
 | `long_query_time` | 10 | 超过此值认为是慢查询, 单位: 秒, Max=31536000, Min=0 |  |
 | `slow_query_log` | OFF 0 | 启用慢查询日志 |  |
 | `slow_query_log_file` | host_name-slow.log | 慢查询日志文件 |  |
+| `log_slow_admin_statements` | OFF | 记录写入慢查询日志 | 更改表、分析表、检查表、创建索引、删除索引、优化表和修复表 |
 
 | `max_connections` | 151 | 允许的最大并发客户端数, MAX=100000, MIN=1 | 3000 |
 | `open_files_limit` | 5000 | 操作系统可用于 mysqld 的文件描述符数量, MAX=平台, MIN=0 | 10 + `max_connections` + `table_open_cache` * 2 |
@@ -90,17 +91,21 @@ net_write_timeout = 60
 
 
 # ==========================================================================
-read_only = OFF
-
-
-# ==========================================================================
 # log
 # ==========================================================================
 # error log 开启后不再向 stdout 打印
-# log_error = error.log
+# log_error = /var/log/mysql/error.log
 
 # binlog
-log_bin = master-bin.log
+log_bin = /var/log/mysql/master-bin.log
+# binlog index
+# log_bin_index = /var/log/mysql/master-bin.log.index
+# binlog 模式, DEFAULT=row
+binlog_format = mixed
+# 事务能够使用的最大 binlog 缓存空间 DEFAULT=32K MAX= MIN=4K
+binlog_cache_size = 1M
+# binlog 文件最大空间，达到该大小时切分文件 DEFAULT=1073741824 1G, MAX=1G, MIN=4K
+max_binlog_size = 256M
 # BINLOG 保存时间，秒数
 binlog_expire_logs_seconds = 864000
 
@@ -109,15 +114,34 @@ slow_query_log = ON
 # 慢查询检测时间
 long_query_time = 20
 # 慢查询文件
-slow_query_log_file = slow.log
+slow_query_log_file = /var/log/mysql/slow.log
+# 记录 更改表、分析表、检查表、创建索引、删除索引、优化表和修复表 慢查询
+log_slow_admin_statements = ON
 
 
 # ==========================================================================
-# 数据包
+# relay log
 # ==========================================================================
+relay_log = /var/log/mysql/relay.log
+relay_log = /var/log/mysql/relay.log.index
+# 从库从主库复制的数据写入从库 binlog 日志 DEFAULT=OFF
+log_slave_updates = ON
+# 最大 relay log size DEFAULT=0 MAX=1073741824 1G MIN=0
+max_relay_log_size = 256M
+# 自动清空不再需要的中继日志 DEFAULT=ON
+relay_log_purge = ON
+# 重启 slave 时删除所有 relay log, 通过 SQL 重放的位置点去重新拉取日志 DEFAULT=OFF
+relay_log_recovery = ON
 
-# 数据包最大大小, 单位: 字节, MAX=1073741824 1G, MIN=1024
-max_allowed_packet = 64M
+# ==========================================================================
+# replica
+# ==========================================================================
+# 副本集类型
+replica_parallel_type = LOGICAL_CLOCK
+# 副本worker num
+replica_parallel_workers = 4
+# slave 上 commit 顺序保持一致
+replica_preserve_commit_order = ON
 
 
 # ==========================================================================
@@ -129,21 +153,6 @@ max_connections = 2000
 open_files_limit = 5000
 # 所有线程的打开表数, MAX=524288, MIN=1, max(open_files_limit - 10 - max_connections) / 2, 400), DEFAULT=4000
 table_open_cache = 4000
-
-
-# ==========================================================================
-# InnoDB
-# ==========================================================================
-# 缓冲区 default=128M
-innodb_buffer_pool_size = 256M
-# 异步 I/O 子系统
-# innodb_use_native_aio = NO
-# 读线程数
-innodb_read_io_threads = 16
-# 写线程数
-innodb_write_io_threads = 16
-# 并行查询
-innodb_parallel_read_threads = 16
 
 
 # ==========================================================================
@@ -162,4 +171,56 @@ tmp_table_size = 256M
 # DEFAULT 16M
 max_heap_table_size = 256M
 
+
+# ==========================================================================
+read_only = OFF
+
+
+# ==========================================================================
+# 数据包
+# ==========================================================================
+
+# 数据包最大大小, 单位: 字节, MAX=1073741824 1G, MIN=1024
+max_allowed_packet = 64M
+
+
+# ==========================================================================
+# InnoDB
+# ==========================================================================
+# 缓冲区 default=128M
+innodb_buffer_pool_size = 256M
+# 异步 I/O 子系统
+# innodb_use_native_aio = NO
+# 读线程数
+innodb_read_io_threads = 16
+# 写线程数
+innodb_write_io_threads = 16
+# 并行查询
+innodb_parallel_read_threads = 16
+
+```
+
+slave
+
+```conf
+[mysqld]
+# 从库只读
+read_only = ON
+```
+
+GTID
+
+```conf
+[mysqld]
+# 开启 GTID 同步 DEFAULT=OFF
+gtid_mode = ON
+# 强制事务一致 DEFAULT=OFF
+enforce_gtid_consistency = ON
+# 在MySQL启动或重启时搜索GTID时, binlog迭代方式 DEFAULT=ON
+binlog_gtid_simple_recovery = ON
+```
+
+```sql
+create user 'repuser'@'%' identified by 'repuser123';
+grant replication slave on *.* to 'repuser'@'%';
 ```

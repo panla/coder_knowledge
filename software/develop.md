@@ -79,13 +79,13 @@ cwm-plugin  cwm-plugin-projector  editorconfig  github  markdown  space  svn4ide
 
 V1.76.2
 
-[默认](https://az764295.vo.msecnd.net/stable/7f329fe6c66b0f86ae1574c2911b681ad5a45d63/code-stable-x64-1680085833.tar.gz)
+[默认](https://az764295.vo.msecnd.net/stable/704ed70d4fd1c6bd6342c436f1ede30d1cff4710/code-stable-x64-1681293081.tar.gz)
 
-[最新下载 linux-86-64](https://vscode.cdn.azure.cn/stable/7f329fe6c66b0f86ae1574c2911b681ad5a45d63/code-stable-x64-1680085833.tar.gz)
+[最新下载 linux-86-64](https://vscode.cdn.azure.cn/stable/704ed70d4fd1c6bd6342c436f1ede30d1cff4710/code-stable-x64-1681293081.tar.gz)
 
-[最新下载 apple m1](http://vscode.cdn.azure.cn/stable/7f329fe6c66b0f86ae1574c2911b681ad5a45d63/VSCode-darwin-arm64.zip)
+[最新下载 apple m1](http://vscode.cdn.azure.cn/stable/704ed70d4fd1c6bd6342c436f1ede30d1cff4710/VSCode-darwin-arm64.zip)
 
-[最新下载 windows](http://vscode.cdn.azure.cn/stable/7f329fe6c66b0f86ae1574c2911b681ad5a45d63/VSCode-win32-x64-1.77.0.zip)
+[最新下载 windows](http://vscode.cdn.azure.cn/stable/704ed70d4fd1c6bd6342c436f1ede30d1cff4710/VSCode-win32-x64-1.77.3.zip)
 
 解压
 
