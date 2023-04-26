@@ -246,6 +246,10 @@
 
 - [halfrost LeetCode CookBook](https://books.halfrost.com/leetcode/)
 
+### 9.5 Go Book
+
+- [陈剑煜（煎鱼）Go语言编程之旅](https://golang2.eddycjy.com/)
+
 ## 10 study
 
 ### 10.0 大集合
