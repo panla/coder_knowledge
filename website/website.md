@@ -216,6 +216,10 @@
 - [uvicorn](https://www.uvicorn.org/)
 - [anyio](https://anyio.readthedocs.io/en/stable/)
 
+### 8.8 Py LeetCode
+
+- [itcharge LeetCode CookBook](https://algo.itcharge.cn/)
+
 ## 9 Golang
 
 ### 9.0 Golang 相关
@@ -240,7 +244,7 @@
 
 ### 9.4 Go LeetCode
 
-- [LeetCode CookBook](https://books.halfrost.com/leetcode/)
+- [halfrost LeetCode CookBook](https://books.halfrost.com/leetcode/)
 
 ## 10 study
 

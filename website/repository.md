@@ -96,5 +96,6 @@
 | piccolo_api | <https://github.com/piccolo-orm/piccolo_api> |  |
 | start-fastapi | <https://github.com/utmhikari/start-fastapi> |  |
 | LeetCode-Halfrost | <https://books.halfrost.com/leetcode/> | Golang LeetCode |
-| LeetCode-Halfrost | <https://github.com/halfrost/LeetCode-Go> | Golang LeetCode |
+| LeetCode-Halfrost LeetCode-Go | <https://github.com/halfrost/LeetCode-Go> | Golang LeetCode |
+| itcharge LeetCode-Py | <https://github.com/itcharge/LeetCode-Py> | Python LeetCode |
 | aceld | <https://github.com/aceld/golang> | 刘丹冰 Golang |

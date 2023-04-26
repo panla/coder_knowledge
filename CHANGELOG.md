@@ -4,6 +4,8 @@
 
 ## 2023-04
 
+- 2023-04-26
+  - Add: 补充Go Py LeetCode
 - 2023-04-25
   - Add: 补充Linux源
   - Add: 补充MySQL配置和主从配置
