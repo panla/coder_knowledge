@@ -4,6 +4,8 @@
 
 ## 2023-04
 
+- 2023-04-27
+  - Add & Fix: 修复错别字，补充Go channel
 - 2023-04-26
   - Add: 补充Go Py LeetCode
   - Add: 补充Go Book
