@@ -51,7 +51,7 @@ db.dropDatabase
 ```text
 db.collection.xxx
 
-show collstions
+show collections
 db.createCollection(name, options)
 db.students.drop()
 ```
@@ -68,23 +68,23 @@ db.students.ensureIndex({name: 1}, {unique: false})
 ### 数据类型
 
 ```text
-string 字符串 UTF-8
+string     字符串 UTF-8
 
-integer 整数
-long 64 位整数
-double 双精度，浮点值
+integer    整数
+long       64 位整数
+double     双精度，浮点值
 decimal
 
-boolean 布尔
-null 空值
+boolean    布尔
+null       空值
 
-timestamp 时间戳
-date 日期，以UNIX存储 64位整数，代表自Unix纪元（1970年1月1日）以来的毫秒数
+timestamp  时间戳
+date       日期，以UNIX存储 64位整数，代表自Unix纪元（1970年1月1日）以来的毫秒数
 
-array 数组，把数组/列表/多个值存入一个键中
+array      数组，把数组/列表/多个值存入一个键中
 binary data 二进制数据
 
-object 对象，嵌入式文档
+object     对象，嵌入式文档
 objectid
 
 max min keys 最大最小键，将值与最低最高BSON元素进行比较
