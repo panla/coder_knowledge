@@ -11,7 +11,9 @@ def bucket_sort(lis: list):
     max_value = max(lis)
     min_value = min(lis)
     bucket = [0] * (max_value + 1)
-    ret = []
+
+    # 最终结果
+    ret = list()
 
     for v in lis:
         bucket[v] += 1

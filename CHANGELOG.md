@@ -6,6 +6,7 @@
 
 - 2023-05-06
   - Update: 更新雪花算法实现，更新 init-project.sh
+  - Update: 去除文档中多余空格
 - 2023-05-05
   - Update: 更新PGSQL默认配置,mongo文档错误
 - 2023-05-04

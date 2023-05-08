@@ -23,7 +23,7 @@ def quick_sort(lis: int):
     length = len(lis)
     if length <= 1:
         return lis
-    
+
     key = lis[(length >> 1)]
     left = [i for i in lis if i < key]
     right = [i for i in lis if i > key]
@@ -42,7 +42,7 @@ if __name__ == '__main__':
     lis_1 = [i for i in range(100000)]
     random.shuffle(lis_1)
     main(lis_1)
-    
+
     print('快速排序，10000')
     lis_2 = [i for i in range(10000)]
     random.shuffle(lis_2)

@@ -21,31 +21,32 @@ def cal_time(func):
 
 
 @cal_time
+def func(lis: list):
+    length = len(lis)
+    if length <= 1:
+        return lis
+
+    for i in range(1, length):
+        j = i
+
+        while j >= 1 and lis[j] < lis[j - 1]:
+            lis[j], lis[j - 1] = lis[j - 1], lis[j]
+            j -= 1
+    return lis
+
+
+@cal_time
 def func_2(lis: list):
     length = len(lis)
     if length <= 1:
         return lis
+
     for i in range(1, length):
         for j in range(i, 0, -1):
             if lis[j] < lis[j - 1]:
                 lis[j], lis[j - 1] = lis[j - 1], lis[j]
             else:
                 break
-    return lis
-
-
-@cal_time
-def func(lis: list):
-    length = len(lis)
-    if length <= 1:
-        return lis
-    
-    for i in range(1, length):
-        j = i
-        
-        while j >= 1 and lis[j] < lis[j - 1]:
-            lis[j], lis[j - 1] = lis[j - 1], lis[j]
-            j -= 1
     return lis
 
 

@@ -31,6 +31,7 @@ def func(lis: list):
         for j in range(index + 1, length):
             if lis[j] < lis[min_index]:
                 min_index = j
+
         if index != min_index:
             lis[index], lis[min_index] = lis[min_index], lis[index]
     return lis

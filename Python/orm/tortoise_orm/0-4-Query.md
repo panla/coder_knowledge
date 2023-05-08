@@ -149,7 +149,7 @@ await Team.filter(created_at__day=5)
 
 ## annotate Aggregates functions
 
-### annotate functionms
+### annotate functions
 
 函数对 Field 的每个实例应用转换。
 
