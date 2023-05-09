@@ -4,6 +4,8 @@
 
 ## 2023-05
 
+- 2023-05-09
+  - Update: 补充完善 data_structure/线性表.md
 - 2023-05-06
   - Update: 更新雪花算法实现，更新 init-project.sh
   - Update: 去除文档中多余空格
