@@ -20,7 +20,7 @@ class DvdPowerOn(FsmState):
 class DvdPlaying(FsmState):
 
     def enter(self, event, fsm):
-        print('play and dvd is goding to play')
+        print('play and dvd is going to play')
 
     def exit(self, fsm):
         print('stop play and dvd stop play')
@@ -77,7 +77,7 @@ Transaction = namedtuple(
     'Transaction', ['pre_state', 'event', 'next_state']
 )
 
-class FsmExecption(Exception):
+class FsmException(Exception):
     def __init__(self, *args: object) -> None:
         super().__init__(*args)
 
@@ -93,11 +93,11 @@ class FSM:
         self.current_state = None
         self.working_state = FsmState
 
-    def add_gloabl_transaction(self, event, end_state):
+    def add_global_transaction(self, event, end_state):
         """全局转换，直接进入到结束状态"""
 
         if not issubclass(end_state, FsmFinalState):
-            raise FsmExecption('The state should be FsmFinalState')
+            raise FsmException('The state should be FsmFinalState')
         transaction = Transaction(pre_state=self.working_state, event=event, next_state=end_state)
         self.GLOBAL_TRANSACTION_TABLE.append(transaction)
 
@@ -110,7 +110,7 @@ class FSM:
         """
 
         if issubclass(pre_state, FsmFinalState):
-            raise FsmExecption('It`s not allowed to add transaction after Final State Node')
+            raise FsmException('It`s not allowed to add transaction after Final State Node')
         self.STATE_TRANSACTION_TABLE.append(Transaction(pre_state=pre_state, event=event, next_state=next_state))
 
     def process_event(self, event: FsmEvent):
@@ -120,7 +120,7 @@ class FSM:
             event (FsmEvent): 事件
 
         Raises:
-            FsmExecption: 异常
+            FsmException: 异常
         """
 
         for transaction in self.GLOBAL_TRANSACTION_TABLE:
@@ -129,6 +129,7 @@ class FSM:
                 self.current_state.enter(event, self)
                 self.clear_transaction_table()
                 return
+
         for transaction in self.STATE_TRANSACTION_TABLE:
             if isinstance(self.current_state, transaction.pre_state) and isinstance(event, transaction.event):
                 self.current_state.exit(self.context)
@@ -137,7 +138,8 @@ class FSM:
                 if isinstance(self.current_state, FsmFinalState):
                     self.clear_transaction_table()
                 return
-        raise FsmExecption('Transaction not found')
+
+        raise FsmException('Transaction not found')
 
     def clear_transaction_table(self):
         """清除当前转换表"""
@@ -198,13 +200,13 @@ power off and dvd is power off
 11111111111111111111
 power on and dvd is power on
 22222222222222222222
-play and dvd is goding to play
+play and dvd is going to play
 33333333333333333333
 stop play and dvd stop play
 pause and dvd is going to pause
 44444444444444444444
 stop pause and dvd is stopped pause
-play and dvd is goding to play
+play and dvd is going to play
 55555555555555555555
 stop play and dvd stop play
 power off and dvd is power off
