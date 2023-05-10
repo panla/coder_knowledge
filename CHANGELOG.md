@@ -7,6 +7,7 @@
 - 2023-05-10
   - Update: 优化IDWorker
   - Update: 优化 bitmap.py
+  - Fix: 修复Redis连接池单例使用
 - 2023-05-09
   - Update: 补充完善 data_structure/线性表.md
 - 2023-05-06

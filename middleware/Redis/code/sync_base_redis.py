@@ -28,26 +28,24 @@ REDIS_CONNECTION_PARAMS = {
     'username': RedisConfig.USER
 }
 
+def singleton(cls):
+    _instance = dict()
 
+    def inner(*args, **kwargs):
+        if cls not in _instance:
+            _instance[cls] = cls(*args, **kwargs)
+        return _instance[cls]
+
+    return inner
+
+
+@singleton
 class Pool:
-    cache: Dict[str, ConnectionPool] = dict()
-    instance = None
-
-    def __init__(self, db: str = '0') -> None:
-        self.db = db
-
-    def __new__(cls, db: str = '0'):
-
-        if not cls.instance:
-            cls.instance = super().__new__(cls)
-
-        if not cls.cache.get(db):
-            cls.instance.cache[db] = ConnectionPool(db=db, **REDIS_CONNECTION_PARAMS)
-
-        return cls.instance
+    def __init__(self, db: int = 0) -> None:
+        self.db = ConnectionPool(db=db, **REDIS_CONNECTION_PARAMS)
 
     def pool(self):
-        return self.cache.get(str(self.db))
+        return self.db
 
 
 class BaseRedis(object):
@@ -57,7 +55,7 @@ class BaseRedis(object):
     def __init__(self) -> None:
         self._name = None
 
-        self.client: Redis = Redis(connection_pool=Pool(str(self.DB)).pool())
+        self.client: Redis = Redis(connection_pool=Pool(self.DB).pool())
 
     @property
     def name(self):
