@@ -40,8 +40,8 @@ def func(lis: list):
 
 
 if __name__ == '__main__':
-    print('希尔排序，100000')
-    lis = [i for i in range(100000)]
+    print('希尔排序，10000')
+    lis = [i for i in range(10000)]
     random.shuffle(lis)
     func(lis)
 
@@ -49,3 +49,8 @@ if __name__ == '__main__':
     lis_1 = [i for i in range(30)]
     random.shuffle(lis_1)
     print(func(lis_1))
+
+    print('希尔排序，100000')
+    lis_2 = [i for i in range(100000)]
+    random.shuffle(lis_2)
+    func(lis_2)

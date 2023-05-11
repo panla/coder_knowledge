@@ -38,10 +38,6 @@ def main(lis):
 
 if __name__ == '__main__':
 
-    print('快速排序，100000')
-    lis_1 = [i for i in range(100000)]
-    random.shuffle(lis_1)
-    main(lis_1)
 
     print('快速排序，10000')
     lis_2 = [i for i in range(10000)]
@@ -52,3 +48,8 @@ if __name__ == '__main__':
     lis_3 = [i for i in range(30)]
     random.shuffle(lis_3)
     print(main(lis_3))
+
+    print('快速排序，100000')
+    lis_1 = [i for i in range(100000)]
+    random.shuffle(lis_1)
+    main(lis_1)

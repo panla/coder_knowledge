@@ -97,8 +97,8 @@ def m_main_2(lis, function, low, high):
 
 
 if __name__ == '__main__':
-    print('归并排序，100000')
-    lis_1 = [i for i in range(100000)]
+    print('归并排序，10000')
+    lis_1 = [i for i in range(10000)]
     random.shuffle(lis_1)
     m_main_1(lis_1, merge_sort_1)
 
