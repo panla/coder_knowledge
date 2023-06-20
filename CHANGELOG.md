@@ -6,6 +6,7 @@
 
 - 2023-06-20
   - Update: 补充Gin取值
+  - Rename: web/Gin/3-中间件.md -> web/Gin/3-自定义.md
 - 2023-06-12
   - Add: 补充Gin学习总结
 
