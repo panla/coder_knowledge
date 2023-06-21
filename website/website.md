@@ -229,17 +229,27 @@
 - [Golang中make与new有何区别](https://github.com/aceld/golang/blob/main/4%E3%80%81Golang%E4%B8%ADmake%E4%B8%8Enew%E6%9C%89%E4%BD%95%E5%8C%BA%E5%88%AB%EF%BC%9F.md)
 - [Golang中的Defer](https://github.com/aceld/golang/blob/main/7%E3%80%81Golang%E4%B8%AD%E7%9A%84Defer%E5%BF%85%E6%8E%8C%E6%8F%A1%E7%9A%847%E7%9F%A5%E8%AF%86%E7%82%B9.md)
 - [百篇掘金Golang文章](https://juejin.cn/post/6953073994383753223)
+- [Go使用validator校验数据](https://juejin.cn/post/6847902214279659533)
+- [一文掌握 Go 并发模式 Context 上下文](https://juejin.cn/post/7233981178101186619)
 
 ### 9.1 Go Lib
 
 - [paho,mqtt.golang](https://github.com/eclipse/paho.mqtt.golang)
+- [logurus](ghttps://ithub.com/sirupsen/logrus)
+- [redis v9](https://github.com/redis/go-redis/v9)
+- [toml v2](https://github.com/pelletier/go-toml/v2)
+- [go-file-rotatelogs](https://github.com/lestrrat/go-file-rotatelogs)
+- [uuid](github.com/google/uuid)
 
 ### 9.2 Go ORM
 
 - [gorm](https://gorm.io/zh_CN/docs/index.html)
+- [gorm mysql](https://gorm.io/driver/mysql)
+- [go-sql-driver mysql](https://github.com/go-sql-driver/mysql)
 
 ### 9.3 Go Web
 
+- [gin](github.com/gin-gonic/gin)
 - [Go Gin 简明教程](https://geektutu.com/post/quick-go-gin.html)
 
 ### 9.4 Go LeetCode
@@ -276,3 +286,4 @@
 ### 10.3 数据结构
 
 - [B树](https://juejin.cn/post/7174639541272199226)
+- [一文彻底搞懂MySQL基础：B树和B+树的区别](https://blog.csdn.net/a519640026/article/details/106940115)

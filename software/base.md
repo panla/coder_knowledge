@@ -180,7 +180,7 @@ sudo apt install fzf
 cd .oh-my-zsh/custom/plugins
 git clone git@gitee.com:pankla/zsh-autosuggestions.git
 git clone git@gitee.com:pankla/zsh-syntax-highlighting.git
-git clone https://github.com/zsh-users/zsh-history-substring-search
+git clone git@gitee.com:pankla/zsh-history-substring-search.git
 ```
 
 ### 4.2 插件

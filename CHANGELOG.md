@@ -4,6 +4,8 @@
 
 ## 2023-06
 
+- 2023-06-21
+  - Update: 更新收集网址
 - 2023-06-20
   - Update: 补充Gin取值
   - Rename: web/Gin/3-中间件.md -> web/Gin/3-自定义.md
