@@ -1,6 +1,6 @@
 # search 2
 
-[toc]
+[TOC]
 
 ## collapse
 

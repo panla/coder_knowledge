@@ -1,6 +1,6 @@
 # models
 
-[toc]
+[TOC]
 
 ## usages
 

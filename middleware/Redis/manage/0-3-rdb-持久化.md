@@ -1,6 +1,6 @@
 # Redis 持久化 RDB
 
-[toc]
+[TOC]
 
 ## RDB
 

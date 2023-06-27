@@ -1,6 +1,6 @@
 # 获取 openid
 
-[toc]
+[TOC]
 
 ## 网页授权获取用户 openid
 

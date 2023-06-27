@@ -1,6 +1,6 @@
 # settings
 
-[toc]
+[TOC]
 
 ## `REST_FRAMEWORK`
 

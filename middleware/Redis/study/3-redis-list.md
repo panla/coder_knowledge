@@ -1,6 +1,6 @@
 # use Redis List
 
-[toc]
+[TOC]
 
 ## usage
 

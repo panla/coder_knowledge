@@ -1,6 +1,6 @@
 # install
 
-[toc]
+[TOC]
 
 ## download
 

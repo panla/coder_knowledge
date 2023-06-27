@@ -1,6 +1,6 @@
 # BASE
 
-[toc]
+[TOC]
 
 ## 0
 

@@ -1,6 +1,6 @@
 # README
 
-[toc]
+[TOC]
 
 ## 0 doc
 

@@ -1,6 +1,6 @@
 # Screen
 
-[toc]
+[TOC]
 
 ## 1
 

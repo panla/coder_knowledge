@@ -1,6 +1,6 @@
 # command
 
-[toc]
+[TOC]
 
 ## 1 go
 

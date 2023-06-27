@@ -1,6 +1,6 @@
 # SQLAlchemy
 
-[toc]
+[TOC]
 
 ## 参考
 

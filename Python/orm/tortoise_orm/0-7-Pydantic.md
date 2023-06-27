@@ -1,6 +1,6 @@
 # Tortoise-orm 结合 Pydantic
 
-[toc]
+[TOC]
 
 ## 参考
 

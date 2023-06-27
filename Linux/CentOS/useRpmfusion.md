@@ -1,6 +1,6 @@
 # rpmfusion
 
-[toc]
+[TOC]
 
 ## 安装
 

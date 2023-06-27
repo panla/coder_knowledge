@@ -1,6 +1,6 @@
 # 配置
 
-[toc]
+[TOC]
 
 ## config files
 

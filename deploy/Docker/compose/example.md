@@ -1,6 +1,6 @@
 # docker-compose 示例
 
-[toc]
+[TOC]
 
 ## 示例
 

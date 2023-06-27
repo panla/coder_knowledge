@@ -1,6 +1,6 @@
 # dpkg
 
-[toc]
+[TOC]
 
 ## 1
 

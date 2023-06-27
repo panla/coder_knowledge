@@ -1,6 +1,6 @@
 # use Redis Set
 
-[toc]
+[TOC]
 
 ## usage
 

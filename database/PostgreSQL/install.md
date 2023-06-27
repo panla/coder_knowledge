@@ -1,6 +1,6 @@
 # PostgreSQL 安装
 
-[toc]
+[TOC]
 
 ## 下载源码
 

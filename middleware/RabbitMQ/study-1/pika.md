@@ -1,6 +1,6 @@
 # pika
 
-[toc]
+[TOC]
 
 ## task example
 

@@ -1,6 +1,6 @@
 # 进阶
 
-[toc]
+[TOC]
 
 ## code_utils
 
@@ -63,18 +63,19 @@
 
 - APINTO
 - APIFIX
-- ElasticSearch
-- EMQX
-- HAProxy
-- Kafka
-- Keepalived
-- Kong
-- Nebula Graph
-- Neo4j
-- Nginx
-- RabbitMQ
-- Redis
-- RocketMQ
+- Kong 网关，反向代理
+- Nginx 反向代理
+- ElasticSearch 搜索
+- Flink 实时计算
+- HAProxy 高可用
+- Keepalived 高可用
+- Nebula Graph 图数据库
+- Neo4j 图数据库
+- Redis 内存数据库
+- EMQX MQTT中间件
+- Kafka 消息队列中间件
+- RabbitMQ 消息队列中间件
+- RocketMQ 消息队列中间件
 
 ## Python
 
@@ -115,6 +116,7 @@
 - FastAPI
 - Flask
 - Funboost
+- Gin
 - gRPC
 - zeroMQ
 - web server

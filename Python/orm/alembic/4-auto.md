@@ -1,6 +1,6 @@
 # Autogenerate
 
-[toc]
+[TOC]
 
 ## 将检测
 

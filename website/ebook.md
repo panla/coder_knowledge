@@ -1,6 +1,6 @@
 # eBook
 
-[toc]
+[TOC]
 
 ## 1 Golang
 

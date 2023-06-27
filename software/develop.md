@@ -1,6 +1,6 @@
 # software
 
-[toc]
+[TOC]
 
 ## 0
 

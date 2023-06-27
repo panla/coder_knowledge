@@ -1,6 +1,6 @@
 # Router 读写
 
-[toc]
+[TOC]
 
 ## 参考
 

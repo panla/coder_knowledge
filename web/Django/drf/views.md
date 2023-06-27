@@ -1,6 +1,6 @@
 # views
 
-[toc]
+[TOC]
 
 ## APIView
 

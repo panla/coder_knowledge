@@ -1,6 +1,6 @@
 # Query
 
-[toc]
+[TOC]
 
 ## 参考
 

@@ -1,6 +1,6 @@
 # Cypher
 
-[toc]
+[TOC]
 
 ## 1 Patterns
 

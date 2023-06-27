@@ -1,6 +1,6 @@
 # Create
 
-[toc]
+[TOC]
 
 ## doc
 

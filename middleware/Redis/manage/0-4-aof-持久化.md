@@ -1,6 +1,6 @@
 # Redis 持久化 AOF
 
-[toc]
+[TOC]
 
 ## 逻辑
 

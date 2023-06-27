@@ -1,6 +1,6 @@
 # MongoDB
 
-[toc]
+[TOC]
 
 ## 下载安装
 

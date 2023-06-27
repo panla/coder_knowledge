@@ -1,6 +1,6 @@
 # Linux-Windows
 
-[toc]
+[TOC]
 
 ## 使用 windows 平台或者替代软件
 

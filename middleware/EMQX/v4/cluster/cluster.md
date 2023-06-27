@@ -1,6 +1,6 @@
 # cluster
 
-[toc]
+[TOC]
 
 ## 0 原有数据问题
 

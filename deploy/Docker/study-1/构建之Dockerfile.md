@@ -1,6 +1,6 @@
 # Dockerfile 命令
 
-[toc]
+[TOC]
 
 镜像构建文件
 

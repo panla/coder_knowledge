@@ -1,6 +1,6 @@
 # B+Tree
 
-[toc]
+[TOC]
 
 B-Tree变种，多路平衡树
 

@@ -1,6 +1,6 @@
 # Redis config
 
-[toc]
+[TOC]
 
 ## 配置项
 

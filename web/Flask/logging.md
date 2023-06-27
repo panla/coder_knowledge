@@ -1,6 +1,6 @@
 # Flask 项目日志记录
 
-[toc]
+[TOC]
 
 ## logger handle 配置
 

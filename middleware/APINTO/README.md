@@ -1,6 +1,6 @@
 # APINTO
 
-[toc]
+[TOC]
 
 ## 0
 

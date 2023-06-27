@@ -1,6 +1,6 @@
 # use Redis Hash
 
-[toc]
+[TOC]
 
 ## usage
 

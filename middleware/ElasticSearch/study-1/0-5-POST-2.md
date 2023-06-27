@@ -1,6 +1,6 @@
 # 特别参数
 
-[toc]
+[TOC]
 
 ## _update
 

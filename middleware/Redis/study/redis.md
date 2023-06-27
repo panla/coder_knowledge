@@ -1,6 +1,6 @@
 # use Redis
 
-[toc]
+[TOC]
 
 ## 参考文档
 

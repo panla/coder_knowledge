@@ -1,6 +1,6 @@
 # use Redis String
 
-[toc]
+[TOC]
 
 ## usage
 

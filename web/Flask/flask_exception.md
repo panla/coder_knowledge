@@ -1,6 +1,6 @@
 # Flask Log
 
-[toc]
+[TOC]
 
 ## code
 

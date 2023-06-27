@@ -1,6 +1,6 @@
 # Aerich 迁移
 
-[toc]
+[TOC]
 
 ## 参考
 

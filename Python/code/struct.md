@@ -1,6 +1,6 @@
 # struct 模块
 
-[toc]
+[TOC]
 
 ## doc
 

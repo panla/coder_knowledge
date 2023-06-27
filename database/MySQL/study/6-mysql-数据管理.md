@@ -1,6 +1,6 @@
 # MySQL DML
 
-[toc]
+[TOC]
 
 ## insert
 

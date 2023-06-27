@@ -1,6 +1,6 @@
 # Nginx SSL 证书配置
 
-[toc]
+[TOC]
 
 ## doc
 

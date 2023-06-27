@@ -1,6 +1,6 @@
 # 序列器
 
-[toc]
+[TOC]
 
 ## quick
 

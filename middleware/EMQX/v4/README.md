@@ -1,6 +1,6 @@
 # README
 
-[toc]
+[TOC]
 
 ## 1 容器配置
 

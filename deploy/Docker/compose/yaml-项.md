@@ -1,6 +1,6 @@
 # Docker-compose YAML
 
-[toc]
+[TOC]
 
 ## YAML 模板
 

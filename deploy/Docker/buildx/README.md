@@ -1,6 +1,6 @@
 # buildx
 
-[toc]
+[TOC]
 
 docker buildx
 

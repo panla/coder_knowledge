@@ -1,6 +1,6 @@
 # install
 
-[toc]
+[TOC]
 
 <https://wiki.ros.org/cn/melodic/Installation/Ubuntu>
 
