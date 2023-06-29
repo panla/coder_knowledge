@@ -28,25 +28,19 @@ InnoDB
 
 MyISAM
 
-| 项目 | InnoDB | MyISAM |
-| :-: | :-: | :-: |
-| 事务支持 | 支持 | 不支持 |
-| 锁定 |  | 表级锁定 |
-| 读写阻塞 |  | 读写阻塞 |
-| 外键 | 支持 | 不支持 |
-| 全文索引 | 支持 | 支持 |
-| 缓存 | 会缓存数据 | 不缓存数据 |
-|  |  |  |
-
 ## 4 索引失效
 
 - 联合索引没有使用左列字段
 - like 以 % 开头
-- 需要类型转换
-- where 中索引列需要运算
-- where 中索引列使用函数
-- 数据量较少，全表扫描更快
 - or 时需要全都有索引
+- in, not in
+- 避免字段开头模糊查询
+- 尽量非空，避免null值判断
+- 需要类型转换
+- WHERE 中索引列需要运算(等号左侧)
+- WHERE 中索引列使用函数(等号左侧)
+- 数据量较少，全表扫描更快
+- ORDER BY 条件与WHERE不一致
 
 ## 5 索引使用注意事项
 
@@ -56,12 +50,149 @@ MyISAM
 - 唯一性差的字段
 - 不涉及到查询的字段
 - 索引使用不等于符号 <>
+- 覆盖索引
 
 ## 6 SQL语句优化
 
+- 减少IO次数，IO数据量
+
+```sql
+SELECT DISTINCT <list> FROM <table>
+<JOIN TYPE> JOIN <right table> ON <left.id=right.id>
+WHERE <condition>
+GROUP BY <list>
+HAVING <condition>
+ORDER BY <condition>
+LIMIT <num> 
+OFFSET <num>
+
+FROM <table>
+ON <left.id=right.id>
+<JOIN TYPE> JOIN <right table>
+WHERE <condition>
+GROUP BY <list>
+HAVING <condition>
+SELECT DISTINCT <list>
+ORDER BY <condition>
+LIMIT <num> 
+OFFSET <num>
+```
+
+### 6.1 避免使用 SELECT *
+
+控制查询的字段，避免浪费资源(内存，cpu，网络)
+
+SELECT * 容易产生回表
+
+### 6.2 使用 union all 代替 union
+
+union可以获取 排重后的数据，union all可以获取所有数据包含重复数据
+
+排重过程需要遍历，排序，比较，更为耗费时间，资源
+
+### 6.3 避免索引失效
+
+### 6.4 小表驱动大表
+
+```sql
+SELECT id FROM orders 
+WHERE orders.user_id in (SELECT id FROM users WHERE users.status=1)
+
+SELECT id FROM orders 
+WHERE exists (SELECT 1 FROM users WHERE orders.user_id = users.id AND users.status=1)
+```
+
+in 适合左大表，右小表，优先执行in里的子查询，如果in里的数据量少，速度会较快
+
+exists 适合左小表，右大表，先查询左边语句，作为条件去和右边语句匹配
+
+### 6.5 批量操作
+
+批量插入
+
+### 6.6 LIMIT
+
+限制返回条数
+
+按照 `user_id` 查找最早一条
+
+```sql
+SELECT id FROM orders 
+WHERE orders.user_id = {user_id} 
+ORDER BY orders.created_at ASC 
+LIMIT 1;
+```
+
+统计有无
+
+```sql
+SELECT 1 FROM orders 
+WHERE xxx 
+LIMIT 1'
+
+```
+
+### 6.7 优化分页
+
+需要id连续
+
+```sql
+SELECT id FROM users 
+LIMIT 100000 OFFSET 20;
+
+-- 换成
+SELECT id FROM users 
+WHERE id BETWEEN 100000 AND 100020;
+-- BETWEEN 需要在唯一索引上分页
+
+SELECT id FROM users 
+WHERE id > 100000 LIMIT 20;
+```
+
+### 6.8 连接查询子查询
+
+- 子查询：简单，结构化，创建删除临时表
+
+```sql
+SELECT o.id FROM orders o
+INNER JOIN users u ON o.user_id = u.id
+WHERE 
+```
+
+left join 时选择小表驱动大表
+
+### 6.9 控制索引数量
+
+索引过多，占用存储空间。影响写操作性能
+
+### 6.10 选择合适的字段类型
+
+- char varchar
+- 能用数字不用字符串
+- 尽可能小的类型 bit, tiny
+- 金额 decimal
+
+### 6.10 分组查询
+
+```sql
+SELECT orders.user_id, COUNT(orders.id) FROM orders
+GROUP BY orders.user_id
+HAVING orders.user_id  <= 200;
+-- 把所有订单分组后，再找到user_id<=200
+
+-- 改为
+
+-- 先找到user_id<=200，再分组
+SELECT orders.user_id, COUNT(orders.id) FROM orders
+WHERE orders.user_id  <= 200
+GROUP BY orders.user_id;
+```
+
+### 6.11 explain 索引优化
+
 ## 7 慢查询
 
-配置中开启慢查询
+配置中开启慢查询 `slow_query_log` `long_query_time=2` 2秒
 
 分析慢查询日志
 
@@ -75,28 +206,26 @@ MyISAM
 
 explain 内容
 
-```text
-id select_id 该语句唯一标识
-select_type 查询类型
-    simple 简单查询，未使用union或子查询
-    union
-    subquery 子查询
-    derived
+- id 该语句select唯一标识
+- select_type 查询类型
+  - simple 简单查询，未使用union或子查询
+  - union
+  - subquery 子查询
+  - derived
+- table 查询的表名
+- partitions 匹配的分区
+- type access_type 连接类型
+  - system 只有一行
+  - const 主键或唯一索引
+- possible_keys 可能的索引选择
+- key 实际选择的索引
+- key_len 实际索引长度
+- ref 与索引比较的列，索引的哪一列被引用了
+- rows 估计要扫描的行
+- filtered 符合查询条件的数据百分比
+- extra 附加信息
 
-table table 查询的表名
-partitions 匹配的分区
-type access_type 联接类型
-    system 只有一行
-    const 主键或唯一索引
-possible_keys 可能的索引选择
-key 实际选择的索引
-key_len 索引长度
-ref 索引的哪一列被引用了
-rows 估计要扫描的行
-filtered 符合查询条件的数据百分比
-```
-
-## 9 group by, order by, having, limit, offset
+## 9 GROUP BY, ORDER BY, HAVING, LIMIT, OFFSET, BETWEEN AND, LIKE
 
 ### 9.1 分组
 
@@ -108,6 +237,28 @@ filtered 符合查询条件的数据百分比
 
 ## 10 char varchar 区别
 
+- 1 char固定长度，varchar可变长度
+- 2 填充
+  - char右侧填充空格
+  - varchar不填充
+- 3 长度限制
+  - char 255字符以内
+  - varchar 65535字节以内，单条数据varchar总和限制
+
 ## 11 事务
 
 ### 11.1 事务四大特性
+
+- 原子性：
+  - 不可分割，全部成功或全部失败
+  - 一起成功，一起失败
+  - 事务提交，事务回滚
+- 一致性：
+  - 事务必须使数据库从一个一致性状态变换到另一个一致性状态
+  - 事务按照预期生效，数据的状态是预期的状态
+  - 事务前后，数据的状态确保一致
+- 隔离性：
+  - 多个事务并发彼此不干扰
+  - 一个事务未提交，另一个事务不能读取未提交的书就
+- 持久性：
+  - 事务提交后数据的改变持久化保存

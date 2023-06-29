@@ -4,6 +4,8 @@
 
 ## 2023-06
 
+- 2023-06-29
+  - Update: Interview/MySQL, README
 - 2023-06-28
   - Add: Interview
 - 2023-06-28
