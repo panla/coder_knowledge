@@ -32,15 +32,15 @@ MyISAM
 
 - 联合索引没有使用左列字段
 - like 以 % 开头
+- 避免字段开头模糊查询
 - or 时需要全都有索引
 - in, not in
-- 避免字段开头模糊查询
 - 尽量非空，避免null值判断
-- 需要类型转换
 - WHERE 中索引列需要运算(等号左侧)
 - WHERE 中索引列使用函数(等号左侧)
-- 数据量较少，全表扫描更快
+- WHERE 中索引列需要类型转换
 - ORDER BY 条件与WHERE不一致
+- 数据量较少，全表扫描更快
 
 ## 5 索引使用注意事项
 
@@ -51,6 +51,13 @@ MyISAM
 - 不涉及到查询的字段
 - 索引使用不等于符号 <>
 - 覆盖索引
+
+需要
+
+- 主键
+- 用于查询条件的字段
+- 区分度高的字段
+- 有唯一性要求的字段
 
 ## 6 SQL语句优化
 
@@ -84,15 +91,9 @@ OFFSET <num>
 
 SELECT * 容易产生回表
 
-### 6.2 使用 union all 代替 union
+### 6.2 避免索引失效
 
-union可以获取 排重后的数据，union all可以获取所有数据包含重复数据
-
-排重过程需要遍历，排序，比较，更为耗费时间，资源
-
-### 6.3 避免索引失效
-
-### 6.4 小表驱动大表
+### 6.3 子查询小表驱动大表
 
 ```sql
 SELECT id FROM orders 
@@ -106,11 +107,7 @@ in 适合左大表，右小表，优先执行in里的子查询，如果in里的�
 
 exists 适合左小表，右大表，先查询左边语句，作为条件去和右边语句匹配
 
-### 6.5 批量操作
-
-批量插入
-
-### 6.6 LIMIT
+### 6.4 LIMIT
 
 限制返回条数
 
@@ -128,11 +125,11 @@ LIMIT 1;
 ```sql
 SELECT 1 FROM orders 
 WHERE xxx 
-LIMIT 1'
+LIMIT 1;
 
 ```
 
-### 6.7 优化分页
+### 6.5 优化分页
 
 需要id连续
 
@@ -149,30 +146,18 @@ SELECT id FROM users
 WHERE id > 100000 LIMIT 20;
 ```
 
-### 6.8 连接查询子查询
-
-- 子查询：简单，结构化，创建删除临时表
-
-```sql
-SELECT o.id FROM orders o
-INNER JOIN users u ON o.user_id = u.id
-WHERE 
-```
-
-left join 时选择小表驱动大表
-
-### 6.9 控制索引数量
+### 6.6 控制索引数量
 
 索引过多，占用存储空间。影响写操作性能
 
-### 6.10 选择合适的字段类型
+### 6.7 选择合适的字段类型
 
 - char varchar
 - 能用数字不用字符串
-- 尽可能小的类型 bit, tiny
+- 尽可能小的类型 bit, tiny int
 - 金额 decimal
 
-### 6.10 分组查询
+### 6.8 分组查询
 
 ```sql
 SELECT orders.user_id, COUNT(orders.id) FROM orders
@@ -188,7 +173,29 @@ WHERE orders.user_id  <= 200
 GROUP BY orders.user_id;
 ```
 
-### 6.11 explain 索引优化
+### 6.9 explain 索引优化
+
+### 6.10 连接查询子查询
+
+- 子查询：简单，结构化，但需要创建删除临时表
+
+```sql
+SELECT o.id FROM orders o
+INNER JOIN users u ON o.user_id = u.id
+WHERE 
+```
+
+left join 时选择小表驱动大表
+
+### 6.11 使用 union all 代替 union
+
+union可以获取 排重后的数据，union all可以获取所有数据包含重复数据
+
+排重过程需要遍历，排序，比较，更为耗费时间，资源
+
+### 6.12 批量操作
+
+批量插入
 
 ## 7 慢查询
 
@@ -262,3 +269,57 @@ explain 内容
   - 一个事务未提交，另一个事务不能读取未提交的书就
 - 持久性：
   - 事务提交后数据的改变持久化保存
+
+## 12 MySQL 参数配置优化
+
+缓存区，连接数，线程数
+
+- 缓冲区
+  - 索引 `key_buffer_size` 索引缓冲
+  - innodb `innodb_buffer_pool_size` 引擎缓冲
+  - 查询缓冲 `query_cache_size`
+  - 读缓冲区 `read_buffer_size`
+  - 排序缓冲区 `sort_buffer_size`
+
+集群
+
+主从读写分离
+
+## 13 SQL 题目
+
+### 13.1 查询部门中薪资最高的信息
+
+```sql
+CREATE TABLE `employee` (
+    `id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `name` varchar(100),
+    `salary` int,
+    `department_id` bigint
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
+
+
+CREATE TABLE `departments` (
+    `id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `name` varchar(100)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4
+```
+
+results
+
+```sql
+SELECT employee.name, departments.name, employee.salary from employee
+INNER JOIN departments ON employee.department_id = departments.id 
+WHERE (employee.department_id, employee.salary) IN 
+(
+    SELECT employee.department_id, MAX(employee.salary) FROM employee
+    GROUP BY employee.department_id
+)
+```
+
+### 13.2 找到身份证号重复的数据
+
+```sql
+SELECT persons.name, COUNT(persons.sn) FROM persons
+GROUP BY persons.sn
+HAVING COUNT(persons.sn) > 1
+```
