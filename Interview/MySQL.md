@@ -2,7 +2,7 @@
 
 [TOC]
 
-## 1 索引类型
+## 1 MySQL 索引类型
 
 - 普通索引
 - 主键索引
@@ -35,12 +35,12 @@ MyISAM
 - 避免字段开头模糊查询
 - or 时需要全都有索引
 - in, not in
-- 尽量非空，避免null值判断
 - WHERE 中索引列需要运算(等号左侧)
 - WHERE 中索引列使用函数(等号左侧)
 - WHERE 中索引列需要类型转换
 - ORDER BY 条件与WHERE不一致
 - 数据量较少，全表扫描更快
+- 尽量非空，避免null值判断
 
 ## 5 索引使用注意事项
 
@@ -70,7 +70,7 @@ WHERE <condition>
 GROUP BY <list>
 HAVING <condition>
 ORDER BY <condition>
-LIMIT <num> 
+LIMIT <num>
 OFFSET <num>
 
 FROM <table>
@@ -81,7 +81,7 @@ GROUP BY <list>
 HAVING <condition>
 SELECT DISTINCT <list>
 ORDER BY <condition>
-LIMIT <num> 
+LIMIT <num>
 OFFSET <num>
 ```
 
@@ -96,10 +96,10 @@ SELECT * 容易产生回表
 ### 6.3 子查询小表驱动大表
 
 ```sql
-SELECT id FROM orders 
+SELECT id FROM orders
 WHERE orders.user_id in (SELECT id FROM users WHERE users.status=1)
 
-SELECT id FROM orders 
+SELECT id FROM orders
 WHERE exists (SELECT 1 FROM users WHERE orders.user_id = users.id AND users.status=1)
 ```
 
@@ -114,17 +114,17 @@ exists 适合左小表，右大表，先查询左边语句，作为条件去和�
 按照 `user_id` 查找最早一条
 
 ```sql
-SELECT id FROM orders 
-WHERE orders.user_id = {user_id} 
-ORDER BY orders.created_at ASC 
+SELECT id FROM orders
+WHERE orders.user_id = {user_id}
+ORDER BY orders.created_at ASC
 LIMIT 1;
 ```
 
 统计有无
 
 ```sql
-SELECT 1 FROM orders 
-WHERE xxx 
+SELECT 1 FROM orders
+WHERE xxx
 LIMIT 1;
 
 ```
@@ -134,15 +134,15 @@ LIMIT 1;
 需要id连续
 
 ```sql
-SELECT id FROM users 
-LIMIT 100000 OFFSET 20;
+SELECT id FROM users
+LIMIT 100000 OFFSET 20；
 
 -- 换成
-SELECT id FROM users 
+SELECT id FROM users
 WHERE id BETWEEN 100000 AND 100020;
 -- BETWEEN 需要在唯一索引上分页
 
-SELECT id FROM users 
+SELECT id FROM users
 WHERE id > 100000 LIMIT 20;
 ```
 
@@ -270,7 +270,25 @@ explain 内容
 - 持久性：
   - 事务提交后数据的改变持久化保存
 
-## 12 MySQL 参数配置优化
+### 11.2 事务隔离级别
+
+要解决的问题
+
+- 脏读：读到了其他事物未提交的数据
+- 可重复读：事务内，开始读到数据与结束前任意时刻读到的数据都一致，针对更新
+- 不可重复读：事务内，不同时刻读到的数据可能不一致，受其他事务干扰，针对更新
+- 幻读：第一个事务更改后未提交，第二个事务插入了与第一个事务更改前相同的数据行
+
+级别
+
+- 读未提交：可能会，脏读，不可重复读，幻读
+- 读提交：不会脏读，可能会，不可重复读，幻读
+- 可重复读：默认，不会 脏读和不可重复读，可能幻读
+- 串行化
+
+## 12 MySQL 优化
+
+### 12.1 参数配置优化
 
 缓存区，连接数，线程数
 
@@ -281,45 +299,24 @@ explain 内容
   - 读缓冲区 `read_buffer_size`
   - 排序缓冲区 `sort_buffer_size`
 
-集群
+### 12.2 单表大数据量
 
-主从读写分离
+#### 12.2.1 分库
 
-## 13 SQL 题目
+#### 12.2.2 分表
 
-### 13.1 查询部门中薪资最高的信息
+按照时间分表，按照`project_id`分表，按照字段水平分表
 
-```sql
-CREATE TABLE `employee` (
-    `id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `name` varchar(100),
-    `salary` int,
-    `department_id` bigint
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
+分区表
 
+#### 12.2.3 冷热分离
 
-CREATE TABLE `departments` (
-    `id` bigint NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `name` varchar(100)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4
-```
+冷数据存储在其他库中/表
 
-results
+#### 12.2.4 NoSQL
 
-```sql
-SELECT employee.name, departments.name, employee.salary from employee
-INNER JOIN departments ON employee.department_id = departments.id 
-WHERE (employee.department_id, employee.salary) IN 
-(
-    SELECT employee.department_id, MAX(employee.salary) FROM employee
-    GROUP BY employee.department_id
-)
-```
+MongoDB切片集群
 
-### 13.2 找到身份证号重复的数据
+ES
 
-```sql
-SELECT persons.name, COUNT(persons.sn) FROM persons
-GROUP BY persons.sn
-HAVING COUNT(persons.sn) > 1
-```
+ClickHouse

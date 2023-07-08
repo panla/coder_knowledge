@@ -2,7 +2,7 @@
 
 [TOC]
 
-## 1 数据类型
+## 1 语法，数据类型
 
 ### 1.1 列表list与元组tuple区别
 
@@ -140,6 +140,10 @@ def cal_time(func):
         return rt
     return inner
 ```
+
+### 1.6 dict 实现
+
+### 1.7 异步，协程
 
 ## 2 代码
 
@@ -338,3 +342,43 @@ list dict tuple set class 底层再维护一个新的链表，存储可能产生
 1代触发后清理1，2代
 2代触发后清理3代
 ```
+
+## 4 设计模式
+
+### 4.1 单例
+
+```python
+import threading
+
+def singleton(cls):
+
+    _instances = {}
+    _lock = threading.Lock()
+
+    def inner(*args, **kwargs):
+        with _lock:
+
+            if cls not in _instances:
+                _instances[cls] = cls(*args, **kwargs)
+            return _instances[cls]
+    return inner
+
+class Singleton:
+
+    _instances = {}
+    _lock = threading.Lock()
+
+    def __init__(self, cls):
+        self._cls = cls
+
+    def __call__(self, *args, **kwargs):
+
+        with self._lock:
+            if self._cls not in self._instances:
+                self._instances[self._cls] = self._cls(*args, **kwargs)
+            return self._instances[self._cls]
+```
+
+### 4.2 工厂方法
+
+### 4.3 代理
