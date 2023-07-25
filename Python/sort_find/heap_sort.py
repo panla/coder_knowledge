@@ -11,17 +11,8 @@ and
 """
 
 import random
-import time
 
-
-def cal_time(func):
-    def inner(*args, **kwargs):
-        s_time = time.time()
-        ret = func(*args, **kwargs)
-        e_time = time.time()
-        print(f'{func.__name__} costs {e_time - s_time} seconds')
-        return ret
-    return inner
+from tools import cal_time
 
 
 def adjust_heap(lis: int, i: int, size: int):
@@ -63,7 +54,7 @@ def main(lis: list):
 
     return heap_sort(lis, size)
 
-    
+
 if __name__ == '__main__':
     print('堆排，100000')
     lis_1 = [i for i in range(100000)]

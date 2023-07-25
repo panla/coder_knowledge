@@ -7,33 +7,25 @@
 """
 
 import random
-import time
 
-
-def cal_time(func):
-    def inner(*args, **kwargs):
-        s_time = time.time()
-        ret = func(*args, **kwargs)
-        e_time = time.time()
-        print(f'{func.__name__} costs {e_time - s_time} seconds')
-        return ret
-    return inner
+from tools import cal_time
 
 
 @cal_time
-def func(lis: list):
+def select_sort(lis: list):
     length = len(lis)
     if length <= 1:
         return lis
 
-    for index in range(length - 1):
-        min_index = index
-        for j in range(index + 1, length):
+    for i in range(length):
+        min_index = i
+        for j in range(i + 1, length):
             if lis[j] < lis[min_index]:
                 min_index = j
 
-        if index != min_index:
-            lis[index], lis[min_index] = lis[min_index], lis[index]
+        if i != min_index:
+            lis[i], lis[min_index] = lis[min_index], lis[i]
+
     return lis
 
 
@@ -41,9 +33,9 @@ if __name__ == '__main__':
     print('选择排序，10000')
     lis = [i for i in range(10000)]
     random.shuffle(lis)
-    func(lis)
+    select_sort(lis)
 
     print('选择排序，10')
     lis_1 = [i for i in range(10)]
     random.shuffle(lis_1)
-    print(func(lis_1))
+    print(select_sort(lis_1))

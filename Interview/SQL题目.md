@@ -143,3 +143,90 @@ from Customers as c
 left join Orders as o on c.Id = o.CustomerId
 where o.Id is null
 ```
+
+## 6 超过经理收入的员工 181
+
+### 6.1 table
+
+```sql
+CREATE TABLE IF NOT EXISTS Employee (
+    id INT,
+    name VARCHAR(255),
+    salary INT,
+    managerId INT
+);
+
+TRUNCATE TABLE Employee;
+
+INSERT INTO Employee (id, name, salary, managerId) VALUES
+('1', 'Joe', '70000', '3'),
+('2', 'Henry', '80000', '4'),
+('3', 'Sam', '60000', 'None'),
+('4', 'Max', '90000', 'None');
+```
+
+### 6.2 子查询方式
+
+```sql
+SELECT a.name AS Employee
+FROM Employee a, (SELECT id, salary FROM Employee) b
+WHERE a.managerId = b.id AND
+a.salary > b.salary;
+```
+
+### 6.3 连接查询方式
+
+```sql
+SELECT a.name AS Employee
+FROM Employee a
+LEFT JOIN Employee b ON a.managerId = b.id
+WHERE a.salary > b.salary;
+```
+
+## 7 查找重复的电子邮箱 182
+
+<https://leetcode.cn/problems/duplicate-emails/>
+
+### 7.1 table
+
+```sql
+CREATE TABLE IF NOT EXISTS Person (id int, email varchar(255));
+
+Truncate table Person;
+
+INSERT INTO Person (id, email) values ('1', 'a@b.com')
+INSERT INTO Person (id, email) values ('2', 'c@d.com')
+INSERT INTO Person (id, email) values ('3', 'a@b.com')
+```
+
+### 7.2 SQL
+
+```sql
+SELECT email AS Email FROM Person
+GROUP BY email
+HAVING COUNT(id) > 1;
+```
+
+## 8 上升的温度 197
+
+<https://leetcode.cn/problems/rising-temperature/>
+
+### 8.1 table
+
+```sql
+CREATE TABLE IF NOT EXISTS Weather (id int, recordDate date, temperature int)
+Truncate table Weather
+INSERT INTO Weather (id, recordDate, temperature) values ('1', '2015-01-01', '10')
+INSERT INTO Weather (id, recordDate, temperature) values ('2', '2015-01-02', '25')
+INSERT INTO Weather (id, recordDate, temperature) values ('3', '2015-01-03', '20')
+INSERT INTO Weather (id, recordDate, temperature) values ('4', '2015-01-04', '30')
+```
+
+### 8.2 SQL
+
+```sql
+SELECT a.id FROM
+Weather a
+LEFT JOIN Weather b ON a.recordDate = ADDDATE(b.recordDate, 1)
+WHERE a.temperature > b.temperature
+```
