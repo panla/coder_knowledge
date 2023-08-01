@@ -2,6 +2,11 @@
 
 [TOC]
 
+## 2023-08
+
+- 2023-08-01
+  - Update: 完善Interview, 完善software/develop miniconda
+
 ## 2023-07
 
 - 2023-07-25

@@ -174,7 +174,7 @@ Icon=/opt/VSCode/resources/app/resources/linux/code.png
 | Trailing Spaces | 空格检查 | 通用 |
 | Code Spell Checker | 拼写检查 | 通用 |
 | indent-rainbow | 缩进展示 | 通用 |
-| Better TOML | 语言语法支持 | 文件 |
+| Even Better TOML | 语言语法支持 | 文件 |
 | Prettify JSON | 格式化 | 文件 |
 | XML Tools | XML | 文件 |
 | Markdown Preview Enhanced | 展示 | 文件 |

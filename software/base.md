@@ -37,6 +37,14 @@ git config --global core.editor "vim"
 git config --global credential.helper store
 ```
 
+- 换行符
+
+```bash
+git config --global core.autocrlf input
+
+git config --global core.autocrlf true
+```
+
 ### 1.2 别名
 
 ```bash

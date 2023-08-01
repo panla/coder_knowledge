@@ -45,6 +45,15 @@ changeps1: false
 channel_priority: strict
 ```
 
+win
+
+```text
+envs_dirs:
+  -
+pkgs_dirs:
+  -
+```
+
 `~/.pip/pip.conf`
 
 ```text

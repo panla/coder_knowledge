@@ -2,11 +2,11 @@
 
 [TOC]
 
-## APIView
+## 1 APIView
 
 继承 `django.views.View`
 
-### 属性和方法
+### 1.1 属性和方法
 
 | 属性或方法| 作用 | 备注 |
 | :-: | :-: | :-: |
@@ -24,9 +24,9 @@
 - def put(self, request):
 - def delete(self, request):
 
-## generics
+## 2 generics
 
-### GenericAPIView
+### 2.1 GenericAPIView
 
 继承 `rest_framework.views.APIView`
 
@@ -49,7 +49,7 @@
 - def put(self, request):
 - def delete(self, request):
 
-### 其他的 APIViews
+### 2.2 其他的 APIViews
 
 继承 GenericAPIView 和 组合相对应的 Mixin
 
@@ -59,25 +59,25 @@
 | CreateAPIView | CreateModelMixin | post | create |
 | RetrieveAPIView | RetrieveModelMixin | get | retrieve |
 | UpdateAPIView | UpdateModelMixin | put patch | update partial_update |
-| DestroyAPIView | DestroryModelMixin | delete | destory |
+| DestroyAPIView | DestroyModelMixin | delete | destroy |
 
-## viewsets
+## 3 viewsets
 
 封装过度
 
-### ViewSet
+### 3.1 ViewSet
 
 继承 `ViewSetMixin, APIView`
 
-### GenericViewSet
+### 3.2 GenericViewSet
 
 继承 `ViewSetMixin, GenericAPIView`
 
-### ModelViewSet
+### 3.3 ModelViewSet
 
 继承 `rest_framwork.mixins 的五个Mixin, GenericViewSet`
 
-## 选择
+## 4 选择
 
 逻辑简单的可以选择 generics
 
