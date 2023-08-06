@@ -4,6 +4,8 @@
 
 ## 2023-08
 
+- 2023-08-06
+  - Update: 删除 sundry/init-project.sh 待后续更新
 - 2023-08-01
   - Update: 完善Interview, 完善software/develop miniconda
 
