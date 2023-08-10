@@ -1,8 +1,12 @@
 import aiohttp
 import hashlib
+from urllib.parse import urlencode
 
 
 class WeChatTool(object):
+
+    server = 'https://api.weixin.qq.com'
+
     def __init__(self, app_id: str, app_secret: str, state: str, token: str):
         self.app_id = app_id
         self.app_secret = app_secret
@@ -27,7 +31,7 @@ class WeChatTool(object):
                 pass
         raise Exception(f'{method} {url} error')
 
-    async def check_wechat(self, signature, timestamp, nonce, echo_str):
+    def check_wechat(self, signature, timestamp, nonce, echo_str):
         """验证消息的确来自微信服务器
 
         :param signature: 微信加密签名
@@ -53,10 +57,13 @@ class WeChatTool(object):
         """
 
         api = 'https://open.weixin.qq.com/connect/oauth2/authorize'
+        redirect_uri = urlencode(redirect_uri)
         base_url = f'{self.app_id}&redirect_uri={redirect_uri}&scope={scope}&state={self.state}'
         url = f'{api}?appid={base_url}&response_type=code#wechat_redirect'
+
         data = await self.request('GET', url)
         code = data.get('code')
+
         return f'{redirect_uri}/?code={code}&state={self.state}'
 
     async def get_access_token(self, code: str):
@@ -65,23 +72,27 @@ class WeChatTool(object):
         :param code: 重定向过来的 code
         :return: {"access_token":"", "expires_in":7200, "refresh_token":"", "openid":"", "scope":""}
         """
+        api = '/sns/oauth2/access_token'
+        params = f'?appid={self.app_id}&secret={self.app_secret}&code={code}&grant_type=authorization_code'
+        url = f'{self.server}{api}{params}'
 
-        api = 'https://api.weixin.qq.com/sns/oauth2/access_token'
-        base_url = f'{self.app_id}&secret={self.app_secret}&code={code}&grant_type=authorization_code'
-        url = f'{api}?appid={base_url}'
         data = await self.request('GET', url)
+
         return data
 
-    async def refresh_access_token(self, refresh_token):
+    async def refresh_access_token(self, refresh_token: str):
         """刷新 access_token
 
         :param refresh_token: refresh_token
         :return: {"access_token":"", "expires_in":7200, "refresh_token":"", "openid":"", "scope":""}
         """
 
-        api = 'https://api.weixin.qq.com/sns/oauth2/refresh_token'
-        url = f'{api}?appid={self.app_id}&grant_type=refresh_token&refresh_token={refresh_token}'
+        api = '/sns/oauth2/refresh_token'
+        params = f'?appid={self.app_id}&grant_type=refresh_token&refresh_token={refresh_token}'
+        url = f'{self.server}{api}{params}'
+
         data = await self.request('GET', url)
+
         return data
 
     async def get_user_info(self, access_token, openid):
@@ -92,6 +103,10 @@ class WeChatTool(object):
         :return: {"openid":"", "nickname":"", "sex":1, "city":"", "country":"", "headimgurl":"", "privilege":""}
         """
 
-        url = f'https://api.weixin.qq.com/sns/userinfo?access_token={access_token}&openid={openid}&lang=zh_CN'
+        api = '/sns/userinfo'
+        params = f'?access_token={access_token}&openid={openid}&lang=zh_CN'
+        url = f'{self.server}{api}{params}'
+
         data = await self.request('GET', url)
+
         return data
